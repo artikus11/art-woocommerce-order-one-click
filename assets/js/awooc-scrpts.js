@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
                 }
             });
         }
-        $('#awooc-form-custom-order').removeClass('mfp-hide');
+        $('#awooc-form-custom-order').removeClass('awooc-hide');
         $.blockUI({
             message: $('#awooc-form-custom-order'), css: {
                 width: '100%',
