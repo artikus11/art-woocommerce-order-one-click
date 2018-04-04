@@ -16,17 +16,8 @@ function bryce_add_a_setting( $settings ) {
 	$settings[] = array(
 		'name' => 'Настройки режима каталога',
 		'type' => 'title',
-		'desc' => '',
+		'desc' => 'Настройки плагина Art WooCommerce Order One Click',
 		'id'   => 'woocommerce_awooc_settings',
-	);
-	$settings[] = array(
-		'title'       => __( 'A Cool Text Field', 'textdomain' ),
-		'desc'        => '',
-		'id'          => 'woocommerce_awooc_text_field',
-		'type'        => 'text',
-		'default'     => '',
-		'desc_tip'    => false,
-		'placeholder' => __( 'Placeholder Text', 'textdomain' ),
 	);
 	
 	$settings[] = array(

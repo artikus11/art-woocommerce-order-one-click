@@ -3,13 +3,13 @@
  * Plugin Name:       Art WooCommerce Order One Click
  * Plugin URI:        #
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version:           1.1
+ * Version:           1.2
  * Author:            Artem Abramovich
  * Author URI:
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       woo-seo-addon
- * Domain Path:       /languages
+ * Text Domain:
+ * Domain Path:
  *
  * WC requires at least: 3.3.0
  * WC tested up to: 3.3.4
