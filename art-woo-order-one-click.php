@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Art WooCommerce Order One Click
  * Plugin URI:        #
- * Description:
+ * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
  * Version:           1.1
  * Author:            Artem Abramovich
  * Author URI:
@@ -14,6 +14,7 @@
  * WC requires at least: 3.3.0
  * WC tested up to: 3.3.4
  */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -21,11 +22,18 @@ define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'AWOOC_PLUGIN_VER', '1.0' );
 require_once 'include/helpers.php';
-
-if (main_is_plugin_active( 'woocommerce/woocommerce.php' ) || class_exists( 'WooCommerce' ) ) {
+if ( main_is_plugin_active( 'woocommerce/woocommerce.php' ) || class_exists( 'WooCommerce' ) ) {
 	require_once 'include/functions.php';
+	require_once 'include/settings.php';
 } elseif ( is_admin() ) {
-	add_action( 'admin_notices', function(){
+	add_action( 'admin_notices', function () {
 		echo '<div id="message" class="error notice"><p>Для работы плагина Art WooCommerce Order One Click нужен плагин <a href="//wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a> </p></div>';
+	} );
+}
+if ( main_is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
+	require_once 'include/settings.php';
+} elseif ( is_admin() ) {
+	add_action( 'admin_notices', function () {
+		echo '<div id="message" class="error notice"><p>Для корректной работы плагина Art WooCommerce Order One Click нужен плагин <a href="//wordpress.org/plugins/contact-form-7/" target="_blank">Contact Form 7</a> </p></div>';
 	} );
 }
