@@ -3,7 +3,7 @@
  * Plugin Name:       Art WooCommerce Order One Click
  * Plugin URI:        #
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version:           1.2
+ * Version:           1.3
  * Author:            Artem Abramovich
  * Author URI:
  * License:           GPL-2.0+
@@ -20,20 +20,43 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
-define( 'AWOOC_PLUGIN_VER', '1.0' );
-require_once 'include/helpers.php';
-if ( main_is_plugin_active( 'woocommerce/woocommerce.php' ) || class_exists( 'WooCommerce' ) ) {
-	require_once 'include/functions.php';
-	require_once 'include/settings.php';
-} elseif ( is_admin() ) {
-	add_action( 'admin_notices', function () {
-		echo '<div id="message" class="error notice"><p>Для работы плагина Art WooCommerce Order One Click нужен плагин <a href="//wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a> </p></div>';
-	} );
+define( 'AWOOC_PLUGIN_VER', '1.3' );
+
+add_action( 'admin_init', 'awooc_check_activate_plugins' );
+function awooc_check_activate_plugins() {
+	if ( is_admin() && current_user_can( 'activate_plugins' ) ) {
+		if (!is_plugin_active( 'contact-form-7/wp-contact-form-7.php' )){
+			add_action( 'admin_notices', function () {
+				echo '<div id="message" class="error notice"><p>Для корректной работы плагина Art WooCommerce Order One Click нужен плагин <a href="//wordpress.org/plugins/contact-form-7/" target="_blank">Contact Form 7</a> </p></div>';
+			} );
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+			
+			if ( isset( $_GET['activate'] ) ) {
+				unset( $_GET['activate'] );
+			}
+		} elseif ( ! is_plugin_active( 'woocommerce/woocommerce.php' )) {
+			add_action( 'admin_notices', function () {
+				echo '<div id="message" class="error notice"><p>Для работы плагина Art WooCommerce Order One Click нужен плагин <a href="//wordpress.org/plugins/woocommerce/" target="_blank">WooCommerce</a> </p></div>';
+			} );
+			deactivate_plugins( plugin_basename( __FILE__ ) );
+			
+			if ( isset( $_GET['activate'] ) ) {
+				unset( $_GET['activate'] );
+			}
+		}
+	}
 }
-if ( main_is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
-	require_once 'include/settings.php';
-} elseif ( is_admin() ) {
-	add_action( 'admin_notices', function () {
-		echo '<div id="message" class="error notice"><p>Для корректной работы плагина Art WooCommerce Order One Click нужен плагин <a href="//wordpress.org/plugins/contact-form-7/" target="_blank">Contact Form 7</a> </p></div>';
-	} );
+require_once 'include/helpers.php';
+require_once 'include/functions.php';
+require_once 'include/settings.php';
+
+add_action('wpcf7_init', 'wpcf7_add_form_tag_awooc', 10);
+function wpcf7_add_form_tag_awooc() {
+	
+	// Test if new 4.6+ functions exists
+	if (function_exists('wpcf7_add_form_tag')) {
+		wpcf7_add_form_tag( 'honeypot', 'wpcf7_honeypot_formtag_handler', true );
+	} else {
+		wpcf7_add_shortcode( 'honeypot', 'wpcf7_honeypot_formtag_handler', true );
+	}
 }
