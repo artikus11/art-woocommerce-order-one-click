@@ -29,3 +29,6 @@ input.qty {
 .awooc-form-custom-order-img{
 max-width: 200px;
 }
+.awooc-hidden-data {
+    display: none !important;
+}

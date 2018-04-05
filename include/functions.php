@@ -37,14 +37,7 @@ function awooc_ajax_scripts_callback() {
 			$attr_name[] = $attr_label . ': ' . $meta;
 		}
 	}
-	$atr = wc_get_product($product->get_parent_id());
-	$aa = $atr->get_formatted_variation_attributes();
-	echo '<pre>';
-	print_r ($attributes);
-	echo '</pre>';
-	echo '<pre>';
-	print_r ($aa );
-	echo '</pre>';
+
 	$product_var_attr = esc_html(implode( '; ', $attr_name ));
 	wp_send_json( $product_var_attr );
 	wp_die();

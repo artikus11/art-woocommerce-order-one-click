@@ -3,7 +3,7 @@
  * Plugin Name:       Art WooCommerce Order One Click
  * Plugin URI:        #
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version:           1.3
+ * Version:           1.4.0
  * Author:            Artem Abramovich
  * Author URI:
  * License:           GPL-2.0+
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
-define( 'AWOOC_PLUGIN_VER', '1.3' );
+define( 'AWOOC_PLUGIN_VER', '1.4.0' );
 
 add_action( 'admin_init', 'awooc_check_activate_plugins' );
 function awooc_check_activate_plugins() {
@@ -49,14 +49,4 @@ function awooc_check_activate_plugins() {
 require_once 'include/helpers.php';
 require_once 'include/functions.php';
 require_once 'include/settings.php';
-
-add_action('wpcf7_init', 'wpcf7_add_form_tag_awooc', 10);
-function wpcf7_add_form_tag_awooc() {
-	
-	// Test if new 4.6+ functions exists
-	if (function_exists('wpcf7_add_form_tag')) {
-		wpcf7_add_form_tag( 'honeypot', 'wpcf7_honeypot_formtag_handler', true );
-	} else {
-		wpcf7_add_shortcode( 'honeypot', 'wpcf7_honeypot_formtag_handler', true );
-	}
-}
+require_once 'include/fields.php';

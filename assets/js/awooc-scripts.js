@@ -24,8 +24,11 @@ jQuery(document).ready(function ($) {
                 type: 'POST',
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
+
                     $('.awooc-form-custom-order-attr').text(data);
+                    var productVariationsTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text();
+                    $.trim(productVariationsTitle);
+                    $('.awooc-hidden-data').val(productVariationsTitle + '\n' + data);
                 }
             });
         }
@@ -55,7 +58,7 @@ jQuery(document).ready(function ($) {
         });
         var productVariationsTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text();
         $.trim(productVariationsTitle);
-        $('.awooc-hidden-title').val(productVariationsTitle);
+        $('.awooc-hidden-data').val(productVariationsTitle);
 
 
     });
