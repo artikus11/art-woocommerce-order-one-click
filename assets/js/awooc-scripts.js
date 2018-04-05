@@ -6,8 +6,6 @@ jQuery(document).ready(function ($) {
         var productPriceSimple = $('.type-product').find('.price').html();
         var productPriceVariant = $('.product-type-variable').find('.price').html();
         $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
-        //console.log(productPrice);
-        // console.log(productVariantId);
         if (productPrice != undefined) {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
         } else {
