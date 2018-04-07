@@ -39,14 +39,13 @@ function bryce_add_a_setting( $settings ) {
 		'id'   => 'woocommerce_awooc_settings',
 	);
 	$settings[] = array(
-		'title'         => 'Отключить режим каталога',
+		'title'         => 'Режим каталога',
 		'desc'          => 'Снимите чекбокс, если хотите чтобы была видно кнопка купить',
 		'id'            => 'woocommerce_awooc_mode_catalog',
 		'default'       => 'yes',
 		'type'          => 'checkbox',
 		'checkboxgroup' => 'start',
 		'autoload'      => true,
-		'desc_tip' => true,
 	);
 	$settings[] = array(
 		'title'    => 'Выбор формы',
