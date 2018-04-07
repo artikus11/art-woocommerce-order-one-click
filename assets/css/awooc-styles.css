@@ -1,14 +1,11 @@
 .awooc-hide {
     display: none;
 }
-
-.blockUI:before {
-    display: none;
-}
-
+.blockUI:before,
 .single_add_to_cart_button,
-input.qty {
-    display: none;
+input.qty,
+.awooc-hidden-data {
+    display: none !important;
 }
 .form-custom-order-footer{
     position: relative;
@@ -18,6 +15,7 @@ input.qty {
     max-width: 500px;
     margin: 20px auto;
 }
+
 .awooc-custom-order-wrap{
     display: flex;
     justify-content: space-between;
@@ -28,7 +26,4 @@ input.qty {
 }
 .awooc-form-custom-order-img{
 max-width: 200px;
-}
-.awooc-hidden-data {
-    display: none !important;
 }

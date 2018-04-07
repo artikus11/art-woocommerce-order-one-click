@@ -2,15 +2,20 @@ jQuery(document).ready(function ($) {
     $('.awooc-custom-order').click(function (e) {
         e.preventDefault();
         var productVariantId = $('.variations_form').find('input[name="variation_id"]').val();
+        //debugger;
         var productPrice = $('.variations_form').find('.woocommerce-variation-price .price').html();
         var productPriceSimple = $('.type-product').find('.price').html();
-        var productPriceVariant = $('.product-type-variable').find('.price').html();
+        var productPriceSku = $('.type-product').find('.sku').html();
         $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
+        if (productPriceSku != undefined) {
+            $('#awooc-form-custom-order').find('.awooc-form-custom-order-sku').html(productPriceSku);
+        }
         if (productPrice != undefined) {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
         } else {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceSimple);
         }
+
 
         if (productVariantId != 0 && productVariantId != undefined) {
             var data = {
@@ -28,7 +33,14 @@ jQuery(document).ready(function ($) {
                     $('.awooc-form-custom-order-attr').text(data);
                     var productVariationsTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text();
                     $.trim(productVariationsTitle);
-                    $('.awooc-hidden-data').val(productVariationsTitle + '\n' + data);
+                    var productVariationsSku = $('#awooc-form-custom-order').find('.awooc-form-custom-order-sku').text();
+                    $.trim(productVariationsTitle);
+                    if (productVariationsSku != undefined) {
+                        $('.awooc-hidden-data').val(productVariationsTitle + '\n' + data + '\n' + 'Артикул: ' + productVariationsSku);
+                    } else {
+                        $('.awooc-hidden-data').val(productVariationsTitle + '\n' + data);
+                    }
+
                 }
             });
         }
@@ -51,37 +63,39 @@ jQuery(document).ready(function ($) {
             },
             onOverlayClick: function () {
                 $('#awooc-form-custom-order').addClass('awooc-hide');
-            },
+            }
         });
         $('.blockOverlay').attr('title', 'Ткнуть для закрытия').click(function () {
             $.unblockUI();
         });
         var productVariationsTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text();
         $.trim(productVariationsTitle);
-        $('.awooc-hidden-data').val(productVariationsTitle);
+        if (productPriceSku != undefined) {
+            $('.awooc-hidden-data').val(productVariationsTitle + '\n' + 'Артикул: ' + productPriceSku);
+        } else {
+            $('.awooc-hidden-data').val(productVariationsTitle);
+        }
 
 
     });
-    $(document).on('wpcf7invalid', function (e) {
-        console.log(event.detail);
-        setTimeout($.unblockUI, 10000);
-    });
-    /*document.addEventListener('wpcf7invalid', function (event) {
-       // console.log(event.detail);
-        setTimeout($.unblockUI, 10000);
+    /*    $(document).on('wpcf7invalid', function (e) {
+            console.log(event.detail);
+            setTimeout($.unblockUI, 5000);
+        });*/
+    document.addEventListener('wpcf7invalid', function (event) {
+        // console.log(event.detail);
+        setTimeout($.unblockUI, 5000);
         setTimeout(function () {
             $('.wpcf7-form')[0].reset();
             $('.wpcf7-response-output').remove();
-            $('#awooc-form-custom-order').addClass('awooc-hide');
         }, 10000);
     }, false);
     document.addEventListener('wpcf7mailsent', function (event) {
-        setTimeout($.unblockUI, 1000);
+        setTimeout($.unblockUI, 3000);
         setTimeout(function () {
             $('.wpcf7-form')[0].reset();
             $('.wpcf7-response-output').remove();
-            $('#awooc-form-custom-order').addClass('awooc-hide');
         }, 3000);
-    }, false);*/
+    }, false);
 
 });
