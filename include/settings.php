@@ -10,8 +10,9 @@ function awooc_settings_select_elements() {
 		'sku'   => 'Артикул',
 		'attr'  => 'Атрибуты',
 	);
+	$options = get_option('woocommerce_awooc_select_item');
 	
-	return $default;
+	return wp_parse_args($options, $default);
 }
 
 function awooc_settings_select_forms() {

@@ -87,12 +87,13 @@ function awooc_form_custom_order() {
 	if ( ! is_product() ) {
 		return;
 	}
+	$elements = get_option( 'woocommerce_awooc_select_item' );
+	if (!is_array($elements)){
+		return;
+	}
 	?>
 	<div id="awooc-form-custom-order" class="awooc-form-custom-order awooc-hide">
 		<div class="awooc-custom-order-wrap">
-			<?php
-			$elements = get_option( 'woocommerce_awooc_select_item' );
-			?>
 			<div class="awooc-col">
 				<?php
 				if ( ! in_array( 'image', $elements ) ):

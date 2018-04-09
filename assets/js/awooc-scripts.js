@@ -7,17 +7,18 @@ jQuery(document).ready(function ($) {
         var productPriceSimple = $('.type-product').find('.price').html();
         var productPriceSku = $('.type-product').find('.sku').html();
         $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
-        if (productPriceSku != undefined) {
+
+        if (typeof productPriceSku !== 'undefined') {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-sku').html(productPriceSku);
         }
-        if (productPrice != undefined) {
+        if typeof productPrice !== 'undefined') {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
         } else {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceSimple);
         }
 
 
-        if (productVariantId != 0 && productVariantId != undefined) {
+        if (productVariantId != 0 && typeof productVariantId !== 'undefined') {
             var data = {
                 id: productVariantId,
                 action: 'awooc_ajax_variant_order',
@@ -70,7 +71,7 @@ jQuery(document).ready(function ($) {
         });
         var productVariationsTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text();
         $.trim(productVariationsTitle);
-        if (productPriceSku != undefined) {
+        if (typeof productPriceSku  !== 'undefined') {
             $('.awooc-hidden-data').val(productVariationsTitle + '\n' + 'Артикул: ' + productPriceSku);
         } else {
             $('.awooc-hidden-data').val(productVariationsTitle);
