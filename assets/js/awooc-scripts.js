@@ -11,7 +11,7 @@ jQuery(document).ready(function ($) {
         if (typeof productPriceSku !== 'undefined') {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-sku').html(productPriceSku);
         }
-        if typeof productPrice !== 'undefined') {
+        if (typeof productPrice !== 'undefined') {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
         } else {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceSimple);
