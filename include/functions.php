@@ -95,9 +95,11 @@ function awooc_add_custom_button() {
 	} elseif ('show_add_to_card' == $show_add_to_card) {
 		awooc_enable_add_to_card();
 		awooc_html_custom_add_to_cart();
-	} elseif ('in_stock_add_to_card' == $show_add_to_card && !$product->is_in_stock() || $product->backorders_allowed() || $product->is_on_backorder()  ){
-		awooc_disable_add_to_card();
-		awooc_html_custom_add_to_cart();
+	} elseif ('in_stock_add_to_card' == $show_add_to_card ){
+		if ($product->is_purchasable() || !$product->is_in_stock() || $product->backorders_allowed() || $product->is_on_backorder()  ){
+			awooc_disable_add_to_card();
+			awooc_html_custom_add_to_cart();
+		}
 	}
 
 }
