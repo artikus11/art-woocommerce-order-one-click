@@ -172,7 +172,7 @@ function awooc_created_order_after_mail_send( $contact_data ) {
 			'phone'      => $user_passed_tel,
 		);
 		$order             = wc_create_order();
-		$order->add_product( get_product( $_POST['awooc_product_id'] ), 1 );
+		$order->add_product( wc_get_product( $_POST['awooc_product_id'] ), 1 );
 		$order->set_address( $address, 'billing' );
 		$order->calculate_totals();
 		$order->update_status( 'Completed', 'Order created dynamically - ', true );
