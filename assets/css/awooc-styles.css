@@ -2,28 +2,49 @@
     display: none;
 }
 .blockUI:before,
-.single_add_to_cart_button,
-input.qty,
 .awooc-hidden-data {
     display: none !important;
 }
-.form-custom-order-footer{
-    position: relative;
-    background: #FFF;
-    padding: 20px;
-    width: auto;
-    max-width: 500px;
-    margin: 20px auto;
+.awooc-custom-order-wrap {
+    padding: 1.125rem;
+}
+.awooc-form-custom-order-img {
+    text-align: center;
 }
 
-.awooc-custom-order-wrap{
-    display: flex;
-    justify-content: space-between;
-    padding: 25px;
+.awooc-custom-order-wrap .wpcf7-form-control {
+    width: 100%;
+    margin-bottom: 0.875rem;
+    padding: .6180469716em;
+    background-color: #f2f2f2;
+    color: #43454b;
+    outline: 0;
+    border: 0;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.125);
 }
-.awooc-col{
-    align-self: center;
+.awooc-col {
+    margin-left: 0;
+    width: 100%;
 }
-.awooc-form-custom-order-img{
-max-width: 200px;
+.awwoc-close{
+    font-size: 35px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    background: rgba(0, 0, 0, 0.01);
+}
+.awwoc-close:hover{
+    cursor: pointer;
+}
+@media (min-width: 768px) {
+    .awooc-col {
+        display: inline-block;
+        vertical-align: middle;
+        width: 49%;
+        padding: 0.875rem 0.875rem;
+    }
 }

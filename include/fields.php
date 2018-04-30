@@ -11,6 +11,7 @@ function awooc_wpcf7_add_form_tag_callback( $tag ) {
 	if ( empty( $tag->name ) ) {
 		return '';
 	}
+
 	$atts = array();
 	$class         = wpcf7_form_controls_class( $tag->type ) . ' awooc-hidden-data';
 	$atts['class'] = apply_filters( 'awooc_class_hidden_field', $tag->get_class_option( $class ) );
@@ -24,6 +25,8 @@ function awooc_wpcf7_add_form_tag_callback( $tag ) {
 	$html = sprintf(
 		'<span class="wpcf7-form-control-wrap %1$s"><textarea %2$s></textarea></span>',
 		sanitize_html_class( $tag->name ), $atts);
+	$html .= sprintf('<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-id">',
+		'awooc_product_id');
 	
 	return $html;
 }
@@ -40,13 +43,13 @@ function awooc_fields_validation_filter( $result, $tag ) {
 	return $result;
 }
 
-add_action( 'wpcf7_admin_init', 'awooc_fields_add_tag_generator_address', 18 );
+add_action( 'wpcf7_admin_init', 'awooc_fields_add_tag_generator_address', 1 );
 function awooc_fields_add_tag_generator_address() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();
-	$tag_generator->add( 'awooc_hidden', 'AWOOC', 'dco_tag_generator_address' );
+	$tag_generator->add( 'awooc_hidden', 'AWOOC Скрытое поле', 'awooc_tag_generator_hidden' );
 }
 
-function dco_tag_generator_address( $contact_form, $args = '' ) {
+function awooc_tag_generator_hidden( $contact_form, $args = '' ) {
 	$args = wp_parse_args( $args, array() );
 	$type = 'awooc_hidden';
 	?>
@@ -56,18 +59,7 @@ function dco_tag_generator_address( $contact_form, $args = '' ) {
 			
 			<table class="form-table">
 				<tbody>
-				<tr>
-					<th scope="row"><?php echo esc_html( __( 'Field type', 'contact-form-7' ) ); ?></th>
-					<td>
-						<fieldset>
-							<legend
-								class="screen-reader-text"><?php echo esc_html( __( 'Field type', 'contact-form-7' ) ); ?></legend>
-							<label><input type="checkbox"
-									name="required"/> <?php echo esc_html( __( 'Required field', 'contact-form-7' ) ); ?>
-							</label>
-						</fieldset>
-					</td>
-				</tr>
+				
 				
 				<tr>
 					<th scope="row"><label for="<?php echo esc_attr( $args['content'] .
@@ -75,23 +67,6 @@ function dco_tag_generator_address( $contact_form, $args = '' ) {
 					</th>
 					<td><input type="text" name="name" class="tg-name oneline"
 							id="<?php echo esc_attr( $args['content'] . '-name' ); ?>"/></td>
-				</tr>
-				
-				
-				<tr>
-					<th scope="row"><label for="<?php echo esc_attr( $args['content'] .
-					                                                 '-id' ); ?>"><?php echo esc_html( __( 'Id attribute', 'contact-form-7' ) ); ?></label>
-					</th>
-					<td><input type="text" name="id" class="idvalue oneline option"
-							id="<?php echo esc_attr( $args['content'] . '-id' ); ?>"/></td>
-				</tr>
-				
-				<tr>
-					<th scope="row"><label for="<?php echo esc_attr( $args['content'] .
-					                                                 '-class' ); ?>"><?php echo esc_html( __( 'Class attribute', 'contact-form-7' ) ); ?></label>
-					</th>
-					<td><input type="text" name="class" class="classvalue oneline option"
-							id="<?php echo esc_attr( $args['content'] . '-class' ); ?>"/></td>
 				</tr>
 				</tbody>
 			</table>

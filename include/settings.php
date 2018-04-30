@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-function awooc_settings_select_elements() {
+function awooc_settings_multiselect_select_elements() {
 	$default = array(
 		'title' => 'Заголовок',
 		'image' => 'Изображение',
@@ -10,15 +10,27 @@ function awooc_settings_select_elements() {
 		'sku'   => 'Артикул',
 		'attr'  => 'Атрибуты',
 	);
-	$options = get_option('woocommerce_awooc_select_item');
+	$options = get_option( 'woocommerce_awooc_select_item' );
 	
-	return wp_parse_args($options, $default);
+	return wp_parse_args( $options, $default );
+}
+
+function awooc_settings_multiselect_default_elements() {
+	$default = array(
+		'title',
+		'image',
+		'price',
+		'sku',
+		'attr',
+	);
+	
+	return $default;
 }
 
 function awooc_settings_select_forms() {
 	$args     = array(
 		'post_type'      => 'wpcf7_contact_form',
-		'posts_per_page' => - 1,
+		'posts_per_page' => 20,
 	);
 	$cf7Forms = get_posts( $args );
 	$select   = array();
@@ -30,8 +42,8 @@ function awooc_settings_select_forms() {
 	return $select;
 }
 
-add_filter( 'woocommerce_general_settings', 'bryce_add_a_setting' );
-function bryce_add_a_setting( $settings ) {
+add_filter( 'woocommerce_general_settings', 'awooc_add_setting' );
+function awooc_add_setting( $settings ) {
 	
 	$settings[] = array(
 		'name' => 'Настройки режима каталога',
@@ -40,13 +52,19 @@ function bryce_add_a_setting( $settings ) {
 		'id'   => 'woocommerce_awooc_settings',
 	);
 	$settings[] = array(
-		'title'         => 'Режим каталога',
-		'desc'          => 'Снимите чекбокс, если хотите чтобы была видно кнопка купить',
-		'id'            => 'woocommerce_awooc_mode_catalog',
-		'default'       => 'yes',
-		'type'          => 'checkbox',
-		'checkboxgroup' => 'start',
-		'autoload'      => true,
+		'title'    => 'Режим работы',
+		'desc'     => 'Выберите режим работы и показа кнопки Купить',
+		'id'       => 'woocommerce_awooc_mode_catalog',
+		'css'      => 'min-width:350px;',
+		'class'    => 'wc-enhanced-select',
+		'default'  => 'dont_show_add_to_card',
+		'type'     => 'select',
+		'options'  => array(
+			'dont_show_add_to_card' => 'Не показывать кнопку Купить - режим каталога',
+			'show_add_to_card'      => 'Показывать кнопку Купить, на архивах кнопка выключена',
+			'in_stock_add_to_card'  => 'Кнопка Заказать появиться только при управлении запасами - режим предзаказа',
+		),
+		'desc_tip' => true,
 	);
 	$settings[] = array(
 		'title'    => 'Выбор формы',
@@ -70,13 +88,21 @@ function bryce_add_a_setting( $settings ) {
 	);
 	$settings[] = array(
 		'title'    => 'Выключить элементы окна',
-		'desc'     => 'Выберите элементы, которые НЕ надо показывать',
+		'desc'     => 'Уберите элементы, которые НЕ нужны',
 		'id'       => 'woocommerce_awooc_select_item',
 		'css'      => 'min-width:350px;',
 		'class'    => 'wc-enhanced-select',
 		'type'     => 'multiselect',
-		'options'  => awooc_settings_select_elements(),
+		'default'  => awooc_settings_multiselect_default_elements(),
+		'options'  => awooc_settings_multiselect_select_elements(),
 		'desc_tip' => true,
+	);
+	$settings[] = array(
+		'title'   => 'Включить создание заказов',
+		'desc'    => '<div class="updated notice error inline"><p><strong>Внимание! Функционал находится в стадии разработки.</strong> Для корректной работы данного функционала, требуется правильное создание полей в форме Contact Form 7 c именами:</p> <ul><li>поле имени - <code>awooc-text</code>;</li> <li>поле email - <code>awooc-email</code>;</li> <li>поле телефона - <code>awooc-tel</code>.</li></ul></div>',
+		'id'      => 'woocommerce_awooc_created_order',
+		'default' => 'no',
+		'type'    => 'checkbox',
 	);
 	$settings[] = array(
 		'type' => 'sectionend',

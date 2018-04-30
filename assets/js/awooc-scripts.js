@@ -6,6 +6,7 @@ jQuery(document).ready(function ($) {
         var productPrice = $('.variations_form').find('.woocommerce-variation-price .price').html();
         var productPriceSimple = $('.type-product').find('.price').html();
         var productPriceSku = $('.type-product').find('.sku').html();
+        var productId = $(this).attr('data-value-product-id');
         $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
 
         if (typeof productPriceSku !== 'undefined') {
@@ -52,12 +53,18 @@ jQuery(document).ready(function ($) {
                 width: '100%',
                 maxWidth: '600px',
                 top: '10%',
-                left: '35%'
+                left: '32%',
+                border: 'none',
+                cursor:'default'
             },
             bindEvents: false,
             timeout: 0,
+            allowBodyStretch: true,
             onBlock: function () {
                 $('#awooc-form-custom-order').removeClass('awooc-hide');
+                if (window.innerWidth < 480) {
+                    $('.blockUI').css({'left' : '2%', 'top': 0,'height': '100%','overflow-y':'scroll','width': '95%',});
+                }
             },
             onUnblock: function () {
                 $('#awooc-form-custom-order').addClass('awooc-hide');
@@ -69,6 +76,9 @@ jQuery(document).ready(function ($) {
         $('.blockOverlay').attr('title', 'Ткнуть для закрытия').click(function () {
             $.unblockUI();
         });
+        $('.awwoc-close').attr('title', 'Ткнуть для закрытия').click(function () {
+            $.unblockUI();
+        });
         var productVariationsTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text();
         $.trim(productVariationsTitle);
         if (typeof productPriceSku  !== 'undefined') {
@@ -76,7 +86,7 @@ jQuery(document).ready(function ($) {
         } else {
             $('.awooc-hidden-data').val(productVariationsTitle);
         }
-
+        $('.awooc-hidden-product-id').val(productId);
 
     });
     /*    $(document).on('wpcf7invalid', function (e) {
