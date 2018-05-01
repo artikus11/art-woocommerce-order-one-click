@@ -93,11 +93,26 @@ function awooc_add_custom_button() {
 		add_filter( 'woocommerce_product_add_to_cart_url', 'awooc_disable_url_add_to_cart_to_related' );
 		awooc_html_custom_add_to_cart();
 	} elseif ('show_add_to_card' == $show_add_to_card) {
+		add_filter( 'woocommerce_product_add_to_cart_text', 'awooc_disable_text_add_to_cart_to_related' );
+		add_filter( 'woocommerce_product_add_to_cart_url', 'awooc_disable_url_add_to_cart_to_related' );
 		awooc_enable_add_to_card();
 		awooc_html_custom_add_to_cart();
 	} elseif ('in_stock_add_to_card' == $show_add_to_card ){
-		if ($product->is_purchasable() || !$product->is_in_stock() || $product->backorders_allowed() || $product->is_on_backorder()  ){
+		if ($product->is_purchasable() || $product->is_on_backorder()  ){
 			awooc_disable_add_to_card();
+			awooc_html_custom_add_to_cart();
+		}
+	}
+
+}
+add_action( 'woocommerce_single_product_summary', 'awooc_add_custom_button_out_stock', 35 );
+/**
+ * Вывод кнопки Заказать еслт товара нет в наличие
+ */
+function awooc_add_custom_button_out_stock() {
+	global $product;
+	if ('in_stock_add_to_card' == get_option( 'woocommerce_awooc_mode_catalog' ) ){
+		if (!$product->is_in_stock()){
 			awooc_html_custom_add_to_cart();
 		}
 	}
