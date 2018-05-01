@@ -103,7 +103,6 @@ function awooc_add_custom_button() {
 			awooc_html_custom_add_to_cart();
 		}
 	}
-
 }
 add_action( 'woocommerce_single_product_summary', 'awooc_add_custom_button_out_stock', 35 );
 /**
@@ -179,7 +178,7 @@ add_action( 'wpcf7_mail_sent', 'awooc_created_order_after_mail_send', 10, 1 );
  * @throws WC_Data_Exception
  */
 function awooc_created_order_after_mail_send( $contact_data ) {
-	if ( 'yes' == get_option( 'woocommerce_awooc_mode_catalog' ) ) {
+	if ( 'yes' == get_option( 'woocommerce_awooc_created_order' ) ) {
 		$user_passed_text  = esc_attr( $_POST['awooc-text'] );
 		$user_passed_email = esc_attr( $_POST['awooc-email'] );
 		$user_passed_tel   = esc_attr( $_POST['awooc-tel'] );
