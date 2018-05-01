@@ -4,7 +4,7 @@
  * Plugin URI:        #
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка
  * Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version:           1.6.0
+ * Version:           1.6.2
  * Author:            Artem Abramovich
  * Author URI:        https://wpruse.ru/
  * License:           GPL-2.0+
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
-define( 'AWOOC_PLUGIN_VER', '1.6.0' );
+define( 'AWOOC_PLUGIN_VER', '1.6.2' );
 add_action( 'admin_init', 'awooc_check_activate_plugins' );
 /**
  * Проверка на наличие плагинов при активации плагина
