@@ -98,11 +98,12 @@ function awooc_add_custom_button() {
 		awooc_enable_add_to_card();
 		awooc_html_custom_add_to_cart();
 	} elseif ('in_stock_add_to_card' == $show_add_to_card ){
-		if ($product->is_purchasable() || $product->is_on_backorder()  ){
+		if ($product->is_on_backorder() || 0 == $product->get_price() ){
 			awooc_disable_add_to_card();
 			awooc_html_custom_add_to_cart();
 		}
 	}
+
 }
 add_action( 'woocommerce_single_product_summary', 'awooc_add_custom_button_out_stock', 35 );
 /**
@@ -115,7 +116,6 @@ function awooc_add_custom_button_out_stock() {
 			awooc_html_custom_add_to_cart();
 		}
 	}
-
 }
 
 add_action( 'wp_footer', 'awooc_form_custom_order' );
