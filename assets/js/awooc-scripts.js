@@ -31,7 +31,6 @@ jQuery(document).ready(function ($) {
                 type: 'POST',
                 dataType: 'json',
                 success: function (data) {
-
                     $('.awooc-form-custom-order-attr').text(data);
                     var productVariationsTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text();
                     $.trim(productVariationsTitle);

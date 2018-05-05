@@ -16,8 +16,9 @@ function awooc_enqueue_script_style() {
 	) );
 }
 
+
+add_action( 'wp_ajax_nopriv_awooc_ajax_variant_order', 'awooc_ajax_scripts_callback' );
 add_action( 'wp_ajax_awooc_ajax_variant_order', 'awooc_ajax_scripts_callback' );
-add_action( 'wp_ajax_nopriv_awooc_ajax_variant_order', 'awooc_ajax_scrpts_callback' );
 /**
  * Возвратная функция для ajax запросов
  */
@@ -28,7 +29,7 @@ function awooc_ajax_scripts_callback() {
 	}
 	$product_var_id = $_POST['id'] ? esc_attr( $_POST['id'] ) : 0;
 	if ( 0 == $product_var_id ) {
-		wp_die();
+		wp_die($product_var_id);
 	}
 	$product          = wc_get_product( $product_var_id );
 	$attributes       = $product->get_attributes();
