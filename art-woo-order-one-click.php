@@ -20,6 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'AWOOC_PLUGIN_VER', '1.6.3' );
+
 add_action( 'admin_init', 'awooc_check_activate_plugins' );
 /**
  * Проверка на наличие плагинов при активации плагина
