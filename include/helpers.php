@@ -8,10 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function awooc_enable_add_to_card() {
 	?>
 	<style>
-		.single_variation_wrap {
-			display: block !important;
-		}
-		
+		.woocommerce-variation-add-to-cart,
 		.single_add_to_cart_button,
 		input.qty {
 			display: inline-block !important;
@@ -26,7 +23,9 @@ function awooc_enable_add_to_card() {
 function awooc_disable_add_to_card() {
 	?>
 	<style>
-		.single_variation_wrap,
+		.woocommerce button.button.alt,
+		.woocommerce-page button.button.alt,
+		.woocommerce-variation-add-to-cart,
 		.single_add_to_cart_button,
 		input.qty {
 			display: none !important;

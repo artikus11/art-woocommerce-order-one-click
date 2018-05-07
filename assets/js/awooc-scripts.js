@@ -1,23 +1,28 @@
 jQuery(document).ready(function ($) {
     $('.awooc-custom-order').click(function (e) {
         e.preventDefault();
+        var productPriceHidden;
         var productVariantId = $('.variations_form').find('input[name="variation_id"]').val();
         //debugger;
-        var productPrice = $('.variations_form').find('.woocommerce-variation-price .price').html();
-        var productPriceSimple = $('.type-product').find('.price').html();
-        var productPriceSku = $('.type-product').find('.sku').html();
+        var productPriceVariation = $('.woocommerce-variation-price').find('.price').text();
+        var productPriceSimple = $('.summary').find('.price').text();
+        var productPriceSku = $('.product_meta').find('.sku').text();
         var productId = $(this).attr('data-value-product-id');
-        $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
+        //$('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceVariation);
 
         if (typeof productPriceSku !== 'undefined') {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-sku').html(productPriceSku);
         }
-        if (typeof productPrice !== 'undefined') {
-            $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPrice);
-        } else {
+        if (productPriceVariation === '') {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceSimple);
+            productPriceHidden = 'Цена: ' + productPriceSimple;
+        }
+        if (productPriceVariation !== '')  {
+            $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceVariation);
+            productPriceHidden = 'Цена: ' + productPriceVariation;
         }
 
+        console.log(productVariantId);
 
         if (productVariantId != 0 && typeof productVariantId !== 'undefined') {
             var data = {
@@ -36,10 +41,10 @@ jQuery(document).ready(function ($) {
                     $.trim(productVariationsTitle);
                     var productVariationsSku = $('#awooc-form-custom-order').find('.awooc-form-custom-order-sku').text();
                     $.trim(productVariationsTitle);
-                    if (productVariationsSku != undefined) {
-                        $('.awooc-hidden-data').val(productVariationsTitle + '\n' + data + '\n' + 'Артикул: ' + productVariationsSku);
+                    if (typeof productPriceSku !== 'undefined') {
+                        $('.awooc-hidden-data').val('Товар: ' + productVariationsTitle + '\n' + 'Атрибуты: ' + data + '\n' + 'Артикул: ' + productVariationsSku + '\n' + productPriceHidden);
                     } else {
-                        $('.awooc-hidden-data').val(productVariationsTitle + '\n' + data);
+                        $('.awooc-hidden-data').val('Товар: ' + productVariationsTitle + '\n' + 'Атрибуты: ' + data + '\n' + productPriceHidden);
                     }
 
                 }
@@ -54,7 +59,7 @@ jQuery(document).ready(function ($) {
                 top: '10%',
                 left: '32%',
                 border: 'none',
-                cursor:'default'
+                cursor: 'default'
             },
             bindEvents: false,
             timeout: 0,
@@ -62,7 +67,13 @@ jQuery(document).ready(function ($) {
             onBlock: function () {
                 $('#awooc-form-custom-order').removeClass('awooc-hide');
                 if (window.innerWidth < 480) {
-                    $('.blockUI').css({'left' : '2%', 'top': 0,'height': '100%','overflow-y':'scroll','width': '95%',});
+                    $('.blockUI').css({
+                        'left': '2%',
+                        'top': 0,
+                        'height': '100%',
+                        'overflow-y': 'scroll',
+                        'width': '95%',
+                    });
                 }
             },
             onUnblock: function () {
@@ -80,10 +91,10 @@ jQuery(document).ready(function ($) {
         });
         var productVariationsTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text();
         $.trim(productVariationsTitle);
-        if (typeof productPriceSku  !== 'undefined') {
-            $('.awooc-hidden-data').val(productVariationsTitle + '\n' + 'Артикул: ' + productPriceSku);
+        if (typeof productPriceSku !== 'undefined') {
+            $('.awooc-hidden-data').val('Товар: ' + productVariationsTitle + '\n' + 'Артикул: ' + productPriceSku + '\n' + productPriceHidden);
         } else {
-            $('.awooc-hidden-data').val(productVariationsTitle);
+            $('.awooc-hidden-data').val('Товар: ' + productVariationsTitle + '\n' + productPriceHidden);
         }
         $('.awooc-hidden-product-id').val(productId);
 
