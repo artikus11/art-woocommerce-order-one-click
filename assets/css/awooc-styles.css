@@ -24,8 +24,11 @@
     box-shadow: inset 0 1px 1px rgba(0,0,0,.125);
 }
 .awooc-col {
+    display: inline-block;
+    vertical-align: top;
     margin-left: 0;
     width: 100%;
+    box-sizing: border-box;
 }
 .awwoc-close{
     font-size: 35px;
@@ -42,8 +45,6 @@
 }
 @media (min-width: 768px) {
     .awooc-col {
-        display: inline-block;
-        vertical-align: middle;
         width: 49%;
         padding: 0.875rem 0.875rem;
     }

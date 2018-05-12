@@ -1,14 +1,25 @@
 jQuery(document).ready(function ($) {
     $('.awooc-custom-order').click(function (e) {
         e.preventDefault();
-        var productPriceHidden;
-        var productVariantId = $('.variations_form').find('input[name="variation_id"]').val();
         //debugger;
-        var productPriceVariation = $('.woocommerce-variation-price').find('.price').text();
-        var productPriceSimple = $('.summary').find('.price').text();
+        var productPriceHidden,
+            productPriceVariation,
+            productPriceSimple;
+        var productVariantId = $('.variations_form').find('input[name="variation_id"]').val();
+        if ($('.woocommerce-variation-price').find('.price ins').length) {
+            productPriceVariation = $('.woocommerce-variation-price').find('.price ins').text();
+        } else {
+            productPriceVariation = $('.woocommerce-variation-price').find('.price').text();
+        }
+
+        if ($('.summary').find('.price ins').length) {
+            productPriceSimple = $('.summary').find('.price ins').text();
+        } else {
+            productPriceSimple = $('.summary').find('.price').text();
+        }
         var productPriceSku = $('.product_meta').find('.sku').text();
         var productId = $(this).attr('data-value-product-id');
-        //$('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceVariation);
+
 
         if (typeof productPriceSku !== 'undefined') {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-sku').html(productPriceSku);
@@ -17,15 +28,15 @@ jQuery(document).ready(function ($) {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceSimple);
             productPriceHidden = 'Цена: ' + productPriceSimple;
         }
-        if (productPriceVariation !== '')  {
+        if (productPriceVariation !== '') {
             $('#awooc-form-custom-order').find('.awooc-form-custom-order-price').html(productPriceVariation);
             productPriceHidden = 'Цена: ' + productPriceVariation;
         }
 
-        console.log(productVariantId);
+        //  console.log(productVariantId);
 
         if (productVariantId != 0 && typeof productVariantId !== 'undefined') {
-            var data = {
+            data = {
                 id: productVariantId,
                 action: 'awooc_ajax_variant_order',
                 nonce: awooc_scrpts.nonce
@@ -67,10 +78,10 @@ jQuery(document).ready(function ($) {
             onBlock: function () {
                 $('#awooc-form-custom-order').removeClass('awooc-hide');
                 if (window.innerWidth < 480) {
-                    $('.blockUI').css({
+                    $('.blockUI.blockPage').css({
                         'left': '2%',
-                        'top': 0,
-                        'height': '100%',
+                        'top': '5%',
+                        'height': '95%',
                         'overflow-y': 'scroll',
                         'width': '95%',
                     });

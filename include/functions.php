@@ -89,9 +89,9 @@ function awooc_add_custom_button() {
 	global $product;
 	$show_add_to_card = get_option( 'woocommerce_awooc_mode_catalog' );
 	if ('dont_show_add_to_card' == $show_add_to_card) {
-		awooc_disable_add_to_card();
 		add_filter( 'woocommerce_product_add_to_cart_text', 'awooc_disable_text_add_to_cart_to_related' );
 		add_filter( 'woocommerce_product_add_to_cart_url', 'awooc_disable_url_add_to_cart_to_related' );
+		awooc_disable_add_to_card();
 		awooc_html_custom_add_to_cart();
 	} elseif ('show_add_to_card' == $show_add_to_card) {
 		add_filter( 'woocommerce_product_add_to_cart_text', 'awooc_disable_text_add_to_cart_to_related' );
@@ -108,7 +108,7 @@ function awooc_add_custom_button() {
 }
 add_action( 'woocommerce_single_product_summary', 'awooc_add_custom_button_out_stock', 35 );
 /**
- * Вывод кнопки Заказать еслт товара нет в наличие
+ * Вывод кнопки Заказать если товара нет в наличии
  */
 function awooc_add_custom_button_out_stock() {
 	global $product;
