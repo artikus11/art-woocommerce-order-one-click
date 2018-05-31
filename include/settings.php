@@ -61,7 +61,7 @@ function awooc_add_setting( $settings ) {
 		'type'     => 'select',
 		'options'  => array(
 			'dont_show_add_to_card' => 'Не показывать кнопку Купить - режим каталога',
-			'show_add_to_card'      => 'Показывать кнопку Купить, на архивах кнопка выключена',
+			'show_add_to_card'      => 'Показывать кнопку Купить, штатный режим',
 			'in_stock_add_to_card'  => 'Кнопка Заказать появиться только при управлении запасами - режим предзаказа',
 		),
 		'desc_tip' => true,
