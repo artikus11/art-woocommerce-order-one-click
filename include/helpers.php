@@ -70,5 +70,12 @@ function awooc_disable_text_add_to_cart_to_related( $text ) {
  */
 function awooc_html_custom_add_to_cart() {
 	global $product;
-	echo apply_filters( 'awooc_html_add_to_cart', sprintf( '<a href="%s" data-value-product-id="%s" class="%s">%s</a>', esc_url( '#awooc-form-custom-order' ), esc_attr( $product->get_id() ), esc_attr( 'awooc-custom-order button alt' ), esc_html( get_option( 'woocommerce_awooc_title_button' ) ) ), $product );
+	echo apply_filters( 'awooc_html_add_to_cart',
+		sprintf( '<a href="%s" data-value-product-id="%s" class="%s">%s</a>',
+			esc_url( '#awooc-form-custom-order' ),
+			esc_attr( $product->get_id() ),
+			apply_filters('awooc_classes_button',esc_attr( 'awooc-custom-order button alt' )),
+			esc_html( get_option( 'woocommerce_awooc_title_button' ) )
+		), $product
+	);
 }

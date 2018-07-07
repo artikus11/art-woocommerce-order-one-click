@@ -2,13 +2,32 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-add_action( 'wp_enqueue_scripts', 'awooc_enqueue_script_style', 100 );
 /**
- * Пожключаем нужные стили и скрипты
+ * Основные хуки
+ */
+add_action( 'wp_enqueue_scripts', 'awooc_enqueue_script_style', 100 );
+add_action( 'wp_ajax_nopriv_awooc_ajax_variant_order', 'awooc_ajax_scripts_callback' );
+add_action( 'wp_ajax_awooc_ajax_variant_order', 'awooc_ajax_scripts_callback' );
+add_action( 'wp_footer', 'awooc_form_custom_order' );
+
+/**
+ * Хуки Вукомерса
+ */
+add_filter( 'woocommerce_is_purchasable', 'awooc_disable_add_to_cart', 10 );
+add_filter( 'woocommerce_is_purchasable', 'awooc_disable_add_to_cart', 10 );
+add_action( 'woocommerce_after_add_to_cart_button', 'awooc_add_custom_button' );
+add_action( 'woocommerce_single_product_summary', 'awooc_add_custom_button_out_stock', 35 );
+
+/**
+ * Хуки Contact Form 7
+ */
+add_action( 'wpcf7_mail_sent', 'awooc_created_order_after_mail_send', 10, 1 );
+
+/**
+ * Подключаем нужные стили и скрипты
  */
 function awooc_enqueue_script_style() {
-	wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI .
-	                                    'assets/js/awooc-scripts.js', array( 'jquery' ), AWOOC_PLUGIN_VER, true );
+	wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts.js', array( 'jquery' ), AWOOC_PLUGIN_VER, true );
 	wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles.css', array(), AWOOC_PLUGIN_VER );
 	wp_localize_script( 'awooc-scripts', 'awooc_scrpts', array(
 		'url'   => admin_url( 'admin-ajax.php' ),
@@ -16,8 +35,6 @@ function awooc_enqueue_script_style() {
 	) );
 }
 
-add_action( 'wp_ajax_nopriv_awooc_ajax_variant_order', 'awooc_ajax_scripts_callback' );
-add_action( 'wp_ajax_awooc_ajax_variant_order', 'awooc_ajax_scripts_callback' );
 /**
  * Возвратная функция для ajax запросов
  */
@@ -26,15 +43,18 @@ function awooc_ajax_scripts_callback() {
 	if ( ! wp_verify_nonce( $_POST['nonce'], 'awooc-nonce' ) ) {
 		wp_die( 'Данные отправлены с левого адреса' );
 	}
+	
 	$product_var_id = $_POST['id'] ? esc_attr( $_POST['id'] ) : 0;
 	if ( 0 == $product_var_id ) {
 		wp_die( $product_var_id );
 	}
+	
 	$product          = wc_get_product( $product_var_id );
 	$attributes       = $product->get_attributes();
 	$product_variable = new WC_Product_Variable( $product->get_parent_id() );
 	$variations       = $product_variable->get_variation_attributes();
 	$attr_name        = array();
+	
 	foreach ( $attributes as $attr => $value ) {
 		$attr_label = wc_attribute_label( $attr );
 		$meta       = get_post_meta( $product_var_id, wc_variation_attribute_name( $attr ), true );
@@ -43,17 +63,18 @@ function awooc_ajax_scripts_callback() {
 			$attr_name[] = $attr_label . ': ' . $term->name;
 		}
 	}
+	
 	if ( empty( $attr_name ) ) {
 		foreach ( $variations as $key => $item ) {
 			$attr_name[] = $key . ': ' . implode( array_intersect( $item, $attributes ) );
 		}
 	}
+	
 	$product_var_attr = esc_html( implode( '; ', $attr_name ) );
 	wp_send_json( $product_var_attr );
 	wp_die();
 }
 
-add_filter( 'woocommerce_is_purchasable', 'awooc_disable_add_to_cart', 10 );
 /**
  * Включение режима каталога в зависимости от настроек
  *
@@ -79,7 +100,6 @@ function awooc_disable_add_to_cart() {
 	return true;
 }
 
-add_action( 'woocommerce_after_add_to_cart_button', 'awooc_add_custom_button' );
 /**
  * Вывод кнопки Заказать в зависимости от настроек
  */
@@ -103,7 +123,6 @@ function awooc_add_custom_button() {
 	
 }
 
-add_action( 'woocommerce_single_product_summary', 'awooc_add_custom_button_out_stock', 35 );
 /**
  * Вывод кнопки Заказать если товара нет в наличии
  */
@@ -116,7 +135,6 @@ function awooc_add_custom_button_out_stock() {
 	}
 }
 
-add_action( 'wp_footer', 'awooc_form_custom_order' );
 /**
  * Вывод всплывающего окна
  */
@@ -140,7 +158,7 @@ function awooc_form_custom_order() {
 				<?php
 				if ( in_array( 'image', $elements ) ):
 					$post_thumbnail_id = get_post_thumbnail_id( $product->get_id() );
-					$full_size_image = wp_get_attachment_image_src( $post_thumbnail_id, 'shop_single' );
+					$full_size_image = wp_get_attachment_image_src( $post_thumbnail_id, apply_filters( 'awooc_thumbnail_name', 'shop_single' ) );
 					?>
 					<div class="awooc-form-custom-order-img">
 						<img src="<?php echo esc_url( $full_size_image[0] ) ?>" alt="">
@@ -158,8 +176,7 @@ function awooc_form_custom_order() {
 					<div class="awooc-form-custom-order-attr"></div>
 				<?php endif;
 				if ( ! empty( get_option( 'woocommerce_awooc_select_form' ) ) ) :
-					echo do_shortcode( '[contact-form-7 id="' .
-					                   esc_attr( get_option( 'woocommerce_awooc_select_form' ) ) . '"]' );
+					echo do_shortcode( '[contact-form-7 id="' . esc_attr( get_option( 'woocommerce_awooc_select_form' ) ) . '"]' );
 				endif; ?>
 			</div>
 		</div>
@@ -167,7 +184,6 @@ function awooc_form_custom_order() {
 	<?php
 }
 
-add_action( 'wpcf7_mail_sent', 'awooc_created_order_after_mail_send', 10, 1 );
 /**
  * Создание заказа при отправке письма
  *

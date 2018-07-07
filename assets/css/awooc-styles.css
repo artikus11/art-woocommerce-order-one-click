@@ -1,15 +1,23 @@
 .awooc-hide {
     display: none;
 }
+
 .blockUI:before,
 .awooc-hidden-data {
     display: none !important;
 }
+
 .awooc-custom-order-wrap {
     padding: 1.125rem;
 }
+
 .awooc-form-custom-order-img {
     text-align: center;
+}
+
+.awooc-form-custom-order-img img {
+    width: 100%;
+    height: auto;
 }
 
 .awooc-custom-order-wrap .wpcf7-form-control {
@@ -21,8 +29,9 @@
     outline: 0;
     border: 0;
     box-sizing: border-box;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.125);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .125);
 }
+
 .awooc-col {
     display: inline-block;
     vertical-align: top;
@@ -30,7 +39,8 @@
     width: 100%;
     box-sizing: border-box;
 }
-.awwoc-close{
+
+.awwoc-close {
     font-size: 35px;
     position: absolute;
     top: 0;
@@ -40,9 +50,11 @@
     height: 30px;
     background: rgba(0, 0, 0, 0.01);
 }
-.awwoc-close:hover{
+
+.awwoc-close:hover {
     cursor: pointer;
 }
+
 @media (min-width: 768px) {
     .awooc-col {
         width: 49%;
