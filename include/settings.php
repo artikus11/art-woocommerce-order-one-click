@@ -35,8 +35,7 @@ function awooc_settings_select_forms() {
 	$cf7Forms = get_posts( $args );
 	$select   = array();
 	foreach ( $cf7Forms as $form ) {
-		$select[ esc_attr( $form->ID ) ] = '[contact-form-7 id="' . esc_attr( $form->ID ) . '" title="' .
-		                                   esc_html( $form->post_title ) . '"]';
+		$select[ esc_attr( $form->ID ) ] = '[contact-form-7 id="' . esc_attr( $form->ID ) . '" title="' . esc_html( $form->post_title ) . '"]';
 	}
 	
 	return $select;
@@ -60,9 +59,9 @@ function awooc_add_setting( $settings ) {
 		'default'  => 'dont_show_add_to_card',
 		'type'     => 'select',
 		'options'  => array(
-			'dont_show_add_to_card' => 'Не показывать кнопку Купить - режим каталога',
-			'show_add_to_card'      => 'Показывать кнопку Купить, штатный режим',
-			'in_stock_add_to_card'  => 'Кнопка Заказать появиться только при управлении запасами - режим предзаказа',
+			'dont_show_add_to_card' => 'Не показывать кнопку Купить: режим каталога',
+			'show_add_to_card'      => 'Показывать кнопку Купить: штатный режим',
+			'in_stock_add_to_card'  => 'Кнопка Заказать появиться только при управлении запасами: режим предзаказа',
 		),
 		'desc_tip' => true,
 	);

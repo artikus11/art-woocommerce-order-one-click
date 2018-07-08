@@ -3,7 +3,7 @@
  * Plugin Name:       Art WooCommerce Order One Click
  * Plugin URI:        wpruse.ru/my-plugins/order-one-click/
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version:           1.6.7
+ * Version:           1.6.8
  * Author:            Artem Abramovich
  * Author URI:        https://wpruse.ru/
  * License:           GPL-2.0+
