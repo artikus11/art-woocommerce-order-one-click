@@ -109,19 +109,19 @@ function awooc_activate_plugin() {
 	/**
 	 * Подключение файла вспомогательных функций
 	 */
-	require_once 'include/helpers.php';
+	require_once 'include/awooc-template-hooks.php';
 	/**
 	 * Подключение файла основных функций
 	 */
-	require_once 'include/template-functions.php';
+	require_once 'include/awooc-template-functions.php';
 	/**
 	 * Подключение файла создания настроек
 	 */
-	require_once 'include/settings.php';
+	require_once 'include/awooc-settings.php';
 	/**
 	 * Подключение файла создания доплнительного поля для CF7
 	 */
-	require_once 'include/fields.php';
+	require_once 'include/awooc-cf7-fields.php';
 }
 
 register_uninstall_hook( __FILE__, 'awooc_uninstall' );
@@ -137,9 +137,12 @@ function awooc_uninstall() {
 }
 
 /**
- * Add Settings link in pligins list
+ * Добавляем ссылку на настройке в списке плагинов
+ *
+ * @param $links
+ *
+ * @return mixed
  */
-
 function awooc_plugin_add_settings_link( $links ) {
 	$settings_link = '<a href="admin.php?page=wc-settings">Настройки</a>';
 	array_push( $links, $settings_link );

@@ -40,6 +40,10 @@
     box-sizing: border-box;
 }
 
+.awooc-col.columns-left {
+    text-align: left;
+}
+
 .awwoc-close {
     font-size: 35px;
     position: absolute;
