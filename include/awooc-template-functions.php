@@ -123,11 +123,9 @@ if ( ! function_exists( 'awooc_popup_window_title' ) ) {
 	function awooc_popup_window_title( $elements, $product ) {
 		if ( in_array( 'title', $elements ) ) {
 			echo apply_filters( 'awooc_popup_title_html',
-				sprintf( '<%s class="%s">%s<%s>',
-					apply_filters( 'awooc_popup_title_html_tag_open', 'h2' ),
-					apply_filters( 'awooc_popup_title_html_classes', esc_attr( 'awooc-form-custom-order-title' ) ),
-					esc_html( $product->get_title() ),
-					apply_filters( 'awooc_popup_title_html_tag_close', '/h2' ) ),
+				sprintf( '<h2 class="%s">%s</h2>',
+					esc_attr( 'awooc-form-custom-order-title' ),
+					esc_html( $product->get_title() ) ),
 				$product );
 		}
 	}
@@ -155,8 +153,8 @@ if ( ! function_exists( 'awooc_popup_window_image' ) ) {
 					esc_url( $full_size_image[0] ),
 					apply_filters( 'awooc_popup_image_alt', '' ),
 					apply_filters( 'awooc_popup_image_classes', esc_attr( 'awooc-form-custom-order-img' ) ),
-					apply_filters( 'awooc_popup_image_width', esc_attr( $full_size_image[1] ) ),
-					apply_filters( 'awooc_popup_image_height', esc_attr( $full_size_image[2] ) ),
+					esc_attr( $full_size_image[1] ) ,
+					esc_attr( $full_size_image[2] ),
 					$product ) );
 			
 			do_action( 'awooc_popup_after_image' );
@@ -176,16 +174,12 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 	function awooc_popup_window_price( $elements, $product ) {
 		if ( in_array( 'price', $elements ) ) {
 			
-			do_action( 'awooc_popup_before_price' );
-
 			echo apply_filters( 'awooc_popup_price_html',
 				sprintf( '<div class="awooc-form-custom-order-price">%s<span class="awooc-price-wrapper">%s</span></div>',
-					apply_filters( 'awooc_popup_price_header', 'Цена: ' ),
+					apply_filters( 'awooc_popup_price_label', 'Цена: ' ),
 					wc_price( $product->get_price() ),
 				$product ) );
-			
-			do_action( 'awooc_popup_after_price' );
-			
+
 		}
 		
 	}
@@ -205,16 +199,12 @@ if ( ! function_exists( 'awooc_popup_window_sku' ) ) {
 				$sku = $product->get_sku() ? $product->get_sku() : 'N/A';
 				
 				echo '<div class="awooc-form-custom-order-sku">';
-				
-				do_action( 'awooc_popup_before_sku' );
-				
+			
 				echo apply_filters( 'awooc_popup_sku_html',
 					sprintf( '<span class="awooc-sku-wrapper">%s</span><span class="awooc-sku">%s</span>',
-						apply_filters( 'awooc_popup_sku_header', 'Артикул: ' ),
+						apply_filters( 'awooc_popup_sku_label', 'Артикул: ' ),
 						$sku,
 						$product ) );
-				
-				do_action( 'awooc_popup_after_sku' );
 				
 				echo '</div>';
 			}
@@ -234,11 +224,10 @@ if ( ! function_exists( 'awooc_popup_window_attr' ) ) {
 		
 		if ( in_array( 'attr', $elements ) ) {
 			if ( $product->is_type( 'variable' ) )  {
-				do_action( 'awooc_popup_before_attr' );
-				
-				echo '<div class="awooc-form-custom-order-attr">Атрибуты: <span class="awooc-attr-wrapper"></span></div>';
-				
-				do_action( 'awooc_popup_after_attr' );
+			
+				printf( '<div class="awooc-form-custom-order-attr">%s<span class="awooc-attr-wrapper"></span></div>',
+					apply_filters( 'awooc_popup_attr_label', 'Атрибуты: ' ));
+
 			}
 		}
 		
@@ -253,9 +242,8 @@ if ( ! function_exists( 'awooc_popup_window_link' ) ) {
 	 * @param $product
 	 */
 	function awooc_popup_window_link( $elements, $product ) {
-		echo '<span class="awooc-form-custom-order-link awooc-hide">Ссылка на товар: ';
-		echo get_permalink( $product->get_id() );
-		echo '</span>';
+		printf( '<span class="awooc-form-custom-order-link awooc-hide">Ссылка на товар: %s</span>',
+			esc_url(get_permalink( $product->get_id() )));
 		
 	}
 }
@@ -300,7 +288,7 @@ function awooc_ajax_scripts_callback() {
 	$variations       = $product_variable->get_variation_attributes();
 	$price            = wc_price( $product->get_price() );
 	$attr_name        = array();
-	
+
 	foreach ( $attributes as $attr => $value ) {
 		$attr_label = wc_attribute_label( $attr );
 		$meta       = get_post_meta( $product_var_id, wc_variation_attribute_name( $attr ), true );
@@ -320,7 +308,7 @@ function awooc_ajax_scripts_callback() {
 
 	$product_variant = array(
 		'attr' => $product_var_attr,
-		'price' => $price
+		'price' => $price,
 	);
 	wp_send_json( $product_variant );
 	wp_die();

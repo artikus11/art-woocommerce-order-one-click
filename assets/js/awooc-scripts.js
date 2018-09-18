@@ -9,7 +9,8 @@ jQuery(document).ready(function ($) {
             productTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text(),
             productSku = '\n' + $('.awooc-form-custom-order-sku').text(),
             productLink = $('.awooc-form-custom-order-link').text(),
-            productPrice = $('.awooc-form-custom-order-price').text();
+            productPrice = $('.awooc-form-custom-order-price').text(),
+            productQty = $('.quantity').find('input[name="quantity"]').val();
 
         if ($('.awooc-form-custom-order-attr').find('.awooc-attr-wrapper').length < 0) {
             $('.awooc-form-custom-order-attr ').empty();
@@ -95,7 +96,7 @@ jQuery(document).ready(function ($) {
             history.pushState('',document.title,window.location.pathname);
         });
 
-
+        console.log(productQty);
         $('.awooc-hidden-data').val('\n' + 'Данные о выбраном товаре' + '\n' + '-------' + '\n' + 'Название: ' + productTitle  + '\n' + 'ID: ' + productId + '\n' + productPrice  +  productSku + '\n' + productLink);
         $('.awooc-hidden-product-id').val(productId);
 
