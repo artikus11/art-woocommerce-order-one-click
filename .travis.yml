@@ -1,13 +1,16 @@
 language: php
-
 sudo: false
-
 php:
 - '5.6'
 - '7.0'
 - '7.1'
 - '7.2'
-
 script:
-# Run your tests here.
 - echo 'Tested'
+deploy:
+  provider: releases
+  api_key:
+    secure: cbUgzDavteCowlXkeuytx/sXd9RcP93GAVWLlox85sQPGi63zSU06aPbvEUyqejuCuRWEgwg2NcrQJR3+8xROhcaegVemhiPlmBEJG/Yj6EOAVZrHA5/bmPn+VIBxb2vhcwFtNzvlVNuKveeKrtg851CRWAHfTb2gx4ZE/ilNW0uy91kQGfl2nTkghTQdlyHpxyZXwwQFA17fZ/mAMytKs01n3irxf6MIjbitlIYcrXCnaT5lQxlZLTEYjyGX/fszTz2lJSjrjO55cB/A90RpkUrO8EL53wtsHoua48VxvroHi8e4IF4WlsKFCZeqsKB8qDHTQiLhnw9vl/uo72gZNaVuOTYqrZNrxyoeqwgv+9QuVplkte3ABuJYCoLxKFyk32kglGiN4r5bYOGiuq+yERhGovaIrloEVcntMqqBY/X0qQKDfKXFYgKB9XZJs4evUnZmutFPoMHt3FvSG7F0jJ8iQdPlB2Pg3Dn97P+MZ88eNgttRKTaoEurmCtw41CizJbQWla6eIDpAVpSu4tv62u71/VWhtAla2zxkq2OuNLUgEHKSGSZXM1LNFwH1U5zsxiWjQafJtoOYYHqtXVQuQKSbvNP5cg13e5edI+ExkyZnt4rPhOhaCHqkU7EBBQIrhdkAcDUW41ku9Njx3nVMxd3pHhWSlmM/hK+uPjlP8=
+  file: latest.zip
+  on:
+    repo: artikus11/art-woo-order-one-click

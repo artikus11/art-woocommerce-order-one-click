@@ -39,6 +39,7 @@ PHP 5.6
 
 = 1.7.0 =
 * Добавлен фильтр `awooc_popup_attr_label` для возможности изменения надписи перед атрибутами в окне
+* Добавлена вывод и отправка выбранного количества товаров
 * Удалены хуки `awooc_popup_title_html_tag_open`, `awooc_popup_title_html_tag_close`
 * Удалены хуки `awooc_popup_image_width`, `awooc_popup_image_heigh`
 * Удалены хуки `awooc_popup_before_price`, `awooc_popup_after_price`
