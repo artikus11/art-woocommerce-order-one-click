@@ -7,10 +7,16 @@ php:
 - '7.2'
 script:
 - echo 'Tested'
+before_deploy:
+      - git config --local user.name "artikus11"
+      - git config --local user.email "artikus.sol@gmail.ru"
+      - git tag "latest-1.7.0"
 deploy:
   provider: releases
   api_key:
-    secure: ACW1gRS66cK5GO5SNK8Z5N4VXd52xoXdkWttgAK1uh64QjIYJ1w0uAGPUgJ1S2B9J0jQieaOcLdaACzNNgj94S6ZthVdVEy1P0WYuxXnAaOGvBoxKZN8jlz/gi4G1sOOT4vMbtOLkWkrz0vYyFOcAbPGy5+muAnyfh1JsImYj53xxkdXwT9qVtdpx/KZJK7UIQaD6Nk/4UWCJYmrEigekRYD5Ap0wLUGzeDVC4fFUtndMwshwtKJaE/jO7OSYCAPtuAkbzNnH62wLoWhupMe/DJoqKWfRLgqmiPs4/eD5kbtEEiuH52Y3x+KSsdbpzV0eRfQ4rqfZ4Foc17tsaXXVDZp/0S5v6r/I3QbTI48kCBfj6DyElTLGes5ZF4SHjuTUGqmpRboovSSFkcR4I0q6i2+dbTKyN4i874ElJ2cpmaN+jgJ4GdGblTtSL6SABT5a+dNZG1gxv4u6jieOxtDLZSMnFxBAdih/Oatq5hFPXEYy6meGBKVlvwBR9YR3tdnmhDzUv2tfCGxhLp7AcKCBcX/+b2X6wtSLrS3hIcCWd6A8gtWwNdToEU4+3/l6xHp0gTaeU/Y8kxcJDWp2bSpRDP6iDlRWOrolZSKh6pou8wl3FeKOaTwruxsi8EvnWsxHYS87pYuec7eTeGYBl1Z2NMwY+XlxGOyxtyM6VQkSLU=
+    secure: FNRV0Ky/plviY6QnbvfuD2DuKt8Gje7LDeQIXg5buZocTUBchz9vN2TrNkIuhOQBG9NVE01NCfDhZsHmiQ1pGBXWiyNt6POxqPHTN5FoqUg+Jl5At5LrTZQumBHdT7GYu6PUPBCgT2gBQprJ/7NaGt3KKZ7B3OZufHtjKVSSg26KceBW/UVPkunuj0jrMgngZe/lhNkU29ZLwXBkz5lOF7OGPghNW+LLg+qVSsuPg9ydV/hbHJluYzm7AzCfj+AKSyoCh7CwIC6PubFJuUoMDrVP+yRQNTX7kttJQsrsb1uMu2fUoSaEyOICSyUyl0l8wQQb6tsjMxZXCg4GgNRj9llDuhs+Q/oWEfPf+6ahLeiVzIvE17njn6t2XYQaPOX5JiVPJD8u794Ow5oPfAfWzfRZj+WjQlm3a/u06j++TNyA2XsgDGKI/w+BEDwe+y7b8iQlEHUxfZIHQ9PdZf3fDh3Hj4hHrxxmjVrPHJWapz7rPDwtwvXfderUxzRybWqOTN4lrk3AT/zaslIkg8uqNFHN/LMEfcBvwnJz6LrHGnlULmvx3AAd9iIUZoEFMAa3C6Hid7QwRO23XuuhlWXD/JOdxEnOWJuH3dq9AME0oMWhTaYC8RG23CoiGuNyzYiIWrzkr3qBchDQtJzsqYeUcRFc99XI19uYgqPGwPPR70E=
   file: latest.zip
   on:
+    php: 7.0
     repo: artikus11/art-woo-order-one-click
+after_deploy: "release created"
