@@ -4,4 +4,6 @@
 _config.yml export-ignore
 *readme.md export-ignore
 *README.md export-ignore
+*latest.tar.bz2 export-ignore
+*latest.zip export-ignore
 *.idea/ export-ignore
