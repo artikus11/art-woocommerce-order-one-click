@@ -1,4 +1,5 @@
 <?php
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -13,17 +14,19 @@ $elements = get_option( 'woocommerce_awooc_select_item' );
 	<div class="awwoc-close">&#215;</div>
 	<div class="awooc-custom-order-wrap">
 		<?php
+
 		/**
 		 * Hook: awooc_popup_before_column
 		 *
 		 * @hooked awooc_popup_title - 10
 		 */
 		do_action( 'awooc_popup_before_column', $elements, $product );
-		
+
 		?>
 		<div class="awooc-col columns-left">
-			
+
 			<?php
+
 			/**
 			 * Hook: awooc_popup_column_left
 			 *
@@ -32,32 +35,34 @@ $elements = get_option( 'woocommerce_awooc_select_item' );
 			 * @hooked awooc_popup_window_sku - 30
 			 */
 			do_action( 'awooc_popup_column_left', $elements, $product );
-			
+
 			?>
-		
+
 		</div>
 		<div class="awooc-col columns-right">
-			
+
 			<?php
+
 			/**
 			 * Hook: awooc_popup_column_right
 			 *
 			 * @hooked awooc_popup_window_select_form - 20
 			 */
 			do_action( 'awooc_popup_column_right', $elements, $product );
-			
+
 			?>
-		
+
 		</div>
-		
+
 		<?php
+
 		/**
 		 * Hook: awooc_popup_before_column
 		 *
 		 */
 		do_action( 'awooc_popup_after_column', $elements, $product );
-		
+
 		?>
-		
+
 	</div>
 </div>
