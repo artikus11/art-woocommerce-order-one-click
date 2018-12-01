@@ -5,26 +5,23 @@ jQuery(document).ready(function ($) {
 
         var prodictSelectedId;
         //debugger;
+
         var productVariantId = $('.variations_form').find('input[name="variation_id"]').val(),
             productId = $(this).attr('data-value-product-id'),
-            //productTitle = $('#awooc-form-custom-order').find('.awooc-form-custom-order-title').text(),
-            //productSku = '\n' + $('.awooc-form-custom-order-sku').text(),
-            //productLink = $('.awooc-form-custom-order-link').text(),
-            //productPrice = $('.awooc-form-custom-order-price').text(),
             productQty = $('.quantity').find('input[name="quantity"]').val();
 
-        /*if ($('.awooc-form-custom-order-attr').find('.awooc-attr-wrapper').length < 0) {
-            $('.awooc-form-custom-order-attr ').empty();
-        }*/
-
-        //console.log(productId);
-        //console.log(productQty);
+        var outTitle,
+            outPrice,
+            outLink,
+            outSku,
+            outAttr;
 
         if (productVariantId != 0 && typeof productVariantId !== 'undefined') {
             prodictSelectedId = productVariantId;
         } else {
             prodictSelectedId = productId;
         }
+
         data = {
             id: prodictSelectedId,
             action: 'awooc_ajax_product_form',
@@ -58,30 +55,41 @@ jQuery(document).ready(function ($) {
 
                 $('.awooc-col.columns-left').unblock();
 
+
                 if (data.elements === 'full') {
+
+                    outTitle = data.title == false ? '' : '\n' + 'Название: ' + data.title;
+                    outAttr = data.attr == false ? '' : '\n' + data.attr;
+                    outPrice = data.price == false ? '' : '\n' + 'Цена: ' + data.pricenumber;
+                    outSku = data.sku == false ? '' : '\n' + data.sku;
+                    outLink = data.link == false ? '' : '\n' + data.link;
+
                     $('.awooc-form-custom-order-title').text(data.title);
                     $('.awooc-form-custom-order-img').html(data.image);
                     $('.awooc-form-custom-order-price').html(data.price);
                     $('.awooc-form-custom-order-price').after(data.qty);
                     $('.awooc-form-custom-order-qty').text('Количество: ' + productQty);
                     $('.awooc-form-custom-order-sku').html(data.sku);
-                    $('.awooc-form-custom-order-attr').html(data.attr);
+                    $('.awooc-form-custom-order-attr').html(outAttr);
                 }
 
-                $('.awooc-hidden-data').val('\n' + 'Данные о выбраном товаре' + '\n' + '-------' + '\n' + 'Название: ' + data.title +
+                var hiddenData = '\n' + 'Данные о выбраном товаре' +
+                    '\n' + '-------' +
+                    outTitle +
                     '\n' + 'ID: ' + prodictSelectedId +
-                    '\n' + 'Цена: ' + data.price +
-                    '\n' + 'Атрибуты: ' + data.attr +
-                    '\n' + 'Артикул: ' + data.sku +
+                    outPrice +
+                    outAttr.replace(/(<([^>]+)>)/ig, "") +
+                    outSku.replace(/(<([^>]+)>)/ig, "") +
                     '\n' + 'Количество: ' + productQty +
-                    '\n' + data.link
-                );
+                    outLink;
+
+                console.log(hiddenData);
+                $('.awooc-hidden-data').val(hiddenData);
 
                 $('.awooc-hidden-product-id').val(prodictSelectedId);
                 $('.awooc-hidden-product-qty').val(productQty);
             }
         });
-        //}
 
         $.blockUI({
             message: $('#awooc-form-custom-order'),
@@ -139,17 +147,16 @@ jQuery(document).ready(function ($) {
         });
 
 
-
         //console.log(productQty * productPriceOut);
         // console.log(productPriceOut);
         //$('.awooc-hidden-data').val('\n' + 'Данные о выбраном товаре' + '\n' + '-------' + '\n' + 'Название: ' + productTitle + '\n' + 'ID: ' + productId + '\n' + productPrice + productSku + '\n' + 'Количество: ' + productQty + '\n' + productLink);
         // $('.awooc-hidden-product-id').val(productId);
 
     });
-   /* $('.blockOverlay').attr('title', 'Ткнуть для закрытия').click(function () {
-        $.unblockUI();
-        $('#awooc-form-custom-order').addClass('awooc-hide');
-    });*/
+    /* $('.blockOverlay').attr('title', 'Ткнуть для закрытия').click(function () {
+         $.unblockUI();
+         $('#awooc-form-custom-order').addClass('awooc-hide');
+     });*/
 
     $('.awwoc-close').attr('title', 'Ткнуть для закрытия').click(function () {
         $.unblockUI();
@@ -171,4 +178,7 @@ jQuery(document).ready(function ($) {
         }, 3000);
     }, false);
 
+    function replaceAjaxData(data) {
+
+    }
 });

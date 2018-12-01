@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since  1.8.0
  *
  * @todo   Сделать настройку для добавления отслеживания метрики или аналитики
+ * @todo   Сделать настройку изменения статуса заказа
  */
 class AWOOC_Admin_Settings extends WC_Settings_Page {
 
