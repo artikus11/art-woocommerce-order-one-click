@@ -196,6 +196,9 @@ class AWOOC_Front_End {
 			input.qty {
 				display: none !important;
 			}
+			.blockUI.blockOverlay {
+				background: rgba(0,0,0,1) !important;
+			}
 		</style>
 		<?php
 
@@ -220,6 +223,9 @@ class AWOOC_Front_End {
 			.single_add_to_cart_button,
 			input.qty {
 				display: inline-block !important;
+			}
+			.blockUI.blockOverlay {
+				background: rgba(0,0,0,1) !important;
 			}
 		</style>
 		<?php

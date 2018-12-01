@@ -34,27 +34,10 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             dataType: 'json',
             beforeSend: function (xhr, data) {
-
-                $('.awooc-col.columns-left').block({
-                    message: $('<div class="spinner"><div class="double-bounce1"></div><div class="double-bounce2"></div></div>'),
-                    overlayCSS: {
-                        background: '#fff',
-                        opacity: 1,
-                        cursor: 'wait',
-                        border: 'none',
-                    },
-                    css: {
-                        border: 'none',
-                        background: 'transparent',
-                        width: '100%',
-                        left: '40%',
-                    },
-                });
+                $('#awooc-custom-order-button').prepend('<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>');
             },
             success: function (data) {
-
-                $('.awooc-col.columns-left').unblock();
-
+                $('#awooc-custom-order-button').find('.cssload-container').remove();
 
                 if (data.elements === 'full') {
 
@@ -83,86 +66,85 @@ jQuery(document).ready(function ($) {
                     '\n' + 'Количество: ' + productQty +
                     outLink;
 
-                console.log(hiddenData);
+                //console.log(hiddenData);
                 $('.awooc-hidden-data').val(hiddenData);
 
                 $('.awooc-hidden-product-id').val(prodictSelectedId);
                 $('.awooc-hidden-product-qty').val(productQty);
+
+                $.blockUI({
+                    message: $('#awooc-form-custom-order'),
+                    css: {
+                        width: '100%',
+                        maxWidth: '600px',
+                        maxHeight: '600px',
+                        top: '10%',
+                        left: '32%',
+                        border: 'none',
+                        cursor: 'default',
+                        overflowY: 'auto',
+                        boxShadow: '0px 0px 3px 0px rgba(0, 0, 0, 0.2)',
+                        zIndex: '1000000'
+                    },
+                    overlayCSS: {
+                        zIndex: '1000000',
+                        backgroundColor: '#000',
+                        opacity: 0.6,
+                        cursor: 'wait'
+                    },
+                    bindEvents: true,
+                    timeout: 0,
+                    fadeIn: 400,
+                    fadeOut: 400,
+                    allowBodyStretch: true,
+                    onBlock: function () {
+                        $('#awooc-form-custom-order').removeClass('awooc-hide');
+
+                        if (window.innerWidth < 480) {
+                            $('.blockUI.blockPage').css({
+                                'left': '2%',
+                                'top': '5%',
+                                'height': '95%',
+                                'overflow-y': 'scroll',
+                                'width': '95%',
+                            });
+                        }
+                    },
+                    onUnblock: function () {
+                        $('#awooc-form-custom-order').addClass('awooc-hide');
+                        $('.awooc-form-custom-order-title').empty();
+                        $('.awooc-form-custom-order-img').empty();
+                        $('.awooc-form-custom-order-price').empty();
+                        //$('.awooc-form-custom-order-price').next().remove();
+                        $('.awooc-form-custom-order-qty').remove();
+                        $('.awooc-form-custom-order-sku').empty();
+                        $('.awooc-form-custom-order-attr').empty();
+                        history.pushState('', document.title, window.location.pathname);
+
+                    },
+                    onOverlayClick: function () {
+                        $('#awooc-form-custom-order').addClass('awooc-hide');
+                        $.unblockUI();
+                        $('.awooc-form-custom-order-title').empty();
+                        $('.awooc-form-custom-order-img').empty();
+                        $('.awooc-form-custom-order-price').empty();
+                        $('.awooc-form-custom-order-qty').remove();
+                        $('.awooc-form-custom-order-sku').empty();
+                        $('.awooc-form-custom-order-attr').empty();
+                        history.pushState('', document.title, window.location.pathname)
+                    }
+                });
             }
         });
-
-        $.blockUI({
-            message: $('#awooc-form-custom-order'),
-            css: {
-                width: '100%',
-                maxWidth: '600px',
-                maxHeight: '600px',
-                top: '10%',
-                left: '32%',
-                border: 'none',
-                cursor: 'default',
-                overflowY: 'auto',
-                boxShadow: '0px 0px 3px 0px rgba(0, 0, 0, 0.2)',
-                zIndex: '1000000'
-            },
-            bindEvents: true,
-            timeout: 0,
-            allowBodyStretch: true,
-            onBlock: function () {
-                $('#awooc-form-custom-order').removeClass('awooc-hide');
-
-                if (window.innerWidth < 480) {
-                    $('.blockUI.blockPage').css({
-                        'left': '2%',
-                        'top': '5%',
-                        'height': '95%',
-                        'overflow-y': 'scroll',
-                        'width': '95%',
-                    });
-                }
-            },
-            onUnblock: function () {
-                $('#awooc-form-custom-order').addClass('awooc-hide');
-                $('.awooc-form-custom-order-title').empty();
-                $('.awooc-form-custom-order-img').empty();
-                $('.awooc-form-custom-order-price').empty();
-                //$('.awooc-form-custom-order-price').next().remove();
-                $('.awooc-form-custom-order-qty').remove();
-                $('.awooc-form-custom-order-sku').empty();
-                $('.awooc-form-custom-order-attr').empty();
-                history.pushState('', document.title, window.location.pathname);
-
-            },
-            onOverlayClick: function () {
-                $('#awooc-form-custom-order').addClass('awooc-hide');
-                $.unblockUI();
-                $('.awooc-form-custom-order-title').empty();
-                $('.awooc-form-custom-order-img').empty();
-                $('.awooc-form-custom-order-price').empty();
-                $('.awooc-form-custom-order-qty').remove();
-                $('.awooc-form-custom-order-sku').empty();
-                $('.awooc-form-custom-order-attr').empty();
-                history.pushState('', document.title, window.location.pathname)
-            }
-        });
-
-
-        //console.log(productQty * productPriceOut);
-        // console.log(productPriceOut);
-        //$('.awooc-hidden-data').val('\n' + 'Данные о выбраном товаре' + '\n' + '-------' + '\n' + 'Название: ' + productTitle + '\n' + 'ID: ' + productId + '\n' + productPrice + productSku + '\n' + 'Количество: ' + productQty + '\n' + productLink);
-        // $('.awooc-hidden-product-id').val(productId);
 
     });
-    /* $('.blockOverlay').attr('title', 'Ткнуть для закрытия').click(function () {
-         $.unblockUI();
-         $('#awooc-form-custom-order').addClass('awooc-hide');
-     });*/
 
     $('.awwoc-close').attr('title', 'Ткнуть для закрытия').click(function () {
         $.unblockUI();
         $('#awooc-form-custom-order').addClass('awooc-hide');
         history.pushState('', document.title, window.location.pathname);
     });
+
     document.addEventListener('wpcf7invalid', function (event) {
         setTimeout(function () {
             $('.wpcf7-response-output').remove();
@@ -178,7 +160,4 @@ jQuery(document).ready(function ($) {
         }, 3000);
     }, false);
 
-    function replaceAjaxData(data) {
-
-    }
 });
