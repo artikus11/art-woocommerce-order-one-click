@@ -198,6 +198,8 @@ if ( ! function_exists( 'awooc_popup_window_select_form' ) ) {
 	 *
 	 * @since 1.5.0
 	 * @since 1.8.0
+	 *
+	 * @todo  Сделать загруку форму через ajax для предотврщения дублирования
 	 */
 	function awooc_popup_window_select_form() {
 
