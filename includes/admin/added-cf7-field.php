@@ -32,6 +32,7 @@ function awooc_wpcf7_add_form_tag_callback( $tag ) {
 	$atts          = wpcf7_format_atts( $atts );
 	$html          = sprintf( '<span class="wpcf7-form-control-wrap %1$s"><textarea %2$s></textarea></span>', sanitize_html_class( $tag->name ), $atts );
 	$html          .= sprintf( '<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-id">', 'awooc_product_id' );
+	$html          .= sprintf( '<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-qty">', 'awooc_product_qty' );
 	
 	return $html;
 }
@@ -48,7 +49,7 @@ function awooc_fields_validation_filter( $result, $tag ) {
 
 function awooc_fields_add_tag_generator_address() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();
-	$tag_generator->add( 'awooc_hidden', 'AWOOC Скрытое поле', 'awooc_tag_generator_hidden' );
+	$tag_generator->add( 'awooc_hidden', __('AWOOC hide field', 'art-woocommerce-order-one-click' ), 'awooc_tag_generator_hidden' );
 }
 
 function awooc_tag_generator_hidden( $contact_form, $args = '' ) {
@@ -61,8 +62,6 @@ function awooc_tag_generator_hidden( $contact_form, $args = '' ) {
 			
 			<table class="form-table">
 				<tbody>
-				
-				
 				<tr>
 					<th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?></label>
 					</th>
