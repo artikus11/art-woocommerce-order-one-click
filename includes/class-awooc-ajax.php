@@ -149,7 +149,12 @@ class AWOOC_Ajax {
 		$image = '';
 
 		$post_thumbnail_id = get_post_thumbnail_id( $product->get_id() );
-		$full_size_image   = wp_get_attachment_image_src( $post_thumbnail_id, apply_filters( 'awooc_thumbnail_name', 'shop_single' ) );
+
+		if ( ! $post_thumbnail_id ) {
+			$post_thumbnail_id = get_post_thumbnail_id( $product->get_parent_id() );
+		}
+
+		$full_size_image = wp_get_attachment_image_src( $post_thumbnail_id, apply_filters( 'awooc_thumbnail_name', 'shop_single' ) );
 
 		if ( $full_size_image ) {
 			$image = apply_filters(// WPCS: XSS ok.

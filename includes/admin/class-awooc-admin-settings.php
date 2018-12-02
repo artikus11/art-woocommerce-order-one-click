@@ -154,19 +154,19 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 					array(
 						'title'   => 'Включить создание заказов',
-						'desc'    => 'Заказы создаются со статусом "Выполнено"',
+						'desc'    => 'Заказы создаются со статусом "Ожидание оплаты"',
 						'id'      => 'woocommerce_awooc_created_order',
 						'default' => 'no',
 						'type'    => 'checkbox',
 					),
 
-					array(
+					/*array(
 						'title'   => 'Отправить письмо пользователю',
 						'desc'    => 'Письма пользователю о заказе по умолчанию не отправляются. При включении этой настройки пользователям письма будут приходить',
 						'id'      => 'woocommerce_awooc_send_email_customer',
 						'default' => 'no',
 						'type'    => 'checkbox',
-					),
+					),*/
 
 					array(
 						'type' => 'sectionend',

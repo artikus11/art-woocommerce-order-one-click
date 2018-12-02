@@ -5,7 +5,7 @@
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version: 1.8.1
+ * Version: 1.8.2
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+
@@ -165,7 +165,13 @@ class ArtWoo_Order_One_Click {
 		 * Ajax
 		 */
 		require_once AWOOC_PLUGIN_DIR . 'includes/class-awooc-ajax.php';
-		$this->front_end = new AWOOC_Ajax();
+		$this->ajax = new AWOOC_Ajax();
+
+		/**
+		 * Создание заказов
+		 */
+		require_once AWOOC_PLUGIN_DIR . 'includes/class-awooc-orders.php';
+		$this->orders = new AWOOC_Orders();
 
 		/**
 		 * Template functions
