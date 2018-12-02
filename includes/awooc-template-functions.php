@@ -13,9 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see   awooc_popup_window_sku()
  * @see   awooc_popup_window_sku()
  * @see   awooc_popup_window_attr()
- * @see   awooc_popup_window_select_form()
  *
  * @since 1.8.0
+ * @since 1.8.1
  */
 add_action( 'awooc_popup_before_column', 'awooc_popup_window_title', 10, 2 );
 

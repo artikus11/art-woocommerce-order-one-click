@@ -46,7 +46,6 @@ $elements = get_option( 'woocommerce_awooc_select_item' );
 			/**
 			 * Hook: awooc_popup_column_right
 			 *
-			 * @hooked awooc_popup_window_select_form - 20
 			 */
 			do_action( 'awooc_popup_column_right', $elements, $product );
 

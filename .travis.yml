@@ -10,7 +10,7 @@ script:
 before_deploy:
       - git config --local user.name "artikus11"
       - git config --local user.email "artikus.sol@gmail.ru"
-      - git tag "latest-1.8.0"
+      - git tag "latest-1.8.1"
 deploy:
   provider: releases
   api_key:

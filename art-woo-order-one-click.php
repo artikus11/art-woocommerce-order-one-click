@@ -5,14 +5,14 @@
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version: 1.8.0
+ * Version: 1.8.1
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt Text Domain: Domain Path:
  *
  * WC requires at least: 3.3.0
- * WC tested up to: 3.5.1
+ * WC tested up to: 3.5.2
  *
  * Copyright Artem Abramovich
  *
