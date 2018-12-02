@@ -39,13 +39,15 @@ jQuery(document).ready(function ($) {
             success: function (data) {
                 $('#awooc-custom-order-button').find('.cssload-container').remove();
 
+                outTitle = data.title == false ? '' : '\n' + 'Название: ' + data.title;
+                outAttr = data.attr == false ? '' : '\n' + data.attr;
+                outPrice = data.price == false ? '' : '\n' + 'Цена: ' + data.pricenumber;
+                outSku = data.sku == false ? '' : '\n' + data.sku;
+                outLink = data.link == false ? '' : '\n' + data.link;
+
                 if (data.elements === 'full') {
 
-                    outTitle = data.title == false ? '' : '\n' + 'Название: ' + data.title;
-                    outAttr = data.attr == false ? '' : '\n' + data.attr;
-                    outPrice = data.price == false ? '' : '\n' + 'Цена: ' + data.pricenumber;
-                    outSku = data.sku == false ? '' : '\n' + data.sku;
-                    outLink = data.link == false ? '' : '\n' + data.link;
+
 
                     $('.awooc-form-custom-order-title').text(data.title);
                     $('.awooc-form-custom-order-img').html(data.image);
@@ -54,19 +56,43 @@ jQuery(document).ready(function ($) {
                     $('.awooc-form-custom-order-qty').text('Количество: ' + productQty);
                     $('.awooc-form-custom-order-sku').html(data.sku);
                     $('.awooc-form-custom-order-attr').html(outAttr);
+
+                    $('.awooc-col.columns-right').html(data.form);
+                    wpcf7.initForm( '.wpcf7-form' );
+                    if ( wpcf7.cached ) {
+                        wpcf7.refill( '.wpcf7-form'  );
+                    }
+
+                    var hiddenData = '\n' + 'Данные о выбраном товаре' +
+                        '\n' + '-------' +
+                        outTitle +
+                        '\n' + 'ID: ' + prodictSelectedId +
+                        outPrice +
+                        outAttr.replace(/(<([^>]+)>)/ig, "") +
+                        outSku.replace(/(<([^>]+)>)/ig, "") +
+                        '\n' + 'Количество: ' + productQty +
+                        outLink;
+
+                } else {
+                    $('.awooc-custom-order-wrap').html(data.form);
+                    wpcf7.initForm( '.wpcf7-form' );
+                    if ( wpcf7.cached ) {
+                        wpcf7.refill( '.wpcf7-form'  );
+                    }
+
+                    var hiddenData = '\n' + 'Данные о выбраном товаре' +
+                        '\n' + '-------' +
+                        outTitle +
+                        '\n' + 'ID: ' + prodictSelectedId +
+                        outPrice +
+                        outAttr +
+                        outSku +
+                        '\n' + 'Количество: ' + productQty +
+                        outLink;
                 }
 
-                var hiddenData = '\n' + 'Данные о выбраном товаре' +
-                    '\n' + '-------' +
-                    outTitle +
-                    '\n' + 'ID: ' + prodictSelectedId +
-                    outPrice +
-                    outAttr.replace(/(<([^>]+)>)/ig, "") +
-                    outSku.replace(/(<([^>]+)>)/ig, "") +
-                    '\n' + 'Количество: ' + productQty +
-                    outLink;
 
-                //console.log(hiddenData);
+               // console.log(hiddenData);
                 $('.awooc-hidden-data').val(hiddenData);
 
                 $('.awooc-hidden-product-id').val(prodictSelectedId);

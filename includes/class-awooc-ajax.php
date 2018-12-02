@@ -36,6 +36,9 @@ class AWOOC_Ajax {
 	}
 
 
+	/**
+	 * Возвратна функция дл загрузки данных во всплывающем окне
+	 */
 	public function ajax_scripts_callback() {
 
 		if ( ! wp_verify_nonce( $_POST['nonce'], 'awooc-nonce' ) ) {
@@ -45,15 +48,16 @@ class AWOOC_Ajax {
 		$product = wc_get_product( esc_attr( $_POST['id'] ) );
 
 		$data = array(
-			'elements' => 'full',
-			'title'    => $this->product_title( $product ),
-			'image'    => $this->product_image( $product ),
-			'link'     => esc_url( get_permalink( $this->product_id( $product ) ) ),
-			'sku'      => $this->product_sku( $product ),
-			'attr'     => $this->product_attr( $product ),
-			'price'    => $this->product_price( $product ),
-			'pricenumber'    => $product->get_price(),
-			'qty'      => '<div class="awooc-form-custom-order-qty"></div>',
+			'elements'    => 'full',
+			'title'       => $this->product_title( $product ),
+			'image'       => $this->product_image( $product ),
+			'link'        => esc_url( get_permalink( $this->product_id( $product ) ) ),
+			'sku'         => $this->product_sku( $product ),
+			'attr'        => $this->product_attr( $product ),
+			'price'       => $this->product_price( $product ),
+			'pricenumber' => $product->get_price(),
+			'qty'         => '<div class="awooc-form-custom-order-qty"></div>',
+			'form'        => $this->select_form(),
 		);
 
 		// проверяем на включенный режим, если включен режим любой кроме шатного, то удаляем количество
@@ -70,6 +74,22 @@ class AWOOC_Ajax {
 		wp_die();
 	}
 
+
+	/**
+	 * Output form in a popup window
+	 *
+	 * @since 1.8.1
+	 * @return bool|string
+	 */
+	public function select_form() {
+
+		$select_form = get_option( 'woocommerce_awooc_select_form' );
+		if ( ! $select_form ) {
+			return false;
+		}
+
+		return do_shortcode( '[contact-form-7 id="' . esc_attr( $select_form ) . '"]' );
+	}
 
 	/**
 	 * Получение заголовка товара

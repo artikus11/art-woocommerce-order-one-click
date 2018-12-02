@@ -24,8 +24,6 @@ add_action( 'awooc_popup_column_left', 'awooc_popup_window_price', 20, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_sku', 30, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_attr', 40, 2 );
 
-add_action( 'awooc_popup_column_right', 'awooc_popup_window_select_form', 20 );
-
 
 if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 
@@ -199,7 +197,6 @@ if ( ! function_exists( 'awooc_popup_window_select_form' ) ) {
 	 * @since 1.5.0
 	 * @since 1.8.0
 	 *
-	 * @todo  Сделать загруку форму через ajax для предотврщения дублирования
 	 */
 	function awooc_popup_window_select_form() {
 
