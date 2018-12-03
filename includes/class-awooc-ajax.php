@@ -106,7 +106,7 @@ class AWOOC_Ajax {
 			return false;
 		}
 
-		return esc_html( $product->get_title( $this->product_id( $product ) ) );
+		return $product->get_title( $this->product_id( $product ) );
 	}
 
 
