@@ -133,6 +133,7 @@ class AWOOC_Front_End {
 	 * Скрытие кнопки купить
 	 *
 	 * @since 1.8.0
+	 * @since 1.8.3
 	 *
 	 * @return mixed|void
 	 */
@@ -146,9 +147,11 @@ class AWOOC_Front_End {
 			.woocommerce-variation-add-to-cart .quantity,
 			.woocommerce-variation-add-to-cart .single_add_to_cart_button,
 			.single_add_to_cart_button,
-			input.qty {
+			input.qty,
+			.quantity .minus, .quantity .plus{
 				display: none !important;
 			}
+
 			.blockUI.blockOverlay {
 				background: rgba(0,0,0,1) !important;
 			}
