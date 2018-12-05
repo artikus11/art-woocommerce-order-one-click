@@ -98,6 +98,22 @@ jQuery(document).ready(function ($) {
                 $('.awooc-hidden-product-id').val(prodictSelectedId);
                 $('.awooc-hidden-product-qty').val(productQty);
 
+                var $mask_fields = $('.wpcf7-mask');
+                if ( $mask_fields.length > 0 ) {
+                    $mask_fields.each(function(){
+                        var $this = $(this), data_mask = $this.data('mask');
+
+                        $this.mask( data_mask );
+
+                        if ( data_mask.indexOf('*') == -1 && data_mask.indexOf('a') == -1 ) {
+                            $this.attr({
+                                'inputmode': 'numeric'
+                            });
+                        }
+
+                    });
+                }
+
                 $.blockUI({
                     message: $('#awooc-form-custom-order'),
                     css: {
