@@ -58,84 +58,84 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 	public function get_settings( $current_section = '' ) {
 
-			$settings = apply_filters(
-				'awooc_settings_section_main',
+		$settings = apply_filters(
+			'awooc_settings_section_main',
+			array(
+
 				array(
+					'name' => 'Основные настройки',
+					'type' => 'title',
+					'id'   => 'woocommerce_awooc_settings_catalog_mode',
+				),
 
-					array(
-						'name' => 'Основные настройки',
-						'type' => 'title',
-						'id'   => 'woocommerce_awooc_settings_catalog_mode',
+				array(
+					'title'    => 'Режим работы',
+					'desc'     => 'Выберите режим работы и показа кнопки Купить',
+					'id'       => 'woocommerce_awooc_mode_catalog',
+					'css'      => 'min-width:350px;',
+					'class'    => 'wc-enhanced-select',
+					'default'  => 'dont_show_add_to_card',
+					'type'     => 'select',
+					'options'  => array(
+						'dont_show_add_to_card' => 'Не показывать кнопку Купить: режим каталога',
+						'show_add_to_card'      => 'Показывать кнопку Купить: штатный режим',
+						'in_stock_add_to_card'  => 'Кнопка Заказать появиться только при управлении запасами: режим предзаказа',
 					),
+					'desc_tip' => true,
+				),
+				array(
+					'title'    => 'Выбор формы',
+					'desc'     => 'Выберите нужную форму',
+					'id'       => 'woocommerce_awooc_select_form',
+					'css'      => 'min-width:350px;',
+					'class'    => 'wc-enhanced-select',
+					'default'  => '-- Выбрать --',
+					'type'     => 'select',
+					'options'  => $this->select_forms(),
+					'desc_tip' => true,
+				),
+				array(
+					'title'    => 'Надпись на кнопке',
+					'desc'     => 'Укажите нужную надпись на кнопке',
+					'id'       => 'woocommerce_awooc_title_button',
+					'css'      => 'min-width:350px;',
+					'default'  => 'Заказать',
+					'type'     => 'text',
+					'desc_tip' => true,
+				),
 
-					array(
-						'title'    => 'Режим работы',
-						'desc'     => 'Выберите режим работы и показа кнопки Купить',
-						'id'       => 'woocommerce_awooc_mode_catalog',
-						'css'      => 'min-width:350px;',
-						'class'    => 'wc-enhanced-select',
-						'default'  => 'dont_show_add_to_card',
-						'type'     => 'select',
-						'options'  => array(
-							'dont_show_add_to_card' => 'Не показывать кнопку Купить: режим каталога',
-							'show_add_to_card'      => 'Показывать кнопку Купить: штатный режим',
-							'in_stock_add_to_card'  => 'Кнопка Заказать появиться только при управлении запасами: режим предзаказа',
-						),
-						'desc_tip' => true,
-					),
-					array(
-						'title'    => 'Выбор формы',
-						'desc'     => 'Выберите нужную форму',
-						'id'       => 'woocommerce_awooc_select_form',
-						'css'      => 'min-width:350px;',
-						'class'    => 'wc-enhanced-select',
-						'default'  => '-- Выбрать --',
-						'type'     => 'select',
-						'options'  => $this->select_forms(),
-						'desc_tip' => true,
-					),
-					array(
-						'title'    => 'Надпись на кнопке',
-						'desc'     => 'Укажите нужную надпись на кнопке',
-						'id'       => 'woocommerce_awooc_title_button',
-						'css'      => 'min-width:350px;',
-						'default'  => 'Заказать',
-						'type'     => 'text',
-						'desc_tip' => true,
-					),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'woocommerce_awooc_settings_catalog_mode',
+				),
 
-					array(
-						'type' => 'sectionend',
-						'id'   => 'woocommerce_awooc_settings_catalog_mode',
-					),
+				array(
+					'name' => 'Всплывающее окно',
+					'type' => 'title',
+					'desc' => '',
+					'id'   => 'woocommerce_awooc_settings_popup_window',
+				),
 
-					array(
-						'name' => 'Всплывающее окно',
-						'type' => 'title',
-						'desc' => '',
-						'id'   => 'woocommerce_awooc_settings_popup_window',
-					),
+				array(
+					'title'    => 'Выключить элементы окна',
+					'desc'     => 'Уберите элементы, которые НЕ нужны',
+					'id'       => 'woocommerce_awooc_select_item',
+					'css'      => 'min-width:350px;',
+					'class'    => 'wc-enhanced-select',
+					'type'     => 'multiselect',
+					'default'  => $this->select_default_elements_item(),
+					'options'  => $this->select_elements_item(),
+					'desc_tip' => true,
+				),
+				array(
+					'type' => 'sectionend',
+					'id'   => 'woocommerce_awooc_settings_popup_window',
+				),
 
-					array(
-						'title'    => 'Выключить элементы окна',
-						'desc'     => 'Уберите элементы, которые НЕ нужны',
-						'id'       => 'woocommerce_awooc_select_item',
-						'css'      => 'min-width:350px;',
-						'class'    => 'wc-enhanced-select',
-						'type'     => 'multiselect',
-						'default'  => $this->select_default_elements_item(),
-						'options'  => $this->select_elements_item(),
-						'desc_tip' => true,
-					),
-					array(
-						'type' => 'sectionend',
-						'id'   => 'woocommerce_awooc_settings_popup_window',
-					),
-
-					array(
-						'name' => 'Заказы',
-						'type' => 'title',
-						'desc' => '<div class="updated notice error inline"><p><strong>Внимание! Функционал находится в стадии разработки.</strong> Для корректной работы данного функционала,
+				array(
+					'name' => 'Заказы',
+					'type' => 'title',
+					'desc' => '<div class="updated notice error inline"><p><strong>Внимание! Функционал находится в стадии разработки.</strong> Для корректной работы данного функционала,
 						требуется правильное создание полей в форме Contact Form 7 c именами:</p>
 					<ul>
 						<li>поле имени - <code>awooc-text</code>;</li>
@@ -143,39 +143,37 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 						<li>поле телефона - <code>awooc-tel</code>.</li>
 					</ul>
 				</div>',
-						'id'   => 'woocommerce_awooc_settings_orders',
-					),
+					'id'   => 'woocommerce_awooc_settings_orders',
+				),
 
+				array(
+					'id'   => 'woocommerce_awooc_created_order_notice',
+					'type' => 'text_notice',
+				),
 
-					array(
-						'id'   => 'woocommerce_awooc_created_order_notice',
-						'type' => 'text_notice',
-					),
+				array(
+					'title'   => 'Включить создание заказов',
+					'desc'    => 'Заказы создаются со статусом "Ожидание оплаты"',
+					'id'      => 'woocommerce_awooc_created_order',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
 
-					array(
-						'title'   => 'Включить создание заказов',
-						'desc'    => 'Заказы создаются со статусом "Ожидание оплаты"',
-						'id'      => 'woocommerce_awooc_created_order',
-						'default' => 'no',
-						'type'    => 'checkbox',
-					),
+				/*array(
+					'title'   => 'Отправить письмо пользователю',
+					'desc'    => 'Письма пользователю о заказе по умолчанию не отправляются. При включении этой настройки пользователям письма будут приходить',
+					'id'      => 'woocommerce_awooc_send_email_customer',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),*/
 
-					/*array(
-						'title'   => 'Отправить письмо пользователю',
-						'desc'    => 'Письма пользователю о заказе по умолчанию не отправляются. При включении этой настройки пользователям письма будут приходить',
-						'id'      => 'woocommerce_awooc_send_email_customer',
-						'default' => 'no',
-						'type'    => 'checkbox',
-					),*/
+				array(
+					'type' => 'sectionend',
+					'id'   => 'woocommerce_awooc_settings_orders',
+				),
 
-					array(
-						'type' => 'sectionend',
-						'id'   => 'woocommerce_awooc_settings_orders',
-					),
-
-				)
-			);
-
+			)
+		);
 
 		return apply_filters( 'woocommerce_get_settings_' . $this->id, $settings, $current_section );
 
@@ -242,3 +240,5 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	}
 
 }
+
+new AWOOC_Admin_Settings();
