@@ -54,7 +54,7 @@ define( 'AWOOC_PLUGIN_VER', $awooc_data['ver'] );
 define( 'AWOOC_PLUGIN_NAME', $awooc_data['name'] );
 define( 'AWOOC_TEXTDOMAIN', $awooc_data['text_domain'] );
 
-register_deactivation_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'uninstall' ) );
+register_uninstall_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'uninstall' ) );
 
 /**
  * Class ArtWoo_Order_One_Click
