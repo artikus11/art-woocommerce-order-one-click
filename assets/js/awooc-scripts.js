@@ -1,8 +1,26 @@
 jQuery(document).ready(function ($) {
     //debugger;
+    $(document).on('hide_variation', function (event) {
+        $('#awooc-custom-order-button').addClass( 'disabled wc-variation-selection-needed' );
+    });
+
+    $(document).on('show_variation', function (event) {
+        $('#awooc-custom-order-button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
+    });
+
     $('.awooc-custom-order').on('click', function (event) {
         event.preventDefault;
 
+        if ( $( this ).is('.disabled') ) {
+            event.preventDefault();
+
+            if ( $( this ).is('.wc-variation-is-unavailable') ) {
+                window.alert( wc_add_to_cart_variation_params.i18n_unavailable_text );
+            } else if ( $( this ).is('.wc-variation-selection-needed') ) {
+                window.alert( wc_add_to_cart_variation_params.i18n_make_a_selection_text );
+            }
+            return false;
+        }
         // Задаем переменные
         var prodictSelectedId;
         var productVariantId = $('.variations_form').find('input[name="variation_id"]').val(),
