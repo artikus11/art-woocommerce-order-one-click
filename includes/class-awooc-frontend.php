@@ -147,8 +147,7 @@ class AWOOC_Front_End {
 			.woocommerce-variation-add-to-cart .quantity,
 			.woocommerce-variation-add-to-cart .single_add_to_cart_button,
 			.single_add_to_cart_button,
-			input.qty,
-			.quantity .minus, .quantity .plus{
+			div.quantity{
 				display: none !important;
 			}
 
