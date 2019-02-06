@@ -1,5 +1,5 @@
 jQuery(document).ready(function ($) {
-    //debugger;
+
     $(document).on('hide_variation', function (event) {
         $('#awooc-custom-order-button').addClass( 'disabled wc-variation-selection-needed' );
     });
@@ -8,9 +8,9 @@ jQuery(document).ready(function ($) {
         $('#awooc-custom-order-button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
     });
 
-    $('.awooc-custom-order').on('click', function (event) {
+    $(document).on('click', '#awooc-custom-order-button', function (event) {
         event.preventDefault;
-
+        //debugger;
         if ( $( this ).is('.disabled') ) {
             event.preventDefault();
 
@@ -57,6 +57,7 @@ jQuery(document).ready(function ($) {
                 $('#awooc-custom-order-button').prepend('<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>');
             },
             success: function (data) {
+
                 // Отключаем прелоадер
                 $('#awooc-custom-order-button').find('.cssload-container').remove();
 
@@ -80,11 +81,9 @@ jQuery(document).ready(function ($) {
 
                     // Загружаем форму
                     $('.awooc-col.columns-right').html(data.form);
-                    // Инициализируем форму
-                    wpcf7.initForm('.wpcf7-form');
-                    if (wpcf7.cached) {
-                        wpcf7.refill('.wpcf7-form');
-                    }
+
+                    // Инициализация формы
+                    initContactForm();
 
                     // Собираем данные для письма
                     var hiddenData = '\n' + 'Данные о выбраном товаре' +
@@ -98,12 +97,11 @@ jQuery(document).ready(function ($) {
                         outLink;
 
                 } else {
-                    // Если нет элеентов то просто выводим форму и инициализируем ее
+                    // Если нет элементов то просто выводим форму и инициализируем ее
                     $('.awooc-custom-order-wrap').html(data.form);
-                    wpcf7.initForm('.wpcf7-form');
-                    if (wpcf7.cached) {
-                        wpcf7.refill('.wpcf7-form');
-                    }
+
+                    // Инициализация формы
+                    initContactForm();
 
                     // Собираем данные для письма
                     var hiddenData = '\n' + 'Данные о выбраном товаре' +
@@ -245,5 +243,15 @@ jQuery(document).ready(function ($) {
             $('.wpcf7-response-output').remove();
         }, 3000);
     }, false);
+
+    function initContactForm() {
+        $( 'div.wpcf7 > form' ).each( function() {
+            var $form = $( this );
+            wpcf7.initForm( $form );
+            if ( wpcf7.cached ) {
+                wpcf7.refill( $form );
+            }
+        });
+    }
 
 });

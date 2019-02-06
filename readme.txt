@@ -4,7 +4,7 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.0
-Stable tag: 1.8.6
+Stable tag: 1.8.7
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,6 +45,8 @@ An answer to that question.
 5.
 
 == Upgrade Notice ==
+= 1.8.7 =
+* Исправлено - скрипт вызова окна
 
 = 1.8.6 =
 * Исправлено - ошибка отправки формы, если на странице есть еще формы
