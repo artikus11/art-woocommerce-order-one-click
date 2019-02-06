@@ -39,6 +39,10 @@ class AWOOC_Front_End {
 	 */
 	public function enqueue_script_style() {
 
+		if ( ! is_woocommerce() ) {
+			return;
+		}
+
 		wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts.js', array( 'jquery' ), AWOOC_PLUGIN_VER, true );
 		wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles.css', array(), AWOOC_PLUGIN_VER );
 		wp_localize_script(
@@ -59,10 +63,6 @@ class AWOOC_Front_End {
 	 */
 	public function popup_window_html() {
 
-		if ( ! is_product() ) {
-			return;
-		}
-
 		$elements = get_option( 'woocommerce_awooc_select_item' );
 		if ( ! is_array( $elements ) ) {
 			return;
@@ -70,6 +70,7 @@ class AWOOC_Front_End {
 
 		include AWOOC_PLUGIN_DIR . 'includes/view/html-popup-window.php';
 	}
+
 
 	/**
 	 * Включение режима каталога в зависимости от настроек
@@ -147,12 +148,12 @@ class AWOOC_Front_End {
 			.woocommerce-variation-add-to-cart .quantity,
 			.woocommerce-variation-add-to-cart .single_add_to_cart_button,
 			.single_add_to_cart_button,
-			div.quantity{
+			div.quantity {
 				display: none !important;
 			}
 
 			.blockUI.blockOverlay {
-				background: rgba(0,0,0,1) !important;
+				background: rgba(0, 0, 0, 1) !important;
 			}
 		</style>
 		<?php
@@ -179,8 +180,9 @@ class AWOOC_Front_End {
 			input.qty {
 				display: inline-block !important;
 			}
+
 			.blockUI.blockOverlay {
-				background: rgba(0,0,0,1) !important;
+				background: rgba(0, 0, 0, 1) !important;
 			}
 		</style>
 		<?php
@@ -209,6 +211,7 @@ class AWOOC_Front_End {
 
 		return $url;
 	}
+
 
 	/**
 	 * Замена текста на кнопках в похожих товарах на страницах товарах

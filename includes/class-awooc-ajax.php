@@ -76,22 +76,6 @@ class AWOOC_Ajax {
 
 
 	/**
-	 * Output form in a popup window
-	 *
-	 * @since 1.8.1
-	 * @return bool|string
-	 */
-	public function select_form() {
-
-		$select_form = get_option( 'woocommerce_awooc_select_form' );
-		if ( ! $select_form ) {
-			return false;
-		}
-
-		return do_shortcode( '[contact-form-7 id="' . esc_attr( $select_form ) . '"]' );
-	}
-
-	/**
 	 * Получение заголовка товара
 	 *
 	 * @param $product
@@ -246,14 +230,19 @@ class AWOOC_Ajax {
 			}
 		}
 
-		$product_var_attr = esc_html( implode( '; ', $attr_name ) );
+		$allowed_html = array(
+			'br'   => array(),
+			'span' => array(),
+		);
+
+		$product_var_attr = wp_kses( implode( '; </span><span>', $attr_name ), $allowed_html );
 
 		if ( ! isset( $variations ) ) {
 			return false;
 		}
 
 		$attr_json = sprintf(
-			'%s<span class="awooc-attr-wrapper">%s</span>',
+			'%s</br><span class="awooc-attr-wrapper"><span>%s</span></span>',
 			apply_filters( 'awooc_popup_attr_label', esc_html( 'Атрибуты: ' ) ),
 			$product_var_attr
 		);// WPCS: XSS ok.
@@ -288,6 +277,23 @@ class AWOOC_Ajax {
 			$product
 		);
 
+	}
+
+
+	/**
+	 * Output form in a popup window
+	 *
+	 * @since 1.8.1
+	 * @return bool|string
+	 */
+	public function select_form() {
+
+		$select_form = get_option( 'woocommerce_awooc_select_form' );
+		if ( ! $select_form ) {
+			return false;
+		}
+
+		return do_shortcode( '[contact-form-7 id="' . esc_attr( $select_form ) . '"]' );
 	}
 
 

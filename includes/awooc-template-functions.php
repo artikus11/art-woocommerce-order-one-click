@@ -36,7 +36,6 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 	 * @param array $args
 	 * @param null  $product
 	 *
-	 * @todo  сделать выключение кнопки в Быстром просмотре
 	 */
 	function awooc_html_custom_add_to_cart( $args = array(), $product = null ) {
 
