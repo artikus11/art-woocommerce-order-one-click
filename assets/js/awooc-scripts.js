@@ -130,12 +130,21 @@ jQuery(document).ready(function ($) {
                     $mask_fields.each(function () {
                         var $this = $(this), data_mask = $this.data('mask');
 
-                        $this.mask(data_mask);
+                        //Если ошибка определения, то выводим в консоль сообщение и продолжаем
+                        try {
 
-                        if (data_mask.indexOf('*') == -1 && data_mask.indexOf('a') == -1) {
-                            $this.attr({
-                                'inputmode': 'numeric'
-                            });
+                            $this.mask(data_mask);
+
+                            if (data_mask.indexOf('*') == -1 && data_mask.indexOf('a') == -1) {
+                                $this.attr({
+                                    'inputmode': 'numeric'
+                                });
+                            }
+
+                        } catch (e) {
+
+                            console.log('Ошибка ' + e.name + ":" + e.message + "\n" + e.stack);
+
                         }
 
                     });
