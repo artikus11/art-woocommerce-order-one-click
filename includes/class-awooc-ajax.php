@@ -207,6 +207,10 @@ class AWOOC_Ajax {
 			return false;
 		}
 
+		if ( $product->is_type( 'simple' ) ) {
+			return false;
+		}
+
 		$attributes       = $product->get_attributes();
 		$product_variable = new WC_Product_Variable( $product->get_parent_id() );
 		$variations       = $product_variable->get_variation_attributes();

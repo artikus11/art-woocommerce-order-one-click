@@ -24,7 +24,6 @@ add_action( 'awooc_popup_column_left', 'awooc_popup_window_price', 20, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_sku', 30, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_attr', 40, 2 );
 
-
 if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 
 	/**
@@ -174,16 +173,12 @@ if ( ! function_exists( 'awooc_popup_window_attr' ) ) {
 	 * @param $product
 	 *
 	 * @since 1.5.0
-	 * @since 1.8.0
+	 * @since 1.8.9
 	 */
 	function awooc_popup_window_attr( $elements, $product ) {
 
 		if ( in_array( 'attr', $elements, true ) ) {
-			if ( $product->is_type( 'variable' ) ) {
-
-				echo '<div class="awooc-form-custom-order-attr"></div>';
-
-			}
+			echo '<div class="awooc-form-custom-order-attr"></div>';
 		}
 
 	}
