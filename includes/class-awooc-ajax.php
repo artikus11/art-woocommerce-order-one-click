@@ -1,9 +1,4 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-
 /**
  * Class AWOOC_Ajax
  *
@@ -78,7 +73,7 @@ class AWOOC_Ajax {
 	/**
 	 * Получение заголовка товара
 	 *
-	 * @param $product
+	 * @param WC_Product $product
 	 *
 	 * @since 1.8.0
 	 *
@@ -90,7 +85,7 @@ class AWOOC_Ajax {
 			return false;
 		}
 
-		return $product->get_title( $this->product_id( $product ) );
+		return $product->get_title();
 	}
 
 
@@ -99,7 +94,7 @@ class AWOOC_Ajax {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param $product
+	 * @param WC_Product $product
 	 *
 	 * @return mixed
 	 */
@@ -120,7 +115,7 @@ class AWOOC_Ajax {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param $product
+	 * @param WC_Product $product
 	 *
 	 * @return bool|mixed|string
 	 */
@@ -141,7 +136,7 @@ class AWOOC_Ajax {
 		$full_size_image = wp_get_attachment_image_src( $post_thumbnail_id, apply_filters( 'awooc_thumbnail_name', 'shop_single' ) );
 
 		if ( $full_size_image ) {
-			$image = apply_filters(// WPCS: XSS ok.
+			$image = apply_filters(
 				'awooc_popup_image_html',
 				sprintf(
 					'<img src="%s" alt="%s" class="%s" width="%s" height="%s">',
@@ -164,7 +159,7 @@ class AWOOC_Ajax {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param $product
+	 * @param WC_Product $product
 	 *
 	 * @return bool|mixed
 	 */
@@ -180,14 +175,16 @@ class AWOOC_Ajax {
 
 		$sku = $product->get_sku() ? $product->get_sku() : 'N/A';
 
-		return apply_filters(// WPCS: XSS ok.
-			'awooc_popup_sku_html',
-			sprintf(
-				'<span class="awooc-sku-wrapper">%s</span><span class="awooc-sku">%s</span>',
-				apply_filters( 'awooc_popup_sku_label', 'Артикул: ' ),
-				$sku
-			),
-			$product
+		return wp_kses_post(
+			apply_filters(
+				'awooc_popup_sku_html',
+				sprintf(
+					'<span class="awooc-sku-wrapper">%s</span><span class="awooc-sku">%s</span>',
+					apply_filters( 'awooc_popup_sku_label', 'Артикул: ' ),
+					$sku
+				),
+				$product
+			)
 		);
 	}
 
@@ -197,7 +194,7 @@ class AWOOC_Ajax {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param $product
+	 * @param WC_Product $product
 	 *
 	 * @return bool|string
 	 */
@@ -249,7 +246,7 @@ class AWOOC_Ajax {
 			'%s</br><span class="awooc-attr-wrapper"><span>%s</span></span>',
 			apply_filters( 'awooc_popup_attr_label', esc_html( 'Атрибуты: ' ) ),
 			$product_var_attr
-		);// WPCS: XSS ok.
+		);
 
 		return $attr_json;
 
@@ -261,7 +258,7 @@ class AWOOC_Ajax {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param $product
+	 * @param WC_Product $product
 	 *
 	 * @return bool|mixed
 	 */
@@ -271,7 +268,7 @@ class AWOOC_Ajax {
 			return false;
 		}
 
-		return apply_filters(// WPCS: XSS ok.
+		return apply_filters(
 			'awooc_popup_price_html',
 			sprintf(
 				'%s<span class="awooc-price-wrapper">%s</span></div>',
@@ -306,7 +303,7 @@ class AWOOC_Ajax {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param $product
+	 * @param WC_Product $product
 	 *
 	 * @return string
 	 */

@@ -1,4 +1,5 @@
 <?php
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
@@ -12,14 +13,21 @@ add_action( 'wpcf7_admin_init', 'awooc_fields_add_tag_generator_address', 1 );
 add_action( 'wpcf7_admin_init', 'awooc_fields_add_tag_generator_address', 1 );
 
 function awooc_wpcf7_add_form_tag() {
+
 	wpcf7_add_form_tag( 'awooc_hidden', 'awooc_wpcf7_add_form_tag_callback', true );
 }
 
+/**
+ * @param WPCF7_FormTag $tag
+ *
+ * @return string
+ */
 function awooc_wpcf7_add_form_tag_callback( $tag ) {
+
 	if ( empty( $tag->name ) ) {
 		return '';
 	}
-	
+
 	$atts          = array();
 	$class         = wpcf7_form_controls_class( $tag->type ) . ' awooc-hidden-data';
 	$atts['class'] = apply_filters( 'awooc_class_hidden_field', $tag->get_class_option( $class ) );
@@ -31,35 +39,46 @@ function awooc_wpcf7_add_form_tag_callback( $tag ) {
 	$atts['name']  = $tag->name;
 	$atts          = wpcf7_format_atts( $atts );
 	$html          = sprintf( '<span class="wpcf7-form-control-wrap %1$s"><textarea %2$s></textarea></span>', sanitize_html_class( $tag->name ), $atts );
-	$html          .= sprintf( '<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-id">', 'awooc_product_id' );
-	$html          .= sprintf( '<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-qty">', 'awooc_product_qty' );
-	
+
+	$html .= sprintf( '<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-id">', 'awooc_product_id' );
+	$html .= sprintf( '<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-qty">', 'awooc_product_qty' );
+
 	return $html;
 }
 
+/**
+ * @param WPCF7_Validation $result
+ * @param WPCF7_FormTag $tag
+ *
+ * @return mixed
+ */
 function awooc_fields_validation_filter( $result, $tag ) {
+
 	$name  = $tag->name;
 	$value = isset( $_POST[ $name ] ) ? sanitize_text_field( $_POST[ $name ] ) : '';
-	if ( $tag->is_required() && '' == $value ) {
+
+	if ( $tag->is_required() && '' === $value ) {
 		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
 	}
-	
+
 	return $result;
 }
 
 function awooc_fields_add_tag_generator_address() {
+
 	$tag_generator = WPCF7_TagGenerator::get_instance();
-	$tag_generator->add( 'awooc_hidden', __('AWOOC hide field', 'art-woocommerce-order-one-click' ), 'awooc_tag_generator_hidden' );
+	$tag_generator->add( 'awooc_hidden', __( 'AWOOC hide field', 'art-woocommerce-order-one-click' ), 'awooc_tag_generator_hidden' );
 }
 
 function awooc_tag_generator_hidden( $contact_form, $args = '' ) {
+
 	$args = wp_parse_args( $args, array() );
 	$type = 'awooc_hidden';
 	?>
 	<div class="control-box">
 		<fieldset>
 			<legend><?php esc_html_e( 'Генерация поля, в которое будет записываться нужные значения для отправки по почте', 'art-woo-order-one-click' ); ?></legend>
-			
+
 			<table class="form-table">
 				<tbody>
 				<tr>
@@ -71,18 +90,29 @@ function awooc_tag_generator_hidden( $contact_form, $args = '' ) {
 			</table>
 		</fieldset>
 	</div>
-	
+
 	<div class="insert-box">
-		<input type="text" name="<?php echo $type; ?>" class="tag code" readonly="readonly" onfocus="this.select()"/>
-		
+		<input type="text" name="<?php echo esc_attr( $type ); ?>" class="tag code" readonly="readonly" onfocus="this.select()"/>
+
 		<div class="submitbox">
 			<input type="button" class="button button-primary insert-tag" value="<?php echo esc_attr( __( 'Insert Tag', 'contact-form-7' ) ); ?>"/>
 		</div>
-		
+
 		<br class="clear"/>
-		
-		<p class="description mail-tag"><label for="<?php echo esc_attr( $args['content'] .
-		                                                                 '-mailtag' ); ?>"><?php echo sprintf( esc_html( __( "To use the value input through this field in a mail field, you need to insert the corresponding mail-tag (%s) into the field on the Mail tab.", 'contact-form-7' ) ), '<strong><span class="mail-tag"></span></strong>' ); ?>
+
+		<p class="description mail-tag"><label
+				for="<?php echo esc_attr( $args['content'] . '-mailtag' ); ?>">
+				<?php
+
+				echo sprintf(
+					/* translators: %s: field description */
+					esc_html__(
+						'To use the value input through this field in a mail field, you need to insert the corresponding mail-tag (%s) into the field on the Mail tab.',
+						'contact-form-7'
+					),
+					'<strong><span class="mail-tag"></span></strong>'
+				);
+				?>
 				<input type="text" class="mail-tag code hidden" readonly="readonly" id="<?php echo esc_attr( $args['content'] . '-mailtag' ); ?>"/></label></p>
 	</div>
 	<?php

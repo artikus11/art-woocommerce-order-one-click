@@ -1,4 +1,5 @@
 # Art WooCommerce Order One Click
+
 Плагин под WooCommerce.  Включает три режима: каталог, заказать, предзаказ
 
 Прагин работает только с плагином Contact Form 7
@@ -7,7 +8,14 @@
 
 [Скачать плагин](https://github.com/artikus11/art-woo-order-one-click/releases)
 
+[Плагин в репозитории WordPress](https://wordpress.org/plugins/art-woocommerce-order-one-click/)
+
 ## Chagelog
+###= 1.8.10 =
+* Исправлено - скрытие окна на всехх страницах сайта
+* Исправлено - очистка данных при выводе окна
+* Изменено - обновление readme
+
 ###= 1.8.9 =
 * Исправлено - ошибка определения типа продукта
 * Изменено - обновление readme

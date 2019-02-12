@@ -1,8 +1,4 @@
-<?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
+<?php // @codingStandardsIgnoreLine
 
 /**
  * Class AWOOC_Front_End
@@ -38,10 +34,6 @@ class AWOOC_Front_End {
 	 * Подключаем нужные стили и скрипты
 	 */
 	public function enqueue_script_style() {
-
-		if ( ! is_woocommerce() ) {
-			return;
-		}
 
 		wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts.js', array( 'jquery' ), AWOOC_PLUGIN_VER, true );
 		wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles.css', array(), AWOOC_PLUGIN_VER );
@@ -148,7 +140,7 @@ class AWOOC_Front_End {
 			.woocommerce-variation-add-to-cart .quantity,
 			.woocommerce-variation-add-to-cart .single_add_to_cart_button,
 			.single_add_to_cart_button,
-			div.quantity {
+			.quantity {
 				display: none !important;
 			}
 
@@ -159,7 +151,7 @@ class AWOOC_Front_End {
 		<?php
 
 		$disable_add_to_card = apply_filters( 'awooc_disable_add_to_card_style', ob_get_clean() );
-		echo $disable_add_to_card;// WPCS: XSS ok.
+		echo wp_kses( $disable_add_to_card, array( 'style' => array() ) );
 	}
 
 
@@ -177,7 +169,7 @@ class AWOOC_Front_End {
 		<style>
 			.woocommerce-variation-add-to-cart,
 			.single_add_to_cart_button,
-			input.qty {
+			.qty {
 				display: inline-block !important;
 			}
 
@@ -188,7 +180,7 @@ class AWOOC_Front_End {
 		<?php
 
 		$enable_add_to_card = apply_filters( 'awooc_enable_add_to_card_style', ob_get_clean() );
-		echo $enable_add_to_card;// WPCS: XSS ok.
+		echo wp_kses( $enable_add_to_card, array( 'style' => array() ) );
 	}
 
 

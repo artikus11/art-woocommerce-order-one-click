@@ -1,11 +1,11 @@
-<?php
+<?php // @codingStandardsIgnoreLine
 /**
  * Plugin Name: Art WooCommerce Order One Click
  * Plugin URI: wpruse.ru/my-plugins/order-one-click/
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version: 1.8.9
+ * Version: 1.8.10
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+
@@ -38,9 +38,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
-
 $awooc_data = get_file_data(
 	__FILE__,
 	array(
@@ -50,9 +47,10 @@ $awooc_data = get_file_data(
 	)
 );
 
+define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'AWOOC_PLUGIN_VER', $awooc_data['ver'] );
 define( 'AWOOC_PLUGIN_NAME', $awooc_data['name'] );
-define( 'AWOOC_TEXTDOMAIN', $awooc_data['text_domain'] );
 
 register_uninstall_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'uninstall' ) );
 

@@ -1,9 +1,4 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-
 /**
  * Class AWOOC_Orders
  *
@@ -54,7 +49,7 @@ class AWOOC_Orders {
 
 			$order = wc_create_order();
 
-			/*if ( 'yes' !== get_option( 'woocommerce_awooc_send_email_customer' ) ) {
+			/*if ( 'yes' !== get_option( 'woocommerce_awooc_send_email_customer' ) ) {// @codingStandardsIgnoreLine
 				add_filter( 'woocommerce_email_enabled_customer_completed_order', '__return_false' );
 			}*/
 

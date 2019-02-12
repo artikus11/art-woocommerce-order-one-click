@@ -71,7 +71,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		do_action( 'awooc_after_button' );
 
 		if ( is_product() ) {
-			echo apply_filters( 'awooc_html_add_to_cart', ob_get_clean() );// WPCS: XSS ok.
+			echo wp_kses_post( apply_filters( 'awooc_html_add_to_cart', ob_get_clean() ) );
 		}
 	}
 }
@@ -84,18 +84,20 @@ if ( ! function_exists( 'awooc_popup_window_title' ) ) {
 	 * @param $product
 	 *
 	 * @since 1.5.0
-	 * @since 1.8.0
+	 * @since 1.8.10
 	 */
 	function awooc_popup_window_title( $elements, $product ) {
 
 		if ( in_array( 'title', $elements, true ) ) {
-			echo apply_filters(// WPCS: XSS ok.
-				'awooc_popup_title_html',
-				sprintf(
-					'<h2 class="%s"></h2>',
-					esc_attr( 'awooc-form-custom-order-title' )
-				),
-				$product
+			echo wp_kses_post(
+				apply_filters(
+					'awooc_popup_title_html',
+					sprintf(
+						'<h2 class="%s"></h2>',
+						esc_attr( 'awooc-form-custom-order-title' )
+					),
+					$product
+				)
 			);
 		}
 	}
@@ -128,16 +130,18 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 	 * @param $product
 	 *
 	 * @since 1.5.0
-	 * @since 1.8.0
+	 * @since 1.8.10
 	 */
 	function awooc_popup_window_price( $elements, $product ) {
 
 		if ( in_array( 'price', $elements, true ) ) {
 
-			echo apply_filters(// WPCS: XSS ok.
-				'awooc_popup_price_html',
-				'<div class="awooc-form-custom-order-price"></div>',
-				$product
+			echo wp_kses_post(
+				apply_filters(
+					'awooc_popup_price_html',
+					'<div class="awooc-form-custom-order-price"></div>',
+					$product
+				)
 			);
 
 		}
@@ -170,12 +174,12 @@ if ( ! function_exists( 'awooc_popup_window_attr' ) ) {
 	 * Output of a product attributes in a popup window
 	 *
 	 * @param $elements
-	 * @param $product
+	 *
 	 *
 	 * @since 1.5.0
 	 * @since 1.8.9
 	 */
-	function awooc_popup_window_attr( $elements, $product ) {
+	function awooc_popup_window_attr( $elements ) {
 
 		if ( in_array( 'attr', $elements, true ) ) {
 			echo '<div class="awooc-form-custom-order-attr"></div>';

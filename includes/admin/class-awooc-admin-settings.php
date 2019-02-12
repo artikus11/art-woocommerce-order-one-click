@@ -1,9 +1,4 @@
 <?php
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
-}
-
 /**
  * Class AWOOC_Admin_Settings
  *
@@ -159,7 +154,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'type'    => 'checkbox',
 				),
 
-				/*array(
+				/*array(/// @codingStandardsIgnoreLine
 					'title'   => 'Отправить письмо пользователю',
 					'desc'    => 'Письма пользователю о заказе по умолчанию не отправляются. При включении этой настройки пользователям письма будут приходить',
 					'id'      => 'woocommerce_awooc_send_email_customer',
