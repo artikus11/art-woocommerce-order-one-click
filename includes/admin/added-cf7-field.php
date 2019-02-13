@@ -54,7 +54,9 @@ function awooc_wpcf7_add_form_tag_callback( $tag ) {
  */
 function awooc_fields_validation_filter( $result, $tag ) {
 
-	$name  = $tag->name;
+	$name = $tag->name;
+
+	// @codingStandardsIgnoreLine
 	$value = isset( $_POST[ $name ] ) ? sanitize_text_field( $_POST[ $name ] ) : '';
 
 	if ( $tag->is_required() && '' === $value ) {

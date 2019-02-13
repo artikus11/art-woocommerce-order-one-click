@@ -14,13 +14,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Для правильной работы требуются WooCommerce и Contact Form 7.
 В плагине предусмотре три режима работы:
 
-=== Режим каталога ===
+= Режим каталога =
 В данном режиме на страницах рубрик и самого магазина отключены кнопки «Добавить в корзину». На странице товара кнопка «Добавить в корзину» скрыта через стили и появляется кнопка «Заказать»
-=== Режим кнопки Купить ===
+= Режим кнопки Купить =
 
 В данном режиме кнопка «Добавить в корзину» работает в штатном режиме, то есть товары можно добавить в корзину и одновреммено заказать в один клик
 
-=== Режим работы с запасами ===
+= Режим работы с запасами =
 Специальный режим работы. Кнопка Заказать появиться автоматически, если:
 
 * не указана цена товара
@@ -35,20 +35,20 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 [Следить на GitHub](https://github.com/artikus11/art-woo-order-one-click)
 [Чат поддержки в Телеграмм](https://t.me/awooc)
 
-=== Обязательные плагины ===
+= Обязательные плагины =
 * [Contact Form 7](https://wordpress.org/plugins/contact-form-7/)
 * [WooCommerce](https://wordpress.org/plugins/woocommerce/)
 
-=== Рекомендуемые темы ===
+= Рекомендуемые темы =
 * [Storefront](https://wordpress.org/themes/storefront/)
 * [OceanWP](https://wordpress.org/themes/oceanwp/)
 * [Astra](https://wordpress.org/themes/astra/)
 * [Mesmerize](https://wordpress.org/themes/mesmerize/)
 * [GeneratePress](https://wordpress.org/themes/generatepress/)
 
-И любая другая тема корреrтно созданная для работы с WooCommerce
+И любая другая тема корректно созданная для работы с WooCommerce
 
-=== Внимание! ===
+= Внимание! =
 **Плагин протестирован на наиболее поплярных темах, но слишком многое зависит от самой темы и как ее создавали разработчики. Возможно на каких-то темах, какой-то функционал может не работать. Ообенно это касается премиум-тем и использования билдеров**
 
 = Bundled translations: =
@@ -57,6 +57,13 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 = Donate link: =
 <a href="https://www.paypal.me/artabr" target="_blank">PayPal</a>
 <a href="https://wpruse.ru/r/donat/" target="_blank">YandexMoney</a>
+
+= Thanks =
+* Dmitriy Campusboy - [For patience and support](https://github.com/campusboy87)
+* KAGG Design - [For code review and useful tips](https://github.com/kagg-design)
+* Jeroen Sormani - [For code examples](https://github.com/JeroenSormani)[
+* Telegram chat "WordPress & WooCommerce" and all participants - [For lively participation in the development of the plugin](https://t.me/c_wordpress)
+* Site wp-kama.ru - [For excellent documentation on WordPress and WooCommerce](https://wp-kama.ru/)
 
 == Installation ==
 

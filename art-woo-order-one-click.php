@@ -1,11 +1,12 @@
 <?php // @codingStandardsIgnoreLine
+
 /**
  * Plugin Name: Art WooCommerce Order One Click
  * Plugin URI: wpruse.ru/my-plugins/order-one-click/
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
  * Description: Плагин под WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version: 1.8.10
+ * Version: 1.9.0
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+
@@ -91,23 +92,44 @@ class ArtWoo_Order_One_Click {
 	public $name;
 
 	/**
-	 * Plugin name.
-	 *
-	 * @since 1.8.0
-	 * @var string $name Plugin name.
+	 * @since 1.9.0
+	 * @var array Required plugins.
 	 */
-	public $text_domain;
+	protected $required_plugins = array();
 
 
 	/**
 	 * Construct.
 	 *
 	 * @since 1.8.0
+	 *
+	 * @see   https://github.com/kagg-design/woof-by-category
+	 *
 	 */
 	public function __construct() {
 
+		$this->required_plugins = array(
+			array(
+				'plugin'  => 'woocommerce/woocommerce.php',
+				'name'    => 'WooCommerce',
+				'slug'    => 'woocommerce',
+				'class'   => 'WooCommerce',
+				'version' => '3.0',
+				'active'  => false,
+			),
+			array(
+				'plugin'  => 'contact-form-7/wp-contact-form-7.php',
+				'name'    => 'Contact Form 7',
+				'slug'    => 'contact-form-7',
+				'class'   => 'WPCF7',
+				'version' => '5.0',
+				'active'  => false,
+			),
+		);
+
 		$this->init();
 
+		$this->load_textdomain();
 	}
 
 
@@ -126,55 +148,41 @@ class ArtWoo_Order_One_Click {
 			return add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
 		}
 
-		if ( ! in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-			if ( ! function_exists( 'get_plugin_data' ) ) {
-				require_once ABSPATH . 'wp-admin/includes/plugin.php';
-			}
-			if ( ! is_plugin_active( 'woocommerce/woocommerce.php' ) ) {
+		add_action( 'admin_init', array( $this, 'check_requirements' ) );
 
-				return add_action( 'admin_notices', array( $this, 'wc_active_notice' ) );
-			}
-		}
-
-		if ( ! in_array( 'contact-form-7/wp-contact-form-7.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-
-			if ( ! function_exists( 'get_plugin_data' ) ) {
-				require_once ABSPATH . 'wp-admin/includes/plugin.php';
-			}
-
-			if ( ! is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
-
-				return add_action( 'admin_notices', array( $this, 'cf7_active_notice' ) );
+		foreach ( $this->required_plugins as $required_plugin ) {
+			if ( ! class_exists( $required_plugin['class'] ) ) {
+				return;
 			}
 		}
 
 		/**
 		 * Hiding field to CF7
 		 */
-		require_once AWOOC_PLUGIN_DIR . 'includes/admin/added-cf7-field.php';
+		include 'includes/admin/added-cf7-field.php';
 
 		/**
 		 * Front end
 		 */
-		require_once AWOOC_PLUGIN_DIR . 'includes/class-awooc-frontend.php';
+		include 'includes/class-awooc-frontend.php';
 		$this->front_end = new AWOOC_Front_End();
 
 		/**
 		 * Ajax
 		 */
-		require_once AWOOC_PLUGIN_DIR . 'includes/class-awooc-ajax.php';
+		include 'includes/class-awooc-ajax.php';
 		$this->ajax = new AWOOC_Ajax();
 
 		/**
 		 * Создание заказов
 		 */
-		require_once AWOOC_PLUGIN_DIR . 'includes/class-awooc-orders.php';
+		include 'includes/class-awooc-orders.php';
 		$this->orders = new AWOOC_Orders();
 
 		/**
 		 * Template functions
 		 */
-		require_once AWOOC_PLUGIN_DIR . 'includes/awooc-template-functions.php';
+		include 'includes/awooc-template-functions.php';
 
 		// Load hooks
 		$this->hooks();
@@ -198,6 +206,30 @@ class ArtWoo_Order_One_Click {
 	public function hooks() {
 
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_awooc_admin_settings' ), 15 );
+
+	}
+
+
+	/**
+	 * Textdomain.
+	 *
+	 * Load the textdomain based on WP language.
+	 *
+	 * @since 1.9.0
+	 */
+	public function load_textdomain() {
+
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'art-decoration-shortcode' );
+
+		load_textdomain(
+			'art-woocommerce-order-one-click',
+			WP_LANG_DIR . '/art-decoration-shortcode/art-decoration-shortcode-' . $locale . '.mo'
+		);
+		load_plugin_textdomain(
+			'art-woocommerce-order-one-click',
+			false,
+			basename( dirname( __FILE__ ) ) . '/languages'
+		);
 
 	}
 
@@ -227,15 +259,20 @@ class ArtWoo_Order_One_Click {
 	 *
 	 * Include the WooCommerce settings class.
 	 *
+	 * @param WC_Admin_Settings $settings
+	 *
+	 * @return array
+	 *
 	 * @since 1.8.0
 	 * @since 1.8.5
 	 */
 	public function add_awooc_admin_settings( $settings ) {
 
-		$settings[] = require_once AWOOC_PLUGIN_DIR . 'includes/admin/class-awooc-admin-settings.php';
+		$settings[] = include 'includes/admin/class-awooc-admin-settings.php';
 
 		return $settings;
 	}
+
 
 	/**
 	 * Plugin action links.
@@ -275,19 +312,105 @@ class ArtWoo_Order_One_Click {
 	 */
 	public function php_version_notice() {
 
-		?>
-		<div class="notice notice-error">
-			<p>
-				<?php
+		$message = sprintf(
+			/* translators: 1: Name plugins, 2:PHP version */
+			esc_html__(
+				'%1$s requires PHP version 5.6 or higher. Your current PHP version is %2$s. Please upgrade PHP version.',
+				'art-woocommerce-order-one-click'
+			),
+			esc_html( AWOOC_PLUGIN_NAME ),
+			PHP_VERSION
+		);
 
-				printf(
-					esc_html(
-						'%1$s требует версию PHP 5.6 или выше. Ваша текущая версия PHP %2$s. Пожалуйста, обновите версию PHP.'
-					),
-					esc_html( AWOOC_PLUGIN_NAME ),
-					PHP_VERSION
-				);
-				?>
+		$this->admin_notice( $message, 'notice notice-error is-dismissible' );
+
+	}
+
+
+	public function check_requirements() {
+
+		if ( ! $this->requirements() ) {
+			add_action( 'admin_notices', array( $this, 'show_plugin_not_found_notice' ) );
+			if ( is_plugin_active( plugin_basename( AWOOC_PLUGIN_URI ) ) ) {
+				deactivate_plugins( plugin_basename( AWOOC_PLUGIN_URI ) );
+				// @codingStandardsIgnoreStart
+				if ( isset( $_GET['activate'] ) ) {
+					unset( $_GET['activate'] );
+				}
+				// @codingStandardsIgnoreEnd
+				add_action( 'admin_notices', array( $this, 'show_deactivate_notice' ) );
+			}
+		}
+	}
+
+
+	private function requirements() {
+
+		$all_active = true;
+		include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		foreach ( $this->required_plugins as $key => $required_plugin ) {
+			if ( is_plugin_active( $required_plugin['plugin'] ) ) {
+				$this->required_plugins[ $key ]['active'] = true;
+			} else {
+				$all_active = false;
+			}
+		}
+
+		return $all_active;
+	}
+
+
+	public function show_plugin_not_found_notice() {
+
+		$message = sprintf(
+			/* translators: 1: Name author plugin */
+			__( 'The %s requires installed and activated plugins: ', 'art-woocommerce-order-one-click' ),
+			esc_attr( AWOOC_PLUGIN_NAME )
+		);
+
+		$message_parts = array();
+
+		foreach ( $this->required_plugins as $key => $required_plugin ) {
+			if ( ! $required_plugin['active'] ) {
+				$href = '/wp-admin/plugin-install.php?tab=plugin-information&plugin=';
+
+				$href .= $required_plugin['slug'] . '&TB_iframe=true&width=640&height=500';
+
+				$message_parts[] = '<strong><em><a href="' . $href . '" class="thickbox">' . $required_plugin['name'] . ' version ' . $required_plugin['version'] . '</a> or higher</em></strong>';
+			}
+		}
+
+		$count = count( $message_parts );
+		foreach ( $message_parts as $key => $message_part ) {
+			if ( 0 !== $key ) {
+				if ( ( ( $count - 1 ) === $key ) ) {
+					$message .= ' and ';
+				} else {
+					$message .= ', ';
+				}
+			}
+
+			$message .= $message_part;
+		}
+
+		$message .= '.';
+
+		$this->admin_notice( $message, 'notice notice-error is-dismissible' );
+	}
+
+
+	/**
+	 * @param $message
+	 * @param $class
+	 */
+	private function admin_notice( $message, $class ) {
+
+		?>
+		<div class="<?php echo esc_attr( $class ); ?>">
+			<p>
+				<span>
+				<?php echo wp_kses_post( $message ); ?>
+				</span>
 			</p>
 		</div>
 		<?php
@@ -296,57 +419,19 @@ class ArtWoo_Order_One_Click {
 
 
 	/**
-	 * Display Contact Form 7 required notice.
+	 * Show a notice to inform the user that the plugin has been deactivated.
 	 *
-	 * Display a notice required plugin is not active.
-	 *
-	 * @since 1.8.0
+	 * @since 1.9.0
 	 */
-	public function cf7_active_notice() {
+	public function show_deactivate_notice() {
 
-		?>
-		<div class="notice notice-error">
+		$message = sprintf(
+			/* translators: 1: Name author plugin */
+			__( '%s plugin has been deactivated.', 'art-woocommerce-order-one-click' ),
+			esc_attr( AWOOC_PLUGIN_NAME )
+		);
 
-			<p>
-				<?php
-
-				printf(
-					'Для работы плагина %s требуется плагин <strong><a href="//wordpress.org/plugins/contact-form-7/" target="_blank">%s</a>.</strong>',
-					esc_attr( AWOOC_PLUGIN_NAME ),
-					'Contact Form 7'
-				);
-				?>
-			</p>
-		</div>
-		<?php
-
-	}
-
-	/**
-	 * Display WooCommerce required notice.
-	 *
-	 * Display a notice required plugin is not active.
-	 *
-	 * @since 1.8.0
-	 */
-	public function wc_active_notice() {
-
-		?>
-		<div class="notice notice-error">
-			<p>
-				<?php
-
-				printf(
-					'Для работы плагина %s требуется плагин <strong><a href="//wordpress.org/plugins/woocommerce/" target="_blank">%s %s</a></strong> или выше.',
-					esc_attr( AWOOC_PLUGIN_NAME ),
-					'WooCommerce',
-					'3.0'
-				);
-				?>
-			</p>
-		</div>
-		<?php
-
+		$this->admin_notice( $message, 'notice notice-info is-dismissible' );
 	}
 
 
