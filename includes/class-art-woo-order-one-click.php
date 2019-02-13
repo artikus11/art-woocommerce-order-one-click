@@ -15,25 +15,33 @@ class ArtWoo_Order_One_Click {
 	 *
 	 * @since  1.8.0
 	 * @access private
-	 * @var object $instance The instance of AWOOS_Custom_Sale.
+	 * @var object $instance The instance of ArtWoo_Order_One_Click.
 	 */
 	private static $instance;
 
 	/**
-	 * Plugin version.
+	 * Added AWOOC_Front_End.
 	 *
-	 * @since 1.8.0
-	 * @var string $version Plugin version number.
+	 * @since 1.9.0
+	 * @var object AWOOC_Front_End $front_end
 	 */
-	public $version;
+	private $front_end;
 
 	/**
-	 * Plugin name.
+	 * Added AWOOC_Ajax.
 	 *
-	 * @since 1.8.0
-	 * @var string $name Plugin name.
+	 * @since 1.9.0
+	 * @var object AWOOC_Ajax $ajax
 	 */
-	public $name;
+	private $ajax;
+
+	/**
+	 * Added AWOOC_Orders.
+	 *
+	 * @since 1.9.0
+	 * @var object AWOOC_Orders $front_end
+	 */
+	private $orders;
 
 	/**
 	 * @since 1.9.0
@@ -91,6 +99,7 @@ class ArtWoo_Order_One_Click {
 
 		add_action( 'admin_init', array( $this, 'check_requirements' ) );
 		add_action( 'admin_init', array( $this, 'check_php_version' ) );
+		add_filter( 'plugin_action_links_' . AWOOC_PLUGIN_FILE, array( $this, 'add_plugin_action_links' ), 10, 1 );
 
 		foreach ( $this->required_plugins as $required_plugin ) {
 			if ( ! class_exists( $required_plugin['class'] ) ) {
@@ -126,14 +135,6 @@ class ArtWoo_Order_One_Click {
 		 */
 		include __DIR__ . '/awooc-template-functions.php';
 
-
-
-		global $pagenow;
-		if ( 'plugins.php' === $pagenow ) {
-			// Plugins page
-			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_plugin_action_links' ), 10, 2 );
-		}
-
 	}
 
 
@@ -160,16 +161,16 @@ class ArtWoo_Order_One_Click {
 	 */
 	public function load_textdomain() {
 
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'art-decoration-shortcode' );
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'art-woocommerce-order-one-click' );
 
 		load_textdomain(
 			'art-woocommerce-order-one-click',
-			WP_LANG_DIR . '/art-decoration-shortcode/art-decoration-shortcode-' . $locale . '.mo'
+			WP_LANG_DIR . '/art-woocommerce-order-one-click/art-woocommerce-order-one-click-' . $locale . '.mo'
 		);
 		load_plugin_textdomain(
 			'art-woocommerce-order-one-click',
 			false,
-			basename( dirname( __FILE__ ) ) . '/languages'
+			AWOOC_PLUGIN_URI . '/languages'
 		);
 
 	}
@@ -200,7 +201,7 @@ class ArtWoo_Order_One_Click {
 	 *
 	 * Include the WooCommerce settings class.
 	 *
-	 * @param WC_Admin_Settings $settings
+	 * @param array $settings
 	 *
 	 * @return array
 	 *
@@ -223,23 +224,17 @@ class ArtWoo_Order_One_Click {
 	 *
 	 * @since 1.8.0
 	 *
-	 * @param    array  $links List of existing links.
-	 * @param    string $file  Name of the current plugin being looped.
+	 * @param array $links List of existing links.
 	 *
-	 * @return    array            List of modified links.
+	 * @return array List of modified links.
 	 */
-	public function add_plugin_action_links( $links, $file ) {
+	public function add_plugin_action_links( $links ) {
 
-		if ( plugin_basename( __FILE__ ) === $file ) {
-			$links = array_merge(
-				array(
-					'<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=awooc_settings' ) ) . '">Настройки</a>',
-				),
-				$links
-			);
-		}
+		$plugin_links = array(
+			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=awooc_settings' ) ) . '">' . esc_html__( 'Settings', 'art-woocommerce-order-one-click' ) . '</a>',
+		);
 
-		return $links;
+		return array_merge( $links, $plugin_links );
 
 	}
 
@@ -268,11 +263,17 @@ class ArtWoo_Order_One_Click {
 	}
 
 
+	/**
+	 * Check plugin PHP version. If not met, show message and deactivate plugin.
+	 *
+	 * @since 1.9.0
+	 */
 	public function check_php_version() {
 
 		if ( version_compare( PHP_VERSION, '5.6', 'lt' ) ) {
-			deactivate_plugins( plugin_basename( __FILE__ ) );
-			//$this->php_version_notice();
+
+			deactivate_plugins( plugin_basename( AWOOC_PLUGIN_FILE ) );
+
 			add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
 			add_action( 'admin_notices', array( $this, 'show_deactivate_notice' ) );
 		}
@@ -288,8 +289,9 @@ class ArtWoo_Order_One_Click {
 
 		if ( false === $this->requirements() ) {
 			add_action( 'admin_notices', array( $this, 'show_plugin_not_found_notice' ) );
-			if ( is_plugin_active( plugin_basename( AWOOC_PLUGIN_URI ) ) ) {
-				deactivate_plugins( plugin_basename( AWOOC_PLUGIN_URI ) );
+			if ( is_plugin_active( AWOOC_PLUGIN_FILE ) ) {
+
+				deactivate_plugins( AWOOC_PLUGIN_FILE );
 				// @codingStandardsIgnoreStart
 				if ( isset( $_GET['activate'] ) ) {
 					unset( $_GET['activate'] );
@@ -301,6 +303,13 @@ class ArtWoo_Order_One_Click {
 	}
 
 
+	/**
+	 * Check if plugin requirements.
+	 *
+	 * @since 1.9.0
+	 *
+	 * @return bool
+	 */
 	private function requirements() {
 
 		$all_active = true;
@@ -317,6 +326,11 @@ class ArtWoo_Order_One_Click {
 	}
 
 
+	/**
+	 * Show required plugins not found message.
+	 *
+	 * @since 1.9.0
+	 */
 	public function show_plugin_not_found_notice() {
 
 		$message = sprintf(
@@ -333,7 +347,7 @@ class ArtWoo_Order_One_Click {
 
 				$href .= $required_plugin['slug'] . '&TB_iframe=true&width=640&height=500';
 
-				$message_parts[] = '<strong><em><a href="' . $href . '" class="thickbox">' . $required_plugin['name'] . ' version ' . $required_plugin['version'] . '</a> or higher</em></strong>';
+				$message_parts[] = '<strong><em><a href="' . $href . '" class="thickbox">' . $required_plugin['name'] . __( ' version ', 'art-woocommerce-order-one-click' ) . $required_plugin['version'] . '</a>' . __( ' or higher', 'art-woocommerce-order-one-click' ) . '</em></strong>';
 			}
 		}
 
@@ -359,10 +373,11 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Show admin notice.
 	 *
+	 * @since 1.9.0
+	 *
 	 * @param string $message Message to show.
 	 * @param string $class   Message class: notice notice-success notice-error notice-warning notice-info is-dismissible
 	 *
-	 * @since 1.9.0
 	 */
 	private function admin_notice( $message, $class ) {
 
@@ -392,7 +407,7 @@ class ArtWoo_Order_One_Click {
 			esc_attr( AWOOC_PLUGIN_NAME )
 		);
 
-		$this->admin_notice( $message, 'notice notice-info is-dismissible' );
+		$this->admin_notice( $message, 'notice notice-warning is-dismissible' );
 	}
 
 

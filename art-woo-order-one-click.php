@@ -1,5 +1,4 @@
-<?php // @codingStandardsIgnoreLine
-
+<?php
 /**
  * Plugin Name: Art WooCommerce Order One Click
  * Plugin URI: wpruse.ru/my-plugins/order-one-click/
@@ -50,6 +49,8 @@ $awooc_data = get_file_data(
 
 define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
+define( 'AWOOC_PLUGIN_FILE', plugin_basename( __FILE__ ) );
+
 define( 'AWOOC_PLUGIN_VER', $awooc_data['ver'] );
 define( 'AWOOC_PLUGIN_NAME', $awooc_data['name'] );
 
