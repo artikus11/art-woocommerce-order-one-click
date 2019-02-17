@@ -12,7 +12,7 @@
 }
 
 .awooc-custom-order-wrap {
-    padding: 1.125rem;
+    padding: 1.825rem 1.125rem 1.125rem 1.125rem;
 }
 
 .awooc-form-custom-order-img {
@@ -48,7 +48,7 @@
     text-align: left;
 }
 
-.awwoc-close {
+.awooc-close {
     font-size: 35px;
     position: absolute;
     top: 0;
@@ -56,12 +56,20 @@
     line-height: 30px;
     width: 30px;
     height: 30px;
+    z-index: 100;
     background: rgba(0, 0, 0, 0.00);
+    -o-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
 }
 
-.awwoc-close:hover {
+.awooc-close:hover {
+    -webkit-transform: scale(.9);
+    -ms-transform: scale(.9);
+    transform: scale(.9);
     cursor: pointer;
 }
+
 
 .awooc-attr-wrapper span {
     padding-left: 1rem;

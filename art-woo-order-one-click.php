@@ -47,7 +47,7 @@ $awooc_data = get_file_data(
 	)
 );
 
-define( 'AWOOC_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'AWOOC_PLUGIN_DIR', __DIR__ );
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'AWOOC_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 

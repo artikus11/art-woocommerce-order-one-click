@@ -79,13 +79,53 @@ class ArtWoo_Order_One_Click {
 			),
 		);
 
-		$this->init();
+		$this->load_dependencies();
 
-		$this->hooks();
+		$this->init();
 
 		$this->load_textdomain();
 	}
 
+
+	/**
+	 *
+	 * Load plugin parts.
+	 *
+	 *
+	 * @since 1.9.0
+	 */
+	private function load_dependencies() {
+
+		/**
+		 * Template functions
+		 */
+		require_once AWOOC_PLUGIN_DIR . '/includes/awooc-template-functions.php';
+
+		/**
+		 * Hiding field to CF7
+		 */
+		require_once AWOOC_PLUGIN_DIR . '/includes/admin/added-cf7-field.php';
+
+		/**
+		 * Front end
+		 */
+		require_once AWOOC_PLUGIN_DIR . '/includes/class-awooc-frontend.php';
+		$this->front_end = new AWOOC_Front_End();
+
+		/**
+		 * Ajax
+		 */
+		require_once AWOOC_PLUGIN_DIR . '/includes/class-awooc-ajax.php';
+		$this->ajax = new AWOOC_Ajax();
+
+		/**
+		 * Создание заказов
+		 */
+		require_once AWOOC_PLUGIN_DIR . '/includes/class-awooc-orders.php';
+		$this->orders = new AWOOC_Orders();
+
+
+	}
 
 	/**
 	 * Init.
@@ -100,57 +140,14 @@ class ArtWoo_Order_One_Click {
 		add_action( 'admin_init', array( $this, 'check_requirements' ) );
 		add_action( 'admin_init', array( $this, 'check_php_version' ) );
 		add_filter( 'plugin_action_links_' . AWOOC_PLUGIN_FILE, array( $this, 'add_plugin_action_links' ), 10, 1 );
+		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_awooc_admin_settings' ), 15 );
 
 		foreach ( $this->required_plugins as $required_plugin ) {
 			if ( ! class_exists( $required_plugin['class'] ) ) {
 				return;
 			}
 		}
-
-		/**
-		 * Hiding field to CF7
-		 */
-		include __DIR__ . '/admin/added-cf7-field.php';
-
-		/**
-		 * Front end
-		 */
-		include __DIR__ . '/class-awooc-frontend.php';
-		$this->front_end = new AWOOC_Front_End();
-
-		/**
-		 * Ajax
-		 */
-		include __DIR__ . '/class-awooc-ajax.php';
-		$this->ajax = new AWOOC_Ajax();
-
-		/**
-		 * Создание заказов
-		 */
-		include __DIR__ . '/class-awooc-orders.php';
-		$this->orders = new AWOOC_Orders();
-
-		/**
-		 * Template functions
-		 */
-		include __DIR__ . '/awooc-template-functions.php';
-
 	}
-
-
-	/**
-	 * Hooks.
-	 *
-	 * Initialize all class hooks.
-	 *
-	 * @since 1.8.0
-	 */
-	public function hooks() {
-
-		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_awooc_admin_settings' ), 15 );
-
-	}
-
 
 	/**
 	 * Textdomain.
@@ -170,7 +167,7 @@ class ArtWoo_Order_One_Click {
 		load_plugin_textdomain(
 			'art-woocommerce-order-one-click',
 			false,
-			AWOOC_PLUGIN_URI . '/languages'
+			AWOOC_PLUGIN_DIR . '/languages'
 		);
 
 	}
@@ -234,7 +231,7 @@ class ArtWoo_Order_One_Click {
 			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=awooc_settings' ) ) . '">' . esc_html__( 'Settings', 'art-woocommerce-order-one-click' ) . '</a>',
 		);
 
-		return array_merge( $links, $plugin_links );
+		return array_merge( $plugin_links, $links );
 
 	}
 
@@ -414,16 +411,36 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Deleting settings when uninstalling the plugin
 	 *
-	 * @since 1.8.0
+	 * @since 1.9.0
 	 */
-	public function uninstall() {
+	public static function uninstall() {
 
-		delete_option( 'woocommerce_awooc_padding' );
-		delete_option( 'woocommerce_awooc_margin' );
-		delete_option( 'woocommerce_awooc_mode_catalog' );
-		delete_option( 'woocommerce_awooc_select_form' );
-		delete_option( 'woocommerce_awooc_title_button' );
-		delete_option( 'woocommerce_awooc_select_item' );
-		delete_option( 'woocommerce_awooc_created_order' );
+		if ( ! current_user_can( 'activate_plugins' ) ) {
+			return;
+		}
+
+		check_admin_referer( 'bulk-plugins' );
+
+		if ( AWOOC_PLUGIN_FILE !== WP_UNINSTALL_PLUGIN ) {
+			return;
+		}
+
+		$options = apply_filters(
+			'awooc_uninstall_options',
+			array(
+				'woocommerce_awooc_padding',
+				'woocommerce_awooc_margin',
+				'woocommerce_awooc_mode_catalog',
+				'woocommerce_awooc_select_form',
+				'woocommerce_awooc_title_button',
+				'woocommerce_awooc_select_item',
+				'woocommerce_awooc_created_order',
+			)
+		);
+
+		foreach ( $options as $option ) {
+			delete_option( $option );
+		}
+
 	}
 }

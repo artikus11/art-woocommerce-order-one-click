@@ -26,6 +26,10 @@ class AWOOC_Ajax {
 
 		$this->elements = get_option( 'woocommerce_awooc_select_item' );
 
+		if ( ! $this->elements ) {
+			$this->elements = awooc_default_elements_item();
+		}
+
 		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', array( $this, 'ajax_scripts_callback' ) );
 		add_action( 'wp_ajax_awooc_ajax_product_form', array( $this, 'ajax_scripts_callback' ) );
 	}
@@ -180,7 +184,7 @@ class AWOOC_Ajax {
 				'awooc_popup_sku_html',
 				sprintf(
 					'<span class="awooc-sku-wrapper">%s</span><span class="awooc-sku">%s</span>',
-					apply_filters( 'awooc_popup_sku_label', 'Артикул: ' ),
+					apply_filters( 'awooc_popup_sku_label', __( 'SKU: ', 'art-woocommerce-order-one-click' ) ),
 					$sku
 				),
 				$product
@@ -244,7 +248,7 @@ class AWOOC_Ajax {
 
 		$attr_json = sprintf(
 			'%s</br><span class="awooc-attr-wrapper"><span>%s</span></span>',
-			apply_filters( 'awooc_popup_attr_label', esc_html( 'Атрибуты: ' ) ),
+			apply_filters( 'awooc_popup_attr_label', esc_html__( 'Attributes: ', 'art-woocommerce-order-one-click' ) ),
 			$product_var_attr
 		);
 
@@ -272,7 +276,7 @@ class AWOOC_Ajax {
 			'awooc_popup_price_html',
 			sprintf(
 				'%s<span class="awooc-price-wrapper">%s</span></div>',
-				apply_filters( 'awooc_popup_price_label', 'Цена: ' ),
+				apply_filters( 'awooc_popup_price_label', __( 'Price: ', 'art-woocommerce-order-one-click' ) ),
 				wc_price( $product->get_price() )
 			),
 			$product

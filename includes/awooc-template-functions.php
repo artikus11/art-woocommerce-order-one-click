@@ -114,7 +114,7 @@ if ( ! function_exists( 'awooc_popup_window_image' ) ) {
 	 */
 	function awooc_popup_window_image( $elements ) {
 
-		if ( in_array( 'image', $elements, true ) ) {
+		if (in_array( 'image', $elements, true ) ) {
 
 			echo '<div class="awooc-form-custom-order-img"></div>';
 
@@ -134,7 +134,7 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 	 */
 	function awooc_popup_window_price( $elements, $product ) {
 
-		if ( in_array( 'price', $elements, true ) ) {
+		if (in_array( 'price', $elements, true ) ) {
 
 			echo wp_kses_post(
 				apply_filters(
@@ -160,7 +160,7 @@ if ( ! function_exists( 'awooc_popup_window_sku' ) ) {
 	 */
 	function awooc_popup_window_sku( $elements ) {
 
-		if ( in_array( 'sku', $elements, true ) ) {
+		if (in_array( 'sku', $elements, true ) ) {
 
 			echo '<div class="awooc-form-custom-order-sku"></div>';
 
@@ -181,7 +181,7 @@ if ( ! function_exists( 'awooc_popup_window_attr' ) ) {
 	 */
 	function awooc_popup_window_attr( $elements ) {
 
-		if ( in_array( 'attr', $elements, true ) ) {
+		if (in_array( 'attr', $elements, true ) ) {
 			echo '<div class="awooc-form-custom-order-attr"></div>';
 		}
 
@@ -209,5 +209,25 @@ if ( ! function_exists( 'awooc_popup_window_select_form' ) ) {
 			do_action( 'awooc_popup_after_form' );
 		}
 
+	}
+}
+if ( ! function_exists( 'awooc_default_elements_item' ) ) {
+	/**
+	 * Output form in a popup window
+	 *
+	 * @since 1.9.0
+	 *
+	 */
+	function awooc_default_elements_item() {
+
+		$default = array(
+			'title',
+			'image',
+			'price',
+			'sku',
+			'attr',
+		);
+
+		return $default;
 	}
 }

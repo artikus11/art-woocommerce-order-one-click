@@ -19,6 +19,7 @@ class AWOOC_Front_End {
 		 * Base hooks
 		 */
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script_style' ), 100 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_script_style' ) );
 		add_action( 'wp_footer', array( $this, 'popup_window_html' ), 30 );
 
 		/**
@@ -39,12 +40,29 @@ class AWOOC_Front_End {
 		wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles.css', array(), AWOOC_PLUGIN_VER );
 		wp_localize_script(
 			'awooc-scripts',
-			'awooc_scrpts',
+			'awooc_scripts',
 			array(
-				'url'   => admin_url( 'admin-ajax.php' ),
-				'nonce' => wp_create_nonce( 'awooc-nonce' ),
+				'url'                => admin_url( 'admin-ajax.php' ),
+				'nonce'              => wp_create_nonce( 'awooc-nonce' ),
+				'product_qty'        => __( 'Quantity: ', 'art-woocommerce-order-one-click' ),
+				'product_title'      => __( 'Title: ', 'art-woocommerce-order-one-click' ),
+				'product_price'      => __( 'Price: ', 'art-woocommerce-order-one-click' ),
+				'product_sku'        => __( 'SKU: ', 'art-woocommerce-order-one-click' ),
+				'product_attr'       => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
+				'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
 			)
 		);
+	}
+
+	/**
+	 * Подключаем нужные стили и скрипты
+	 *
+	 * @since  1.9.0
+	 */
+	public function admin_enqueue_script_style() {
+
+		wp_enqueue_style( 'admin-awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/admin-style.css', array(), AWOOC_PLUGIN_VER );
+
 	}
 
 
@@ -55,12 +73,12 @@ class AWOOC_Front_End {
 	 */
 	public function popup_window_html() {
 
-		$elements = get_option( 'woocommerce_awooc_select_item' );
+/*		$elements = get_option( 'woocommerce_awooc_select_item' );
 		if ( ! is_array( $elements ) ) {
 			return;
-		}
+		}*/
 
-		include AWOOC_PLUGIN_DIR . 'includes/view/html-popup-window.php';
+		include AWOOC_PLUGIN_DIR . '/includes/view/html-popup-window.php';
 	}
 
 

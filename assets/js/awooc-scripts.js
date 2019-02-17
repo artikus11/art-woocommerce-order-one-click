@@ -43,12 +43,12 @@ jQuery(document).ready(function ($) {
         data = {
             id: prodictSelectedId,
             action: 'awooc_ajax_product_form',
-            nonce: awooc_scrpts.nonce
+            nonce: awooc_scripts.nonce
         };
 
         // Отправляем запрос
         $.ajax({
-            url: awooc_scrpts.url,
+            url: awooc_scripts.url,
             data: data,
             type: 'POST',
             dataType: 'json',
@@ -62,9 +62,9 @@ jQuery(document).ready(function ($) {
                 $('#awooc-custom-order-button').find('.cssload-container').remove();
 
                 // Проверяем данные после аяксаи формируем нужные строки
-                outTitle = data.title == false ? '' : '\n' + 'Название: ' + data.title;
+                outTitle = data.title == false ? '' : '\n' + awooc_scripts.product_title + data.title;
                 outAttr = data.attr == false ? '' : '\n' + data.attr;
-                outPrice = data.price == false ? '' : '\n' + 'Цена: ' + data.pricenumber;
+                outPrice = data.price == false ? '' : '\n' + awooc_scripts.product_price + data.pricenumber;
                 outSku = data.sku == false ? '' : '\n' + data.sku;
                 outLink = data.link == false ? '' : '\n' + data.link;
 
@@ -75,7 +75,7 @@ jQuery(document).ready(function ($) {
                     $('.awooc-form-custom-order-img').html(data.image);
                     $('.awooc-form-custom-order-price').html(data.price);
                     $('.awooc-form-custom-order-price').after(data.qty);
-                    $('.awooc-form-custom-order-qty').text('Количество: ' + productQty);
+                    $('.awooc-form-custom-order-qty').text(awooc_scripts.product_qty + productQty);
                     $('.awooc-form-custom-order-sku').html(data.sku);
                     $('.awooc-form-custom-order-attr').html(outAttr);
 
@@ -86,14 +86,14 @@ jQuery(document).ready(function ($) {
                     initContactForm();
 
                     // Собираем данные для письма
-                    var hiddenData = '\n' + 'Данные о выбраном товаре' +
+                    var hiddenData = '\n' + awooc_scripts.product_data_title +
                         '\n' + '-------' +
                         outTitle +
                         '\n' + 'ID: ' + prodictSelectedId +
                         outPrice +
                         outAttr.replace(/(<([^>]+)>)/ig, "") +
                         outSku.replace(/(<([^>]+)>)/ig, "") +
-                        '\n' + 'Количество: ' + productQty +
+                        '\n' + awooc_scripts.product_qty + productQty +
                         outLink;
 
                 } else {
@@ -104,14 +104,14 @@ jQuery(document).ready(function ($) {
                     initContactForm();
 
                     // Собираем данные для письма
-                    var hiddenData = '\n' + 'Данные о выбраном товаре' +
+                    var hiddenData = '\n' + awooc_scripts.product_data_title +
                         '\n' + '-------' +
                         outTitle +
                         '\n' + 'ID: ' + prodictSelectedId +
                         outPrice +
                         outAttr +
                         outSku +
-                        '\n' + 'Количество: ' + productQty +
+                        '\n' + awooc_scripts.product_qty + productQty +
                         outLink;
                 }
 
@@ -160,7 +160,7 @@ jQuery(document).ready(function ($) {
                         maxWidth: '600px',
                         maxHeight: '600px',
                         top: '10%',
-                        left: '32%',
+                        left: 'calc(50% - 300px)',
                         border: 'none',
                         cursor: 'default',
                         overflowY: 'auto',
@@ -184,7 +184,7 @@ jQuery(document).ready(function ($) {
                         // Если окно меньше 480px то меняем стили окна
                         if (window.innerWidth < 480) {
                             $('.blockUI.blockPage').css({
-                                'left': '2%',
+                                'left': '2%;',
                                 'top': '5%',
                                 'height': '95%',
                                 'overflow-y': 'scroll',
@@ -227,7 +227,7 @@ jQuery(document).ready(function ($) {
 
     });
 
-    $('.awwoc-close').attr('title', 'Ткнуть для закрытия').click(function () {
+    $('.awooc-close').attr('title', 'Ткнуть для закрытия').click(function () {
         // При клику на оверлей закрываем окно
         $.unblockUI();
         // При клику на оверлей добавлем нужный класс

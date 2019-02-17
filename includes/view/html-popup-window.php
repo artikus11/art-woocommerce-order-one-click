@@ -8,10 +8,14 @@ global $product;
 
 $elements = get_option( 'woocommerce_awooc_select_item' );
 
+if ( ! $elements ) {
+	$elements = awooc_default_elements_item();
+}
+
 ?>
 
 <div id="awooc-form-custom-order" class="awooc-form-custom-order awooc-hide">
-	<div class="awwoc-close">&#215;</div>
+	<div class="awooc-close">&#215;</div>
 	<div class="awooc-custom-order-wrap">
 		<?php
 

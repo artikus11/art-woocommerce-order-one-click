@@ -34,9 +34,11 @@ class AWOOC_Orders {
 
 		if ( 'yes' === get_option( 'woocommerce_awooc_created_order' ) ) {
 
-			$user_passed_text  = sanitize_text_field( $_POST['awooc-text'] );
-			$user_passed_email = sanitize_text_field( $_POST['awooc-email'] );
-			$user_passed_tel   = sanitize_text_field( $_POST['awooc-tel'] );
+			// @codingStandardsIgnoreStart
+			$user_passed_text  = $_POST['awooc-text'] ? sanitize_text_field( $_POST['awooc-text'] ) : '';
+			$user_passed_email = $_POST['awooc-email'] ? sanitize_text_field( $_POST['awooc-email'] ) : '';
+			$user_passed_tel   = $_POST['awooc-tel'] ? sanitize_text_field( $_POST['awooc-tel'] ) : '';
+			// @codingStandardsIgnoreEnd
 
 			$product_id  = sanitize_text_field( $_POST['awooc_product_id'] );
 			$product_qty = sanitize_text_field( $_POST['awooc_product_qty'] );
@@ -56,7 +58,7 @@ class AWOOC_Orders {
 			$order->add_product( wc_get_product( $product_id ), $product_qty );
 			$order->set_address( $address, 'billing' );
 			$order->calculate_totals();
-			$order->update_status( 'pending', 'Заказ в один клик: ', true );
+			$order->update_status( 'pending', __( 'One click order', 'art-woocommerce-order-one-click' ), true );
 
 			do_action( 'awooc_after_mail_send', $product_id, $order->get_id() );
 		}

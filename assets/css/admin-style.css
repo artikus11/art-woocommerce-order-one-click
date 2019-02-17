@@ -1,0 +1,23 @@
+.awooc-notice, .awooc-error, .awooc-updated {
+    background: #fff;
+    border-left: 4px solid #fff;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.1);
+    margin: 5px 0 2px;
+    padding: 1px 12px;
+}
+
+.notice-success {
+    border-left-color: #018574
+}
+
+.notice-warning {
+    border-left-color: #FF8C00
+}
+
+.notice-error {
+    border-left-color: #E81123
+}
+
+.notice-info {
+    border-left-color: #0078D7
+}

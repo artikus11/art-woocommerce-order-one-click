@@ -72,32 +72,56 @@ function awooc_fields_add_tag_generator_address() {
 	$tag_generator->add( 'awooc_hidden', __( 'AWOOC hide field', 'art-woocommerce-order-one-click' ), 'awooc_tag_generator_hidden' );
 }
 
-function awooc_tag_generator_hidden( $contact_form, $args = '' ) {
+function awooc_tag_generator_hidden( $args = '' ) {
 
 	$args = wp_parse_args( $args, array() );
 	$type = 'awooc_hidden';
+
+	/* translators: %s: window description */
+	$description = __( 'Generate a special hidden multi-line field. See %s.', 'art-woocommerce-order-one-click' );
+
+	$desc_link = wpcf7_link(
+		__( 'https://wpruse.ru/my-plugins/order-one-click/', 'art-woocommerce-order-one-click' ),
+		__( 'the description for details', 'art-woocommerce-order-one-click' )
+	);
+
 	?>
-	<div class="control-box">
+	<div class="control-box" style="width: 100%;overflow: initial;">
 		<fieldset>
-			<legend><?php esc_html_e( 'Генерация поля, в которое будет записываться нужные значения для отправки по почте', 'art-woo-order-one-click' ); ?></legend>
+			<legend>
+				<?php echo sprintf( esc_html( $description ), wp_kses_post( $desc_link ) ); ?>
+			</legend>
 
 			<table class="form-table">
 				<tbody>
 				<tr>
 					<th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?></label>
 					</th>
-					<td><input type="text" name="name" class="tg-name oneline" id="<?php echo esc_attr( $args['content'] . '-name' ); ?>"/></td>
+					<td><input
+							type="text"
+							name="name"
+							class="tg-name oneline"
+							id="<?php echo esc_attr( $args['content'] . '-name' ); ?>"/></td>
 				</tr>
 				</tbody>
 			</table>
 		</fieldset>
 	</div>
 
-	<div class="insert-box">
-		<input type="text" name="<?php echo esc_attr( $type ); ?>" class="tag code" readonly="readonly" onfocus="this.select()"/>
+	<div class="insert-box" style="overflow: initial;width: 99.5%;height: auto;">
+		<input
+			style=" width: 370px;"
+			type="text"
+			name="<?php echo esc_attr( $type ); ?>"
+			class="tag code"
+			readonly="readonly"
+			onfocus="this.select()"/>
 
 		<div class="submitbox">
-			<input type="button" class="button button-primary insert-tag" value="<?php echo esc_attr( __( 'Insert Tag', 'contact-form-7' ) ); ?>"/>
+			<input
+				type="button"
+				class="button button-primary insert-tag"
+				value="<?php echo esc_attr( __( 'Insert Tag', 'contact-form-7' ) ); ?>"/>
 		</div>
 
 		<br class="clear"/>
@@ -115,7 +139,11 @@ function awooc_tag_generator_hidden( $contact_form, $args = '' ) {
 					'<strong><span class="mail-tag"></span></strong>'
 				);
 				?>
-				<input type="text" class="mail-tag code hidden" readonly="readonly" id="<?php echo esc_attr( $args['content'] . '-mailtag' ); ?>"/></label></p>
+				<input
+					type="text"
+					class="mail-tag code hidden"
+					readonly="readonly"
+					id="<?php echo esc_attr( $args['content'] . '-mailtag' ); ?>"/></label></p>
 	</div>
 	<?php
 }
