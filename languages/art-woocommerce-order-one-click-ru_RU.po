@@ -1,0 +1,291 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: art-woocommerce-order-one-click\n"
+"POT-Creation-Date: 2019-02-21 15:49+0400\n"
+"PO-Revision-Date: 2019-02-21 15:50+0400\n"
+"Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;esc_html__;_e;_ex:1,2c;esc_attr__;esc_attr_e;"
+"esc_attr_x:1,2c;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../includes/admin/added-cf7-field.php:72
+msgid "AWOOC hide field"
+msgstr "AWOOC скрытое поле"
+
+#: ../includes/admin/added-cf7-field.php:80
+#, php-format
+msgid "Generate a special hidden multi-line field. See %s."
+msgstr "Генерируется специальное многострочное поле. Смотрите %s."
+
+#: ../includes/admin/added-cf7-field.php:83
+msgid "https://wpruse.ru/my-plugins/order-one-click/"
+msgstr "https://wpruse.ru/my-plugins/order-one-click/"
+
+#: ../includes/admin/added-cf7-field.php:84
+msgid "the description for details"
+msgstr "подробное описание"
+
+#: ../includes/admin/added-cf7-field.php:97
+msgid "Name"
+msgstr "Имя"
+
+#: ../includes/admin/added-cf7-field.php:123
+msgid "Insert Tag"
+msgstr "Вставить"
+
+#: ../includes/admin/added-cf7-field.php:135
+#, php-format
+msgid ""
+"To use the value input through this field in a mail field, you need to "
+"insert the corresponding mail-tag (%s) into the field on the Mail tab."
+msgstr ""
+"Чтобы использовать значение, введенное через это поле в письме, необходимо "
+"вставить соответствующий почтовый тег (% s) в поле на вкладке Почта."
+
+#: ../includes/admin/class-awooc-admin-settings.php:23
+#: ../includes/class-awooc-orders.php:61
+msgid "One click order"
+msgstr "Заказ в один клик"
+
+#: ../includes/admin/class-awooc-admin-settings.php:37
+msgid "General"
+msgstr "Основные"
+
+#: ../includes/admin/class-awooc-admin-settings.php:65
+msgid "General settings"
+msgstr "Основные настройки"
+
+#: ../includes/admin/class-awooc-admin-settings.php:71
+msgid "Operating mode"
+msgstr "Режим работы"
+
+#: ../includes/admin/class-awooc-admin-settings.php:72
+msgid "Select the mode of operation and display the Buy button"
+msgstr "Выберите режим работы и показа кнопки Купить"
+
+#: ../includes/admin/class-awooc-admin-settings.php:83
+msgid "No price"
+msgstr "Отсутствие цены"
+
+#: ../includes/admin/class-awooc-admin-settings.php:85
+msgid ""
+"For product variations. When enabled, the filter of hiding the \"Add to cart"
+"\" button will be disabled, attributes will always be displayed, even if "
+"there is no price. It is recommended to use if there are variations without "
+"prices. In this case, the \"Add to cart\" button will be hidden and only the "
+"\"Order in one click\" button will be visible."
+msgstr ""
+"Для вариативных товаров. При включении будет отключен фильтр скрытия кнопки "
+"\"Добавить в корзину\", атрибуты будут отображаться всегда, даже если нет "
+"цены. Рекомендуется использовать, если есть вариации без цен. В таком случае "
+"кнопка \"Добавить в корзину\" будет скрыта и видна только кнопка  \"Заказать "
+"в один клик\""
+
+#: ../includes/admin/class-awooc-admin-settings.php:98
+msgid "Select form"
+msgstr "Выберите форму"
+
+#: ../includes/admin/class-awooc-admin-settings.php:99
+msgid "Choose the desired form"
+msgstr "Выберите нужную форму"
+
+#: ../includes/admin/class-awooc-admin-settings.php:103
+msgid "-- Select --"
+msgstr "-- Выбрать --"
+
+#: ../includes/admin/class-awooc-admin-settings.php:110
+msgid "Button Label"
+msgstr "Надпись на кнопке"
+
+#: ../includes/admin/class-awooc-admin-settings.php:111
+msgid "Specify the desired label on the button"
+msgstr "Укажите нужную надпись на кнопке"
+
+#: ../includes/admin/class-awooc-admin-settings.php:114
+msgid "Buy in one click"
+msgstr "Купить в один клик"
+
+#: ../includes/admin/class-awooc-admin-settings.php:125
+msgid "Popup window"
+msgstr "Всплывающее окно"
+
+#: ../includes/admin/class-awooc-admin-settings.php:132
+msgid "Turn off window elements"
+msgstr "Выключить элементы окна"
+
+#: ../includes/admin/class-awooc-admin-settings.php:133
+msgid "Remove items that are NOT needed."
+msgstr "Уберите элементы, которые НЕ нужны"
+
+#: ../includes/admin/class-awooc-admin-settings.php:149
+msgid "Orders"
+msgstr "Заказы"
+
+#: ../includes/admin/class-awooc-admin-settings.php:163
+msgid "Create orders"
+msgstr "Создание заказов"
+
+#: ../includes/admin/class-awooc-admin-settings.php:165
+msgid ""
+"When this setting is enabled, orders will be created in the WooCommerce "
+"panel with the status \"Pending payment\""
+msgstr ""
+"При включении этой настройки будут создаваться заказы в панели WooСommerce "
+"со статусом \"В ожидании оплаты\""
+
+#: ../includes/admin/class-awooc-admin-settings.php:243
+msgid "Do not show Buy button: catalog mode"
+msgstr "Не показывать кнопку Купить: режим каталога"
+
+#: ../includes/admin/class-awooc-admin-settings.php:244
+msgid "Show Buy button: normal mode"
+msgstr "Показывать кнопку Купить: штатный режим"
+
+#: ../includes/admin/class-awooc-admin-settings.php:245
+msgid "The Order button appears only when inventory management: pre-order mode"
+msgstr ""
+"Кнопка Заказать появиться только при управлении запасами: режим предзаказа"
+
+#: ../includes/admin/class-awooc-admin-settings.php:260
+msgid "Off"
+msgstr "Выключить"
+
+#: ../includes/admin/class-awooc-admin-settings.php:261
+msgid "On"
+msgstr "Включить"
+
+#: ../includes/admin/class-awooc-admin-settings.php:271
+msgid "Title"
+msgstr "Наименование"
+
+#: ../includes/admin/class-awooc-admin-settings.php:272
+msgid "Image"
+msgstr "Изображение"
+
+#: ../includes/admin/class-awooc-admin-settings.php:273
+msgid "Price"
+msgstr "Цена"
+
+#: ../includes/admin/class-awooc-admin-settings.php:274
+msgid "SKU"
+msgstr "Артикул"
+
+#: ../includes/admin/class-awooc-admin-settings.php:275
+msgid "Attributes"
+msgstr "Атрибуты"
+
+#: ../includes/admin/class-awooc-admin-settings.php:291
+msgid ""
+"<strong>Warning! The functionality is under development. </strong> For the "
+"correct operation of this functionality. Requires proper creation of fields "
+"in the Contact Form 7 form with the names:"
+msgstr ""
+"<strong>Внимание! Функционал находится в стадии разработки.</strong> Для "
+"корректной работы требуется правильное создание полей в форме Contact Form 7 "
+"c именами:"
+
+#: ../includes/admin/class-awooc-admin-settings.php:292
+msgid "field Name - <code>awooc-text</code>;"
+msgstr "поле Имя  - <code>awooc-text</code>;"
+
+#: ../includes/admin/class-awooc-admin-settings.php:293
+msgid "field Email - <code>awooc-email</code>;"
+msgstr "поле Емайл - <code>awooc-email</code>;"
+
+#: ../includes/admin/class-awooc-admin-settings.php:294
+msgid "field Phone - <code>awooc-tel</code>;"
+msgstr "поле Телефон - <code>awooc-tel</code>;"
+
+#: ../includes/class-art-woo-order-one-click.php:228
+msgid "Settings"
+msgstr "Настройки"
+
+#: ../includes/class-art-woo-order-one-click.php:248
+#, php-format
+msgid ""
+"%1$s requires PHP version 5.6 or higher. Your current PHP version is %2$s. "
+"Please upgrade PHP version to run this plugin."
+msgstr ""
+"%1$s требует PHP версии 5.6 или выше. Ваша текущая версия PHP%2$s. "
+"Пожалуйста, обновите версию PHP, чтобы запустить этот плагин."
+
+#: ../includes/class-art-woo-order-one-click.php:332
+#, php-format
+msgid "The %s requires installed and activated plugins: "
+msgstr ""
+"Для работы плагина %s требуются установенные и активированные плагины: "
+
+#: ../includes/class-art-woo-order-one-click.php:344
+msgid " version "
+msgstr " версия "
+
+#: ../includes/class-art-woo-order-one-click.php:344
+msgid " or higher"
+msgstr " или выше"
+
+#: ../includes/class-art-woo-order-one-click.php:352
+msgid " and "
+msgstr " и "
+
+#: ../includes/class-art-woo-order-one-click.php:400
+#, php-format
+msgid "%s plugin has been deactivated."
+msgstr "Плагин %s деактивирован."
+
+#: ../includes/class-awooc-ajax.php:46
+msgid "Oops ... Data sent from unknown address"
+msgstr "Упс... Данные отправлены с неизвестного адреса"
+
+#: ../includes/class-awooc-ajax.php:52
+msgid ""
+"Something is wrong with sending data. Unable to get product ID. Disable the "
+"output in the popup window or contact the developers of the plugin"
+msgstr ""
+"Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
+"вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
+
+#: ../includes/class-awooc-ajax.php:203
+#: ../includes/class-awooc-frontend.php:52
+msgid "SKU: "
+msgstr "Артикул: "
+
+#: ../includes/class-awooc-ajax.php:267
+#: ../includes/class-awooc-frontend.php:53
+msgid "Attributes: "
+msgstr "Атрибуты: "
+
+#: ../includes/class-awooc-ajax.php:295
+#: ../includes/class-awooc-frontend.php:51
+msgid "Price: "
+msgstr "Цена: "
+
+#: ../includes/class-awooc-frontend.php:49
+msgid "Quantity: "
+msgstr "Количество: "
+
+#: ../includes/class-awooc-frontend.php:50
+msgid "Title: "
+msgstr "Наименование: "
+
+#: ../includes/class-awooc-frontend.php:54
+msgid "Information about the selected product"
+msgstr "Информация о выбранном товаре"
+
+#: ../includes/class-awooc-frontend.php:55
+msgid "Click to close"
+msgstr "Ткнуть для закрытия"
+
+#: ../includes/class-awooc-frontend.php:281
+msgid "Read more"
+msgstr "Читать..."

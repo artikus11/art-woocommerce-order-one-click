@@ -4,66 +4,77 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 1.8.10
+Stable tag: 2.0.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
-Плагин под WooCommerce.  Включает кнопку Купить(Заказать) в один клик. Скрываются кнопки купить, появляется кнопка Заказать.
-Для правильной работы требуются WooCommerce и Contact Form 7.
-В плагине предусмотре три режима работы:
+Plugin for WooCommerce. Includes Buy/Order button in one click. The buy buttons are hidden, the Order button appears.
+WooCommerce and Contact Form 7 are required for proper operation.
 
-= Режим каталога =
-В данном режиме на страницах рубрик и самого магазина отключены кнопки «Добавить в корзину». На странице товара кнопка «Добавить в корзину» скрыта через стили и появляется кнопка «Заказать»
-= Режим кнопки Купить =
+The plugin provides three modes of operation:
 
-В данном режиме кнопка «Добавить в корзину» работает в штатном режиме, то есть товары можно добавить в корзину и одновреммено заказать в один клик
+= Catalog mode =
+On the pages of the categories and the store itself, the Add to Cart buttons are disabled. On the product page, the "Add to cart" button is hidden and the "Order" button appears.
 
-= Режим работы с запасами =
-Специальный режим работы. Кнопка Заказать появиться автоматически, если:
+= Buy button mode =
+The button "Add to cart" works in the normal mode, that is, goods can be added to the cart and at the same time ordered in one click
 
-* не указана цена товара
-* статус запасов "В невыполненом заказе"
-* статус запасов "Нет в наличии", включено управление запасами на уровне товара и разрешены предзаказы
+= Mode of operation with stocks =
+Special mode of operation. The Order button will appear automatically if:
 
-В остальных случаях кнопка Заказать не появиться в этом режиме
+* Price not available
+* stock status "In Unfulfilled Order"
+* stock status "Out of stock", inventory management is enabled at item level and preorders allowed
 
-В плагине реализован функционал создания заказов при отправке письма. Но для корректной работы требуется правильна настройка форм в плагине Contact Form 7.
+In other cases, the Order button does not appear in this mode.
 
-[Подробно читайте в статье](https://wpruse.ru/my-plugins/order-one-click/)
-[Следить на GitHub](https://github.com/artikus11/art-woo-order-one-click)
-[Чат поддержки в Телеграмм](https://t.me/awooc)
+The plugin has implemented the function of creating orders when sending a letter. But to work correctly, you need to correctly configure the forms in the Contact Form 7 plugin.
 
-= Обязательные плагины =
+[Read more in the article](https://wpruse.ru/my-plugins/order-one-click/)
+[Follow on GitHub](https://github.com/artikus11/art-woo-order-one-click)
+[Telegram Support Chat](https://t.me/awooc)
+
+= Required Plugins =
 * [Contact Form 7](https://wordpress.org/plugins/contact-form-7/)
 * [WooCommerce](https://wordpress.org/plugins/woocommerce/)
 
-= Рекомендуемые темы =
+= Recommended themes =
 * [Storefront](https://wordpress.org/themes/storefront/)
 * [OceanWP](https://wordpress.org/themes/oceanwp/)
 * [Astra](https://wordpress.org/themes/astra/)
 * [Mesmerize](https://wordpress.org/themes/mesmerize/)
 * [GeneratePress](https://wordpress.org/themes/generatepress/)
 
-И любая другая тема корректно созданная для работы с WooCommerce
+And any other theme correctly created to work with WooCommerce
 
-= Внимание! =
-**Плагин протестирован на наиболее поплярных темах, но слишком многое зависит от самой темы и как ее создавали разработчики. Возможно на каких-то темах, какой-то функционал может не работать. Ообенно это касается премиум-тем и использования билдеров**
+= Attention! =
+**The plugin is tested on all recommended themes, but too much depends on the theme itself and how the developers created it. Perhaps on some topics, some functionality may not work. This is especially true for premium themes and the use of builders**
+
+При возникновении проблем, пишите в [чат поддержки](https://t.me/awooc)
+
+= Great thanks =
+* Dmitriy Campusboy - [For patience and support](https://github.com/campusboy87)
+* KAGG Design - [For code review and useful tips](https://github.com/kagg-design)
+* Mikhail Kobzarev - [For useful tips and WordPress Digest](https://github.com/mihdan)
+* Jeroen Sormani - [For code examples](https://github.com/JeroenSormani)[
+* Telegram chat "WordPress & WooCommerce" and all participants - [For lively participation in the development of the plugin](https://t.me/c_wordpress)
+* Site wp-kama.ru - [For the best documentation in Russian by WordPress](https://wp-kama.ru/)
 
 = Bundled translations: =
 * Russian
+* English
 
 = Donate link: =
 <a href="https://www.paypal.me/artabr" target="_blank">PayPal</a>
 <a href="https://wpruse.ru/r/donat/" target="_blank">YandexMoney</a>
 
-= Thanks =
-* Dmitriy Campusboy - [For patience and support](https://github.com/campusboy87)
-* KAGG Design - [For code review and useful tips](https://github.com/kagg-design)
-* Jeroen Sormani - [For code examples](https://github.com/JeroenSormani)[
-* Telegram chat "WordPress & WooCommerce" and all participants - [For lively participation in the development of the plugin](https://t.me/c_wordpress)
-* Site wp-kama.ru - [For excellent documentation on WordPress and WooCommerce](https://wp-kama.ru/)
+= Demo video =
+
+Only Russian language
+
+https://www.youtube.com/watch?v=Ej9g-FkyfQ8&lc=
 
 == Installation ==
 
@@ -86,8 +97,21 @@ e.g.
 
 == Changelog ==
 
+= 2.0.0 =
+* Добавлено - локализация, теперь можно переводить на разные языки
+* Добавлено - проверка на наличие/отсутсвие ID товара при открытие окна
+* Добавлено - появление кнопки заказать, если в вариативных товарах нет цены
+* Исправлено - ошибка работы окна на простых товарах
+* Исправлено - предупреждения и ошибки
+* Исправлено - форма вставки поля в CF7
+* Исправлено - ошибка вывода кнопки Купить если нет цены на простых товарах
+* Исправлено - работа кнопки в Быстром просмотре
+* Изменено - проведена проверка и рефакторинг кода
+* Изменено - изменена система проверки на обязательные плагины
+* Удалено - фильтр `awooc_html_add_to_cart`
+
 = 1.8.10 =
-* Исправлено - скрытие окна на всехх страницах сайта
+* Исправлено - скрытие окна на всех страницах сайта
 * Исправлено - очистка данных при выводе окна
 * Изменено - обновление readme
 

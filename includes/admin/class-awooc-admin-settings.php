@@ -75,11 +75,22 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'class'    => 'wc-enhanced-select',
 					'default'  => 'dont_show_add_to_card',
 					'type'     => 'select',
-					'options'  => array(
-						'dont_show_add_to_card' => __( 'Do not show Buy button: catalog mode', 'art-woocommerce-order-one-click' ),
-						'show_add_to_card'      => __( 'Show Buy button: normal mode', 'art-woocommerce-order-one-click' ),
-						'in_stock_add_to_card'  => __( 'The Order button appears only when inventory management: pre-order mode', 'art-woocommerce-order-one-click' ),
+					'options'  => $this->select_operating_mode(),
+					'desc_tip' => true,
+				),
+
+				array(
+					'title'    => __( 'No price', 'art-woocommerce-order-one-click' ),
+					'desc'     => __(
+						'For product variations. When enabled, the filter of hiding the "Add to cart" button will be disabled, attributes will always be displayed, even if there is no price. It is recommended to use if there are variations without prices. In this case, the "Add to cart" button will be hidden and only the "Order in one click" button will be visible.',
+						'art-woocommerce-order-one-click'
 					),
+					'id'       => 'woocommerce_awooc_no_price',
+					'css'      => 'min-width:350px;',
+					'class'    => 'wc-enhanced-select',
+					'default'  => 'off',
+					'type'     => 'select',
+					'options'  => $this->select_on_off(),
 					'desc_tip' => true,
 				),
 
@@ -100,7 +111,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'desc'     => __( 'Specify the desired label on the button', 'art-woocommerce-order-one-click' ),
 					'id'       => 'woocommerce_awooc_title_button',
 					'css'      => 'min-width:350px;',
-					'default'  => __( 'Buy in one click', 'art-woocommerce-order-one-click' ),
+					'default'  => esc_html__( 'Buy in one click', 'art-woocommerce-order-one-click' ),
 					'type'     => 'text',
 					'desc_tip' => true,
 				),
@@ -221,6 +232,38 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 	/**
 	 * @return array
+	 *
+	 * @since 2.0.0
+	 */
+	public function select_operating_mode() {
+
+		$options = apply_filters(
+			'awooc_select_operating_mode',
+			array(
+				'dont_show_add_to_card' => __( 'Do not show Buy button: catalog mode', 'art-woocommerce-order-one-click' ),
+				'show_add_to_card'      => __( 'Show Buy button: normal mode', 'art-woocommerce-order-one-click' ),
+				'in_stock_add_to_card'  => __( 'The Order button appears only when inventory management: pre-order mode', 'art-woocommerce-order-one-click' ),
+			)
+		);
+
+		return $options;
+	}
+
+	/**
+	 * @return array
+	 *
+	 * @since 2.0.0
+	 */
+	public function select_on_off() {
+
+		return array(
+			'off' => __( 'Off', 'art-woocommerce-order-one-click' ),
+			'on'  => __( 'On', 'art-woocommerce-order-one-click' ),
+		);
+	}
+
+	/**
+	 * @return array
 	 */
 	public function select_elements_item() {
 
@@ -241,7 +284,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	 *
 	 * @return string
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	public function order_setting_notice() {
 
@@ -259,7 +302,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * @param $value
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	public function text_notice( $value ) {
 

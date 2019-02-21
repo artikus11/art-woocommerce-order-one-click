@@ -37,11 +37,22 @@ class AWOOC_Ajax {
 
 	/**
 	 * Возвратна функция дл загрузки данных во всплывающем окне
+	 *
+	 *
 	 */
 	public function ajax_scripts_callback() {
 
 		if ( ! wp_verify_nonce( $_POST['nonce'], 'awooc-nonce' ) ) {
-			wp_die( 'Упс... Данные отправлены с неизвестного адреса' );
+			wp_die( esc_html__( 'Oops ... Data sent from unknown address', 'art-woocommerce-order-one-click' ) );
+		}
+
+		if ( ! isset( $_POST['id'] ) || empty( $_POST['id'] ) ) {
+			wp_die(
+				esc_html__(
+					'Something is wrong with sending data. Unable to get product ID. Disable the output in the popup window or contact the developers of the plugin',
+					'art-woocommerce-order-one-click'
+				)
+			);
 		}
 
 		$product = wc_get_product( esc_attr( $_POST['id'] ) );
@@ -62,6 +73,11 @@ class AWOOC_Ajax {
 		// проверяем на включенный режим, если включен режим любой кроме шатного, то удаляем количество
 		if ( 'dont_show_add_to_card' === get_option( 'woocommerce_awooc_mode_catalog' ) || 'in_stock_add_to_card' === get_option( 'woocommerce_awooc_mode_catalog' ) ) {
 			unset( $data['qty'] );
+		}
+
+		if ( ! $product->get_price() ) {
+			unset( $data['qty'] );
+			unset( $data['price'] );
 		}
 
 		if ( empty( $this->elements ) || ! isset( $this->elements ) ) {

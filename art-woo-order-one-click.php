@@ -4,15 +4,15 @@
  * Plugin URI: wpruse.ru/my-plugins/order-one-click/
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
- * Description: Плагин для WooCommerce.  Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
- * Version: 1.9.0
+ * Description: Плагин для WooCommerce. Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
+ * Version: 2.0.0
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  *
  * WC requires at least: 3.3.0
- * WC tested up to: 3.5.2
+ * WC tested up to: 3.5.5
  *
  * Copyright Artem Abramovich
  *
@@ -38,12 +38,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
-$awooc_data = get_file_data(
+$plugin_data = get_file_data(
 	__FILE__,
 	array(
-		'ver'         => 'Version',
-		'name'        => 'Plugin Name',
-		'text_domain' => 'Text Domain',
+		'ver'  => 'Version',
+		'name' => 'Plugin Name',
 	)
 );
 
@@ -51,8 +50,8 @@ define( 'AWOOC_PLUGIN_DIR', __DIR__ );
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'AWOOC_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 
-define( 'AWOOC_PLUGIN_VER', $awooc_data['ver'] );
-define( 'AWOOC_PLUGIN_NAME', $awooc_data['name'] );
+define( 'AWOOC_PLUGIN_VER', $plugin_data['ver'] );
+define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 
 require __DIR__ . '/includes/class-art-woo-order-one-click.php';
 

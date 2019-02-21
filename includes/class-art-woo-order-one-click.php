@@ -22,7 +22,7 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Added AWOOC_Front_End.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 * @var object AWOOC_Front_End $front_end
 	 */
 	private $front_end;
@@ -30,7 +30,7 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Added AWOOC_Ajax.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 * @var object AWOOC_Ajax $ajax
 	 */
 	private $ajax;
@@ -38,13 +38,13 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Added AWOOC_Orders.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 * @var object AWOOC_Orders $front_end
 	 */
 	private $orders;
 
 	/**
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 * @var array Required plugins.
 	 */
 	protected $required_plugins = array();
@@ -92,39 +92,42 @@ class ArtWoo_Order_One_Click {
 	 * Load plugin parts.
 	 *
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	private function load_dependencies() {
 
 		/**
-		 * Template functions
+		 * Helpers
 		 */
-		require_once AWOOC_PLUGIN_DIR . '/includes/awooc-template-functions.php';
+		require AWOOC_PLUGIN_DIR . '/includes/helpers.php';
 
 		/**
 		 * Hiding field to CF7
 		 */
-		require_once AWOOC_PLUGIN_DIR . '/includes/admin/added-cf7-field.php';
+		require AWOOC_PLUGIN_DIR . '/includes/admin/added-cf7-field.php';
 
 		/**
 		 * Front end
 		 */
-		require_once AWOOC_PLUGIN_DIR . '/includes/class-awooc-frontend.php';
+		require AWOOC_PLUGIN_DIR . '/includes/class-awooc-frontend.php';
 		$this->front_end = new AWOOC_Front_End();
 
 		/**
 		 * Ajax
 		 */
-		require_once AWOOC_PLUGIN_DIR . '/includes/class-awooc-ajax.php';
+		require AWOOC_PLUGIN_DIR . '/includes/class-awooc-ajax.php';
 		$this->ajax = new AWOOC_Ajax();
 
 		/**
 		 * Создание заказов
 		 */
-		require_once AWOOC_PLUGIN_DIR . '/includes/class-awooc-orders.php';
+		require AWOOC_PLUGIN_DIR . '/includes/class-awooc-orders.php';
 		$this->orders = new AWOOC_Orders();
 
-
+		/**
+		 * Template functions
+		 */
+		require AWOOC_PLUGIN_DIR . '/includes/awooc-template-functions.php';
 	}
 
 	/**
@@ -154,20 +157,14 @@ class ArtWoo_Order_One_Click {
 	 *
 	 * Load the textdomain based on WP language.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	public function load_textdomain() {
 
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'art-woocommerce-order-one-click' );
-
-		load_textdomain(
-			'art-woocommerce-order-one-click',
-			WP_LANG_DIR . '/art-woocommerce-order-one-click/art-woocommerce-order-one-click-' . $locale . '.mo'
-		);
 		load_plugin_textdomain(
 			'art-woocommerce-order-one-click',
 			false,
-			AWOOC_PLUGIN_DIR . '/languages'
+			dirname( AWOOC_PLUGIN_FILE ) . '/languages/'
 		);
 
 	}
@@ -263,7 +260,7 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Check plugin PHP version. If not met, show message and deactivate plugin.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	public function check_php_version() {
 
@@ -280,7 +277,7 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Check plugin requirements. If not met, show message and deactivate plugin.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	public function check_requirements() {
 
@@ -303,7 +300,7 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Check if plugin requirements.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 *
 	 * @return bool
 	 */
@@ -326,7 +323,7 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Show required plugins not found message.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	public function show_plugin_not_found_notice() {
 
@@ -352,7 +349,7 @@ class ArtWoo_Order_One_Click {
 		foreach ( $message_parts as $key => $message_part ) {
 			if ( 0 !== $key ) {
 				if ( ( ( $count - 1 ) === $key ) ) {
-					$message .= ' and ';
+					$message .= __( ' and ', 'art-woocommerce-order-one-click' );
 				} else {
 					$message .= ', ';
 				}
@@ -370,7 +367,7 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Show admin notice.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 *
 	 * @param string $message Message to show.
 	 * @param string $class   Message class: notice notice-success notice-error notice-warning notice-info is-dismissible
@@ -394,7 +391,7 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Show a notice to inform the user that the plugin has been deactivated.
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	public function show_deactivate_notice() {
 
@@ -411,17 +408,11 @@ class ArtWoo_Order_One_Click {
 	/**
 	 * Deleting settings when uninstalling the plugin
 	 *
-	 * @since 1.9.0
+	 * @since 2.0.0
 	 */
 	public static function uninstall() {
 
 		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
-
-		check_admin_referer( 'bulk-plugins' );
-
-		if ( AWOOC_PLUGIN_FILE !== WP_UNINSTALL_PLUGIN ) {
 			return;
 		}
 

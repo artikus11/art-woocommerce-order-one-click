@@ -1,23 +1,25 @@
 jQuery(document).ready(function ($) {
 
     $(document).on('hide_variation', function (event) {
-        $('#awooc-custom-order-button').addClass( 'disabled wc-variation-selection-needed' );
+        $('.awooc-custom-order.button').addClass('disabled wc-variation-selection-needed');
     });
 
     $(document).on('show_variation', function (event) {
-        $('#awooc-custom-order-button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
+        $('.awooc-custom-order.button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
     });
-
-    $(document).on('click', '#awooc-custom-order-button', function (event) {
+    //$('.awooc-custom-order.button').on('click',function (event)
+    // $(document).on('click', '.awooc-custom-order.button', function (event)
+    $(document).on('click', '.awooc-custom-order.button', function (event) {
+        console.log('yes', event);
         event.preventDefault;
         //debugger;
-        if ( $( this ).is('.disabled') ) {
+        if ($(this).is('.disabled')) {
             event.preventDefault();
 
-            if ( $( this ).is('.wc-variation-is-unavailable') ) {
-                window.alert( wc_add_to_cart_variation_params.i18n_unavailable_text );
-            } else if ( $( this ).is('.wc-variation-selection-needed') ) {
-                window.alert( wc_add_to_cart_variation_params.i18n_make_a_selection_text );
+            if ($(this).is('.wc-variation-is-unavailable')) {
+                window.alert(wc_add_to_cart_variation_params.i18n_unavailable_text);
+            } else if ($(this).is('.wc-variation-selection-needed')) {
+                window.alert(wc_add_to_cart_variation_params.i18n_make_a_selection_text);
             }
             return false;
         }
@@ -54,12 +56,14 @@ jQuery(document).ready(function ($) {
             dataType: 'json',
             beforeSend: function (xhr, data) {
                 // Вызываем прелоадер
-                $('#awooc-custom-order-button').prepend('<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>');
+                $('.awooc-custom-order.button').fadeIn(200).prepend('<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>');
             },
             success: function (data) {
 
                 // Отключаем прелоадер
-                $('#awooc-custom-order-button').find('.cssload-container').remove();
+                $('.awooc-custom-order.button').find('.cssload-container').remove();
+
+                $('.awooc-close').attr('title', awooc_scripts.title_close);
 
                 // Проверяем данные после аяксаи формируем нужные строки
                 outTitle = data.title == false ? '' : '\n' + awooc_scripts.product_title + data.title;
@@ -87,7 +91,7 @@ jQuery(document).ready(function ($) {
 
                     // Собираем данные для письма
                     var hiddenData = '\n' + awooc_scripts.product_data_title +
-                        '\n' + '-------' +
+                        '\n' + '&mdash;&mdash;&mdash;' +
                         outTitle +
                         '\n' + 'ID: ' + prodictSelectedId +
                         outPrice +
@@ -227,7 +231,9 @@ jQuery(document).ready(function ($) {
 
     });
 
-    $('.awooc-close').attr('title', 'Ткнуть для закрытия').click(function () {
+
+    $(document).on('click', '.awooc-close', function () {
+
         // При клику на оверлей закрываем окно
         $.unblockUI();
         // При клику на оверлей добавлем нужный класс
@@ -254,11 +260,11 @@ jQuery(document).ready(function ($) {
     }, false);
 
     function initContactForm() {
-        $( 'div.wpcf7 > form' ).each( function() {
-            var $form = $( this );
-            wpcf7.initForm( $form );
-            if ( wpcf7.cached ) {
-                wpcf7.refill( $form );
+        $('div.wpcf7 > form').each(function () {
+            var $form = $(this);
+            wpcf7.initForm($form);
+            if (wpcf7.cached) {
+                wpcf7.refill($form);
             }
         });
     }

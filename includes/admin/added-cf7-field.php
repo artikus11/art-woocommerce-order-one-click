@@ -72,9 +72,8 @@ function awooc_fields_add_tag_generator_address() {
 	$tag_generator->add( 'awooc_hidden', __( 'AWOOC hide field', 'art-woocommerce-order-one-click' ), 'awooc_tag_generator_hidden' );
 }
 
-function awooc_tag_generator_hidden( $args = '' ) {
+function awooc_tag_generator_hidden() {
 
-	$args = wp_parse_args( $args, array() );
 	$type = 'awooc_hidden';
 
 	/* translators: %s: window description */
@@ -95,13 +94,13 @@ function awooc_tag_generator_hidden( $args = '' ) {
 			<table class="form-table">
 				<tbody>
 				<tr>
-					<th scope="row"><label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?></label>
+					<th scope="row"><label for="tag-generator-panel-awooc_hidden-name"><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?></label>
 					</th>
 					<td><input
 							type="text"
 							name="name"
 							class="tg-name oneline"
-							id="<?php echo esc_attr( $args['content'] . '-name' ); ?>"/></td>
+							id="tag-generator-panel-awooc_hidden-name"/></td>
 				</tr>
 				</tbody>
 			</table>
@@ -127,7 +126,7 @@ function awooc_tag_generator_hidden( $args = '' ) {
 		<br class="clear"/>
 
 		<p class="description mail-tag"><label
-				for="<?php echo esc_attr( $args['content'] . '-mailtag' ); ?>">
+				for="tag-generator-panel-mailtag">
 				<?php
 
 				echo sprintf(
@@ -143,7 +142,7 @@ function awooc_tag_generator_hidden( $args = '' ) {
 					type="text"
 					class="mail-tag code hidden"
 					readonly="readonly"
-					id="<?php echo esc_attr( $args['content'] . '-mailtag' ); ?>"/></label></p>
+					id="tag-generator-panel-mailtag"/></label></p>
 	</div>
 	<?php
 }
