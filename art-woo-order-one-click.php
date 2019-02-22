@@ -4,7 +4,7 @@
  * Plugin URI: wpruse.ru/my-plugins/order-one-click/
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
- * Description: Плагин для WooCommerce. Включает режим каталога. Скрываются кнопки купить, появляется кнопка Заказать. Для правильной работы требуются WooCommerce и Contact Form 7
+ * Description: Plugin for WooCommerce. Includes Buy/Order button in one click. The buy buttons are hidden, the Order button appears.
  * Version: 2.0.0
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/

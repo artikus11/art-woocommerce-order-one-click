@@ -55,12 +55,12 @@ And any other theme correctly created to work with WooCommerce
 При возникновении проблем, пишите в [чат поддержки](https://t.me/awooc)
 
 = Great thanks =
-* Dmitriy Campusboy - [For patience and support](https://github.com/campusboy87)
-* KAGG Design - [For code review and useful tips](https://github.com/kagg-design)
-* Mikhail Kobzarev - [For useful tips and WordPress Digest](https://github.com/mihdan)
-* Jeroen Sormani - [For code examples](https://github.com/JeroenSormani)[
-* Telegram chat "WordPress & WooCommerce" and all participants - [For lively participation in the development of the plugin](https://t.me/c_wordpress)
-* Site wp-kama.ru - [For the best documentation in Russian by WordPress](https://wp-kama.ru/)
+* For patience and support [Dmitriy Campusboy](https://github.com/campusboy87)
+* For code review and useful tips [KAGG Design](https://github.com/kagg-design)
+* For useful tips and WordPress Digest [Mikhail Kobzarev](https://github.com/mihdan)
+* For code examples [Jeroen Sormani](https://github.com/JeroenSormani)
+* For lively participation in the development of the plugin [Telegram chat "WordPress & WooCommerce" and all participants](https://t.me/c_wordpress)
+* For the best documentation in Russian by WordPress [Site wp-kama.ru](https://wp-kama.ru/)
 
 = Bundled translations: =
 * Russian

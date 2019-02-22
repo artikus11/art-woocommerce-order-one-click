@@ -1,25 +1,23 @@
 jQuery(document).ready(function ($) {
 
     $(document).on('hide_variation', function (event) {
-        $('.awooc-custom-order.button').addClass('disabled wc-variation-selection-needed');
+        $('#awooc-custom-order-button').addClass( 'disabled wc-variation-selection-needed' );
     });
 
     $(document).on('show_variation', function (event) {
-        $('.awooc-custom-order.button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
+        $('#awooc-custom-order-button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
     });
-    //$('.awooc-custom-order.button').on('click',function (event)
-    // $(document).on('click', '.awooc-custom-order.button', function (event)
-    $(document).on('click', '.awooc-custom-order.button', function (event) {
-        console.log('yes', event);
+
+    $(document).on('click', '#awooc-custom-order-button', function (event) {
         event.preventDefault;
         //debugger;
-        if ($(this).is('.disabled')) {
+        if ( $( this ).is('.disabled') ) {
             event.preventDefault();
 
-            if ($(this).is('.wc-variation-is-unavailable')) {
-                window.alert(wc_add_to_cart_variation_params.i18n_unavailable_text);
-            } else if ($(this).is('.wc-variation-selection-needed')) {
-                window.alert(wc_add_to_cart_variation_params.i18n_make_a_selection_text);
+            if ( $( this ).is('.wc-variation-is-unavailable') ) {
+                window.alert( wc_add_to_cart_variation_params.i18n_unavailable_text );
+            } else if ( $( this ).is('.wc-variation-selection-needed') ) {
+                window.alert( wc_add_to_cart_variation_params.i18n_make_a_selection_text );
             }
             return false;
         }
@@ -45,30 +43,28 @@ jQuery(document).ready(function ($) {
         data = {
             id: prodictSelectedId,
             action: 'awooc_ajax_product_form',
-            nonce: awooc_scripts.nonce
+            nonce: awooc_scrpts.nonce
         };
 
         // Отправляем запрос
         $.ajax({
-            url: awooc_scripts.url,
+            url: awooc_scrpts.url,
             data: data,
             type: 'POST',
             dataType: 'json',
             beforeSend: function (xhr, data) {
                 // Вызываем прелоадер
-                $('.awooc-custom-order.button').fadeIn(200).prepend('<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>');
+                $('#awooc-custom-order-button').prepend('<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>');
             },
             success: function (data) {
 
                 // Отключаем прелоадер
-                $('.awooc-custom-order.button').find('.cssload-container').remove();
-
-                $('.awooc-close').attr('title', awooc_scripts.title_close);
+                $('#awooc-custom-order-button').find('.cssload-container').remove();
 
                 // Проверяем данные после аяксаи формируем нужные строки
-                outTitle = data.title == false ? '' : '\n' + awooc_scripts.product_title + data.title;
+                outTitle = data.title == false ? '' : '\n' + 'Название: ' + data.title;
                 outAttr = data.attr == false ? '' : '\n' + data.attr;
-                outPrice = data.price == false ? '' : '\n' + awooc_scripts.product_price + data.pricenumber;
+                outPrice = data.price == false ? '' : '\n' + 'Цена: ' + data.pricenumber;
                 outSku = data.sku == false ? '' : '\n' + data.sku;
                 outLink = data.link == false ? '' : '\n' + data.link;
 
@@ -79,7 +75,7 @@ jQuery(document).ready(function ($) {
                     $('.awooc-form-custom-order-img').html(data.image);
                     $('.awooc-form-custom-order-price').html(data.price);
                     $('.awooc-form-custom-order-price').after(data.qty);
-                    $('.awooc-form-custom-order-qty').text(awooc_scripts.product_qty + productQty);
+                    $('.awooc-form-custom-order-qty').text('Количество: ' + productQty);
                     $('.awooc-form-custom-order-sku').html(data.sku);
                     $('.awooc-form-custom-order-attr').html(outAttr);
 
@@ -90,14 +86,14 @@ jQuery(document).ready(function ($) {
                     initContactForm();
 
                     // Собираем данные для письма
-                    var hiddenData = '\n' + awooc_scripts.product_data_title +
-                        '\n' + '&mdash;&mdash;&mdash;' +
+                    var hiddenData = '\n' + 'Данные о выбраном товаре' +
+                        '\n' + '-------' +
                         outTitle +
                         '\n' + 'ID: ' + prodictSelectedId +
                         outPrice +
                         outAttr.replace(/(<([^>]+)>)/ig, "") +
                         outSku.replace(/(<([^>]+)>)/ig, "") +
-                        '\n' + awooc_scripts.product_qty + productQty +
+                        '\n' + 'Количество: ' + productQty +
                         outLink;
 
                 } else {
@@ -108,14 +104,14 @@ jQuery(document).ready(function ($) {
                     initContactForm();
 
                     // Собираем данные для письма
-                    var hiddenData = '\n' + awooc_scripts.product_data_title +
+                    var hiddenData = '\n' + 'Данные о выбраном товаре' +
                         '\n' + '-------' +
                         outTitle +
                         '\n' + 'ID: ' + prodictSelectedId +
                         outPrice +
                         outAttr +
                         outSku +
-                        '\n' + awooc_scripts.product_qty + productQty +
+                        '\n' + 'Количество: ' + productQty +
                         outLink;
                 }
 
@@ -164,7 +160,7 @@ jQuery(document).ready(function ($) {
                         maxWidth: '600px',
                         maxHeight: '600px',
                         top: '10%',
-                        left: 'calc(50% - 300px)',
+                        left: '32%',
                         border: 'none',
                         cursor: 'default',
                         overflowY: 'auto',
@@ -188,7 +184,7 @@ jQuery(document).ready(function ($) {
                         // Если окно меньше 480px то меняем стили окна
                         if (window.innerWidth < 480) {
                             $('.blockUI.blockPage').css({
-                                'left': '2%;',
+                                'left': '2%',
                                 'top': '5%',
                                 'height': '95%',
                                 'overflow-y': 'scroll',
@@ -231,9 +227,7 @@ jQuery(document).ready(function ($) {
 
     });
 
-
-    $(document).on('click', '.awooc-close', function () {
-
+    $('.awwoc-close').attr('title', 'Ткнуть для закрытия').click(function () {
         // При клику на оверлей закрываем окно
         $.unblockUI();
         // При клику на оверлей добавлем нужный класс
@@ -260,11 +254,11 @@ jQuery(document).ready(function ($) {
     }, false);
 
     function initContactForm() {
-        $('div.wpcf7 > form').each(function () {
-            var $form = $(this);
-            wpcf7.initForm($form);
-            if (wpcf7.cached) {
-                wpcf7.refill($form);
+        $( 'div.wpcf7 > form' ).each( function() {
+            var $form = $( this );
+            wpcf7.initForm( $form );
+            if ( wpcf7.cached ) {
+                wpcf7.refill( $form );
             }
         });
     }
