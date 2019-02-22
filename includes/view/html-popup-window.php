@@ -6,11 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 
-$elements = get_option( 'woocommerce_awooc_select_item' );
-
-if ( ! $elements ) {
-	$elements = awooc_default_elements_item();
-}
+$elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocommerce_awooc_select_item' ) : array();
 
 ?>
 
