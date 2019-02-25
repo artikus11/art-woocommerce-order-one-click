@@ -23,36 +23,37 @@ $elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocomm
 		do_action( 'awooc_popup_before_column', $elements, $product );
 
 		?>
-		<div class="awooc-col columns-left">
+		<div class="awooc-col-wrap">
+			<div class="awooc-col columns-left <?php awooc_class_full( $elements ); ?>">
 
-			<?php
+				<?php
 
-			/**
-			 * Hook: awooc_popup_column_left
-			 *
-			 * @hooked awooc_popup_window_image - 10
-			 * @hooked awooc_popup_window_price - 20
-			 * @hooked awooc_popup_window_sku - 30
-			 */
-			do_action( 'awooc_popup_column_left', $elements, $product );
+				/**
+				 * Hook: awooc_popup_column_left
+				 *
+				 * @hooked awooc_popup_window_image - 10
+				 * @hooked awooc_popup_window_price - 20
+				 * @hooked awooc_popup_window_sku - 30
+				 */
+				do_action( 'awooc_popup_column_left', $elements, $product );
 
-			?>
+				?>
 
+			</div>
+			<div class="awooc-col columns-right">
+
+				<?php
+
+				/**
+				 * Hook: awooc_popup_column_right
+				 *
+				 */
+				do_action( 'awooc_popup_column_right', $elements, $product );
+
+				?>
+
+			</div>
 		</div>
-		<div class="awooc-col columns-right">
-
-			<?php
-
-			/**
-			 * Hook: awooc_popup_column_right
-			 *
-			 */
-			do_action( 'awooc_popup_column_right', $elements, $product );
-
-			?>
-
-		</div>
-
 		<?php
 
 		/**

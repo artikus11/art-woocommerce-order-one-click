@@ -23,3 +23,19 @@ function awooc_default_elements_item() {
 	return $default;
 }
 
+/**
+ * Обработка класов окна
+ *
+ * @since 2.1.0
+ *
+ * @param array $elements
+ */
+function awooc_class_full( $elements ) {
+
+	$class_full = '';
+	if ( ! $elements || ( in_array( 'title', $elements, true ) && count( $elements ) <= 1 ) ) {
+		$class_full = 'awooc-col-full';
+	}
+
+	echo esc_html( $class_full );
+}

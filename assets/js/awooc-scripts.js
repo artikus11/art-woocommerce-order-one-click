@@ -189,8 +189,22 @@ jQuery(document).ready(function ($) {
                         if (window.innerWidth < 480) {
                             $('.blockUI.blockPage').css({
                                 'left': '2%',
-                                'top': '5%',
+                                'top': 'calc(30% - 160px)',
+                                'height': 'auto',
+                                'overflow-y': 'scroll',
+                                'width': '95%',
+                            });
+                        }else if (window.innerWidth < 569 || window.innerWidth < 669) {
+                            $('.blockUI.blockPage').css({
+                                'left': '2%',
+                                'top': '2%',
                                 'height': '95%',
+                                'overflow-y': 'scroll',
+                                'width': '95%',
+                            });
+                        } else if (window.innerWidth < 769) {
+                            $('.blockUI.blockPage').css({
+                                'height': 'auto',
                                 'overflow-y': 'scroll',
                                 'width': '95%',
                             });

@@ -12,7 +12,7 @@
 }
 
 .awooc-custom-order-wrap {
-    padding: 1.825rem 1.125rem 1.125rem 1.125rem;
+    padding: 2.125rem;
 }
 
 .awooc-form-custom-order-img {
@@ -36,7 +36,7 @@
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .125);
 }
 
-.awooc-col {
+/*.awooc-col {
     display: inline-block;
     vertical-align: top;
     margin-left: 0;
@@ -46,7 +46,7 @@
 
 .awooc-col.columns-left {
     text-align: left;
-}
+}*/
 
 .awooc-close {
     font-size: 35px;
@@ -154,10 +154,23 @@
         transform: rotate(360deg);
     }
 }
-
-@media (min-width: 768px) {
+.awooc-col-wrap{
+    display: flex;
+    flex-flow: row wrap;
+}
+.awooc-col{
+    flex: 1 100%;
+    padding: 0.875rem 0.875rem;
+}
+.awooc-col.columns-left{
+    text-align: left;
+}
+.awooc-col.awooc-col-full{
+    flex: 1 100%;
+}
+@media (min-width: 568px) {
     .awooc-col {
-        width: 49%;
+        flex: 1 50%;
         padding: 0.875rem 0.875rem;
     }
 }
