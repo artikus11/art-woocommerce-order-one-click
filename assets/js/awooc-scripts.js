@@ -188,7 +188,7 @@ jQuery(document).ready(function ($) {
                         // Если окно меньше 480px то меняем стили окна
                         if (window.innerWidth < 480) {
                             $('.blockUI.blockPage').css({
-                                'left': '2%;',
+                                'left': '2%',
                                 'top': '5%',
                                 'height': '95%',
                                 'overflow-y': 'scroll',

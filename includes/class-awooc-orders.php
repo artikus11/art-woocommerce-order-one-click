@@ -8,12 +8,17 @@
  */
 class AWOOC_Orders {
 
+	public $select_form;
+
+
 	/**
 	 * Constructor.
 	 *
 	 * @since 1.8.0
 	 */
 	public function __construct() {
+
+		$this->select_form = get_option( 'woocommerce_awooc_select_form' );
 
 		/**
 		 * Contact Form 7 hooks
@@ -37,10 +42,8 @@ class AWOOC_Orders {
 			return;
 		}
 
-		$select_form = get_option( 'woocommerce_awooc_select_form' );
-
 		// @codingStandardsIgnoreStart
-		if ( $select_form !== sanitize_text_field( $_POST['_wpcf7'] ) ) {
+		if ( $this->select_form !== sanitize_text_field( $_POST['_wpcf7'] ) ) {
 			return;
 		}
 
