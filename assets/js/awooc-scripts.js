@@ -68,6 +68,7 @@ jQuery(document).ready(function ($) {
                     outAttr: data.attr === false ? '' : '\n' + data.attr,
                     outPrice: data.price === false ? '' : '\n' + awooc_scripts.product_price + data.pricenumber,
                     outSku: data.sku === false ? '' : '\n' + data.sku,
+                    outCat: data.cat === false ? '' : '\n' + data.cat,
                     outLink: data.link === false ? '' : '\n' + data.link,
                     outQty: data.qty === false ? '' : '\n' + awooc_scripts.product_qty + productQty
                 };
@@ -93,7 +94,7 @@ jQuery(document).ready(function ($) {
 
 
                 console.log(hiddenData);
-                //console.log(data);
+                console.log(dataOut);
                 // Записываем данные с скрытое поле для отправки письма
                 $('.awooc-hidden-data').val(hiddenData);
 
@@ -257,17 +258,16 @@ jQuery(document).ready(function ($) {
     }
 
     function hiddenDataToMail(dataOut) {
-        var hiddenData = '\n' + awooc_scripts.product_data_title +
+        return '\n' + awooc_scripts.product_data_title +
             '\n' + '&mdash;&mdash;&mdash;' +
             dataOut.outTitle +
             '\n' + dataOut.outID +
+            dataOut.outCat.replace(/(<([^>]+)>)/ig, "") +
             dataOut.outPrice +
             dataOut.outAttr.replace(/(<([^>]+)>)/ig, "") +
             dataOut.outSku.replace(/(<([^>]+)>)/ig, "") +
             dataOut.outQty +
             dataOut.outLink;
-
-        return hiddenData;
     }
 
 });

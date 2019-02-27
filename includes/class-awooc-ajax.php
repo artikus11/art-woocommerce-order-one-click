@@ -62,6 +62,7 @@ class AWOOC_Ajax {
 			'pricenumber' => $product->get_price(),
 			'qty'         => '',
 			'form'        => $this->select_form(),
+			'cat'         => $this->product_cat( $product ),
 		);
 
 		// проверяем на включенный режим, если включен режим любой кроме шатного, то удаляем количество
@@ -188,6 +189,26 @@ class AWOOC_Ajax {
 				$product
 			)
 		);
+	}
+
+	/**
+	 * Получаем категории товара
+	 *
+	 * @since 2.1.0
+	 *
+	 * @param WC_Product $product
+	 *
+	 * @return string
+	 */
+	public function product_cat( $product ) {
+
+		return wc_get_product_category_list(
+			$this->product_id( $product ),
+			', ',
+			'<span class="posted_in">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'art-woocommerce-order-one-click' ) . ' ',
+			'</span>'
+		);
+
 	}
 
 
