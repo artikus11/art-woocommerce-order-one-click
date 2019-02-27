@@ -18,6 +18,7 @@ function awooc_default_elements_item() {
 		'price',
 		'sku',
 		'attr',
+		'qty',
 	);
 
 	return $default;

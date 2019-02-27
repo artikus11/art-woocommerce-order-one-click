@@ -13,9 +13,10 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @see   awooc_popup_window_sku()
  * @see   awooc_popup_window_sku()
  * @see   awooc_popup_window_attr()
+ * @see   awooc_popup_window_qty()
  *
  * @since 1.8.0
- * @since 1.8.1
+ * @since 2.1.0
  */
 add_action( 'awooc_popup_before_column', 'awooc_popup_window_title', 10, 2 );
 
@@ -23,6 +24,7 @@ add_action( 'awooc_popup_column_left', 'awooc_popup_window_image', 10, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_price', 20, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_sku', 30, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_attr', 40, 2 );
+add_action( 'awooc_popup_column_left', 'awooc_popup_window_qty', 50, 2 );
 
 if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 
@@ -161,6 +163,25 @@ if ( ! function_exists( 'awooc_popup_window_sku' ) ) {
 		if ( in_array( 'sku', $elements, true ) ) {
 
 			echo '<div class="awooc-form-custom-order-sku"></div>';
+
+		}
+
+	}
+}
+
+if ( ! function_exists( 'awooc_popup_window_qty' ) ) {
+	/**
+	 * Output of a product quantity in a popup window
+	 *
+	 * @param $elements
+	 *
+	 * @since 2.1.0
+	 */
+	function awooc_popup_window_qty( $elements ) {
+
+		if ( in_array( 'qty', $elements, true ) ) {
+
+			echo '<div class="awooc-form-custom-order-qty"></div>';
 
 		}
 

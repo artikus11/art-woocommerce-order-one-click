@@ -34,6 +34,8 @@ $elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocomm
 				 * @hooked awooc_popup_window_image - 10
 				 * @hooked awooc_popup_window_price - 20
 				 * @hooked awooc_popup_window_sku - 30
+				 * @hooked awooc_popup_window_attr - 40
+				 * @hooked awooc_popup_window_qty - 50
 				 */
 				do_action( 'awooc_popup_column_left', $elements, $product );
 

@@ -66,7 +66,7 @@ class AWOOC_Ajax {
 			'attr'        => $this->product_attr( $product ),
 			'price'       => $this->product_price( $product ),
 			'pricenumber' => $product->get_price(),
-			'qty'         => '<div class="awooc-form-custom-order-qty"></div>',
+			'qty'         => '',
 			'form'        => $this->select_form(),
 		);
 
