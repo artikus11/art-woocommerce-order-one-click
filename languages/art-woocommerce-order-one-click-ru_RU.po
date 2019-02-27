@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2019-02-21 15:49+0400\n"
-"PO-Revision-Date: 2019-02-21 15:50+0400\n"
+"POT-Creation-Date: 2019-02-27 11:28+0400\n"
+"PO-Revision-Date: 2019-02-27 12:18+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -54,7 +54,7 @@ msgstr ""
 "вставить соответствующий почтовый тег (% s) в поле на вкладке Почта."
 
 #: ../includes/admin/class-awooc-admin-settings.php:23
-#: ../includes/class-awooc-orders.php:61
+#: ../includes/class-awooc-orders.php:73
 msgid "One click order"
 msgstr "Заказ в один клик"
 
@@ -144,48 +144,52 @@ msgstr ""
 "При включении этой настройки будут создаваться заказы в панели WooСommerce "
 "со статусом \"В ожидании оплаты\""
 
-#: ../includes/admin/class-awooc-admin-settings.php:243
+#: ../includes/admin/class-awooc-admin-settings.php:244
 msgid "Do not show Buy button: catalog mode"
 msgstr "Не показывать кнопку Купить: режим каталога"
 
-#: ../includes/admin/class-awooc-admin-settings.php:244
+#: ../includes/admin/class-awooc-admin-settings.php:245
 msgid "Show Buy button: normal mode"
 msgstr "Показывать кнопку Купить: штатный режим"
 
-#: ../includes/admin/class-awooc-admin-settings.php:245
+#: ../includes/admin/class-awooc-admin-settings.php:246
 msgid "The Order button appears only when inventory management: pre-order mode"
 msgstr ""
 "Кнопка Заказать появиться только при управлении запасами: режим предзаказа"
 
-#: ../includes/admin/class-awooc-admin-settings.php:260
+#: ../includes/admin/class-awooc-admin-settings.php:261
 msgid "Off"
 msgstr "Выключить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:261
+#: ../includes/admin/class-awooc-admin-settings.php:262
 msgid "On"
 msgstr "Включить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:271
+#: ../includes/admin/class-awooc-admin-settings.php:272
 msgid "Title"
 msgstr "Наименование"
 
-#: ../includes/admin/class-awooc-admin-settings.php:272
+#: ../includes/admin/class-awooc-admin-settings.php:273
 msgid "Image"
 msgstr "Изображение"
 
-#: ../includes/admin/class-awooc-admin-settings.php:273
+#: ../includes/admin/class-awooc-admin-settings.php:274
 msgid "Price"
 msgstr "Цена"
 
-#: ../includes/admin/class-awooc-admin-settings.php:274
+#: ../includes/admin/class-awooc-admin-settings.php:275
 msgid "SKU"
 msgstr "Артикул"
 
-#: ../includes/admin/class-awooc-admin-settings.php:275
+#: ../includes/admin/class-awooc-admin-settings.php:276
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: ../includes/admin/class-awooc-admin-settings.php:291
+#: ../includes/admin/class-awooc-admin-settings.php:277
+msgid "Quantity"
+msgstr "Количество"
+
+#: ../includes/admin/class-awooc-admin-settings.php:293
 msgid ""
 "<strong>Warning! The functionality is under development. </strong> For the "
 "correct operation of this functionality. Requires proper creation of fields "
@@ -195,15 +199,15 @@ msgstr ""
 "корректной работы требуется правильное создание полей в форме Contact Form 7 "
 "c именами:"
 
-#: ../includes/admin/class-awooc-admin-settings.php:292
+#: ../includes/admin/class-awooc-admin-settings.php:294
 msgid "field Name - <code>awooc-text</code>;"
 msgstr "поле Имя  - <code>awooc-text</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:293
+#: ../includes/admin/class-awooc-admin-settings.php:295
 msgid "field Email - <code>awooc-email</code>;"
 msgstr "поле Емайл - <code>awooc-email</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:294
+#: ../includes/admin/class-awooc-admin-settings.php:296
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
@@ -255,37 +259,37 @@ msgstr ""
 "Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
-#: ../includes/class-awooc-ajax.php:203
-#: ../includes/class-awooc-frontend.php:52
+#: ../includes/class-awooc-ajax.php:191
+#: ../includes/class-awooc-frontend.php:55
 msgid "SKU: "
 msgstr "Артикул: "
 
-#: ../includes/class-awooc-ajax.php:267
-#: ../includes/class-awooc-frontend.php:53
+#: ../includes/class-awooc-ajax.php:251
+#: ../includes/class-awooc-frontend.php:56
 msgid "Attributes: "
 msgstr "Атрибуты: "
 
-#: ../includes/class-awooc-ajax.php:295
-#: ../includes/class-awooc-frontend.php:51
+#: ../includes/class-awooc-ajax.php:279
+#: ../includes/class-awooc-frontend.php:54
 msgid "Price: "
 msgstr "Цена: "
 
-#: ../includes/class-awooc-frontend.php:49
+#: ../includes/class-awooc-frontend.php:52
 msgid "Quantity: "
 msgstr "Количество: "
 
-#: ../includes/class-awooc-frontend.php:50
+#: ../includes/class-awooc-frontend.php:53
 msgid "Title: "
 msgstr "Наименование: "
 
-#: ../includes/class-awooc-frontend.php:54
+#: ../includes/class-awooc-frontend.php:57
 msgid "Information about the selected product"
 msgstr "Информация о выбранном товаре"
 
-#: ../includes/class-awooc-frontend.php:55
+#: ../includes/class-awooc-frontend.php:58
 msgid "Click to close"
 msgstr "Ткнуть для закрытия"
 
-#: ../includes/class-awooc-frontend.php:281
+#: ../includes/class-awooc-frontend.php:285
 msgid "Read more"
 msgstr "Читать..."

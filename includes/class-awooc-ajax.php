@@ -24,12 +24,6 @@ class AWOOC_Ajax {
 	 */
 	public function __construct() {
 
-		$this->elements = get_option( 'woocommerce_awooc_select_item' );
-
-		if ( ! $this->elements ) {
-			$this->elements = awooc_default_elements_item();
-		}
-
 		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', array( $this, 'ajax_scripts_callback' ) );
 		add_action( 'wp_ajax_awooc_ajax_product_form', array( $this, 'ajax_scripts_callback' ) );
 	}

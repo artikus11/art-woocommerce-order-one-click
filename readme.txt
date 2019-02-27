@@ -4,7 +4,7 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -98,9 +98,11 @@ e.g.
 == Changelog ==
 
 = 2.1.0 =
-* Добавлено -
+* Добавлено - опция отключения показа количества в окне
 * Исправлено - создание заказов с любой формы на странице
-* Изменено -
+* Исправлено - поведение окна на мобильных
+* Исправлено - поведение окна при отключении все элементов, форма растягивается на всю ширину
+* Изменено - при отключении всех элементов, все нужные данные отправляются в письмо
 
 
 = 2.0.0 =
