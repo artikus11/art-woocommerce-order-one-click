@@ -76,8 +76,8 @@ class AWOOC_Ajax {
 		}
 
 		if ( ! $product->get_price() ) {
-			unset( $data['qty'] );
-			unset( $data['price'] );
+			$data['qty']   = false;
+			$data['price'] = false;
 		}
 
 		if ( empty( $this->elements ) || ! isset( $this->elements ) ) {
@@ -100,10 +100,6 @@ class AWOOC_Ajax {
 	 * @return bool|string
 	 */
 	public function product_title( $product ) {
-
-		if ( ! in_array( 'title', $this->elements, true ) ) {
-			return false;
-		}
 
 		return $product->get_title();
 	}
@@ -140,10 +136,6 @@ class AWOOC_Ajax {
 	 * @return bool|mixed|string
 	 */
 	public function product_image( $product ) {
-
-		if ( ! in_array( 'image', $this->elements, true ) ) {
-			return false;
-		}
 
 		$image = '';
 
@@ -185,10 +177,6 @@ class AWOOC_Ajax {
 	 */
 	public function product_sku( $product ) {
 
-		if ( ! in_array( 'sku', $this->elements, true ) ) {
-			return false;
-		}
-
 		if ( ! wc_product_sku_enabled() && ( ! $product->get_sku() || ! $product->is_type( 'variable' ) ) ) {
 			return false;
 		}
@@ -220,10 +208,6 @@ class AWOOC_Ajax {
 	 */
 	public function product_attr( $product ) {
 
-		if ( ! in_array( 'attr', $this->elements, true ) ) {
-			return false;
-		}
-
 		if ( $product->is_type( 'simple' ) ) {
 			return false;
 		}
@@ -247,7 +231,7 @@ class AWOOC_Ajax {
 		if ( empty( $attr_name ) && isset( $variations ) ) {
 			foreach ( $variations as $key => $item ) {
 
-				$attr_name[] = wc_attribute_label( $key ) . ': ' . implode( array_intersect( $item, $attributes ) );
+				$attr_name[] = wc_attribute_label( $key ) . ' &mdash; ' . implode( array_intersect( $item, $attributes ) );
 			}
 		}
 
@@ -284,7 +268,7 @@ class AWOOC_Ajax {
 	 */
 	public function product_price( $product ) {
 
-		if ( ! in_array( 'price', $this->elements, true ) ) {
+		if ( ! $product->get_price() ) {
 			return false;
 		}
 

@@ -10,7 +10,7 @@ jQuery(document).ready(function ($) {
     //$('.awooc-custom-order.button').on('click',function (event)
     // $(document).on('click', '.awooc-custom-order.button', function (event)
     $(document).on('click', '.awooc-custom-order.button', function (event) {
-        console.log('yes', event);
+        // console.log('yes', event);
         event.preventDefault;
         //debugger;
         if ($(this).is('.disabled')) {
@@ -28,11 +28,7 @@ jQuery(document).ready(function ($) {
         var productVariantId = $('.variations_form').find('input[name="variation_id"]').val(),
             productId = $(this).attr('data-value-product-id'),
             productQty = $('.quantity').find('input[name="quantity"]').val();
-        var outTitle,
-            outPrice,
-            outLink,
-            outSku,
-            outAttr;
+        var dataOut = {};
 
         // Проверяем ID товара, для вариаций свой, для простых свой
         if (productVariantId != 0 && typeof productVariantId !== 'undefined') {
@@ -65,62 +61,39 @@ jQuery(document).ready(function ($) {
 
                 $('.awooc-close').attr('title', awooc_scripts.title_close);
 
-                // Проверяем данные после аяксаи формируем нужные строки
-                outTitle = data.title == false ? '' : '\n' + awooc_scripts.product_title + data.title;
-                outAttr = data.attr == false ? '' : '\n' + data.attr;
-                outPrice = data.price == false ? '' : '\n' + awooc_scripts.product_price + data.pricenumber;
-                outSku = data.sku == false ? '' : '\n' + data.sku;
-                outLink = data.link == false ? '' : '\n' + data.link;
-
-                // Проверяем что все элементы на месте
-                if (data.elements === 'full') {
-                    // Формируем данные
-                    $('.awooc-form-custom-order-title').text(data.title);
-                    $('.awooc-form-custom-order-img').html(data.image);
-                    $('.awooc-form-custom-order-price').html(data.price);
-                    $('.awooc-form-custom-order-price').after(data.qty);
-                    $('.awooc-form-custom-order-qty').text(awooc_scripts.product_qty + productQty);
-                    $('.awooc-form-custom-order-sku').html(data.sku);
-                    $('.awooc-form-custom-order-attr').html(outAttr);
-
-                    // Загружаем форму
-                    $('.awooc-col.columns-right').html(data.form);
-
-                    // Инициализация формы
-                    initContactForm();
-
-                    // Собираем данные для письма
-                    var hiddenData = '\n' + awooc_scripts.product_data_title +
-                        '\n' + '&mdash;&mdash;&mdash;' +
-                        outTitle +
-                        '\n' + 'ID: ' + prodictSelectedId +
-                        outPrice +
-                        outAttr.replace(/(<([^>]+)>)/ig, "") +
-                        outSku.replace(/(<([^>]+)>)/ig, "") +
-                        '\n' + awooc_scripts.product_qty + productQty +
-                        outLink;
-
-                } else {
-                    // Если нет элементов то просто выводим форму и инициализируем ее
-                    $('.awooc-custom-order-wrap').html(data.form);
-
-                    // Инициализация формы
-                    initContactForm();
-
-                    // Собираем данные для письма
-                    var hiddenData = '\n' + awooc_scripts.product_data_title +
-                        '\n' + '-------' +
-                        outTitle +
-                        '\n' + 'ID: ' + prodictSelectedId +
-                        outPrice +
-                        outAttr +
-                        outSku +
-                        '\n' + awooc_scripts.product_qty + productQty +
-                        outLink;
-                }
+                // Проверяем данные после аякса и формируем нужные строки
+                dataOut = {
+                    outID: 'ID: ' + prodictSelectedId,
+                    outTitle: data.title === false ? '' : '\n' + awooc_scripts.product_title + data.title,
+                    outAttr: data.attr === false ? '' : '\n' + data.attr,
+                    outPrice: data.price === false ? '' : '\n' + awooc_scripts.product_price + data.pricenumber,
+                    outSku: data.sku === false ? '' : '\n' + data.sku,
+                    outLink: data.link === false ? '' : '\n' + data.link,
+                    outQty: data.qty === false ? '' : '\n' + awooc_scripts.product_qty + productQty
+                };
 
 
-                // console.log(hiddenData);
+                // Формируем данные
+                $('.awooc-form-custom-order-title').text(data.title);
+                $('.awooc-form-custom-order-img').html(data.image);
+                $('.awooc-form-custom-order-price').html(data.price);
+                $('.awooc-form-custom-order-price').after(data.qty);
+                $('.awooc-form-custom-order-qty').text(awooc_scripts.product_qty + productQty);
+                $('.awooc-form-custom-order-sku').html(data.sku);
+                $('.awooc-form-custom-order-attr').html(data.attr);
+
+                // Загружаем форму
+                $('.awooc-col.columns-right').html(data.form);
+
+                // Инициализация формы
+                initContactForm();
+
+                // Собираем данные для письма
+                var hiddenData = hiddenDataToMail(dataOut);
+
+
+                console.log(hiddenData);
+                //console.log(data);
                 // Записываем данные с скрытое поле для отправки письма
                 $('.awooc-hidden-data').val(hiddenData);
 
@@ -194,7 +167,7 @@ jQuery(document).ready(function ($) {
                                 'overflow-y': 'scroll',
                                 'width': '95%',
                             });
-                        }else if (window.innerWidth < 569 || window.innerWidth < 669) {
+                        } else if (window.innerWidth < 569 || window.innerWidth < 669) {
                             $('.blockUI.blockPage').css({
                                 'left': '2%',
                                 'top': '2%',
@@ -281,6 +254,20 @@ jQuery(document).ready(function ($) {
                 wpcf7.refill($form);
             }
         });
+    }
+
+    function hiddenDataToMail(dataOut) {
+        var hiddenData = '\n' + awooc_scripts.product_data_title +
+            '\n' + '&mdash;&mdash;&mdash;' +
+            dataOut.outTitle +
+            '\n' + dataOut.outID +
+            dataOut.outPrice +
+            dataOut.outAttr.replace(/(<([^>]+)>)/ig, "") +
+            dataOut.outSku.replace(/(<([^>]+)>)/ig, "") +
+            dataOut.outQty +
+            dataOut.outLink;
+
+        return hiddenData;
     }
 
 });
