@@ -93,8 +93,8 @@ jQuery(document).ready(function ($) {
                 var hiddenData = hiddenDataToMail(dataOut);
 
 
-                console.log(hiddenData);
-                console.log(dataOut);
+                //console.log(hiddenData);
+                //console.log(dataOut);
                 // Записываем данные с скрытое поле для отправки письма
                 $('.awooc-hidden-data').val(hiddenData);
 
