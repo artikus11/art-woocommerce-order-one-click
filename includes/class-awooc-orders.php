@@ -47,9 +47,23 @@ class AWOOC_Orders {
 			return;
 		}
 
-		$user_passed_text  = $_POST['awooc-text'] ? sanitize_text_field( $_POST['awooc-text'] ) : '';
-		$user_passed_email = $_POST['awooc-email'] ? sanitize_text_field( $_POST['awooc-email'] ) : '';
-		$user_passed_tel   = $_POST['awooc-tel'] ? sanitize_text_field( $_POST['awooc-tel'] ) : '';
+		if ( isset( $_POST['awooc-text'] ) && ! empty( $_POST['awooc-text'] ) ) {
+			$user_passed_text = sanitize_text_field( $_POST['awooc-text'] );
+		} else {
+			$user_passed_text = '';
+		}
+
+		if ( isset( $_POST['awooc-email']) && ! empty( $_POST['awooc-email'] ) ) {
+			$user_passed_email = sanitize_text_field( $_POST['awooc-email'] );
+		} else {
+			$user_passed_email = '';
+		}
+
+		if ( isset( $_POST['awooc-tel'] ) && ! empty( $_POST['awooc-tel'] ) ) {
+			$user_passed_tel = sanitize_text_field( $_POST['awooc-tel'] );
+		} else {
+			$user_passed_tel = '';
+		}
 		// @codingStandardsIgnoreEnd
 
 		$product_id  = sanitize_text_field( $_POST['awooc_product_id'] );
