@@ -80,10 +80,6 @@ class AWOOC_Orders {
 
 		$order = wc_create_order();
 
-		/*if ( 'yes' !== get_option( 'woocommerce_awooc_send_email_customer' ) ) {// @codingStandardsIgnoreLine
-			add_filter( 'woocommerce_email_enabled_customer_completed_order', '__return_false' );
-		}*/
-
 		$order->add_product( wc_get_product( $product_id ), $product_qty );
 		$order->set_address( $address, 'billing' );
 		$order->calculate_totals();
