@@ -40,3 +40,20 @@ function awooc_class_full( $elements ) {
 
 	echo esc_html( $class_full );
 }
+
+/**
+ * Вспомогательная функция, для осуществления поддержки плагина
+ *
+ * @since 2.1.1
+ */
+function awooc_html_comments() {
+
+	if ( apply_filters( 'awooc_html_comments', true ) ) {
+		?>
+		<!-- plugin version: <?php echo AWOOC_PLUGIN_VER; ?>; mode: <?php echo get_option( 'woocommerce_awooc_mode_catalog' ); ?>-->
+		<?php
+
+	}
+}
+
+add_action( 'awooc_before_button', 'awooc_html_comments', 10 );
