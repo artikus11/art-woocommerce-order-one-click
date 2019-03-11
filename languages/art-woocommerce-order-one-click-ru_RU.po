@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2019-02-27 11:28+0400\n"
-"PO-Revision-Date: 2019-02-27 12:18+0400\n"
+"POT-Creation-Date: 2019-02-27 22:47+0400\n"
+"PO-Revision-Date: 2019-02-27 22:50+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -15,7 +15,8 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;esc_html__;_e;_ex:1,2c;esc_attr__;esc_attr_e;"
-"esc_attr_x:1,2c;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2\n"
+"esc_attr_x:1,2c;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;"
+"_n:1,2;_nx:1,2,4c\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
@@ -54,7 +55,7 @@ msgstr ""
 "вставить соответствующий почтовый тег (% s) в поле на вкладке Почта."
 
 #: ../includes/admin/class-awooc-admin-settings.php:23
-#: ../includes/class-awooc-orders.php:73
+#: ../includes/class-awooc-orders.php:87
 msgid "One click order"
 msgstr "Заказ в один клик"
 
@@ -247,11 +248,11 @@ msgstr " и "
 msgid "%s plugin has been deactivated."
 msgstr "Плагин %s деактивирован."
 
-#: ../includes/class-awooc-ajax.php:46
+#: ../includes/class-awooc-ajax.php:40
 msgid "Oops ... Data sent from unknown address"
 msgstr "Упс... Данные отправлены с неизвестного адреса"
 
-#: ../includes/class-awooc-ajax.php:52
+#: ../includes/class-awooc-ajax.php:46
 msgid ""
 "Something is wrong with sending data. Unable to get product ID. Disable the "
 "output in the popup window or contact the developers of the plugin"
@@ -259,17 +260,24 @@ msgstr ""
 "Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
-#: ../includes/class-awooc-ajax.php:191
+#: ../includes/class-awooc-ajax.php:186
 #: ../includes/class-awooc-frontend.php:55
 msgid "SKU: "
 msgstr "Артикул: "
 
-#: ../includes/class-awooc-ajax.php:251
+#: ../includes/class-awooc-ajax.php:208
+msgid "Category:"
+msgid_plural "Categories:"
+msgstr[0] "Категория:"
+msgstr[1] "Категории:"
+msgstr[2] "Категории:"
+
+#: ../includes/class-awooc-ajax.php:266
 #: ../includes/class-awooc-frontend.php:56
 msgid "Attributes: "
 msgstr "Атрибуты: "
 
-#: ../includes/class-awooc-ajax.php:279
+#: ../includes/class-awooc-ajax.php:294
 #: ../includes/class-awooc-frontend.php:54
 msgid "Price: "
 msgstr "Цена: "

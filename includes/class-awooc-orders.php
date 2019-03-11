@@ -69,10 +69,13 @@ class AWOOC_Orders {
 		$product_id  = sanitize_text_field( $_POST['awooc_product_id'] );
 		$product_qty = sanitize_text_field( $_POST['awooc_product_qty'] );
 
-		$address = array(
-			'first_name' => $user_passed_text,
-			'email'      => $user_passed_email,
-			'phone'      => $user_passed_tel,
+		$address = apply_filters(
+			'awooc_order_address_arg',
+			array(
+				'first_name' => $user_passed_text,
+				'email'      => $user_passed_email,
+				'phone'      => $user_passed_tel,
+			)
 		);
 
 		$order = wc_create_order();
