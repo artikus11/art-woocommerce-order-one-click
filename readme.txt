@@ -4,7 +4,7 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,10 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.1.1 =
+* Добавлено - фильтр `awooc_order_address_arg` для добавления данных в заказ
+* Исправлено - поведение прелоадера
 
 = 2.1.0 =
 * Добавлено - опция отключения показа количества в окне
