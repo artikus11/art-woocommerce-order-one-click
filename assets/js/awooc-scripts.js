@@ -51,8 +51,9 @@ jQuery(document).ready(function ($) {
             type: 'POST',
             dataType: 'json',
             beforeSend: function (xhr, data) {
+                console.log(event.currentTarget.className);
                 // Вызываем прелоадер
-                $('.awooc-custom-order.button').fadeIn(200).prepend('<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>');
+                $(event.currentTarget).fadeIn(200).prepend('<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>');
             },
             success: function (data) {
 
