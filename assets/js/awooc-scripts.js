@@ -193,7 +193,7 @@ jQuery(document).ready(function ($) {
                         $('.awooc-form-custom-order-img').empty();
                         $('.awooc-form-custom-order-price').empty();
                         //$('.awooc-form-custom-order-price').next().remove();
-                        $('.awooc-form-custom-order-qty').remove();
+                        $('.awooc-form-custom-order-qty').empty();
                         $('.awooc-form-custom-order-sku').empty();
                         $('.awooc-form-custom-order-attr').empty();
                         // При закрытии окна очищаем урл
@@ -208,7 +208,7 @@ jQuery(document).ready(function ($) {
                         $('.awooc-form-custom-order-title').empty();
                         $('.awooc-form-custom-order-img').empty();
                         $('.awooc-form-custom-order-price').empty();
-                        $('.awooc-form-custom-order-qty').remove();
+                        $('.awooc-form-custom-order-qty').empty();
                         $('.awooc-form-custom-order-sku').empty();
                         $('.awooc-form-custom-order-attr').empty();
                         // При закрытии окна очищаем урл
