@@ -18,5 +18,5 @@ deploy:
   file: latest.zip
   on:
     php: 7.0
-    repo: artikus11/art-woo-order-one-click
+    repo: artikus11/art-woocommerce-order-one-click
 after_deploy: "release created"

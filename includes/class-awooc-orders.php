@@ -80,8 +80,11 @@ class AWOOC_Orders {
 
 		$order = wc_create_order();
 
+		do_action( 'awooc_after_created_order', $product_id, $order );
+
 		$order->add_product( wc_get_product( $product_id ), $product_qty );
 		$order->set_address( $address, 'billing' );
+		$order->set_address( $address, 'shipping' );
 		$order->calculate_totals();
 		$order->update_status( 'pending', __( 'One click order', 'art-woocommerce-order-one-click' ), true );
 
