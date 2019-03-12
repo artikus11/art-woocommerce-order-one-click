@@ -34,7 +34,7 @@ class AWOOC_Orders {
 	 * @throws WC_Data_Exception
 	 *
 	 * @since 1.5.0
-	 * @since 1.8.0
+	 * @since 2.1.1
 	 */
 	public function created_order_after_mail_send() {
 
@@ -53,7 +53,7 @@ class AWOOC_Orders {
 			$user_passed_text = '';
 		}
 
-		if ( isset( $_POST['awooc-email']) && ! empty( $_POST['awooc-email'] ) ) {
+		if ( isset( $_POST['awooc-email'] ) && ! empty( $_POST['awooc-email'] ) ) {
 			$user_passed_email = sanitize_text_field( $_POST['awooc-email'] );
 		} else {
 			$user_passed_email = '';
