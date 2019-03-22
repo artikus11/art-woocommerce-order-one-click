@@ -41,7 +41,7 @@ class AWOOC_Front_End {
 		/*
 		 * @todo Кнопка не работает на темах Divi и Phlox
 		 */
-		wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts.js', array( 'jquery' ), AWOOC_PLUGIN_VER, false );
+		wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts.js', array( 'jquery', 'jquery-blockui' ), AWOOC_PLUGIN_VER, false );
 		wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles.css', array(), AWOOC_PLUGIN_VER );
 		wp_localize_script(
 			'awooc-scripts',

@@ -7,8 +7,9 @@
     display: none !important;
 }
 
-#awooc-custom-order-button {
+#awooc-custom-order-button.awooc-custom-order.button.alt {
     position: relative;
+    margin-left: 0.825rem;
 }
 
 .awooc-custom-order-wrap {
@@ -27,7 +28,7 @@
 .awooc-custom-order-wrap .wpcf7-form-control {
     width: 100%;
     margin-bottom: 0.875rem;
-    padding: .6180469716em;
+    padding: .6180469716rem;
     background-color: #f2f2f2;
     color: #43454b;
     outline: 0;
@@ -35,18 +36,6 @@
     box-sizing: border-box;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .125);
 }
-
-/*.awooc-col {
-    display: inline-block;
-    vertical-align: top;
-    margin-left: 0;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.awooc-col.columns-left {
-    text-align: left;
-}*/
 
 .awooc-close {
     font-size: 35px;
@@ -89,9 +78,6 @@
     margin: 0 auto 0 auto;
     display: inline-block;
     vertical-align: middle;
-/*    position: absolute;
-    left: 4px;
-    top: 32%;*/
 }
 
 
@@ -154,23 +140,52 @@
         transform: rotate(360deg);
     }
 }
-.awooc-col-wrap{
+
+.awooc-col-wrap {
+    display: -ms-flexbox;
+    display: -webkit-flex;
     display: flex;
-    flex-flow: row wrap;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
-.awooc-col{
-    flex: 1 100%;
+
+.awooc-col {
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
     padding: 0.875rem 0.875rem;
+
 }
-.awooc-col.columns-left{
+
+.awooc-col.columns-left {
     text-align: left;
 }
-.awooc-col.awooc-col-full{
+
+.awooc-col.awooc-col-full {
     flex: 1 100%;
 }
+
 @media (min-width: 568px) {
     .awooc-col {
-        flex: 1 50%;
-        padding: 0.875rem 0.875rem;
+        width: 50%;
     }
 }
