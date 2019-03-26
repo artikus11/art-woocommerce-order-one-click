@@ -24,8 +24,8 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 		parent::__construct();
 
-		add_action( 'woocommerce_admin_field_notice', array( $this, 'text_notice' ), 10, 1 );
-
+		add_action( 'woocommerce_admin_field_notice', array( __CLASS__, 'text_notice' ), 10, 1 );
+		add_action( 'woocommerce_admin_field_group_input', array( __CLASS__, 'group_input' ), 15, 1 );
 	}
 
 
@@ -75,7 +75,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'class'    => 'wc-enhanced-select',
 					'default'  => 'dont_show_add_to_card',
 					'type'     => 'select',
-					'options'  => $this->select_operating_mode(),
+					'options'  => self::select_operating_mode(),
 					'desc_tip' => true,
 				),
 
@@ -90,7 +90,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'class'    => 'wc-enhanced-select',
 					'default'  => 'off',
 					'type'     => 'select',
-					'options'  => $this->select_on_off(),
+					'options'  => self::select_on_off(),
 					'desc_tip' => true,
 				),
 
@@ -136,7 +136,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'class'    => 'wc-enhanced-select',
 					'type'     => 'multiselect',
 					'default'  => awooc_default_elements_item(),
-					'options'  => $this->select_elements_item(),
+					'options'  => self::select_elements_item(),
 					'desc_tip' => true,
 				),
 
@@ -156,7 +156,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'type'    => 'notice',
 					'class'   => 'awooc-notice notice-warning',
 					'style'   => '',
-					'message' => $this->order_setting_notice(),
+					'message' => self::order_setting_notice(),
 				),
 
 				array(
@@ -236,7 +236,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.0.0
 	 */
-	public function select_operating_mode() {
+	public static function select_operating_mode() {
 
 		$options = apply_filters(
 			'awooc_select_operating_mode',
@@ -255,7 +255,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.0.0
 	 */
-	public function select_on_off() {
+	public static function select_on_off() {
 
 		return array(
 			'off' => __( 'Off', 'art-woocommerce-order-one-click' ),
@@ -266,7 +266,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * @return array
 	 */
-	public function select_elements_item() {
+	public static function select_elements_item() {
 
 		$options = array(
 			'title' => __( 'Title', 'art-woocommerce-order-one-click' ),
@@ -288,7 +288,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.0.0
 	 */
-	public function order_setting_notice() {
+	public static function order_setting_notice() {
 
 		$message     = '<p>' . __( '<strong>Warning! The functionality is under development. </strong> For the correct operation of this functionality. Requires proper creation of fields in the Contact Form 7 form with the names:', 'art-woocommerce-order-one-click' ) . '</p>';
 		$field_name  = __( 'field Name - <code>awooc-text</code>;', 'art-woocommerce-order-one-click' );
@@ -302,11 +302,13 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 
 	/**
+	 * Произвольное поле для сообщений
+	 *
 	 * @param $value
 	 *
 	 * @since 2.0.0
 	 */
-	public function text_notice( $value ) {
+	public static function text_notice( $value ) {
 
 		if ( $value['style'] ) {
 			$style = 'style="' . $value['style'] . '"';
@@ -323,6 +325,115 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 	}
 
+
+	/**
+	 * Произвольная группа полей
+	 *
+	 * @param $value
+	 *
+	 * @since 2.1.4
+	 */
+	public static function group_input( $value ) {
+
+		$option_value       = WC_Admin_Settings::get_option( $value['id'], $value['default'] );
+		$field_desc_tooltip = WC_Admin_Settings::get_field_description( $value );
+
+		?>
+		<tr valign="top">
+			<th scope="row" class="titledesc">
+				<label for="<?php echo esc_attr( $value['id'] ); ?>">
+					<?php echo esc_html( $value['title'] ); ?>
+					<?php echo $field_desc_tooltip['tooltip_html']; // WPCS: XSS ok. ?>
+				</label>
+			</th>
+			<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+					<?php echo $field_desc_tooltip['description']; // WPCS: XSS ok. ?>
+					<div class="awooc-row" style="<?php echo esc_attr( $value['css'] ); ?>">
+						<?php
+
+						foreach ( $value['fields'] as $key => $val ) :
+							if ( ! isset( $val['id'] ) ) {
+								$val['id'] = '';
+							}
+
+							if ( ! isset( $val['class'] ) ) {
+								$val['class'] = '';
+							}
+
+							if ( ! isset( $val['label'] ) ) {
+								$val['label'] = '';
+							}
+
+							if ( ! isset( $val['type'] ) ) {
+								$val['type'] = 'text';
+							}
+
+							if ( ! isset( $val['css'] ) || empty( $val['css'] ) ) {
+								$val['css'] = 'width: 100%';
+							}
+
+							?>
+							<div class="awooc-column">
+
+								<input
+									name="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>"
+									value="<?php echo esc_attr( $option_value[ $val['id'] ] ); ?>"
+									type="<?php echo esc_attr( $val['type'] ); ?>"
+									class="<?php echo esc_attr( $val['class'] ); ?>"
+									style="<?php echo esc_attr( $val['css'] ); ?>"
+									placeholder="<?php echo esc_attr( $option_value[ $val['label'] ] ); ?>"
+									data-tip="<?php echo esc_attr( $key ); ?>"
+								/>
+								<label for="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>">
+
+									<em>
+										<small><?php echo esc_html( $val['label'] ); ?></small>
+									</em>
+								</label>
+							</div>
+						<?php endforeach; ?>
+					</div>
+
+			</td>
+		</tr>
+
+		<?php
+
+	}
+
+
+	/**
+	 * Значение по умолчанию для группы полей
+	 *
+	 * @return array
+	 *
+	 * @since 2.1.4
+	 */
+	public static function group_fields_default() {
+
+		$default = array(
+			'id'    => '',
+			'type'  => '',
+			'label' => '',
+		);
+
+		return $default;
+	}
+
+
+	/**
+	 * @param $option
+	 *
+	 * @return array
+	 *
+	 * @since 2.1.4
+	 */
+	public static function group_fields( $option ) {
+
+		$options = get_option( $option );
+
+		return wp_parse_args( $options, self::group_fields_default() );
+	}
 	/**
 	 * Save settings.
 	 */

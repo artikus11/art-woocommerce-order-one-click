@@ -7,7 +7,7 @@
     display: none !important;
 }
 
-#awooc-custom-order-button.awooc-custom-order.button.alt {
+#awooc-custom-order-button.awooc-custom-order.button.alt.show-add-to-card {
     position: relative;
     margin-left: 0.825rem;
 }

@@ -26,13 +26,42 @@ add_action( 'awooc_popup_column_left', 'awooc_popup_window_sku', 30, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_attr', 40, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_qty', 50, 2 );
 
+if ( ! function_exists( 'awooc_mode_classes' ) ) {
+	/**
+	 * Вспомогательная функция вывода класса в зависимости от режима работы
+	 *
+	 * @return string
+	 *
+	 * @since 2.1.4
+	 *
+	 */
+	function awooc_mode_classes() {
+
+		$mode_classes     = '';
+		$show_add_to_card = get_option( 'woocommerce_awooc_mode_catalog' );
+
+		switch ( $show_add_to_card ) {
+			case 'dont_show_add_to_card':
+				$mode_classes = 'dont-show-add-to-card';
+				break;
+			case 'show_add_to_card':
+				$mode_classes = 'show-add-to-card';
+				break;
+			case 'in_stock_add_to_card':
+				$mode_classes = 'in-stock-add-to-card';
+				break;
+		}
+
+		return $mode_classes;
+	}
+}
 if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 
 	/**
 	 * Displaying the button add to card in product page
 	 *
 	 * @since 1.5.0
-	 * @since 2.0.0
+	 * @since 2.1.4
 	 *
 	 * @param array $args
 	 * @param null  $product
@@ -47,7 +76,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		$defaults = array(
 			'href'       => '#awooc',
 			'product_id' => $product->get_id(),
-			'class'      => apply_filters( 'awooc_classes_button', 'awooc-custom-order button alt' ),
+			'class'      => apply_filters( 'awooc_classes_button', 'awooc-custom-order button alt ' . awooc_mode_classes() ),
 			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button' ),
 			'label'      => get_option( 'woocommerce_awooc_title_button' ),
 		);
