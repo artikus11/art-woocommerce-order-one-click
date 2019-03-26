@@ -4,7 +4,7 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -96,6 +96,12 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.1.4 =
+* Добавлено - стили колонок в aдминке
+* Добавлено - новое произвольное поле в настройках (подготовка к экстра)
+* Добавлено - вспомогательная функция вывода класса в зависимсоти от режима работы
+* Изменено - стили на фронте
 
 = 2.1.3 =
 * Исправлено - стили колонок в окне
