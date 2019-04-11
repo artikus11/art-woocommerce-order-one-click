@@ -309,13 +309,16 @@ class AWOOC_Ajax {
 	 */
 	public function select_form() {
 
-		$form        = 'Not Found';
 		$select_form = get_option( 'woocommerce_awooc_select_form' );
+
 		if ( ! $select_form ) {
 			return false;
 		}
-		if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
-			$form = wpcf7_contact_form_tag_func( [ 'id' => esc_attr( $select_form ) ], null, 'contact-form-7' );
+
+		$form = wpcf7_contact_form_tag_func( array( 'id' => esc_attr( $select_form ) ), null, 'contact-form-7' );
+
+		if ( ! $form ) {
+			return false;
 		}
 
 		return $form;
