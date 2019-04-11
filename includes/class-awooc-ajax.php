@@ -303,17 +303,22 @@ class AWOOC_Ajax {
 	/**
 	 * Output form in a popup window
 	 *
-	 * @since 1.8.1
 	 * @return bool|string
+	 * @since 2.1.5
+	 * @since 1.8.1
 	 */
 	public function select_form() {
 
+		$form        = 'Not Found';
 		$select_form = get_option( 'woocommerce_awooc_select_form' );
 		if ( ! $select_form ) {
 			return false;
 		}
+		if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
+			$form = wpcf7_contact_form_tag_func( [ 'id' => esc_attr( $select_form ) ], null, 'contact-form-7' );
+		}
 
-		return do_shortcode( '[contact-form-7 id="' . esc_attr( $select_form ) . '"]' );
+		return $form;
 	}
 
 
