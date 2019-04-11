@@ -38,11 +38,13 @@ class AWOOC_Front_End {
 	 */
 	public function enqueue_script_style() {
 
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
 		/*
 		 * @todo Кнопка не работает на темах Divi и Phlox
 		 */
-		wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts.js', array( 'jquery', 'jquery-blockui' ), AWOOC_PLUGIN_VER, false );
-		wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles.css', array(), AWOOC_PLUGIN_VER );
+		wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts' . $suffix . '.js', array( 'jquery', 'jquery-blockui' ), AWOOC_PLUGIN_VER, false );
+		wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles' . $suffix . '.css', array(), AWOOC_PLUGIN_VER );
 		wp_localize_script(
 			'awooc-scripts',
 			'awooc_scripts',
@@ -67,7 +69,9 @@ class AWOOC_Front_End {
 	 */
 	public function admin_enqueue_script_style() {
 
-		wp_enqueue_style( 'admin-awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/admin-style.css', array(), AWOOC_PLUGIN_VER );
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_style( 'admin-awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/admin-style' . $suffix . '.css', array(), AWOOC_PLUGIN_VER );
 
 	}
 

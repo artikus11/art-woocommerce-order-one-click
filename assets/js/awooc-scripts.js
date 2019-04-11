@@ -64,7 +64,7 @@ jQuery(document).ready(function ($) {
                 $(event.currentTarget).unblock();
                 $(event.currentTarget).find('.cssload-container').remove();
 
-                //Добавляем тайтл с кнопке закрытия окна
+                //Добавляем тайтл к кнопке закрытия окнa
                 $('.awooc-close').attr('title', awooc_scripts.title_close);
 
                 // Проверяем данные после аякса и формируем нужные строки
