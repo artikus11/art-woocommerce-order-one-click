@@ -59,6 +59,7 @@ class AWOOC_Front_End {
 				'product_attr'       => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
 				'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
 				'title_close'        => __( 'Click to close', 'art-woocommerce-order-one-click' ),
+				'is_price_stock'     => get_option( 'woocommerce_awooc_no_price' ),
 			)
 		);
 	}
@@ -149,7 +150,7 @@ class AWOOC_Front_End {
 
 
 	/**
-	 * Включение кнопки Заказать в если нет цены в вариациях
+	 * Включение кнопки Заказать в если нет цены или наличия в вариаиях
 	 *
 	 * @param bool                $bool
 	 * @param int                 $product_id
@@ -161,20 +162,23 @@ class AWOOC_Front_End {
 	 */
 	public function hide_variable_add_to_cart( $bool, $product_id, $variation ) {
 
+		if ( 'show_add_to_card' !== get_option( 'woocommerce_awooc_mode_catalog' ) ) {
+			$bool = true;
+		}
+
 		if ( 'on' === get_option( 'woocommerce_awooc_no_price' ) ) {
 			if ( ! $variation->is_purchasable() || ! $variation->is_in_stock() ) {
 
 				add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
 
-				return false;
-			} else {
-				return true;
+				$bool = false;
 			}
 		}
 
-		return true;
+		return $bool;
 
 	}
+
 
 	/**
 	 * Вывод кнопки Заказать в зависимости от настроек
@@ -197,11 +201,6 @@ class AWOOC_Front_End {
 				awooc_html_custom_add_to_cart();
 				break;
 			case 'show_add_to_card':
-				/*if ( ! $product->get_price() ) {
-					$this->hide_button_add_to_card();
-				} else {
-					$this->show_button_add_to_card();
-				}*/
 
 				awooc_html_custom_add_to_cart();
 

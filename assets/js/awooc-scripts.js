@@ -7,8 +7,10 @@ jQuery(document).ready(function ($) {
     $(document).on('show_variation', function (event, variation) {
         $('.awooc-custom-order.button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
         // Если у вариации нет цены или ее нет в наличие то скрываем сообщения
-        if ( ! variation.is_purchasable || ! variation.is_in_stock ) {
-            $('body.woocommerce').find('.single_variation').hide();
+        if (awooc_scripts.is_price_stock === 'on') {
+            if (!variation.is_purchasable || !variation.is_in_stock) {
+                $('body.woocommerce').find('.single_variation').hide();
+            }
         }
     });
 
