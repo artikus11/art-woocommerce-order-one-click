@@ -80,9 +80,9 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'title'    => __( 'No price', 'art-woocommerce-order-one-click' ),
+					'title'    => __( 'Price & Stock', 'art-woocommerce-order-one-click' ),
 					'desc'     => __(
-						'For product variations. When enabled, the filter of hiding the "Add to cart" button will be disabled, attributes will always be displayed, even if there is no price. It is recommended to use if there are variations without prices. In this case, the "Add to cart" button will be hidden and only the "Order in one click" button will be visible.',
+						'The inclusion of the button "Order in one click" in the absence of price and availability of goods. Works with simple and variable and goods. The button "Add to cart" will be hidden and only the button "Order in one click" will be visible.',
 						'art-woocommerce-order-one-click'
 					),
 					'id'       => 'woocommerce_awooc_no_price',

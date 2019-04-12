@@ -1,11 +1,15 @@
 jQuery(document).ready(function ($) {
 
-    $(document).on('hide_variation', function (event) {
+    $(document).on('hide_variation', function (event, variation) {
         $('.awooc-custom-order.button').addClass('disabled wc-variation-selection-needed');
     });
 
-    $(document).on('show_variation', function (event) {
+    $(document).on('show_variation', function (event, variation) {
         $('.awooc-custom-order.button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
+        // Если у вариации нет цены или ее нет в наличие то скрываем сообщения
+        if ( ! variation.is_purchasable || ! variation.is_in_stock ) {
+            $('body.woocommerce').find('.single_variation').hide();
+        }
     });
 
     $(document).on('click', '.awooc-custom-order.button', function (event) {

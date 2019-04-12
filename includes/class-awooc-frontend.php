@@ -25,10 +25,11 @@ class AWOOC_Front_End {
 		/**
 		 * WooCommerce hooks
 		 */
-
-		add_filter( 'woocommerce_is_purchasable', array( $this, 'disable_add_to_cart' ), 10, 2 );
+		add_filter( 'woocommerce_is_purchasable', array( $this, 'disable_add_to_cart_no_price' ), 10, 2 );
+		//add_filter( 'woocommerce_product_is_in_stock', array( $this, 'disable_add_to_cart_out_stock' ), 10, 2 );
 		add_filter( 'woocommerce_hide_invisible_variations', array( $this, 'hide_variable_add_to_cart' ), 10, 3 );
 		add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'add_custom_button' ) );
+
 
 	}
 
@@ -99,12 +100,17 @@ class AWOOC_Front_End {
 	 * @param WC_Product $product
 	 *
 	 * @return bool
+	 * @todo Переписать функцию с проверкой входящего значения
 	 */
-	public function disable_add_to_cart( $bool, $product ) {
+	public function disable_add_to_cart_no_price( $bool, $product ) {
+
+		if ( 'variation' === $product->get_type() ) {
+			return $bool;
+		}
 
 		$mode_catalog = get_option( 'woocommerce_awooc_mode_catalog' );
 
-		if ( 'dont_show_add_to_card' === $mode_catalog || ! $product->get_price() ) {
+		if ( 'dont_show_add_to_card' === $mode_catalog ) {
 			if ( is_product() ) {
 				add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
 				add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
@@ -117,6 +123,28 @@ class AWOOC_Front_End {
 			return true;
 		}
 
+	}
+
+	/**
+	 * Включение кнопки Заказать в если товара нет в наличие в простых товарах
+	 *
+	 * @param string       $status
+	 * @param WC_Product $product
+	 *
+	 * @return bool
+	 */
+	public function disable_add_to_cart_out_stock( $status, $product ) {
+
+		$mode_catalog = get_option( 'woocommerce_awooc_mode_catalog' );
+
+		if ( 'instock' !== $product->get_stock_status() ) {
+			return true;
+		} elseif ( '' === $product->get_price() && $status ) {
+			$this->hide_button_add_to_card();
+
+			return true;
+		}
+		return false;
 	}
 
 
@@ -134,10 +162,9 @@ class AWOOC_Front_End {
 	public function hide_variable_add_to_cart( $bool, $product_id, $variation ) {
 
 		if ( 'on' === get_option( 'woocommerce_awooc_no_price' ) ) {
-			if ( ! $variation->get_price() ) {
+			if ( ! $variation->is_purchasable() || ! $variation->is_in_stock() ) {
 
-				remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
-				$this->hide_button_add_to_card();
+				add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
 
 				return false;
 			} else {
@@ -153,7 +180,7 @@ class AWOOC_Front_End {
 	 * Вывод кнопки Заказать в зависимости от настроек
 	 *
 	 * @since 1.8.0
-	 * @todo решить проблему скрытой кнопки В корзину если нет цены в Быстром просмотре
+	 *
 	 */
 	public function add_custom_button() {
 
@@ -170,11 +197,11 @@ class AWOOC_Front_End {
 				awooc_html_custom_add_to_cart();
 				break;
 			case 'show_add_to_card':
-				if ( ! $product->get_price() ) {
+				/*if ( ! $product->get_price() ) {
 					$this->hide_button_add_to_card();
 				} else {
 					$this->show_button_add_to_card();
-				}
+				}*/
 
 				awooc_html_custom_add_to_cart();
 
@@ -265,7 +292,7 @@ class AWOOC_Front_End {
 	 */
 	public function disable_url_add_to_cart_to_related( $url ) {
 
-		global $product;
+		$product = wc_get_product();
 		if ( is_product() ) {
 			$url = get_permalink( $product->get_id() );
 		}
