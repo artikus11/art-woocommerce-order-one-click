@@ -145,16 +145,28 @@ class AWOOC_Front_End {
 
 			return true;
 		}
+
 		return false;
 	}
 
 
+	/**
+	 * Изменение надписи на кнопке при включении режима реагирования на отсутствие цены и наличия
+	 *
+	 * @param $label
+	 *
+	 * @return string
+	 *
+	 * @since 2.2.0
+	 */
 	public function custom_button_label( $label ) {
 
-		$label = get_option( 'woocommerce_awooc_title_custom' ) ? get_option( 'woocommerce_awooc_title_custom' ) : '';
+		$label = get_option( 'woocommerce_awooc_title_custom' ) ? esc_html( get_option( 'woocommerce_awooc_title_custom' ) ) : '';
 
 		return $label;
 	}
+
+
 	/**
 	 * Включение кнопки Заказать в если нет цены или наличия в вариаиях
 	 *
