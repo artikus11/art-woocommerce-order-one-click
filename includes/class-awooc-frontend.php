@@ -149,6 +149,12 @@ class AWOOC_Front_End {
 	}
 
 
+	public function custom_button_label( $label ) {
+
+		$label = get_option( 'woocommerce_awooc_title_custom' ) ? get_option( 'woocommerce_awooc_title_custom' ) : '';
+
+		return $label;
+	}
 	/**
 	 * Включение кнопки Заказать в если нет цены или наличия в вариаиях
 	 *
@@ -170,6 +176,7 @@ class AWOOC_Front_End {
 			if ( ! $variation->is_purchasable() || ! $variation->is_in_stock() ) {
 
 				add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
+				add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
 
 				$bool = false;
 			}

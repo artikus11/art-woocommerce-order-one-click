@@ -80,7 +80,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'title'    => __( 'Price & Stock', 'art-woocommerce-order-one-click' ),
+					'title'    => __( 'Price & Stocks', 'art-woocommerce-order-one-click' ),
 					'desc'     => __(
 						'The inclusion of the button "Order in one click" in the absence of price and availability of goods. Works with simple and variable and goods. The button "Add to cart" will be hidden and only the button "Order in one click" will be visible.',
 						'art-woocommerce-order-one-click'
@@ -91,6 +91,15 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'default'  => 'off',
 					'type'     => 'select',
 					'options'  => self::select_on_off(),
+					'desc_tip' => true,
+				),
+
+				array(
+					'title'    => __( 'Special label', 'art-woocommerce-order-one-click' ),
+					'desc'     => __( 'Special field for the Order button. Allows you to change the label on the button when turning on the Price and Stocks mode.', 'art-woocommerce-order-one-click' ),
+					'id'       => 'woocommerce_awooc_title_custom',
+					'css'      => 'min-width:350px;',
+					'type'     => 'text',
 					'desc_tip' => true,
 				),
 
