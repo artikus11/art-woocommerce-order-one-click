@@ -28,6 +28,16 @@ Special mode of operation. The Order button will appear automatically if:
 * stock status "In Unfulfilled Order"
 * stock status "Out of stock", inventory management is enabled at item level and preorders allowed
 
+= Mode of operation with stocks =
+Special mode of operation. The Order button will appear automatically if:
+
+* Price not available
+* stock status "In Unfulfilled Order"
+* stock status "Out of stock", inventory management is enabled at item level and preorders allowed
+
+= Special mode: no prices and stocks =
+Special mode. When turned on, it works the same way as normal mode. But if the goods have no price or the product out of stock, then only the Order button will appear.
+
 In other cases, the Order button does not appear in this mode.
 
 The plugin has implemented the function of creating orders when sending a letter. But to work correctly, you need to correctly configure the forms in the Contact Form 7 plugin.
@@ -96,6 +106,15 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.2.0 =
+* Исправлено - поддержка плагина WPBakery Page Builder
+* Исправлено - рефакторинг кода
+* Добавлено - дополнительный режим Нет цен и запасов появления кнопки Заказать
+* Добавлено - фильтр `awooc_button_label` для изменения надписи на кнопке
+* Добавлено - новая настройка Произвольная надпись для изменения написи на кнопке в режимиНет цен и запасов
+* Добавлено - вспомогательная функция вывода класса в зависимсоти от режима работы
+* Изменено - стили на фронте
 
 = 2.1.4 =
 * Добавлено - стили колонок в aдминке

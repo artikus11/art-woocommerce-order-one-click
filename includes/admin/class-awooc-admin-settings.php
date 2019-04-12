@@ -80,30 +80,6 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'title'    => __( 'Price & Stocks', 'art-woocommerce-order-one-click' ),
-					'desc'     => __(
-						'The inclusion of the button "Order in one click" in the absence of price and availability of goods. Works with simple and variable and goods. The button "Add to cart" will be hidden and only the button "Order in one click" will be visible.',
-						'art-woocommerce-order-one-click'
-					),
-					'id'       => 'woocommerce_awooc_no_price',
-					'css'      => 'min-width:350px;',
-					'class'    => 'wc-enhanced-select',
-					'default'  => 'off',
-					'type'     => 'select',
-					'options'  => self::select_on_off(),
-					'desc_tip' => true,
-				),
-
-				array(
-					'title'    => __( 'Special label', 'art-woocommerce-order-one-click' ),
-					'desc'     => __( 'Special field for the Order button. Allows you to change the label on the button when turning on the Price and Stocks mode.', 'art-woocommerce-order-one-click' ),
-					'id'       => 'woocommerce_awooc_title_custom',
-					'css'      => 'min-width:350px;',
-					'type'     => 'text',
-					'desc_tip' => true,
-				),
-
-				array(
 					'title'    => __( 'Select form', 'art-woocommerce-order-one-click' ),
 					'desc'     => __( 'Choose the desired form', 'art-woocommerce-order-one-click' ),
 					'id'       => 'woocommerce_awooc_select_form',
@@ -121,6 +97,18 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'id'       => 'woocommerce_awooc_title_button',
 					'css'      => 'min-width:350px;',
 					'default'  => esc_html__( 'Buy in one click', 'art-woocommerce-order-one-click' ),
+					'type'     => 'text',
+					'desc_tip' => true,
+				),
+
+				array(
+					'title'    => __( 'Special label', 'art-woocommerce-order-one-click' ),
+					'desc'     => __(
+						'Special field for the Order button. Allows you to change the label on the button when turning on the Price and Stocks mode.',
+						'art-woocommerce-order-one-click'
+					),
+					'id'       => 'woocommerce_awooc_title_custom',
+					'css'      => 'min-width:350px;',
 					'type'     => 'text',
 					'desc_tip' => true,
 				),
@@ -253,6 +241,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 				'dont_show_add_to_card' => __( 'Do not show Buy button: catalog mode', 'art-woocommerce-order-one-click' ),
 				'show_add_to_card'      => __( 'Show Buy button: normal mode', 'art-woocommerce-order-one-click' ),
 				'in_stock_add_to_card'  => __( 'The Order button appears only when inventory management: pre-order mode', 'art-woocommerce-order-one-click' ),
+				'no_stock_no_price'     => __( 'Special mode: no prices and stocks', 'art-woocommerce-order-one-click' ),
 			)
 		);
 

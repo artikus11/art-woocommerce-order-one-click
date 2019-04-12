@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2019-02-27 23:21+0400\n"
-"PO-Revision-Date: 2019-02-28 00:34+0400\n"
+"POT-Creation-Date: 2019-04-13 01:12+0400\n"
+"PO-Revision-Date: 2019-04-13 01:12+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -54,7 +54,7 @@ msgstr ""
 "вставить соответствующий почтовый тег (% s) в поле на вкладке Почта."
 
 #: ../includes/admin/class-awooc-admin-settings.php:23
-#: ../includes/class-awooc-orders.php:87
+#: ../includes/class-awooc-orders.php:89
 msgid "One click order"
 msgstr "Заказ в один клик"
 
@@ -75,68 +75,62 @@ msgid "Select the mode of operation and display the Buy button"
 msgstr "Выберите режим работы и показа кнопки Купить"
 
 #: ../includes/admin/class-awooc-admin-settings.php:83
-msgid "No price"
-msgstr "Отсутствие цены"
-
-#: ../includes/admin/class-awooc-admin-settings.php:85
-msgid ""
-"For product variations. When enabled, the filter of hiding the \"Add to cart"
-"\" button will be disabled, attributes will always be displayed, even if "
-"there is no price. It is recommended to use if there are variations without "
-"prices. In this case, the \"Add to cart\" button will be hidden and only the "
-"\"Order in one click\" button will be visible."
-msgstr ""
-"Для вариативных товаров. При включении будет отключен фильтр скрытия кнопки "
-"\"Добавить в корзину\", атрибуты будут отображаться всегда, даже если нет "
-"цены. Рекомендуется использовать, если есть вариации без цен. В таком случае "
-"кнопка \"Добавить в корзину\" будет скрыта и видна только кнопка  \"Заказать "
-"в один клик\""
-
-#: ../includes/admin/class-awooc-admin-settings.php:98
 msgid "Select form"
 msgstr "Выберите форму"
 
-#: ../includes/admin/class-awooc-admin-settings.php:99
+#: ../includes/admin/class-awooc-admin-settings.php:84
 msgid "Choose the desired form"
 msgstr "Выберите нужную форму"
 
-#: ../includes/admin/class-awooc-admin-settings.php:103
+#: ../includes/admin/class-awooc-admin-settings.php:88
 msgid "-- Select --"
 msgstr "-- Выбрать --"
 
-#: ../includes/admin/class-awooc-admin-settings.php:110
+#: ../includes/admin/class-awooc-admin-settings.php:95
 msgid "Button Label"
 msgstr "Надпись на кнопке"
 
-#: ../includes/admin/class-awooc-admin-settings.php:111
+#: ../includes/admin/class-awooc-admin-settings.php:96
 msgid "Specify the desired label on the button"
 msgstr "Укажите нужную надпись на кнопке"
 
-#: ../includes/admin/class-awooc-admin-settings.php:114
+#: ../includes/admin/class-awooc-admin-settings.php:99
 msgid "Buy in one click"
 msgstr "Купить в один клик"
 
-#: ../includes/admin/class-awooc-admin-settings.php:125
+#: ../includes/admin/class-awooc-admin-settings.php:105
+msgid "Special label"
+msgstr "Специальная надпись"
+
+#: ../includes/admin/class-awooc-admin-settings.php:106
+msgid ""
+"Special field for the Order button. Allows you to change the label on the "
+"button when turning on the Price and Stocks mode."
+msgstr ""
+"Специальное поле для кнопки Заказать. Позволяет изменять надпись на кнопке "
+"при включении режима Цены и Запасы."
+
+#: ../includes/admin/class-awooc-admin-settings.php:118
 msgid "Popup window"
 msgstr "Всплывающее окно"
 
-#: ../includes/admin/class-awooc-admin-settings.php:132
+#: ../includes/admin/class-awooc-admin-settings.php:125
 msgid "Turn off window elements"
 msgstr "Выключить элементы окна"
 
-#: ../includes/admin/class-awooc-admin-settings.php:133
+#: ../includes/admin/class-awooc-admin-settings.php:126
 msgid "Remove items that are NOT needed."
 msgstr "Уберите элементы, которые НЕ нужны"
 
-#: ../includes/admin/class-awooc-admin-settings.php:149
+#: ../includes/admin/class-awooc-admin-settings.php:142
 msgid "Orders"
 msgstr "Заказы"
 
-#: ../includes/admin/class-awooc-admin-settings.php:163
+#: ../includes/admin/class-awooc-admin-settings.php:156
 msgid "Create orders"
 msgstr "Создание заказов"
 
-#: ../includes/admin/class-awooc-admin-settings.php:165
+#: ../includes/admin/class-awooc-admin-settings.php:158
 msgid ""
 "When this setting is enabled, orders will be created in the WooCommerce "
 "panel with the status \"Pending payment\""
@@ -144,52 +138,56 @@ msgstr ""
 "При включении этой настройки будут создаваться заказы в панели WooСommerce "
 "со статусом \"В ожидании оплаты\""
 
-#: ../includes/admin/class-awooc-admin-settings.php:244
+#: ../includes/admin/class-awooc-admin-settings.php:237
 msgid "Do not show Buy button: catalog mode"
 msgstr "Не показывать кнопку Купить: режим каталога"
 
-#: ../includes/admin/class-awooc-admin-settings.php:245
+#: ../includes/admin/class-awooc-admin-settings.php:238
 msgid "Show Buy button: normal mode"
 msgstr "Показывать кнопку Купить: штатный режим"
 
-#: ../includes/admin/class-awooc-admin-settings.php:246
+#: ../includes/admin/class-awooc-admin-settings.php:239
 msgid "The Order button appears only when inventory management: pre-order mode"
 msgstr ""
 "Кнопка Заказать появиться только при управлении запасами: режим предзаказа"
 
-#: ../includes/admin/class-awooc-admin-settings.php:261
+#: ../includes/admin/class-awooc-admin-settings.php:240
+msgid "Special mode: no prices and stocks"
+msgstr "Специальный режим: нет цен и запасов"
+
+#: ../includes/admin/class-awooc-admin-settings.php:255
 msgid "Off"
 msgstr "Выключить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:262
+#: ../includes/admin/class-awooc-admin-settings.php:256
 msgid "On"
-msgstr ""
+msgstr "Включить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:272
+#: ../includes/admin/class-awooc-admin-settings.php:266
 msgid "Title"
 msgstr "Название"
 
-#: ../includes/admin/class-awooc-admin-settings.php:273
+#: ../includes/admin/class-awooc-admin-settings.php:267
 msgid "Image"
 msgstr "Изображения"
 
-#: ../includes/admin/class-awooc-admin-settings.php:274
+#: ../includes/admin/class-awooc-admin-settings.php:268
 msgid "Price"
 msgstr "Цена"
 
-#: ../includes/admin/class-awooc-admin-settings.php:275
+#: ../includes/admin/class-awooc-admin-settings.php:269
 msgid "SKU"
 msgstr "Артикул"
 
-#: ../includes/admin/class-awooc-admin-settings.php:276
+#: ../includes/admin/class-awooc-admin-settings.php:270
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: ../includes/admin/class-awooc-admin-settings.php:277
+#: ../includes/admin/class-awooc-admin-settings.php:271
 msgid "Quantity"
 msgstr "Количество"
 
-#: ../includes/admin/class-awooc-admin-settings.php:293
+#: ../includes/admin/class-awooc-admin-settings.php:287
 msgid ""
 "<strong>Warning! The functionality is under development. </strong> For the "
 "correct operation of this functionality. Requires proper creation of fields "
@@ -199,15 +197,15 @@ msgstr ""
 "корректной работы требуется правильное создание полей в форме Contact Form 7 "
 "c именами:"
 
-#: ../includes/admin/class-awooc-admin-settings.php:294
+#: ../includes/admin/class-awooc-admin-settings.php:288
 msgid "field Name - <code>awooc-text</code>;"
 msgstr "поле Имя  - <code>awooc-text</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:295
+#: ../includes/admin/class-awooc-admin-settings.php:289
 msgid "field Email - <code>awooc-email</code>;"
 msgstr "поле Емайл - <code>awooc-email</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:296
+#: ../includes/admin/class-awooc-admin-settings.php:290
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
@@ -240,7 +238,7 @@ msgstr " или выше"
 
 #: ../includes/class-art-woo-order-one-click.php:352
 msgid " and "
-msgstr ""
+msgstr " и "
 
 #: ../includes/class-art-woo-order-one-click.php:400
 #, php-format
@@ -260,36 +258,65 @@ msgstr ""
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
 #: ../includes/class-awooc-ajax.php:186
-#: ../includes/class-awooc-frontend.php:55
+#: ../includes/class-awooc-frontend.php:58
 msgid "SKU: "
 msgstr "Артикул: "
 
 #: ../includes/class-awooc-ajax.php:266
-#: ../includes/class-awooc-frontend.php:56
+#: ../includes/class-awooc-frontend.php:59
 msgid "Attributes: "
 msgstr "Атрибуты: "
 
 #: ../includes/class-awooc-ajax.php:294
-#: ../includes/class-awooc-frontend.php:54
+#: ../includes/class-awooc-frontend.php:57
 msgid "Price: "
 msgstr "Цена: "
 
-#: ../includes/class-awooc-frontend.php:52
+#: ../includes/class-awooc-frontend.php:55
 msgid "Quantity: "
 msgstr "Количество: "
 
-#: ../includes/class-awooc-frontend.php:53
+#: ../includes/class-awooc-frontend.php:56
 msgid "Title: "
 msgstr "Название: "
 
-#: ../includes/class-awooc-frontend.php:57
+#: ../includes/class-awooc-frontend.php:60
 msgid "Information about the selected product"
 msgstr "Информация о выбранном товаре"
 
-#: ../includes/class-awooc-frontend.php:58
+#: ../includes/class-awooc-frontend.php:61
 msgid "Click to close"
 msgstr "Ткнуть для закрытия"
 
-#: ../includes/class-awooc-frontend.php:285
+#: ../includes/class-awooc-frontend.php:331
 msgid "Read more"
 msgstr "Читать..."
+
+#~ msgid "Price & Stocks"
+#~ msgstr "Цены и Запасы"
+
+#~ msgid ""
+#~ "The inclusion of the button \"Order in one click\" in the absence of "
+#~ "price and availability of goods. Works with simple and variable and "
+#~ "goods. The button \"Add to cart\" will be hidden and only the button "
+#~ "\"Order in one click\" will be visible."
+#~ msgstr ""
+#~ "Включение кнопки \"Заказать в один клик\" при отсутствии у товаров цены и "
+#~ "наличия. Работает с простыми и вариативным и товарами. Кнопка \"Добавить "
+#~ "в корзину\" будет скрыта и видна только кнопка  \"Заказать в один клик\""
+
+#~ msgid "No price"
+#~ msgstr "Отсутствие цены"
+
+#~ msgid ""
+#~ "For product variations. When enabled, the filter of hiding the \"Add to "
+#~ "cart\" button will be disabled, attributes will always be displayed, even "
+#~ "if there is no price. It is recommended to use if there are variations "
+#~ "without prices. In this case, the \"Add to cart\" button will be hidden "
+#~ "and only the \"Order in one click\" button will be visible."
+#~ msgstr ""
+#~ "Для вариативных товаров. При включении будет отключен фильтр скрытия "
+#~ "кнопки \"Добавить в корзину\", атрибуты будут отображаться всегда, даже "
+#~ "если нет цены. Рекомендуется использовать, если есть вариации без цен. В "
+#~ "таком случае кнопка \"Добавить в корзину\" будет скрыта и видна только "
+#~ "кнопка  \"Заказать в один клик\""

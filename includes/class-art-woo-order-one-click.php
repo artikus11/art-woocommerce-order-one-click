@@ -426,6 +426,8 @@ class ArtWoo_Order_One_Click {
 				'woocommerce_awooc_title_button',
 				'woocommerce_awooc_select_item',
 				'woocommerce_awooc_created_order',
+				'woocommerce_awooc_title_custom',
+				'woocommerce_awooc_no_price',
 			)
 		);
 
