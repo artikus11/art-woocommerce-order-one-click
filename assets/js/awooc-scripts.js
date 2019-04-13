@@ -7,7 +7,7 @@ jQuery(document).ready(function ($) {
     $(document).on('show_variation', function (event, variation) {
         $('.awooc-custom-order.button').removeClass('disabled wc-variation-selection-needed wc-variation-is-unavailable');
         // Если у вариации нет цены или ее нет в наличие то скрываем сообщения
-        if (awooc_scripts.is_price_stock === 'on') {
+        if (awooc_scripts.mode === 'no_stock_no_price') {
             if (!variation.is_purchasable || !variation.is_in_stock) {
                 $('body.woocommerce').find('.single_variation').hide();
             }
