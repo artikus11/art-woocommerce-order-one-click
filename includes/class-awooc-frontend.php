@@ -168,7 +168,7 @@ class AWOOC_Front_End {
 	 */
 	public function custom_button_label( $label ) {
 
-		$label = get_option( 'woocommerce_awooc_title_custom' ) ? esc_html( get_option( 'woocommerce_awooc_title_custom' ) ) : '';
+		$label = get_option( 'woocommerce_awooc_title_custom' ) ? esc_html( get_option( 'woocommerce_awooc_title_custom' ) ) : esc_html( get_option( 'woocommerce_awooc_title_button' ) );
 
 		return $label;
 	}
