@@ -26,10 +26,9 @@ class AWOOC_Front_End {
 		 * WooCommerce hooks
 		 */
 		add_filter( 'woocommerce_is_purchasable', array( $this, 'disable_add_to_cart_no_price' ), 10, 2 );
-		//add_filter( 'woocommerce_product_is_in_stock', array( $this, 'disable_add_to_cart_out_stock' ), 10, 2 );
+		add_filter( 'woocommerce_product_is_in_stock', array( $this, 'disable_add_to_cart_out_stock' ), 10, 2 );
 		add_filter( 'woocommerce_hide_invisible_variations', array( $this, 'hide_variable_add_to_cart' ), 10, 3 );
 		add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'add_custom_button' ) );
-
 
 	}
 
@@ -59,7 +58,7 @@ class AWOOC_Front_End {
 				'product_attr'       => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
 				'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
 				'title_close'        => __( 'Click to close', 'art-woocommerce-order-one-click' ),
-				'is_price_stock'     => get_option( 'woocommerce_awooc_no_price' ),
+				'mode'               => get_option( 'woocommerce_awooc_mode_catalog' ),
 			)
 		);
 	}
@@ -101,7 +100,8 @@ class AWOOC_Front_End {
 	 * @param WC_Product $product
 	 *
 	 * @return bool
-	 * @todo Переписать функцию с проверкой входящего значения
+	 *
+	 * @since 2.2.0
 	 */
 	public function disable_add_to_cart_no_price( $bool, $product ) {
 
@@ -116,37 +116,44 @@ class AWOOC_Front_End {
 				add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
 				add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
 
-				return true;
+				$bool = true;
 			}
 
-			return false;
-		} else {
-			return true;
+			$bool = false;
+		}
+		if ( 'no_stock_no_price' === $mode_catalog && false === $bool ) {
+			$bool = true;
+			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
+			add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
 		}
 
+		return $bool;
 	}
 
+
 	/**
-	 * Включение кнопки Заказать в если товара нет в наличие в простых товарах
+	 * Включение кнопки Заказать в если нет в наличии в простых товарах
 	 *
-	 * @param string       $status
+	 * @param bool       $status
 	 * @param WC_Product $product
 	 *
 	 * @return bool
+	 *
+	 * @since 2.2.0
 	 */
 	public function disable_add_to_cart_out_stock( $status, $product ) {
 
-		$mode_catalog = get_option( 'woocommerce_awooc_mode_catalog' );
-
-		if ( 'instock' !== $product->get_stock_status() ) {
-			return true;
-		} elseif ( '' === $product->get_price() && $status ) {
-			$this->hide_button_add_to_card();
-
-			return true;
+		if ( 'variation' === $product->get_type() ) {
+			return $status;
 		}
 
-		return false;
+		if ( 'no_stock_no_price' === get_option( 'woocommerce_awooc_mode_catalog' ) && false === $status ) {
+			$status = true;
+			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
+			add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
+		}
+
+		return $status;
 	}
 
 
