@@ -198,8 +198,11 @@ jQuery(document).ready(function ($) {
             fadeIn: 400,
             fadeOut: 400,
             allowBodyStretch: true,
+            centerX: true, // <-- only effects element blocking (page block controlled via css above)
+            centerY: true,
             onBlock: function () {
                 $('#awooc-form-custom-order').removeClass('awooc-hide');
+                //$('html').css({'overflow': 'hidden'});
 
                 // Если окно меньше 480px то меняем стили окна
                 if (window.innerWidth < 480) {
@@ -229,6 +232,7 @@ jQuery(document).ready(function ($) {
             onUnblock: function () {
                 // При закрытии окна добавлем нужный класс
                 $('#awooc-form-custom-order').addClass('awooc-hide');
+                //$('html').css({'overflow': ''});
                 // При закрытии окна очищаем данные
                 awoocFormDataEmpty();
                 // При закрытии окна очищаем урл
@@ -236,8 +240,11 @@ jQuery(document).ready(function ($) {
 
             },
             onOverlayClick: function () {
+
                 // При закрытии окна добавлем нужный класс
                 $('#awooc-form-custom-order').addClass('awooc-hide');
+                $('html').css({'overflow': 'initial'});
+
                 $.unblockUI();
                 // При закрытии окна очищаем данные
                 awoocFormDataEmpty();
