@@ -5,7 +5,7 @@
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
  * Description: Plugin for WooCommerce. Includes Buy/Order button in one click. The buy buttons are hidden, the Order button appears.
- * Version: 2.2.0
+ * Version: 2.2.1
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+

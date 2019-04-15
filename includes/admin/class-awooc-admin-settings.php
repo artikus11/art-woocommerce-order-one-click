@@ -26,6 +26,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 		add_action( 'woocommerce_admin_field_notice', array( __CLASS__, 'text_notice' ), 10, 1 );
 		add_action( 'woocommerce_admin_field_group_input', array( __CLASS__, 'group_input' ), 15, 1 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_script_style' ) );
 	}
 
 
@@ -68,15 +69,14 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 				),
 
 				array(
-					'title'    => __( 'Operating mode', 'art-woocommerce-order-one-click' ),
-					'desc'     => __( 'Select the mode of operation and display the Buy button', 'art-woocommerce-order-one-click' ),
-					'id'       => 'woocommerce_awooc_mode_catalog',
-					'css'      => 'min-width:350px;',
-					'class'    => 'wc-enhanced-select',
-					'default'  => 'dont_show_add_to_card',
-					'type'     => 'select',
-					'options'  => self::select_operating_mode(),
-					'desc_tip' => true,
+					'title'   => __( 'Operating mode', 'art-woocommerce-order-one-click' ),
+					'desc'    => __( 'Select the mode of operation and display the Buy button', 'art-woocommerce-order-one-click' ),
+					'id'      => 'woocommerce_awooc_mode_catalog',
+					'css'     => 'min-width:350px;',
+					'class'   => 'wc-enhanced-select',
+					'default' => 'dont_show_add_to_card',
+					'type'    => 'select',
+					'options' => self::select_operating_mode(),
 				),
 
 				array(
@@ -167,14 +167,6 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'type'    => 'checkbox',
 				),
 
-				/*array(/// @codingStandardsIgnoreLine
-					'title'   => 'Отправить письмо пользователю',
-					'desc'    => 'Письма пользователю о заказе по умолчанию не отправляются. При включении этой настройки пользователям письма будут приходить',
-					'id'      => 'woocommerce_awooc_send_email_customer',
-					'default' => 'no',
-					'type'    => 'checkbox',
-				),*/
-
 				array(
 					'type' => 'sectionend',
 					'id'   => 'woocommerce_awooc_settings_orders',
@@ -187,7 +179,38 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 	}
 
+	/**
+	 * Подключаем дополниетльный скрипт в админке для управления описанием
+	 *
+	 * @since  2.2.1
+	 */
+	public function admin_enqueue_script_style() {
 
+		wp_enqueue_script( 'admin-awooc-script', AWOOC_PLUGIN_URI . 'assets/js/admin-script.js', array(), AWOOC_PLUGIN_VER, false );
+		wp_localize_script(
+			'admin-awooc-script',
+			'awooc_admin',
+			array(
+				'mode_catalog'  => __(
+					'On the pages of the categories and the store itself, the Add to Cart buttons are disabled. On the product page, the "Add to cart" button is hidden and the "Order" button appears.',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_normal'   => __(
+					'The button "Add to cart" works in the normal mode, that is, goods can be added to the cart and at the same time ordered in one click',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_in_stock' => __(
+					'The Order button will appear automatically if: Price not available;  stock status "In Unfulfilled Order"; stock status "Out of stock"; inventory management is enabled at item level and preorders allowed',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_special'  => __(
+					'When turned on, it works the same way as normal mode. But if the goods have no price or the product out of stock, then only the Order button will appear.',
+					'art-woocommerce-order-one-click'
+				),
+			)
+		);
+
+	}
 	/**
 	 * @return array
 	 *
@@ -238,10 +261,10 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 		$options = apply_filters(
 			'awooc_select_operating_mode',
 			array(
-				'dont_show_add_to_card' => __( 'Do not show Buy button: catalog mode', 'art-woocommerce-order-one-click' ),
-				'show_add_to_card'      => __( 'Show Buy button: normal mode', 'art-woocommerce-order-one-click' ),
-				'in_stock_add_to_card'  => __( 'The Order button appears only when inventory management: pre-order mode', 'art-woocommerce-order-one-click' ),
-				'no_stock_no_price'     => __( 'Special mode: no prices and stocks', 'art-woocommerce-order-one-click' ),
+				'dont_show_add_to_card' => __( 'Catalog mode', 'art-woocommerce-order-one-click' ),
+				'show_add_to_card'      => __( 'Normal mode', 'art-woocommerce-order-one-click' ),
+				'in_stock_add_to_card'  => __( 'Pre-order mode', 'art-woocommerce-order-one-click' ),
+				'no_stock_no_price'     => __( 'Special mode', 'art-woocommerce-order-one-click' ),
 			)
 		);
 

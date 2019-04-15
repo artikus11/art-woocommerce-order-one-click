@@ -4,7 +4,7 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -20,13 +20,6 @@ On the pages of the categories and the store itself, the Add to Cart buttons are
 
 = Buy button mode =
 The button "Add to cart" works in the normal mode, that is, goods can be added to the cart and at the same time ordered in one click
-
-= Mode of operation with stocks =
-Special mode of operation. The Order button will appear automatically if:
-
-* Price not available
-* stock status "In Unfulfilled Order"
-* stock status "Out of stock", inventory management is enabled at item level and preorders allowed
 
 = Mode of operation with stocks =
 Special mode of operation. The Order button will appear automatically if:
@@ -62,7 +55,7 @@ And any other theme correctly created to work with WooCommerce
 = Attention! =
 **The plugin is tested on all recommended themes, but too much depends on the theme itself and how the developers created it. Perhaps on some topics, some functionality may not work. This is especially true for premium themes and the use of builders**
 
-При возникновении проблем, пишите в [чат поддержки](https://t.me/awooc)
+If you have any problems, write to [support chat](https://t.me/awooc)
 
 = Great thanks =
 * For patience and support [Dmitriy Campusboy](https://github.com/campusboy87)
@@ -106,6 +99,10 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.2.1 =
+* Исправлено - скрытие кнопки в режиме каталога
+* Изменено - описание настроек режимов
 
 = 2.2.0 =
 * Исправлено - поддержка плагина WPBakery Page Builder

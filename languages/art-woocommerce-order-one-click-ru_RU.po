@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2019-04-13 01:12+0400\n"
-"PO-Revision-Date: 2019-04-13 01:13+0400\n"
+"POT-Creation-Date: 2019-04-15 13:26+0400\n"
+"PO-Revision-Date: 2019-04-15 13:30+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -59,51 +59,51 @@ msgstr ""
 msgid "One click order"
 msgstr "Заказ в один клик"
 
-#: ../includes/admin/class-awooc-admin-settings.php:37
+#: ../includes/admin/class-awooc-admin-settings.php:38
 msgid "General"
 msgstr "Основные"
 
-#: ../includes/admin/class-awooc-admin-settings.php:65
+#: ../includes/admin/class-awooc-admin-settings.php:66
 msgid "General settings"
 msgstr "Основные настройки"
 
-#: ../includes/admin/class-awooc-admin-settings.php:71
+#: ../includes/admin/class-awooc-admin-settings.php:72
 msgid "Operating mode"
 msgstr "Режим работы"
 
-#: ../includes/admin/class-awooc-admin-settings.php:72
+#: ../includes/admin/class-awooc-admin-settings.php:73
 msgid "Select the mode of operation and display the Buy button"
 msgstr "Выберите режим работы и показа кнопки Купить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:83
+#: ../includes/admin/class-awooc-admin-settings.php:84
 msgid "Select form"
 msgstr "Выберите форму"
 
-#: ../includes/admin/class-awooc-admin-settings.php:84
+#: ../includes/admin/class-awooc-admin-settings.php:85
 msgid "Choose the desired form"
 msgstr "Выберите нужную форму"
 
-#: ../includes/admin/class-awooc-admin-settings.php:88
+#: ../includes/admin/class-awooc-admin-settings.php:89
 msgid "-- Select --"
 msgstr "-- Выбрать --"
 
-#: ../includes/admin/class-awooc-admin-settings.php:95
+#: ../includes/admin/class-awooc-admin-settings.php:96
 msgid "Button Label"
 msgstr "Надпись на кнопке"
 
-#: ../includes/admin/class-awooc-admin-settings.php:96
+#: ../includes/admin/class-awooc-admin-settings.php:97
 msgid "Specify the desired label on the button"
 msgstr "Укажите нужную надпись на кнопке"
 
-#: ../includes/admin/class-awooc-admin-settings.php:99
+#: ../includes/admin/class-awooc-admin-settings.php:100
 msgid "Buy in one click"
 msgstr "Купить в один клик"
 
-#: ../includes/admin/class-awooc-admin-settings.php:105
+#: ../includes/admin/class-awooc-admin-settings.php:106
 msgid "Special label"
 msgstr "Специальная надпись"
 
-#: ../includes/admin/class-awooc-admin-settings.php:106
+#: ../includes/admin/class-awooc-admin-settings.php:108
 msgid ""
 "Special field for the Order button. Allows you to change the label on the "
 "button when turning on the Price and Stocks mode."
@@ -111,27 +111,27 @@ msgstr ""
 "Специальное поле для кнопки Заказать. Позволяет изменять надпись на кнопке "
 "при включении режима Цены и Запасы."
 
-#: ../includes/admin/class-awooc-admin-settings.php:118
+#: ../includes/admin/class-awooc-admin-settings.php:123
 msgid "Popup window"
 msgstr "Всплывающее окно"
 
-#: ../includes/admin/class-awooc-admin-settings.php:125
+#: ../includes/admin/class-awooc-admin-settings.php:130
 msgid "Turn off window elements"
 msgstr "Выключить элементы окна"
 
-#: ../includes/admin/class-awooc-admin-settings.php:126
+#: ../includes/admin/class-awooc-admin-settings.php:131
 msgid "Remove items that are NOT needed."
 msgstr "Уберите элементы, которые НЕ нужны"
 
-#: ../includes/admin/class-awooc-admin-settings.php:142
+#: ../includes/admin/class-awooc-admin-settings.php:147
 msgid "Orders"
 msgstr "Заказы"
 
-#: ../includes/admin/class-awooc-admin-settings.php:156
+#: ../includes/admin/class-awooc-admin-settings.php:161
 msgid "Create orders"
 msgstr "Создание заказов"
 
-#: ../includes/admin/class-awooc-admin-settings.php:158
+#: ../includes/admin/class-awooc-admin-settings.php:163
 msgid ""
 "When this setting is enabled, orders will be created in the WooCommerce "
 "panel with the status \"Pending payment\""
@@ -139,56 +139,92 @@ msgstr ""
 "При включении этой настройки будут создаваться заказы в панели WooСommerce "
 "со статусом \"В ожидании оплаты\""
 
-#: ../includes/admin/class-awooc-admin-settings.php:237
-msgid "Do not show Buy button: catalog mode"
-msgstr "Не показывать кнопку Купить: режим каталога"
-
-#: ../includes/admin/class-awooc-admin-settings.php:238
-msgid "Show Buy button: normal mode"
-msgstr "Показывать кнопку Купить: штатный режим"
-
-#: ../includes/admin/class-awooc-admin-settings.php:239
-msgid "The Order button appears only when inventory management: pre-order mode"
+#: ../includes/admin/class-awooc-admin-settings.php:196
+msgid ""
+"On the pages of the categories and the store itself, the Add to Cart buttons "
+"are disabled. On the product page, the \"Add to cart\" button is hidden and "
+"the \"Order\" button appears."
 msgstr ""
-"Кнопка Заказать появиться только при управлении запасами: режим предзаказа"
+"На страницах категорий и самого магазина кнопки «Добавить в корзину» "
+"отключены. На странице товара кнопка «Добавить в корзину» скрыта, и "
+"появляется кнопка «Заказать»."
 
-#: ../includes/admin/class-awooc-admin-settings.php:240
-msgid "Special mode: no prices and stocks"
-msgstr "Специальный режим: нет цен и запасов"
+#: ../includes/admin/class-awooc-admin-settings.php:200
+msgid ""
+"The button \"Add to cart\" works in the normal mode, that is, goods can be "
+"added to the cart and at the same time ordered in one click"
+msgstr ""
+"Кнопка «Добавить в корзину» работает в обычном режиме, то есть товар можно "
+"добавить в корзину и одновременно заказать в один клик"
 
-#: ../includes/admin/class-awooc-admin-settings.php:255
+#: ../includes/admin/class-awooc-admin-settings.php:204
+msgid ""
+"The Order button will appear automatically if: Price not available;  stock "
+"status \"In Unfulfilled Order\"; stock status \"Out of stock\"; inventory "
+"management is enabled at item level and preorders allowed"
+msgstr ""
+"Кнопка «Заказать» появится автоматически, если: цена недоступна; управление "
+"запасами товара в статусе \"В невыполненном заказе \" или в статусе \"Нет на "
+"складе \"; управление запасами включено на уровне товара, а предварительные "
+"заказы разрешены"
+
+#: ../includes/admin/class-awooc-admin-settings.php:208
+msgid ""
+"When turned on, it works the same way as normal mode. But if the goods have "
+"no price or the product out of stock, then only the Order button will appear."
+msgstr ""
+"При включении работает так же, как и в обычном режиме. Но если у товара нет "
+"цены или товара нет в наличии, то появится только кнопка Заказать."
+
+#: ../includes/admin/class-awooc-admin-settings.php:265
+msgid "Catalog mode"
+msgstr "Режим каталога"
+
+#: ../includes/admin/class-awooc-admin-settings.php:266
+msgid "Normal mode"
+msgstr "Штатный режим"
+
+#: ../includes/admin/class-awooc-admin-settings.php:267
+msgid "Pre-order mode"
+msgstr "Режим предзаказа"
+
+#: ../includes/admin/class-awooc-admin-settings.php:268
+msgid "Special mode"
+msgstr "Специальный режим"
+
+#: ../includes/admin/class-awooc-admin-settings.php:283
 msgid "Off"
 msgstr "Выключить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:256
+#: ../includes/admin/class-awooc-admin-settings.php:284
 msgid "On"
 msgstr "Включить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:266
+#: ../includes/admin/class-awooc-admin-settings.php:294
 msgid "Title"
 msgstr "Наименование"
 
-#: ../includes/admin/class-awooc-admin-settings.php:267
+#: ../includes/admin/class-awooc-admin-settings.php:295
 msgid "Image"
 msgstr "Изображение"
 
-#: ../includes/admin/class-awooc-admin-settings.php:268
+#: ../includes/admin/class-awooc-admin-settings.php:296
 msgid "Price"
 msgstr "Цена"
 
-#: ../includes/admin/class-awooc-admin-settings.php:269
+#: ../includes/admin/class-awooc-admin-settings.php:297
 msgid "SKU"
 msgstr "Артикул"
 
-#: ../includes/admin/class-awooc-admin-settings.php:270
+#: ../includes/admin/class-awooc-admin-settings.php:298
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: ../includes/admin/class-awooc-admin-settings.php:271
+#: ../includes/admin/class-awooc-admin-settings.php:299
 msgid "Quantity"
 msgstr "Количество"
 
-#: ../includes/admin/class-awooc-admin-settings.php:287
+#: ../includes/admin/class-awooc-admin-settings.php:315
 msgid ""
 "<strong>Warning! The functionality is under development. </strong> For the "
 "correct operation of this functionality. Requires proper creation of fields "
@@ -198,15 +234,15 @@ msgstr ""
 "корректной работы требуется правильное создание полей в форме Contact Form 7 "
 "c именами:"
 
-#: ../includes/admin/class-awooc-admin-settings.php:288
+#: ../includes/admin/class-awooc-admin-settings.php:316
 msgid "field Name - <code>awooc-text</code>;"
 msgstr "поле Имя  - <code>awooc-text</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:289
+#: ../includes/admin/class-awooc-admin-settings.php:317
 msgid "field Email - <code>awooc-email</code>;"
 msgstr "поле Емайл - <code>awooc-email</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:290
+#: ../includes/admin/class-awooc-admin-settings.php:318
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
@@ -259,7 +295,7 @@ msgstr ""
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
 #: ../includes/class-awooc-ajax.php:186
-#: ../includes/class-awooc-frontend.php:58
+#: ../includes/class-awooc-frontend.php:57
 msgid "SKU: "
 msgstr "Артикул: "
 
@@ -271,34 +307,48 @@ msgstr[1] "Категории:"
 msgstr[2] "Категории:"
 
 #: ../includes/class-awooc-ajax.php:266
-#: ../includes/class-awooc-frontend.php:59
+#: ../includes/class-awooc-frontend.php:58
 msgid "Attributes: "
 msgstr "Атрибуты: "
 
 #: ../includes/class-awooc-ajax.php:294
-#: ../includes/class-awooc-frontend.php:57
+#: ../includes/class-awooc-frontend.php:56
 msgid "Price: "
 msgstr "Цена: "
 
-#: ../includes/class-awooc-frontend.php:55
+#: ../includes/class-awooc-frontend.php:54
 msgid "Quantity: "
 msgstr "Количество: "
 
-#: ../includes/class-awooc-frontend.php:56
+#: ../includes/class-awooc-frontend.php:55
 msgid "Title: "
 msgstr "Наименование: "
 
-#: ../includes/class-awooc-frontend.php:60
+#: ../includes/class-awooc-frontend.php:59
 msgid "Information about the selected product"
 msgstr "Информация о выбранном товаре"
 
-#: ../includes/class-awooc-frontend.php:61
+#: ../includes/class-awooc-frontend.php:60
 msgid "Click to close"
 msgstr "Ткнуть для закрытия"
 
-#: ../includes/class-awooc-frontend.php:331
+#: ../includes/class-awooc-frontend.php:326
 msgid "Read more"
 msgstr "Читать..."
+
+#~ msgid "Do not show Buy button: catalog mode"
+#~ msgstr "Не показывать кнопку Купить: режим каталога"
+
+#~ msgid "Show Buy button: normal mode"
+#~ msgstr "Показывать кнопку Купить: штатный режим"
+
+#~ msgid ""
+#~ "The Order button appears only when inventory management: pre-order mode"
+#~ msgstr ""
+#~ "Кнопка Заказать появиться только при управлении запасами: режим предзаказа"
+
+#~ msgid "Special mode: no prices and stocks"
+#~ msgstr "Специальный режим: нет цен и запасов"
 
 #~ msgid "Price & Stocks"
 #~ msgstr "Цены и Запасы"

@@ -111,16 +111,6 @@ class AWOOC_Front_End {
 
 		$mode_catalog = get_option( 'woocommerce_awooc_mode_catalog' );
 
-		if ( 'dont_show_add_to_card' === $mode_catalog ) {
-			if ( is_product() ) {
-				add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
-				add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
-
-				$bool = true;
-			}
-
-			$bool = false;
-		}
 		if ( 'no_stock_no_price' === $mode_catalog && false === $bool ) {
 			$bool = true;
 			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
