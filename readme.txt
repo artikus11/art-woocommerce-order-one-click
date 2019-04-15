@@ -4,7 +4,7 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 2.2.1
+Stable tag: 2.2.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,10 +28,10 @@ Special mode of operation. The Order button will appear automatically if:
 * stock status "In Unfulfilled Order"
 * stock status "Out of stock", inventory management is enabled at item level and preorders allowed
 
+In other cases, the Order button does not appear in this mode.
+
 = Special mode: no prices and stocks =
 Special mode. When turned on, it works the same way as normal mode. But if the goods have no price or the product out of stock, then only the Order button will appear.
-
-In other cases, the Order button does not appear in this mode.
 
 The plugin has implemented the function of creating orders when sending a letter. But to work correctly, you need to correctly configure the forms in the Contact Form 7 plugin.
 
@@ -99,6 +99,10 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.2.2 =
+* Исправлено - работа кнопки заказать в режиме каталога
+* Исправлено - стили загружаемой формы
 
 = 2.2.1 =
 * Исправлено - скрытие кнопки в режиме каталога
