@@ -80,7 +80,7 @@ class AWOOC_Orders {
 
 		$order = wc_create_order();
 
-		do_action( 'awooc_after_created_order', $product_id, $order );
+		do_action( 'awooc_after_created_order', $product_id, $order, $address, $product_qty );
 
 		$order->add_product( wc_get_product( $product_id ), $product_qty );
 		$order->set_address( $address, 'billing' );
