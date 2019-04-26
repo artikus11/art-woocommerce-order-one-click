@@ -4,8 +4,8 @@
  * Plugin URI: wpruse.ru/my-plugins/order-one-click/
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
- * Description: Plugin for WooCommerce. Includes Buy/Order button in one click. The buy buttons are hidden, the Order button appears.
- * Version: 2.2.2
+ * Description: Plugin for WooCommerce. It includes the catalog mode in the store (there are no prices and the Buy button) and can turn on the Buy/Order button in one click. WooCommerce and Contact Form 7 are required for proper operation.
+ * Version: 2.2.3
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+

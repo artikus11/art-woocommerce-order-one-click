@@ -4,14 +4,13 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.1
-Stable tag: 2.2.2
+Stable tag: 2.2.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
-Plugin for WooCommerce. Includes Buy/Order button in one click. The buy buttons are hidden, the Order button appears.
-WooCommerce and Contact Form 7 are required for proper operation.
+Plugin for WooCommerce. It includes the catalog mode in the store (there are no prices and the Buy button) and can turn on the Buy/Order button in one click. WooCommerce and Contact Form 7 are required for proper operation.
 
 The plugin provides three modes of operation:
 
@@ -99,6 +98,11 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.2.3 =
+* Исправлено - поведение кнопки Купить в специальном режиме в вариативных товарах
+* Исправлено - поведение кнопки Заказать в специальном режиме на страницах архивов
+* Исправлено - стили формы и окна на мобильных устройствах
 
 = 2.2.2 =
 * Исправлено - работа кнопки заказать в режиме каталога
