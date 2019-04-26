@@ -113,15 +113,13 @@ class AWOOC_Front_End {
 
 		if ( 'dont_show_add_to_card' === $mode_catalog ) {
 
-			if ( is_product() ) {
-				$bool = true;
-			} else {
-				$bool = false;
-			}
+			$bool = is_product() ? true : false;
 		}
 
 		if ( 'no_stock_no_price' === $mode_catalog && false === $bool ) {
-			$bool = true;
+
+			$bool = is_product() ? true : false;
+
 			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
 			add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
 		}
@@ -150,15 +148,11 @@ class AWOOC_Front_End {
 
 		if ( 'dont_show_add_to_card' === $mode_catalog && false === $status ) {
 
-			if ( is_product() ) {
-				$status = true;
-			} else {
-				$status = false;
-			}
+			$status = is_product() ? true : false;
 		}
 
 		if ( 'no_stock_no_price' === $mode_catalog && false === $status ) {
-			$status = true;
+			$status = is_product() ? true : false;
 			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
 			add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
 		}
