@@ -164,7 +164,7 @@ class AWOOC_Front_End {
 	/**
 	 * Изменение надписи на кнопке при включении режима реагирования на отсутствие цены и наличия
 	 *
-	 * @param $label
+	 * @param string $label
 	 *
 	 * @return string
 	 *
@@ -192,12 +192,12 @@ class AWOOC_Front_End {
 	public function hide_variable_add_to_cart( $bool, $product_id, $variation ) {
 
 		if ( 'no_stock_no_price' === get_option( 'woocommerce_awooc_mode_catalog' ) ) {
-			if ( ! $variation->is_purchasable() || ! $variation->is_in_stock() ) {
+			$product = wc_get_product( $product_id );
 
+			if ( ! $product->get_price() ) {
+				$bool = false;
 				add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
 				add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
-
-				$bool = false;
 			}
 		}
 
