@@ -192,6 +192,7 @@
     -webkit-flex: 0 1 100%;
     -ms-flex: 0 1 100%;
     flex: 0 1 100%;
+    max-width: 100%;
 }
 
 @media (min-width: 568px) {

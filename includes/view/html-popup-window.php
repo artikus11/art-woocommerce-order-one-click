@@ -42,7 +42,7 @@ $elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocomm
 				?>
 
 			</div>
-			<div class="awooc-col columns-right">
+			<div class="awooc-col columns-right <?php awooc_class_full( $elements ); ?>">
 
 				<?php
 
