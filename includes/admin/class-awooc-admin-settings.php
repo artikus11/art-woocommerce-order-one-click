@@ -402,7 +402,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 									type="<?php echo esc_attr( $val['type'] ); ?>"
 									class="<?php echo esc_attr( $val['class'] ); ?>"
 									style="<?php echo esc_attr( $val['css'] ); ?>"
-									placeholder="<?php echo esc_attr( $option_value[ $val['label'] ] ); ?>"
+									placeholder="<?php echo esc_attr( $val['label'] ); ?>"
 									data-tip="<?php echo esc_attr( $key ); ?>"
 								/>
 								<label for="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>">
