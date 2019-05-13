@@ -222,6 +222,7 @@ class AWOOC_Front_End {
 			case 'dont_show_add_to_card':
 				add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
 				add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
+				add_filter( 'woocommerce_loop_add_to_cart_args', array( $this, 'disable_ajax_add_to_cart_to_related' ), 10, 2 );
 
 				$this->hide_button_add_to_card();
 				awooc_html_custom_add_to_cart();
@@ -328,11 +329,11 @@ class AWOOC_Front_End {
 	/**
 	 * Замена текста на кнопках в похожих товарах на страницах товарах
 	 *
-	 * @since 1.8.0
-	 *
 	 * @param $text
 	 *
 	 * @return string
+	 * @since 1.8.0
+	 *
 	 */
 	public function disable_text_add_to_cart_to_related( $text ) {
 
@@ -341,5 +342,29 @@ class AWOOC_Front_End {
 		}
 
 		return $text;
+	}
+
+
+	/**
+	 * Удаление класса вызова ajax в режиме каталога для похожих товаров
+	 *
+	 * @param array      $args
+	 * @param WC_Product $product
+	 *
+	 * @return mixed
+	 * @since 2.2.5
+	 */
+	public function disable_ajax_add_to_cart_to_related( $args, $product ) {
+
+		if ( 'simple' === $product->get_type() && is_product() ) {
+			$search = 'ajax_add_to_cart';
+			$pos    = strrpos( $args['class'], $search );
+
+			if ( false !== $pos ) {
+				$args['class'] = substr_replace( $args['class'], '', $pos, strlen( $search ) );
+			}
+		}
+
+		return $args;
 	}
 }
