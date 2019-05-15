@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class AWOOC_Ajax
  *
@@ -31,13 +32,16 @@ class AWOOC_Ajax {
 
 	/**
 	 * Возвратна функция дл загрузки данных во всплывающем окне
-	 *
-	 *
 	 */
 	public function ajax_scripts_callback() {
 
-		if ( ! wp_verify_nonce( $_POST['nonce'], 'awooc-nonce' ) ) {
-			wp_die( esc_html__( 'Oops ... Data sent from unknown address', 'art-woocommerce-order-one-click' ) );
+		/**
+		 * Если включено кеширование, то нонсу не проверяем.
+		 */
+		if ( false === defined( 'WP_CACHE' ) ) {
+			if ( ! wp_verify_nonce( $_POST['nonce'], 'awooc-nonce' ) ) {
+				wp_die( esc_html__( 'Oops ... Data sent from unknown address', 'art-woocommerce-order-one-click' ) );
+			}
 		}
 
 		if ( ! isset( $_POST['id'] ) || empty( $_POST['id'] ) ) {
@@ -90,9 +94,9 @@ class AWOOC_Ajax {
 	 *
 	 * @param WC_Product $product
 	 *
+	 * @return bool|string
 	 * @since 1.8.0
 	 *
-	 * @return bool|string
 	 */
 	public function product_title( $product ) {
 
@@ -101,34 +105,13 @@ class AWOOC_Ajax {
 
 
 	/**
-	 * Вспомогательная функция для проверки типа товара
-	 *
-	 * @since 1.8.0
-	 *
-	 * @param WC_Product $product
-	 *
-	 * @return mixed
-	 */
-	public function product_id( $product ) {
-
-		if ( 'simple' === $product->get_type() ) {
-			$product_id = $product->get_id();
-		} else {
-			$product_id = $product->get_parent_id();
-		}
-
-		return $product_id;
-	}
-
-
-	/**
 	 * Получаем изображение товара
-	 *
-	 * @since 1.8.0
 	 *
 	 * @param WC_Product $product
 	 *
 	 * @return bool|mixed|string
+	 * @since 1.8.0
+	 *
 	 */
 	public function product_image( $product ) {
 
@@ -162,13 +145,34 @@ class AWOOC_Ajax {
 
 
 	/**
-	 * Получаем артикул товара
+	 * Вспомогательная функция для проверки типа товара
 	 *
+	 * @param WC_Product $product
+	 *
+	 * @return mixed
 	 * @since 1.8.0
+	 *
+	 */
+	public function product_id( $product ) {
+
+		if ( 'simple' === $product->get_type() ) {
+			$product_id = $product->get_id();
+		} else {
+			$product_id = $product->get_parent_id();
+		}
+
+		return $product_id;
+	}
+
+
+	/**
+	 * Получаем артикул товара
 	 *
 	 * @param WC_Product $product
 	 *
 	 * @return bool|mixed
+	 * @since 1.8.0
+	 *
 	 */
 	public function product_sku( $product ) {
 
@@ -191,35 +195,15 @@ class AWOOC_Ajax {
 		);
 	}
 
-	/**
-	 * Получаем категории товара
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param WC_Product $product
-	 *
-	 * @return string
-	 */
-	public function product_cat( $product ) {
-
-		return wc_get_product_category_list(
-			$this->product_id( $product ),
-			', ',
-			'<span class="posted_in">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'art-woocommerce-order-one-click' ) . ' ',
-			'</span>'
-		);
-
-	}
-
 
 	/**
 	 * Получение атрибутов вариативного товара
 	 *
-	 * @since 1.8.0
-	 *
 	 * @param WC_Product $product
 	 *
 	 * @return bool|string
+	 * @since 1.8.0
+	 *
 	 */
 	public function product_attr( $product ) {
 
@@ -275,11 +259,11 @@ class AWOOC_Ajax {
 	/**
 	 * Получаем цену товара
 	 *
-	 * @since 1.8.0
-	 *
 	 * @param WC_Product $product
 	 *
 	 * @return bool|mixed
+	 * @since 1.8.0
+	 *
 	 */
 	public function product_price( $product ) {
 
@@ -326,13 +310,34 @@ class AWOOC_Ajax {
 
 
 	/**
-	 * Получаем ссылку на товар
-	 *
-	 * @since 1.8.0
+	 * Получаем категории товара
 	 *
 	 * @param WC_Product $product
 	 *
 	 * @return string
+	 * @since 2.1.0
+	 *
+	 */
+	public function product_cat( $product ) {
+
+		return wc_get_product_category_list(
+			$this->product_id( $product ),
+			', ',
+			'<span class="posted_in">' . _n( 'Category:', 'Categories:', count( $product->get_category_ids() ), 'art-woocommerce-order-one-click' ) . ' ',
+			'</span>'
+		);
+
+	}
+
+
+	/**
+	 * Получаем ссылку на товар
+	 *
+	 * @param WC_Product $product
+	 *
+	 * @return string
+	 * @since 1.8.0
+	 *
 	 */
 	public function product_link( $product ) {
 

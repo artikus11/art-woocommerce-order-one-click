@@ -3,8 +3,8 @@ Contributors: artabr
 Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
-Tested up to: 5.1
-Stable tag: 2.2.4
+Tested up to: 5.2
+Stable tag: 2.2.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -101,6 +101,7 @@ e.g.
 
 = 2.2.4 =
 * Исправлено - исправлено поведение формы если нет элементов в окне
+* Добавлено - если включено страничное кеширование, то проверка нонсы не проиходит
 
 = 2.2.3 =
 * Исправлено - поведение кнопки Купить в специальном режиме в вариативных товарах
