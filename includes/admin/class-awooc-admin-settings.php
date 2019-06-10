@@ -24,9 +24,336 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 		parent::__construct();
 
+		add_action( 'woocommerce_admin_field_metabox_open', array( __CLASS__, 'metabox_open' ), 10, 1 );
+		add_action( 'woocommerce_admin_field_metabox_close', array( __CLASS__, 'metabox_close' ), 10, 1 );
+
+		add_action( 'woocommerce_admin_field_wrap_open', array( __CLASS__, 'wrap_open' ), 10, 1 );
+		add_action( 'woocommerce_admin_field_wrap_close', array( __CLASS__, 'wrap_close' ), 10, 1 );
+
+		add_action( 'woocommerce_admin_field_main_open', array( __CLASS__, 'main_open' ), 10, 1 );
+		add_action( 'woocommerce_admin_field_main_close', array( __CLASS__, 'main_close' ), 10, 1 );
+
+		add_action( 'woocommerce_admin_field_post_box', array( __CLASS__, 'post_box' ), 10, 1 );
 		add_action( 'woocommerce_admin_field_notice', array( __CLASS__, 'text_notice' ), 10, 1 );
 		add_action( 'woocommerce_admin_field_group_input', array( __CLASS__, 'group_input' ), 15, 1 );
+
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_script_style' ) );
+
+	}
+
+
+	/**
+	 * @return array
+	 */
+	public static function select_default_elements_item() {
+
+		$default = array(
+			'title',
+			'image',
+			'price',
+			'sku',
+			'attr',
+			'qty',
+		);
+
+		return $default;
+	}
+
+
+	/**
+	 * @return array
+	 *
+	 * @since 2.0.0
+	 */
+	public static function select_on_off() {
+
+		return array(
+			'off' => __( 'Off', 'art-woocommerce-order-one-click' ),
+			'on'  => __( 'On', 'art-woocommerce-order-one-click' ),
+		);
+	}
+
+
+	/**
+	 * Произвольное поле для сообщений
+	 *
+	 * @param $value
+	 *
+	 * @since 2.0.0
+	 */
+	public static function text_notice( $value ) {
+
+		if ( $value['style'] ) {
+			$style = 'style="' . $value['style'] . '"';
+		} else {
+			$style = '';
+		}
+
+		?>
+		<div id="<?php echo esc_attr( $value['id'] ); ?>" class="<?php echo esc_attr( $value['class'] ); ?>" <?php echo esc_attr( $style ); ?>>
+			<?php echo wp_kses_post( wpautop( wptexturize( $value['message'] ) ) ); ?>
+		</div>
+
+		<?php
+
+	}
+
+
+	/**
+	 * Открывающий тег сайдбара
+	 *
+	 * @param $value
+	 *
+	 * @since 2.2.6
+	 */
+	public static function metabox_open( $value ) {
+
+		if ( ! empty( $value['id'] ) ) {
+			?>
+			<div id="postbox-container-1" class="postbox-container">
+				<div class="meta-box-sortables">
+			<?php
+
+		}
+
+	}
+
+
+	/**
+	 * Закрывающий тег сайдбара
+	 *
+	 * @param $value
+	 *
+	 * @since 2.2.6
+	 */
+	public static function metabox_close( $value ) {
+
+		if ( ! empty( $value['id'] ) ) {
+			?>
+				</div>
+			</div>
+			<?php
+
+		}
+
+	}
+
+
+	/**
+	 * Открывающий тег обертки всей страницы настроек
+	 *
+	 * @param $value
+	 *
+	 * @since 2.2.6
+	 */
+	public static function wrap_open( $value ) {
+
+		if ( ! empty( $value['id'] ) ) {
+			?>
+			<div id="poststuff">
+				<div id="post-body" class="metabox-holder columns-2">
+					<div class="inside">
+			<?php
+
+		}
+
+	}
+
+
+	/**
+	 * Закрывающий тег обертки всей страницы настроек
+	 *
+	 * @param $value
+	 *
+	 * @since 2.2.6
+	 */
+	public static function wrap_close( $value ) {
+
+		if ( ! empty( $value['id'] ) ) {
+			?>
+					</div>
+				</div>
+			</div>
+			<br class="clear">
+			<?php
+
+		}
+
+	}
+
+
+	/**
+	 * Открывающий тег основного контента
+	 *
+	 * @param $value
+	 *
+	 * @since 2.2.6
+	 */
+	public static function main_open( $value ) {
+
+		if ( ! empty( $value['id'] ) ) {
+			echo '<div id="post-body-content">';
+		}
+
+	}
+
+
+	/**
+	 * Закрывающий тег основного контента
+	 *
+	 * @param $value
+	 *
+	 * @since 2.2.6
+	 */
+	public static function main_close( $value ) {
+
+		if ( ! empty( $value['id'] ) ) {
+			echo '</div>';
+		}
+
+	}
+
+
+	/**
+	 * Произвольная группа полей
+	 *
+	 * @param $value
+	 *
+	 * @since 2.1.4
+	 */
+	public static function group_input( $value ) {
+
+		$option_value       = WC_Admin_Settings::get_option( $value['id'], $value['default'] );
+		$field_desc_tooltip = WC_Admin_Settings::get_field_description( $value );
+
+		?>
+		<tr>
+			<th scope="row" class="titledesc">
+				<label for="<?php echo esc_attr( $value['id'] ); ?>">
+					<?php echo esc_html( $value['title'] ); ?>
+					<?php echo $field_desc_tooltip['tooltip_html']; // WPCS: XSS ok. ?>
+				</label>
+			</th>
+			<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
+				<?php echo $field_desc_tooltip['description']; // WPCS: XSS ok. ?>
+				<div class="awooc-row" style="<?php echo esc_attr( $value['css'] ); ?>">
+					<?php
+
+					foreach ( $value['fields'] as $key => $val ) :
+						if ( ! isset( $val['id'] ) ) {
+							$val['id'] = '';
+						}
+
+						if ( ! isset( $val['class'] ) ) {
+							$val['class'] = '';
+						}
+
+						if ( ! isset( $val['label'] ) ) {
+							$val['label'] = '';
+						}
+
+						if ( ! isset( $val['type'] ) ) {
+							$val['type'] = 'text';
+						}
+
+						if ( ! isset( $val['css'] ) || empty( $val['css'] ) ) {
+							$val['css'] = 'width: 100%';
+						}
+
+						?>
+						<div class="awooc-column">
+
+							<input
+								name="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>"
+								value="<?php echo esc_attr( $option_value[ $val['id'] ] ); ?>"
+								type="<?php echo esc_attr( $val['type'] ); ?>"
+								class="<?php echo esc_attr( $val['class'] ); ?>"
+								style="<?php echo esc_attr( $val['css'] ); ?>"
+								placeholder="<?php echo esc_attr( $val['label'] ); ?>"
+								data-tip="<?php echo esc_attr( $key ); ?>"
+							/>
+							<label for="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>">
+
+								<em>
+									<small><?php echo esc_html( $val['label'] ); ?></small>
+								</em>
+							</label>
+						</div>
+					<?php endforeach; ?>
+				</div>
+
+			</td>
+		</tr>
+
+		<?php
+
+	}
+
+
+	/**
+	 * @param $option
+	 *
+	 * @return array
+	 *
+	 * @since 2.1.4
+	 */
+	public static function group_fields( $option ) {
+
+		$options = get_option( $option );
+
+		return wp_parse_args( $options, self::group_fields_default() );
+	}
+
+
+	/**
+	 * Значение по умолчанию для группы полей
+	 *
+	 * @return array
+	 *
+	 * @since 2.1.4
+	 */
+	public static function group_fields_default() {
+
+		$default = array(
+			'id'    => '',
+			'type'  => '',
+			'label' => '',
+		);
+
+		return $default;
+	}
+
+
+	/**
+	 * Произвольный метабокс в сайдбаре
+	 *
+	 * @param $value
+	 *
+	 * @since 2.2.6
+	 */
+	public static function post_box( $value ) {
+
+		if ( $value['style'] ) {
+			$style = 'style="' . $value['style'] . '"';
+		} else {
+			$style = '';
+		}
+
+		if ( $value['title'] ) {
+			$title = '<h2><span>' . $value['title'] . '</span></h2>';
+		} else {
+			$title = '';
+		}
+
+		?>
+		<div id="<?php echo esc_attr( $value['id'] ); ?>" class="<?php echo esc_attr( $value['class'] ); ?> postbox" <?php echo esc_attr( $style ); ?>>
+			<?php echo wp_kses_post( $title ); ?>
+			<div class="inside">
+				<?php echo wp_kses_post( wpautop( wptexturize( $value['message'] ) ) ); ?>
+			</div>
+		</div>
+		<?php
+
 	}
 
 
@@ -61,6 +388,15 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 		$settings = apply_filters(
 			'awooc_settings_section_main',
 			array(
+				array(
+					'type' => 'wrap_open',
+					'id'   => 'woocommerce_awooc_wrap_open',
+				),
+
+				array(
+					'type' => 'main_open',
+					'id'   => 'woocommerce_awooc_main_open',
+				),
 
 				array(
 					'name' => __( 'General settings', 'art-woocommerce-order-one-click' ),
@@ -172,82 +508,56 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'id'   => 'woocommerce_awooc_settings_orders',
 				),
 
+				array(
+					'type' => 'main_close',
+					'id'   => 'woocommerce_awooc_main_close',
+				),
+				array(
+					'id'   => 'woocommerce_awooc_metabox_open',
+					'type' => 'metabox_open',
+				),
+
+				array(
+					'id'      => 'woocommerce_awooc_call_to_rate',
+					'type'    => 'post_box',
+					'class'   => '',
+					'style'   => '',
+					'title'   => '',
+					'message' => self::call_to_rate(),
+				),
+
+				array(
+					'id'      => 'woocommerce_awooc_guide',
+					'type'    => 'post_box',
+					'class'   => '',
+					'style'   => '',
+					'title'   => __( 'Plugin guide', 'art-woocommerce-order-one-click' ),
+					'message' => self::guide_link(),
+				),
+
+				array(
+					'id'      => 'woocommerce_awooc_call_to_donate',
+					'type'    => 'post_box',
+					'class'   => '',
+					'style'   => '',
+					'title'   => __( 'Donate', 'art-woocommerce-order-one-click' ),
+					'message' => self::call_to_donate(),
+				),
+
+				array(
+					'type' => 'metabox_close',
+					'id'   => 'woocommerce_awooc_column_close',
+				),
+
+				array(
+					'type' => 'wrap_close',
+					'id'   => 'woocommerce_awooc_wrap_close',
+				),
 			)
 		);
 
 		return apply_filters( 'woocommerce_get_settings_' . $this->id, $settings, $current_section );
 
-	}
-
-	/**
-	 * Подключаем дополниетльный скрипт в админке для управления описанием
-	 *
-	 * @since  2.2.1
-	 */
-	public function admin_enqueue_script_style() {
-
-		wp_enqueue_script( 'admin-awooc-script', AWOOC_PLUGIN_URI . 'assets/js/admin-script.js', array(), AWOOC_PLUGIN_VER, false );
-		wp_localize_script(
-			'admin-awooc-script',
-			'awooc_admin',
-			array(
-				'mode_catalog'  => __(
-					'On the pages of the categories and the store itself, the Add to Cart buttons are disabled. On the product page, the "Add to cart" button is hidden and the "Order" button appears.',
-					'art-woocommerce-order-one-click'
-				),
-				'mode_normal'   => __(
-					'The button "Add to cart" works in the normal mode, that is, goods can be added to the cart and at the same time ordered in one click',
-					'art-woocommerce-order-one-click'
-				),
-				'mode_in_stock' => __(
-					'The Order button will appear automatically if: Price not available;  stock status "In Unfulfilled Order"; stock status "Out of stock"; inventory management is enabled at item level and preorders allowed',
-					'art-woocommerce-order-one-click'
-				),
-				'mode_special'  => __(
-					'When turned on, it works the same way as normal mode. But if the goods have no price or the product out of stock, then only the Order button will appear.',
-					'art-woocommerce-order-one-click'
-				),
-			)
-		);
-
-	}
-	/**
-	 * @return array
-	 *
-	 * @since 1.8.0
-	 */
-	public function select_forms() {
-
-		$args = array(
-			'post_type'      => 'wpcf7_contact_form',
-			'posts_per_page' => 20,
-		);
-
-		$cf7_forms = get_posts( $args );
-		$select    = array();
-		foreach ( $cf7_forms as $form ) {
-			$select[ esc_attr( $form->ID ) ] = '[contact-form-7 id="' . esc_attr( $form->ID ) . '" title="' . esc_html( $form->post_title ) . '"]';
-		}
-
-		return $select;
-	}
-
-
-	/**
-	 * @return array
-	 */
-	public static function select_default_elements_item() {
-
-		$default = array(
-			'title',
-			'image',
-			'price',
-			'sku',
-			'attr',
-			'qty',
-		);
-
-		return $default;
 	}
 
 
@@ -271,18 +581,28 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 		return $options;
 	}
 
+
 	/**
 	 * @return array
 	 *
-	 * @since 2.0.0
+	 * @since 1.8.0
 	 */
-	public static function select_on_off() {
+	public function select_forms() {
 
-		return array(
-			'off' => __( 'Off', 'art-woocommerce-order-one-click' ),
-			'on'  => __( 'On', 'art-woocommerce-order-one-click' ),
+		$args = array(
+			'post_type'      => 'wpcf7_contact_form',
+			'posts_per_page' => 20,
 		);
+
+		$cf7_forms = get_posts( $args );
+		$select    = array();
+		foreach ( $cf7_forms as $form ) {
+			$select[ esc_attr( $form->ID ) ] = '[contact-form-7 id="' . esc_attr( $form->ID ) . '" title="' . esc_html( $form->post_title ) . '"]';
+		}
+
+		return $select;
 	}
+
 
 	/**
 	 * @return array
@@ -323,138 +643,153 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 
 	/**
-	 * Произвольное поле для сообщений
+	 * Призыв поставить рейтинг
 	 *
-	 * @param $value
 	 *
-	 * @since 2.0.0
+	 * @return string
+	 * @since  2.2.6
 	 */
-	public static function text_notice( $value ) {
+	public static function call_to_rate() {
 
-		if ( $value['style'] ) {
-			$style = 'style="' . $value['style'] . '"';
-		} else {
-			$style = '';
+		$message = '';
+
+		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
+			return $message;
 		}
 
-		?>
-		<div id="<?php echo esc_attr( $value['id'] ); ?>" class="<?php echo esc_attr( $value['class'] ); ?>" <?php echo esc_attr( $style ); ?>>
-			<?php echo wp_kses_post( wpautop( wptexturize( $value['message'] ) ) ); ?>
-		</div>
+		$current_screen = get_current_screen();
+		$wc_pages       = wc_get_screen_ids();
 
-		<?php
+		$wc_pages = array_diff( $wc_pages, array( 'profile', 'user-edit' ) );
 
+		if ( isset( $current_screen->id ) && in_array( $current_screen->id, $wc_pages, true ) ) {
+			if ( ! get_option( 'woocommerce_awooc_text_rated' ) ) {
+				$message = sprintf(
+					/* translators: 1: Art WooCommerce Order One Click 2:: five stars */
+					esc_html__( 'If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in advance!', 'art-woocommerce-order-one-click' ),
+					sprintf( '<strong>%s</strong>', esc_html__( 'Art WooCommerce Order One Click', 'art-woocommerce-order-one-click' ) ),
+					'<a href="https://wordpress.org/support/plugin/art-woocommerce-order-one-click/reviews?rate=5#new-post" target="_blank" class="awooc-rating-link" aria-label="' .
+					esc_attr__( 'five star', 'art-woocommerce-order-one-click' ) . '" data-rated="' . esc_attr__( 'Thanks :)', 'art-woocommerce-order-one-click' ) .
+					'">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
+				);
+				wc_enqueue_js(
+					"jQuery( 'a.awooc-rating-link' ).click( function() {
+						jQuery.post( '" . WC()->ajax_url() . "', { action: 'awooc_rated', resp: 'yes' } );
+						jQuery( this ).parent().text( jQuery( this ).data( 'rated' ) );
+					});"
+				);
+			} else {
+				$message = __( 'Thank you for using the plugin!', 'art-woocommerce-order-one-click' );
+			}
+		}
+
+		return $message;
 	}
 
-
 	/**
-	 * Произвольная группа полей
+	 * Призыв поддержать проект
 	 *
-	 * @param $value
 	 *
-	 * @since 2.1.4
+	 * @return string
+	 * @since  2.2.6
 	 */
-	public static function group_input( $value ) {
+	public static function call_to_donate() {
 
-		$option_value       = WC_Admin_Settings::get_option( $value['id'], $value['default'] );
-		$field_desc_tooltip = WC_Admin_Settings::get_field_description( $value );
+		$message = '';
 
-		?>
-		<tr valign="top">
-			<th scope="row" class="titledesc">
-				<label for="<?php echo esc_attr( $value['id'] ); ?>">
-					<?php echo esc_html( $value['title'] ); ?>
-					<?php echo $field_desc_tooltip['tooltip_html']; // WPCS: XSS ok. ?>
-				</label>
-			</th>
-			<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-					<?php echo $field_desc_tooltip['description']; // WPCS: XSS ok. ?>
-					<div class="awooc-row" style="<?php echo esc_attr( $value['css'] ); ?>">
-						<?php
+		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
+			return $message;
+		}
 
-						foreach ( $value['fields'] as $key => $val ) :
-							if ( ! isset( $val['id'] ) ) {
-								$val['id'] = '';
-							}
-
-							if ( ! isset( $val['class'] ) ) {
-								$val['class'] = '';
-							}
-
-							if ( ! isset( $val['label'] ) ) {
-								$val['label'] = '';
-							}
-
-							if ( ! isset( $val['type'] ) ) {
-								$val['type'] = 'text';
-							}
-
-							if ( ! isset( $val['css'] ) || empty( $val['css'] ) ) {
-								$val['css'] = 'width: 100%';
-							}
-
-							?>
-							<div class="awooc-column">
-
-								<input
-									name="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>"
-									value="<?php echo esc_attr( $option_value[ $val['id'] ] ); ?>"
-									type="<?php echo esc_attr( $val['type'] ); ?>"
-									class="<?php echo esc_attr( $val['class'] ); ?>"
-									style="<?php echo esc_attr( $val['css'] ); ?>"
-									placeholder="<?php echo esc_attr( $val['label'] ); ?>"
-									data-tip="<?php echo esc_attr( $key ); ?>"
-								/>
-								<label for="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>">
-
-									<em>
-										<small><?php echo esc_html( $val['label'] ); ?></small>
-									</em>
-								</label>
-							</div>
-						<?php endforeach; ?>
-					</div>
-
-			</td>
-		</tr>
-
-		<?php
-
-	}
-
-
-	/**
-	 * Значение по умолчанию для группы полей
-	 *
-	 * @return array
-	 *
-	 * @since 2.1.4
-	 */
-	public static function group_fields_default() {
-
-		$default = array(
-			'id'    => '',
-			'type'  => '',
-			'label' => '',
+		$payments = array(
+			'pp'     => array(
+				'title' => __( 'PayPal', 'art-woocommerce-order-one-click' ),
+				'desc'  => __( 'Make a donation through PayPal', 'art-woocommerce-order-one-click' ),
+				'link'  => 'https://www.paypal.me/artabr',
+			),
+			'yd'     => array(
+				'title' => __( 'Yandex Money', 'art-woocommerce-order-one-click' ),
+				'desc'  => __( 'Make a donation through the Yandex Money system. You can use bank cards', 'art-woocommerce-order-one-click' ),
+				'link'  => 'https://money.yandex.ru/to/41001551911515',
+			),
+			'wpruse' => array(
+				'title' => __( 'WPRUSe', 'art-woocommerce-order-one-click' ),
+				'desc'  => __( 'WPRUSe project site', 'art-woocommerce-order-one-click' ),
+				'link'  => 'https://wpruse.ru/donat/',
+			),
 		);
 
-		return $default;
+		$message = sprintf(
+			/* translators: 1: Art WooCommerce Order One Click  */
+			esc_html__( 'You can make a donation to make the plugin %1$s even better!', 'art-woocommerce-order-one-click' ), sprintf( '<strong>%s</strong>', esc_html__( 'Art WooCommerce Order One Click', 'art-woocommerce-order-one-click' ) )
+		);
+
+		foreach ( $payments as $key => $payment ) {
+			$message .= '<p><span class="woocommerce-help-tip" data-tip="' . $payment['desc'] . '"></span><strong>';
+			$message .= '<a href="' . $payment['link'] . '" target="_blank" class="awooc-donate-link">' . $payment['title'] . '</a>';
+			$message .= '</strong><p>';
+		}
+
+		return $message;
+	}
+
+	/**
+	 * Ссылка на инструкцию
+	 *
+	 *
+	 * @return string
+	 * @since  2.2.6
+	 */
+	public static function guide_link() {
+
+		$message = '';
+
+		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
+			return $message;
+		}
+
+		$message = __( 'Detailed step by step instructions for setting up the plugin (in Russian)', 'art-woocommerce-order-one-click' );
+
+		$message .= '<p><a href="https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/" target="_blank" class="awooc-tutorial-link">Read more...</a></p>';
+
+		return $message;
 	}
 
 
 	/**
-	 * @param $option
+	 * Подключаем дополниетльный скрипт в админке для управления описанием
 	 *
-	 * @return array
-	 *
-	 * @since 2.1.4
+	 * @since  2.2.1
 	 */
-	public static function group_fields( $option ) {
+	public function admin_enqueue_script_style() {
 
-		$options = get_option( $option );
+		wp_enqueue_script( 'admin-awooc-script', AWOOC_PLUGIN_URI . 'assets/js/admin-script.js', array(), AWOOC_PLUGIN_VER, false );
+		wp_localize_script(
+			'admin-awooc-script',
+			'awooc_admin',
+			array(
+				'mode_catalog'  => __(
+					'On the pages of the categories and the store itself, the Add to Cart buttons are disabled. On the product page, the "Add to cart" button is hidden and the "Order" button appears.',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_normal'   => __(
+					'The button "Add to cart" works in the normal mode, that is, goods can be added to the cart and at the same time ordered in one click',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_in_stock' => __(
+					'The Order button will appear automatically if: Price not available;  stock status "In Unfulfilled Order"; stock status "Out of stock"; inventory management is enabled at item level and preorders allowed',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_special'  => __(
+					'When turned on, it works the same way as normal mode. But if the goods have no price or the product out of stock, then only the Order button will appear.',
+					'art-woocommerce-order-one-click'
+				),
+			)
+		);
 
-		return wp_parse_args( $options, self::group_fields_default() );
 	}
+
+
 	/**
 	 * Save settings.
 	 */

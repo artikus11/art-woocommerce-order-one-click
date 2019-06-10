@@ -67,3 +67,15 @@
     margin-left: 0;
 
 }
+.woocommerce #poststuff h2 {
+    font-size: 1.3em;
+    padding: 0;
+    margin: 1em 0;
+    line-height: inherit;
+}
+.woocommerce #poststuff h2 span{
+    font-size: 14px;
+    padding: 0 12px;
+    margin: 0;
+    line-height: 1.4;
+}

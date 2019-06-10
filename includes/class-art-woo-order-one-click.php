@@ -142,6 +142,7 @@ class ArtWoo_Order_One_Click {
 
 		add_action( 'admin_init', array( $this, 'check_requirements' ) );
 		add_action( 'admin_init', array( $this, 'check_php_version' ) );
+		add_action( 'wp_ajax_awooc_rated', array( $this, 'add_rated' ) );
 		add_filter( 'plugin_action_links_' . AWOOC_PLUGIN_FILE, array( $this, 'add_plugin_action_links' ), 10, 1 );
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_awooc_admin_settings' ), 15 );
 
@@ -428,6 +429,7 @@ class ArtWoo_Order_One_Click {
 				'woocommerce_awooc_created_order',
 				'woocommerce_awooc_title_custom',
 				'woocommerce_awooc_no_price',
+				'woocommerce_awooc_text_rated',
 			)
 		);
 
@@ -435,5 +437,14 @@ class ArtWoo_Order_One_Click {
 			delete_option( $option );
 		}
 
+	}
+
+	public function add_rated() {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_die( - 1 );
+		}
+
+		update_option( 'woocommerce_awooc_text_rated', 1 );
+		wp_die();
 	}
 }

@@ -5,7 +5,7 @@ jQuery(function ($) {
         // Get value.
         var select_val = $(this).val();
         //console.log(select_val);
-        $(this).next().next('.description').css({'display': 'block', 'margin-top': '8px'});
+        $(this).next().next('.description').css({'display': 'block', 'margin-top': '8px', 'max-width': '80%'});
         if ('dont_show_add_to_card' === select_val) {
             $(this).next().next('.description').text(awooc_admin.mode_catalog);
         } else if ('show_add_to_card' === select_val) {
