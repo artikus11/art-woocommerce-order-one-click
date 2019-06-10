@@ -1,0 +1,6 @@
+<wpml-config>
+    <admin-texts>
+        <key name="woocommerce_awooc_title_button"/>
+        <key name="woocommerce_awooc_title_custom"/>
+    </admin-texts>
+</wpml-config>

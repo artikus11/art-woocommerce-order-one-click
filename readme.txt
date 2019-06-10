@@ -4,7 +4,7 @@ Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
 Tested up to: 5.2
-Stable tag: 2.2.5
+Stable tag: 2.2.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -98,6 +98,10 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.2.6 =
+* Добавлено - дополнительные настройки для вывода инфоблоков
+* Добавлено - поддержка Polylang и WPML
 
 = 2.2.5 =
 * Исправлено - поведение кнопки Купить в Похожих товарах
