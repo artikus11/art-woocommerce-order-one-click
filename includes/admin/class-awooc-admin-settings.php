@@ -542,7 +542,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'type'    => 'post_box',
 					'class'   => '',
 					'style'   => '',
-					'title'   => __( 'Plugin guide', 'art-woocommerce-order-one-click' ),
+					'title'   => __( 'Useful links', 'art-woocommerce-order-one-click' ),
 					'message' => self::guide_link(),
 				),
 
@@ -762,6 +762,9 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 		$message = __( 'Detailed step by step instructions for setting up the plugin (in Russian)', 'art-woocommerce-order-one-click' );
 
 		$message .= '<p><a href="https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/" target="_blank" class="awooc-tutorial-link">Read more...</a></p>';
+		$message .= __( 'Plugin on GitHub, you can write there suggestions, wishes or participate in the development', 'art-woocommerce-order-one-click' );
+
+		$message .= '<p><a href="https://github.com/artikus11/art-woocommerce-order-one-click" target="_blank" class="awooc-tutorial-link">Plugin on GitHub</a></p>';
 
 		return $message;
 	}
