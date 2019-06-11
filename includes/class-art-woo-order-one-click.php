@@ -430,6 +430,7 @@ class ArtWoo_Order_One_Click {
 				'woocommerce_awooc_title_custom',
 				'woocommerce_awooc_no_price',
 				'woocommerce_awooc_text_rated',
+				'woocommerce_awooc_сhange_subject',
 			)
 		);
 

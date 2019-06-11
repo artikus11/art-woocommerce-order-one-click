@@ -504,6 +504,17 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 				),
 
 				array(
+					'title'   => __( 'Change subject', 'art-woocommerce-order-one-click' ),
+					'desc'    => __(
+						'If you enable this setting, then the order number will be added to the subject of the letter in the format of the "Letter Subject No. 112233"',
+						'art-woocommerce-order-one-click'
+					),
+					'id'      => 'woocommerce_awooc_сhange_subject',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
+
+				array(
 					'type' => 'sectionend',
 					'id'   => 'woocommerce_awooc_settings_orders',
 				),
