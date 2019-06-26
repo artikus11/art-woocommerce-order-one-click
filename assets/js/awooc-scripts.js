@@ -128,8 +128,6 @@ jQuery(document).ready(function ($) {
         $.unblockUI();
         // При клику на оверлей добавлем нужный класс
         $('#awooc-form-custom-order').addClass('awooc-hide');
-        // При клику на оверлей очищаем урл
-        history.pushState('', document.title, window.location.pathname);
     });
 
     // Если ошибка отправки письма то через 5сек очищаем сообщения
@@ -235,8 +233,6 @@ jQuery(document).ready(function ($) {
                 //$('html').css({'overflow': ''});
                 // При закрытии окна очищаем данные
                 awoocFormDataEmpty();
-                // При закрытии окна очищаем урл
-                history.pushState('', document.title, window.location.pathname);
 
             },
             onOverlayClick: function () {
@@ -248,8 +244,6 @@ jQuery(document).ready(function ($) {
                 $.unblockUI();
                 // При закрытии окна очищаем данные
                 awoocFormDataEmpty();
-                // При закрытии окна очищаем урл
-                history.pushState('', document.title, window.location.pathname)
             }
         });
     }
