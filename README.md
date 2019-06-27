@@ -11,6 +11,8 @@
 [Плагин в репозитории WordPress](https://wordpress.org/plugins/art-woocommerce-order-one-click/)
 
 ## Changelog
+### = 2.2.7 =
+* Исправлено - небольшие правки по коду
 
 ### = 2.2.6 =
 * Добавлено - дополнительные настройки для вывода инфоблоков
