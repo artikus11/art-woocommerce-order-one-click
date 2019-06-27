@@ -232,7 +232,7 @@ class AWOOC_Front_End {
 				awooc_html_custom_add_to_cart();
 				break;
 			case 'in_stock_add_to_card':
-				if ( $product->is_on_backorder() || 0 === $product->get_price() || ! $product->get_price() || ! $product->is_in_stock() ) {
+				if ( $product->is_on_backorder() || 0 === $product->get_price() || empty( $product->get_price() ) || ! $product->is_in_stock() ) {
 					$this->hide_button_add_to_card();
 					awooc_html_custom_add_to_cart();
 				}
