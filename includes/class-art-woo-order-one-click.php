@@ -25,7 +25,7 @@ class ArtWoo_Order_One_Click {
 	 * @since 2.0.0
 	 * @var object AWOOC_Front_End $front_end
 	 */
-	private $front_end;
+	public $front_end;
 
 	/**
 	 * Added AWOOC_Ajax.
@@ -33,7 +33,7 @@ class ArtWoo_Order_One_Click {
 	 * @since 2.0.0
 	 * @var object AWOOC_Ajax $ajax
 	 */
-	private $ajax;
+	public $ajax;
 
 	/**
 	 * Added AWOOC_Orders.
@@ -41,7 +41,7 @@ class ArtWoo_Order_One_Click {
 	 * @since 2.0.0
 	 * @var object AWOOC_Orders $front_end
 	 */
-	private $orders;
+	public $orders;
 
 	/**
 	 * @since 2.0.0
