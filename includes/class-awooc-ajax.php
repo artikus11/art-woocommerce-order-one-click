@@ -293,7 +293,7 @@ class AWOOC_Ajax {
 	 */
 	public function select_form() {
 
-		$select_form = get_option( 'woocommerce_awooc_select_form' );
+		$select_form = apply_filters( 'awooc_selected_form_id', get_option( 'woocommerce_awooc_select_form' ) );
 
 		if ( ! $select_form ) {
 			return false;
