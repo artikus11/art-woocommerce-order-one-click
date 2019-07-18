@@ -11,6 +11,10 @@
 [Плагин в репозитории WordPress](https://wordpress.org/plugins/art-woocommerce-order-one-click/)
 
 ## Changelog
+
+### = 2.2.8 =
+* Добавлено - фильтр `awooc_selected_form_id` для отлавливания ID формы
+
 ### = 2.2.7 =
 * Исправлено - небольшие правки по коду
 
