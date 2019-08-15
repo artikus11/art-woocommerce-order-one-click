@@ -664,7 +664,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 		$message = '';
 
-		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) || ! function_exists( 'get_current_screen' ) ) {
 			return $message;
 		}
 
