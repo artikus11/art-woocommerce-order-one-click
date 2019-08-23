@@ -518,6 +518,28 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 					'type' => 'sectionend',
 					'id'   => 'woocommerce_awooc_settings_orders',
 				),
+				array(
+					'name' => __( 'Others', 'art-woocommerce-order-one-click' ),
+					'type' => 'title',
+					'desc' => '',
+					'id'   => 'woocommerce_awooc_settings_others',
+				),
+
+				array(
+					'title'   => __( 'Do not delete settings', 'art-woocommerce-order-one-click' ),
+					'desc'    => __(
+						'If enabled, then the settings when you remove the plugin will NOT be deleted',
+						'art-woocommerce-order-one-click'
+					),
+					'id'      => 'woocommerce_awooc_not_del_settings',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
+
+				array(
+					'type' => 'sectionend',
+					'id'   => 'woocommerce_awooc_settings_others',
+				),
 
 				array(
 					'type' => 'main_close',

@@ -417,6 +417,10 @@ class ArtWoo_Order_One_Click {
 			return;
 		}
 
+		if ( 'yes' === get_option( 'woocommerce_awooc_not_del_settings' ) ) {
+			return;
+		}
+
 		$options = apply_filters(
 			'awooc_uninstall_options',
 			array(
@@ -431,6 +435,7 @@ class ArtWoo_Order_One_Click {
 				'woocommerce_awooc_no_price',
 				'woocommerce_awooc_text_rated',
 				'woocommerce_awooc_сhange_subject',
+				'woocommerce_awooc_not_del_settings',
 			)
 		);
 
