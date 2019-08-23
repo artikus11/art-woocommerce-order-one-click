@@ -1,22 +1,52 @@
-language: php
 sudo: false
-php:
-- '5.6'
-- '7.0'
-- '7.1'
-- '7.2'
+language: php
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+branches:
+  only:
+  - master
+matrix:
+  fast_finish: true
+  include:
+  - php: '5.4'
+  - php: '5.5'
+  - php: '5.6'
+  - php: '7.0'
+  - php: '7.1'
+    env: SNIFF=1
+  - php: '7.2'
+  - php: nightly
+  allow_failures:
+  - php: nightly
+cache:
+  directories:
+  - vendor
+  - "$HOME/.composer/cache"
+  - node_modules
+before_script:
+- if [[ "$SNIFF" == "1" ]]; then export PHPCS_DIR=/tmp/phpcs; fi
+- if [[ "$SNIFF" == "1" ]]; then export SNIFFS_DIR=/tmp/sniffs; fi
+- if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git
+  $PHPCS_DIR; fi
+- if [[ "$SNIFF" == "1" ]]; then git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git
+  $SNIFFS_DIR; fi
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs --config-set installed_paths
+  $SNIFFS_DIR; fi
+- if [[ "$SNIFF" == "1" ]]; then phpenv rehash; fi
 script:
-- echo 'Tested'
+- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/bin/phpcs -p -s --colors --standard=phpcs.ruleset.xml
+  .; fi
 before_deploy:
-      - git config --local user.name "artikus11"
-      - git config --local user.email "artikus.sol@gmail.ru"
-      - git tag "2.2.9"
+- git config --local user.name "artikus11"
+- git config --local user.email "artikus.sol@gmail.ru"
+- git tag "2.3.0"
 deploy:
   provider: releases
   api_key:
-    secure: FNRV0Ky/plviY6QnbvfuD2DuKt8Gje7LDeQIXg5buZocTUBchz9vN2TrNkIuhOQBG9NVE01NCfDhZsHmiQ1pGBXWiyNt6POxqPHTN5FoqUg+Jl5At5LrTZQumBHdT7GYu6PUPBCgT2gBQprJ/7NaGt3KKZ7B3OZufHtjKVSSg26KceBW/UVPkunuj0jrMgngZe/lhNkU29ZLwXBkz5lOF7OGPghNW+LLg+qVSsuPg9ydV/hbHJluYzm7AzCfj+AKSyoCh7CwIC6PubFJuUoMDrVP+yRQNTX7kttJQsrsb1uMu2fUoSaEyOICSyUyl0l8wQQb6tsjMxZXCg4GgNRj9llDuhs+Q/oWEfPf+6ahLeiVzIvE17njn6t2XYQaPOX5JiVPJD8u794Ow5oPfAfWzfRZj+WjQlm3a/u06j++TNyA2XsgDGKI/w+BEDwe+y7b8iQlEHUxfZIHQ9PdZf3fDh3Hj4hHrxxmjVrPHJWapz7rPDwtwvXfderUxzRybWqOTN4lrk3AT/zaslIkg8uqNFHN/LMEfcBvwnJz6LrHGnlULmvx3AAd9iIUZoEFMAa3C6Hid7QwRO23XuuhlWXD/JOdxEnOWJuH3dq9AME0oMWhTaYC8RG23CoiGuNyzYiIWrzkr3qBchDQtJzsqYeUcRFc99XI19uYgqPGwPPR70E=
+    secure: VZ7j58tNC6CYVs5VN/P8GKW71DfPYbAvQvoHgxp9VF9l206vhQXINgV7IKI9zeYkrf3B6rrFRgl9jvlome2naTSNZX9GqS3JXtuIpBQKe0zV+/A2ert271AlzdnZ89cW14+Jq1XpKdu4Ya97vi9QNlvRy6boCiHLmrO7RKI+4PfOS1ewu8BseDNOsoTqMWweLwOb0q6lgjd4/viavf8kCZY1Eg4ysYq9txGi2lw2oS1d1AF4FMfiUq1KGZ1FQXJBx/P7fHCSUkT176nZCsE8HC2WcVGHPqi/xGe+QXJi2ZNQCiz6s8bV2SpaqfNtXloHeT/JiGFol8Nifuq7HrYBsGvWC7qwUWSLzOChqKGyAoZtA+PO/PRQAeJoA8NMS8fETeSRzkxT/zpqnffXaZmpEflxXrYqWyuK/0ZLhW/xwLav5YnXVqnrpkNlkwVhGEsros3026gSO/Jnu0dkxiVw9TmQ/i7Dqq1lLhwIxFu7Vm091w13PcDBgLV890PVRBw3eOmiDeQBuosJt0WXEYfA2F+TPt9fNviV6yUKlxdL54NaG+tBppvTO3FQCXGg6Fyy287uqNh8kXMD/xlAZkPLyDEQc1Y72cdqME7eGhQxonqai2oTnlCjMQPGE1Y8uF1Tt39bz4UTja06nAOR+0HMAyIbOvQAapazV0CXAKgXZXk=
   file: latest.zip
   on:
-    php: 7.0
     repo: artikus11/art-woocommerce-order-one-click
-after_deploy: "release created"
+after_deploy: release created
