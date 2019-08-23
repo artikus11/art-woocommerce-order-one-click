@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2019-06-11 14:11+0400\n"
-"PO-Revision-Date: 2019-06-11 14:11+0400\n"
+"POT-Creation-Date: 2019-08-24 00:54+0400\n"
+"PO-Revision-Date: 2019-08-24 00:54+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -53,6 +53,18 @@ msgid ""
 msgstr ""
 "Чтобы использовать значение, введенное через это поле в письме, необходимо "
 "вставить соответствующий почтовый тег (% s) в поле на вкладке Почта."
+
+#: ../includes/admin/class-awooc-admin-meta-box.php:51
+msgid "Disable Order One Click Button"
+msgstr "Отключить кнопку Заказать"
+
+#: ../includes/admin/class-awooc-admin-meta-box.php:52
+msgid ""
+"If enabled, then on this product the Order button will not be visible. "
+"Product will return to its original condition."
+msgstr ""
+"Если включить, то на этом товаре кнопка Заказать будет не видна. Товар "
+"вернется к исходному состоянию"
 
 #: ../includes/admin/class-awooc-admin-settings.php:23
 #: ../includes/class-awooc-orders.php:112
@@ -159,55 +171,68 @@ msgstr ""
 "Если включить эту настройку, то к теме письма будет добавляться номер заказа "
 "в формате \"Тема письма №112233\""
 
-#: ../includes/admin/class-awooc-admin-settings.php:545
+#: ../includes/admin/class-awooc-admin-settings.php:522
+msgid "Others"
+msgstr "Разное"
+
+#: ../includes/admin/class-awooc-admin-settings.php:529
+msgid "Do not delete settings"
+msgstr "Не удалять настройки "
+
+#: ../includes/admin/class-awooc-admin-settings.php:531
+msgid ""
+"If enabled, then the settings when you remove the plugin will NOT be deleted"
+msgstr "Если включено, то настройки при удалении плагина НЕ будут удалены"
+
+#: ../includes/admin/class-awooc-admin-settings.php:567
 msgid "Useful links"
 msgstr "Социальные ссылки"
 
-#: ../includes/admin/class-awooc-admin-settings.php:554
+#: ../includes/admin/class-awooc-admin-settings.php:576
 msgid "Donate"
 msgstr "Поддержать"
 
-#: ../includes/admin/class-awooc-admin-settings.php:585
+#: ../includes/admin/class-awooc-admin-settings.php:607
 msgid "Catalog mode"
 msgstr "Режим каталога"
 
-#: ../includes/admin/class-awooc-admin-settings.php:586
+#: ../includes/admin/class-awooc-admin-settings.php:608
 msgid "Normal mode"
 msgstr "Штатный режим"
 
-#: ../includes/admin/class-awooc-admin-settings.php:587
+#: ../includes/admin/class-awooc-admin-settings.php:609
 msgid "Pre-order mode"
 msgstr "Режим предзаказа"
 
-#: ../includes/admin/class-awooc-admin-settings.php:588
+#: ../includes/admin/class-awooc-admin-settings.php:610
 msgid "Special mode"
 msgstr "Специальный режим"
 
-#: ../includes/admin/class-awooc-admin-settings.php:624
+#: ../includes/admin/class-awooc-admin-settings.php:646
 msgid "Title"
 msgstr "Наименование"
 
-#: ../includes/admin/class-awooc-admin-settings.php:625
+#: ../includes/admin/class-awooc-admin-settings.php:647
 msgid "Image"
 msgstr "Изображение"
 
-#: ../includes/admin/class-awooc-admin-settings.php:626
+#: ../includes/admin/class-awooc-admin-settings.php:648
 msgid "Price"
 msgstr "Цена"
 
-#: ../includes/admin/class-awooc-admin-settings.php:627
+#: ../includes/admin/class-awooc-admin-settings.php:649
 msgid "SKU"
 msgstr "Артикул"
 
-#: ../includes/admin/class-awooc-admin-settings.php:628
+#: ../includes/admin/class-awooc-admin-settings.php:650
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: ../includes/admin/class-awooc-admin-settings.php:629
+#: ../includes/admin/class-awooc-admin-settings.php:651
 msgid "Quantity"
 msgstr "Количество"
 
-#: ../includes/admin/class-awooc-admin-settings.php:645
+#: ../includes/admin/class-awooc-admin-settings.php:667
 msgid ""
 "<strong>Warning! The functionality is under development. </strong> For the "
 "correct operation of this functionality. Requires proper creation of fields "
@@ -217,19 +242,19 @@ msgstr ""
 "корректной работы требуется правильное создание полей в форме Contact Form 7 "
 "c именами:"
 
-#: ../includes/admin/class-awooc-admin-settings.php:646
+#: ../includes/admin/class-awooc-admin-settings.php:668
 msgid "field Name - <code>awooc-text</code>;"
 msgstr "поле Имя  - <code>awooc-text</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:647
+#: ../includes/admin/class-awooc-admin-settings.php:669
 msgid "field Email - <code>awooc-email</code>;"
 msgstr "поле Емайл - <code>awooc-email</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:648
+#: ../includes/admin/class-awooc-admin-settings.php:670
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:680
+#: ../includes/admin/class-awooc-admin-settings.php:702
 #, php-format
 msgid ""
 "If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in "
@@ -238,60 +263,60 @@ msgstr ""
 "Если вам нравится плагин %1$s, пожалуйста, поставьте оценку %2$s. Заранее "
 "большое спасибо!"
 
-#: ../includes/admin/class-awooc-admin-settings.php:681
-#: ../includes/admin/class-awooc-admin-settings.php:735
+#: ../includes/admin/class-awooc-admin-settings.php:703
+#: ../includes/admin/class-awooc-admin-settings.php:757
 msgid "Art WooCommerce Order One Click"
 msgstr "Art WooCommerce Order One Click"
 
-#: ../includes/admin/class-awooc-admin-settings.php:683
+#: ../includes/admin/class-awooc-admin-settings.php:705
 msgid "five star"
 msgstr "пять звезд"
 
-#: ../includes/admin/class-awooc-admin-settings.php:683
+#: ../includes/admin/class-awooc-admin-settings.php:705
 msgid "Thanks :)"
 msgstr "Пожалуйста, не загружайте эту страницу напрямую. Спасибо!"
 
-#: ../includes/admin/class-awooc-admin-settings.php:693
+#: ../includes/admin/class-awooc-admin-settings.php:715
 msgid "Thank you for using the plugin!"
 msgstr "Спасибо, что используете плагин!"
 
-#: ../includes/admin/class-awooc-admin-settings.php:717
+#: ../includes/admin/class-awooc-admin-settings.php:739
 msgid "PayPal"
 msgstr "PayPal"
 
-#: ../includes/admin/class-awooc-admin-settings.php:718
+#: ../includes/admin/class-awooc-admin-settings.php:740
 msgid "Make a donation through PayPal"
 msgstr "Поддержать через PayPal"
 
-#: ../includes/admin/class-awooc-admin-settings.php:722
+#: ../includes/admin/class-awooc-admin-settings.php:744
 msgid "Yandex Money"
 msgstr "Яндекс Деньги"
 
-#: ../includes/admin/class-awooc-admin-settings.php:723
+#: ../includes/admin/class-awooc-admin-settings.php:745
 msgid "Make a donation through the Yandex Money system. You can use bank cards"
 msgstr "Поддержать через Яндекс Деньги. Можно использовать банковские карты"
 
-#: ../includes/admin/class-awooc-admin-settings.php:727
+#: ../includes/admin/class-awooc-admin-settings.php:749
 msgid "WPRUSe"
 msgstr "WPRUSe"
 
-#: ../includes/admin/class-awooc-admin-settings.php:728
+#: ../includes/admin/class-awooc-admin-settings.php:750
 msgid "WPRUSe project site"
 msgstr "Описание проекта"
 
-#: ../includes/admin/class-awooc-admin-settings.php:735
+#: ../includes/admin/class-awooc-admin-settings.php:757
 #, php-format
 msgid "You can make a donation to make the plugin %1$s even better!"
 msgstr ""
 "Вы можете сделать пожертвование, чтобы мотивировать автора и сделать плагин "
 "%1$s еще лучше!"
 
-#: ../includes/admin/class-awooc-admin-settings.php:762
+#: ../includes/admin/class-awooc-admin-settings.php:784
 msgid ""
 "Detailed step by step instructions for setting up the plugin (in Russian)"
 msgstr "Подробная инструкция по настройке плагина (на русском)"
 
-#: ../includes/admin/class-awooc-admin-settings.php:765
+#: ../includes/admin/class-awooc-admin-settings.php:787
 msgid ""
 "Plugin on GitHub, you can write there suggestions, wishes or participate in "
 "the development"
@@ -299,7 +324,7 @@ msgstr ""
 "Плагин на GitHub. Можно оставить пожелания, предложения или поучаствовать в "
 "разработке."
 
-#: ../includes/admin/class-awooc-admin-settings.php:786
+#: ../includes/admin/class-awooc-admin-settings.php:808
 msgid ""
 "On the pages of the categories and the store itself, the Add to Cart buttons "
 "are disabled. On the product page, the \"Add to cart\" button is hidden and "
@@ -309,7 +334,7 @@ msgstr ""
 "отключены. На странице товара кнопка «Добавить в корзину» скрыта, и "
 "появляется кнопка «Заказать»."
 
-#: ../includes/admin/class-awooc-admin-settings.php:790
+#: ../includes/admin/class-awooc-admin-settings.php:812
 msgid ""
 "The button \"Add to cart\" works in the normal mode, that is, goods can be "
 "added to the cart and at the same time ordered in one click"
@@ -317,7 +342,7 @@ msgstr ""
 "Кнопка «Добавить в корзину» работает в обычном режиме, то есть товар можно "
 "добавить в корзину и одновременно заказать в один клик"
 
-#: ../includes/admin/class-awooc-admin-settings.php:794
+#: ../includes/admin/class-awooc-admin-settings.php:816
 msgid ""
 "The Order button will appear automatically if: Price not available;  stock "
 "status \"In Unfulfilled Order\"; stock status \"Out of stock\"; inventory "
@@ -328,7 +353,7 @@ msgstr ""
 "складе \"; управление запасами включено на уровне товара, а предварительные "
 "заказы разрешены"
 
-#: ../includes/admin/class-awooc-admin-settings.php:798
+#: ../includes/admin/class-awooc-admin-settings.php:820
 msgid ""
 "When turned on, it works the same way as normal mode. But if the goods have "
 "no price or the product out of stock, then only the Order button will appear."
@@ -336,11 +361,11 @@ msgstr ""
 "При включении работает так же, как и в обычном режиме. Но если у товара нет "
 "цены или товара нет в наличии, то появится только кнопка Заказать."
 
-#: ../includes/class-art-woo-order-one-click.php:229
+#: ../includes/class-art-woo-order-one-click.php:234
 msgid "Settings"
 msgstr "Настройки"
 
-#: ../includes/class-art-woo-order-one-click.php:249
+#: ../includes/class-art-woo-order-one-click.php:254
 #, php-format
 msgid ""
 "%1$s requires PHP version 5.6 or higher. Your current PHP version is %2$s. "
@@ -349,25 +374,25 @@ msgstr ""
 "%1$s требует PHP версии 5.6 или выше. Ваша текущая версия PHP%2$s. "
 "Пожалуйста, обновите версию PHP, чтобы запустить этот плагин."
 
-#: ../includes/class-art-woo-order-one-click.php:333
+#: ../includes/class-art-woo-order-one-click.php:338
 #, php-format
 msgid "The %s requires installed and activated plugins: "
 msgstr ""
 "Для работы плагина %s требуются установенные и активированные плагины: "
 
-#: ../includes/class-art-woo-order-one-click.php:345
+#: ../includes/class-art-woo-order-one-click.php:350
 msgid " version "
 msgstr " версия "
 
-#: ../includes/class-art-woo-order-one-click.php:345
+#: ../includes/class-art-woo-order-one-click.php:350
 msgid " or higher"
 msgstr " или выше"
 
-#: ../includes/class-art-woo-order-one-click.php:353
+#: ../includes/class-art-woo-order-one-click.php:358
 msgid " and "
 msgstr " и "
 
-#: ../includes/class-art-woo-order-one-click.php:401
+#: ../includes/class-art-woo-order-one-click.php:406
 #, php-format
 msgid "%s plugin has been deactivated."
 msgstr "Плагин %s деактивирован."
@@ -422,7 +447,7 @@ msgstr "Информация о выбранном товаре"
 msgid "Click to close"
 msgstr "Ткнуть для закрытия"
 
-#: ../includes/class-awooc-frontend.php:341
+#: ../includes/class-awooc-frontend.php:365
 msgid "Read more"
 msgstr "Читать..."
 

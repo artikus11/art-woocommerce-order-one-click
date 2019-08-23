@@ -55,16 +55,17 @@ if ( ! function_exists( 'awooc_mode_classes' ) ) {
 		return $mode_classes;
 	}
 }
+
 if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 
 	/**
 	 * Displaying the button add to card in product page
 	 *
-	 * @since 1.5.0
-	 * @since 2.1.4
-	 *
 	 * @param array $args
 	 * @param null  $product
+	 *
+	 * @since 1.5.0
+	 * @since 2.1.4
 	 *
 	 */
 	function awooc_html_custom_add_to_cart( $args = array(), $product = null ) {
@@ -102,6 +103,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		do_action( 'awooc_after_button' );
 
 		echo ob_get_clean();// WPCS: XSS ok.
+
 	}
 }
 

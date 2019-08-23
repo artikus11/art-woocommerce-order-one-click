@@ -107,6 +107,11 @@ class ArtWoo_Order_One_Click {
 		require AWOOC_PLUGIN_DIR . '/includes/admin/added-cf7-field.php';
 
 		/**
+		 * Hiding field to CF7
+		 */
+		require AWOOC_PLUGIN_DIR . '/includes/admin/class-awooc-admin-meta-box.php';
+
+		/**
 		 * Front end
 		 */
 		require AWOOC_PLUGIN_DIR . '/includes/class-awooc-frontend.php';
