@@ -191,14 +191,21 @@ class AWOOC_Front_End {
 	 */
 	public function hide_variable_add_to_cart( $bool, $product_id, $variation ) {
 
-		if ( 'no_stock_no_price' === get_option( 'woocommerce_awooc_mode_catalog' ) ) {
+		$mode = get_option( 'woocommerce_awooc_mode_catalog' );
+
+		if ( 'no_stock_no_price' === $mode || 'dont_show_add_to_card' === $mode ) {
 			$product = wc_get_product( $product_id );
 
 			if ( ! $product->get_price() ) {
 				$bool = false;
 				add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
-				add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
+				remove_filter( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
+
+				if ( 'no_stock_no_price' === $mode  ) {
+					add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
+				}
 			}
+
 		}
 
 		return $bool;
