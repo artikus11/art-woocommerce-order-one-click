@@ -44,17 +44,18 @@ class AWOOC_Admin_Meta_Box {
 	 */
 	public static function meta_box( $options ) {
 
-		$options = array_slice( $options, 0, 0 ) + [
-				'awooc_button' => [
-					'id'            => '_awooc_button',
-					'wrapper_class' => 'show_if_simple show_if_variable',
-					'label'         => __( 'Disable Order One Click Button', 'art-woocommerce-order-one-click' ),
-					'description'   => __( 'If enabled, then on this product the Order button will not be visible. Product will return to its original condition.', 'art-woocommerce-order-one-click' ),
-					'default'       => 'no',
-				],
-			] + $options;
+		$new_option['awooc_button'] = [
+			'id'            => '_awooc_button',
+			'wrapper_class' => 'show_if_simple show_if_variable',
+			'label'         => __( 'Disable Order One Click Button', 'art-woocommerce-order-one-click' ),
+			'description'   => __(
+				'If enabled, then on this product the Order button will not be visible. Product will return to its original condition.',
+				'art-woocommerce-order-one-click'
+			),
+			'default'       => 'no',
+		];
 
-		return $options;
+		return array_slice( $options, 0, 0 ) + $new_option + $options;
 	}
 
 
@@ -68,7 +69,10 @@ class AWOOC_Admin_Meta_Box {
 	public static function save_meta_box( $post_id ) {
 
 		$product = wc_get_product( $post_id );
-		$button  = isset( $_POST['_awooc_button'] ) ? 'yes' : 'no';
+
+		// @codingStandardsIgnoreStart
+		$button = isset( $_POST['_awooc_button'] ) ? 'yes' : 'no';
+		// @codingStandardsIgnoreEnd
 
 		$product->update_meta_data( '_awooc_button', $button );
 

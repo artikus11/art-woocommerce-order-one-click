@@ -754,7 +754,8 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 		$message = sprintf(
 			/* translators: 1: Art WooCommerce Order One Click  */
-			esc_html__( 'You can make a donation to make the plugin %1$s even better!', 'art-woocommerce-order-one-click' ), sprintf( '<strong>%s</strong>', esc_html__( 'Art WooCommerce Order One Click', 'art-woocommerce-order-one-click' ) )
+			esc_html__( 'You can make a donation to make the plugin %1$s even better!', 'art-woocommerce-order-one-click' ),
+			sprintf( '<strong>%s</strong>', esc_html__( 'Art WooCommerce Order One Click', 'art-woocommerce-order-one-click' ) )
 		);
 
 		foreach ( $payments as $key => $payment ) {

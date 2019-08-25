@@ -127,8 +127,10 @@ class AWOOC_Orders {
 			return;
 		}
 
-		$mail            = $contact_form->prop( 'mail' );
+		$mail = $contact_form->prop( 'mail' );
+
 		$mail['subject'] = $mail['subject'] . ' №' . $order->get_order_number();
+
 		$contact_form->set_properties( array( 'mail' => $mail ) );
 
 	}

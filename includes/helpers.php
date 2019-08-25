@@ -50,7 +50,7 @@ function awooc_html_comments() {
 
 	if ( apply_filters( 'awooc_html_comments', true ) ) {
 		?>
-		<!-- plugin version: <?php echo AWOOC_PLUGIN_VER; ?>; mode: <?php echo get_option( 'woocommerce_awooc_mode_catalog' ); ?>-->
+		<!-- plugin version: <?php echo esc_html( AWOOC_PLUGIN_VER ); ?>; mode: <?php echo esc_html( get_option( 'woocommerce_awooc_mode_catalog' ) ); ?>-->
 		<?php
 
 	}

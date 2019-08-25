@@ -218,7 +218,6 @@ class AWOOC_Front_End {
 					add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
 				}
 			}
-
 		}
 
 		return $bool;
@@ -238,7 +237,7 @@ class AWOOC_Front_End {
 
 		$show_add_to_card = get_option( 'woocommerce_awooc_mode_catalog' );
 
-		$visible_button   = $product->get_meta( '_awooc_button', true );
+		$visible_button = $product->get_meta( '_awooc_button', true );
 
 		if ( ! isset( $visible_button ) || 'yes' !== $visible_button ) {
 			switch ( $show_add_to_card ) {
@@ -325,6 +324,7 @@ class AWOOC_Front_End {
 		<?php
 
 		$enable_add_to_card = apply_filters( 'awooc_enable_add_to_card_style', ob_get_clean() );
+
 		echo wp_kses( $enable_add_to_card, array( 'style' => array() ) );
 	}
 
