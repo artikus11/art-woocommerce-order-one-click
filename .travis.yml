@@ -12,40 +12,19 @@ matrix:
   include:
     - php: '5.6'
       env:
-        - DEV="--no-dev"
-    - php: '5.6'
-      env:
-        - SNIFF=1 TESTS=1
+        - SNIFF=1
     - php: '7.0'
       env:
-        - DEV="--no-dev"
-    - php: '7.0'
-      env:
-        - SNIFF=1 TESTS=1
+        - SNIFF=1
     - php: '7.1'
       env:
-        - DEV="--no-dev"
-    - php: '7.1'
-      env:
-        - SNIFF=1 TESTS=1
+        - SNIFF=1
     - php: '7.2'
       env:
-        - DEV="--no-dev"
-    - php: '7.2'
-      env:
-        - SNIFF=1 TESTS=1
+        - SNIFF=1
     - php: '7.3'
       env:
-        - DEV="--no-dev"
-    - php: '7.3'
-      env:
-        - SNIFF=1 COVERAGE=1
-
-cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache
-    - node_modules
+        - SNIFF=1
 
 before_install:
   - if [[ "$SNIFF" == "1" ]]; then export PHPCS_DIR=/tmp/phpcs; fi
