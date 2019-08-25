@@ -1,7 +1,11 @@
 <?php
+/**
+ * @file
+ * Файл генерации окна
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 /**
@@ -33,7 +37,6 @@ if ( ! function_exists( 'awooc_mode_classes' ) ) {
 	 * @return string
 	 *
 	 * @since 2.1.4
-	 *
 	 */
 	function awooc_mode_classes() {
 
@@ -66,7 +69,6 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 	 *
 	 * @since 1.5.0
 	 * @since 2.1.4
-	 *
 	 */
 	function awooc_html_custom_add_to_cart( $args = array(), $product = null ) {
 

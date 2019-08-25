@@ -1,7 +1,11 @@
 <?php
+/**
+ * @file
+ * Файл вспомогательных функций
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 /**
@@ -27,9 +31,10 @@ function awooc_default_elements_item() {
 /**
  * Обработка класов окна
  *
+ * @param array $elements
+ *
  * @since 2.1.0
  *
- * @param array $elements
  */
 function awooc_class_full( $elements ) {
 
