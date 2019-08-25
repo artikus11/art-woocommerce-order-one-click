@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="WordPress Coding Standards for Art WooCommerce Order One Click">
+	<description>Sniffs for WordPress plugins</description>
+
+	<!-- What to scan -->
+	<file>.</file>
+	<exclude-pattern>/vendor/</exclude-pattern>
+	<exclude-pattern>/tests/</exclude-pattern>
+
+	<!-- How to scan -->
+	<arg value="sp"/>
+	<arg name="basepath" value="./"/>
+	<arg name="colors"/>
+	<arg name="extensions" value="php"/>
+	<arg name="parallel" value="8"/>
+
+	<config name="testVersion" value="5.2-"/>
+	<config name="minimum_supported_wp_version" value="4.8"/>
+
+	<rule ref="PHPCompatibility"/>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array" value="dco_iac"/>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="art-woocommerce-order-one-click"/>
+		</properties>
+	</rule>
+</ruleset>
