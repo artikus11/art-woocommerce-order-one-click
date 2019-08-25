@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2019-08-24 00:54+0400\n"
-"PO-Revision-Date: 2019-08-24 00:54+0400\n"
+"POT-Creation-Date: 2019-08-25 14:04+0400\n"
+"PO-Revision-Date: 2019-08-25 14:05+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -396,6 +396,52 @@ msgstr " и "
 #, php-format
 msgid "%s plugin has been deactivated."
 msgstr "Плагин %s деактивирован."
+
+#: ../includes/class-art-woo-order-one-click.php:472
+msgid "Your Name"
+msgstr "Ваше имя"
+
+#: ../includes/class-art-woo-order-one-click.php:473
+msgid "Your Email"
+msgstr "Ваш Email"
+
+#: ../includes/class-art-woo-order-one-click.php:474
+msgid "Your Phone"
+msgstr "Ваш телефон"
+
+#: ../includes/class-art-woo-order-one-click.php:475
+msgid "Send"
+msgstr "Отправить"
+
+#: ../includes/class-art-woo-order-one-click.php:480
+#, php-format
+msgid "Name: %s"
+msgstr "Имя: %s"
+
+#: ../includes/class-art-woo-order-one-click.php:482
+#, php-format
+msgid "Email: %s"
+msgstr "Email: %s"
+
+#: ../includes/class-art-woo-order-one-click.php:484
+#, php-format
+msgid "Phone: %s"
+msgstr "Телефон: %s"
+
+#: ../includes/class-art-woo-order-one-click.php:486
+#, php-format
+msgid "This e-mail was sent from a contact form on %1$s (%2$s)"
+msgstr "Это письмо было отправлено с формы обратной связи на %1$s (%2$s)"
+
+#: ../includes/class-art-woo-order-one-click.php:495
+#: ../includes/class-art-woo-order-one-click.php:509
+#, php-format
+msgid "Order from the site %1$s (%2$s)"
+msgstr "Заказ с сайта %1$s (%2$s)"
+
+#: ../includes/class-art-woo-order-one-click.php:532
+msgid "Order One Click"
+msgstr "Заказ в один клик"
 
 #: ../includes/class-awooc-ajax.php:43
 msgid "Oops ... Data sent from unknown address"

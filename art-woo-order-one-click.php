@@ -56,6 +56,7 @@ define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 require __DIR__ . '/includes/class-art-woo-order-one-click.php';
 
 register_uninstall_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'uninstall' ) );
+register_activation_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'install_form' ) );
 
 /**
  * The main function responsible for returning the ArtWoo_Order_One_Click object.
