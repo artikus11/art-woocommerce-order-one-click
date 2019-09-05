@@ -343,7 +343,7 @@ class AWOOC_Front_End {
 
 		$product = wc_get_product();
 		if ( is_product() ) {
-			$url = get_permalink( $product->get_id() );
+			$url = get_permalink();
 		}
 
 		return $url;
