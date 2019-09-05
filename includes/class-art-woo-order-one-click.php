@@ -288,17 +288,7 @@ class ArtWoo_Order_One_Click {
 	public function check_requirements() {
 
 		if ( false === $this->requirements() ) {
-			add_action( 'admin_notices', array( $this, 'show_plugin_not_found_notice' ) );
-			if ( is_plugin_active( AWOOC_PLUGIN_FILE ) ) {
-
-				deactivate_plugins( AWOOC_PLUGIN_FILE );
-				// @codingStandardsIgnoreStart
-				if ( isset( $_GET['activate'] ) ) {
-					unset( $_GET['activate'] );
-				}
-				// @codingStandardsIgnoreEnd
-				add_action( 'admin_notices', array( $this, 'show_deactivate_notice' ) );
-			}
+			$this->deactivation_plugin();
 		}
 	}
 
@@ -441,6 +431,7 @@ class ArtWoo_Order_One_Click {
 				'woocommerce_awooc_text_rated',
 				'woocommerce_awooc_сhange_subject',
 				'woocommerce_awooc_not_del_settings',
+				'woocommerce_awooc_text_rated',
 			)
 		);
 
@@ -457,6 +448,10 @@ class ArtWoo_Order_One_Click {
 	 * @since 2.3.0
 	 */
 	public static function install_form() {
+
+		if ( ! class_exists( 'WPCF7_ContactForm' ) ) {
+			return;
+		}
 
 		if ( get_option( 'awooc_active' ) ) {
 			return;
@@ -553,9 +548,7 @@ class ArtWoo_Order_One_Click {
 			],
 		];
 
-		$awooc_active = get_option( 'awooc_active' );
-
-		if ( false === $awooc_active ) {
+		if ( false === get_option( 'awooc_active' ) ) {
 			update_option( 'awooc_active', $option );
 		}
 
@@ -572,5 +565,21 @@ class ArtWoo_Order_One_Click {
 
 		update_option( 'woocommerce_awooc_text_rated', 1 );
 		wp_die();
+	}
+
+
+	public function deactivation_plugin() {
+
+		add_action( 'admin_notices', array( $this, 'show_plugin_not_found_notice' ) );
+		if ( is_plugin_active( AWOOC_PLUGIN_FILE ) ) {
+
+			deactivate_plugins( AWOOC_PLUGIN_FILE );
+			// @codingStandardsIgnoreStart
+			if ( isset( $_GET['activate'] ) ) {
+				unset( $_GET['activate'] );
+			}
+			// @codingStandardsIgnoreEnd
+			add_action( 'admin_notices', array( $this, 'show_deactivate_notice' ) );
+		}
 	}
 }
