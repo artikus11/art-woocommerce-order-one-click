@@ -1,7 +1,10 @@
 <?php
 /**
- * @file
- * Файл генерации окна
+ * Файл функций вывода окна и кнопки
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes
+ * @version 1.8.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -64,8 +67,8 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 	/**
 	 * Displaying the button add to card in product page
 	 *
-	 * @param array $args
-	 * @param null  $product
+	 * @param array $args массив параметров.
+	 * @param null  $product объект продукта.
 	 *
 	 * @since 1.5.0
 	 * @since 2.1.4
@@ -104,7 +107,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 
 		do_action( 'awooc_after_button' );
 
-		echo ob_get_clean();// WPCS: XSS ok.
+		echo ob_get_clean();//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 	}
 }
@@ -113,8 +116,8 @@ if ( ! function_exists( 'awooc_popup_window_title' ) ) {
 	/**
 	 * Displaying the product header in a popup window
 	 *
-	 * @param $elements
-	 * @param $product
+	 * @param  array       $elements массив настроек элементов окна.
+	 * @param  \WC_Product $product  объект продукта.
 	 *
 	 * @since 1.5.0
 	 * @since 1.8.10
@@ -140,7 +143,7 @@ if ( ! function_exists( 'awooc_popup_window_image' ) ) {
 	/**
 	 * Output of a product thumbnail in a popup window
 	 *
-	 * @param $elements
+	 * @param  array $elements массив настроек элементов окна.
 	 *
 	 * @since 1.5.0
 	 * @since 1.8.0
@@ -159,8 +162,8 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 	/**
 	 * Output of a product price in a popup window
 	 *
-	 * @param $elements
-	 * @param $product
+	 * @param  array       $elements массив настроек элементов окна.
+	 * @param  \WC_Product $product  объект продукта.
 	 *
 	 * @since 1.5.0
 	 * @since 1.8.10
@@ -186,7 +189,7 @@ if ( ! function_exists( 'awooc_popup_window_sku' ) ) {
 	/**
 	 * Output of a product sku in a popup window
 	 *
-	 * @param $elements
+	 * @param  array $elements массив настроек элементов окна.
 	 *
 	 * @since 1.5.0
 	 * @since 1.5.0
@@ -206,7 +209,7 @@ if ( ! function_exists( 'awooc_popup_window_qty' ) ) {
 	/**
 	 * Output of a product quantity in a popup window
 	 *
-	 * @param $elements
+	 * @param  array $elements массив настроек элементов окна.
 	 *
 	 * @since 2.1.0
 	 */
@@ -225,8 +228,7 @@ if ( ! function_exists( 'awooc_popup_window_attr' ) ) {
 	/**
 	 * Output of a product attributes in a popup window
 	 *
-	 * @param $elements
-	 *
+	 * @param  array $elements массив настроек элементов окна.
 	 *
 	 * @since 1.5.0
 	 * @since 1.8.9
@@ -246,7 +248,6 @@ if ( ! function_exists( 'awooc_popup_window_select_form' ) ) {
 	 *
 	 * @since 1.5.0
 	 * @since 1.8.0
-	 *
 	 */
 	function awooc_popup_window_select_form() {
 

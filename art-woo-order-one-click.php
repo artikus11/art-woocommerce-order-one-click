@@ -35,7 +35,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 $plugin_data = get_file_data(
@@ -58,19 +58,17 @@ require __DIR__ . '/includes/class-art-woo-order-one-click.php';
 register_uninstall_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'uninstall' ) );
 register_activation_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'install_form' ) );
 
-/**
- * The main function responsible for returning the ArtWoo_Order_One_Click object.
- *
- * Use this function like you would a global variable, except without needing to declare the global.
- *
- * Example: <?php awooc_order_one_click()->method_name(); ?>
- *
- * @since 1.0.0
- *
- * @return object ArtWoo_Order_One_Click class object.
- */
 if ( ! function_exists( 'awooc_order_one_click' ) ) {
-
+	/**
+	 * The main function responsible for returning the ArtWoo_Order_One_Click object.
+	 *
+	 * Use this function like you would a global variable, except without needing to declare the global.
+	 *
+	 * Example: <?php awooc_order_one_click()->method_name(); ?>
+	 *
+	 * @return object ArtWoo_Order_One_Click class object.
+	 * @since 1.0.0
+	 */
 	function awooc_order_one_click() {
 
 		return ArtWoo_Order_One_Click::instance();

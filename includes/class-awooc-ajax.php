@@ -1,4 +1,11 @@
 <?php
+/**
+ * Файл получения днныех о товаре в окне
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes
+ * @version 1.8.0
+ */
 
 /**
  * Class AWOOC_Ajax
@@ -39,9 +46,7 @@ class AWOOC_Ajax {
 		 * Если включено кеширование, то нонсу не проверяем.
 		 */
 		if ( false === defined( 'WP_CACHE' ) ) {
-			if ( ! wp_verify_nonce( $_POST['nonce'], 'awooc-nonce' ) ) {
-				wp_die( esc_html__( 'Oops ... Data sent from unknown address', 'art-woocommerce-order-one-click' ) );
-			}
+			check_ajax_referer( 'awooc-nonce', 'nonce' );
 		}
 
 		if ( ! isset( $_POST['id'] ) || empty( $_POST['id'] ) ) {
@@ -53,7 +58,7 @@ class AWOOC_Ajax {
 			);
 		}
 
-		$product = wc_get_product( esc_attr( $_POST['id'] ) );
+		$product = wc_get_product( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
 
 		$data = array(
 			'elements'    => 'full',
@@ -69,7 +74,7 @@ class AWOOC_Ajax {
 			'cat'         => $this->product_cat( $product ),
 		);
 
-		// проверяем на включенный режим, если включен режим любой кроме шатного, то удаляем количество
+		// проверяем на включенный режим, если включен режим любой кроме шатного, то удаляем количество.
 		if ( 'dont_show_add_to_card' === get_option( 'woocommerce_awooc_mode_catalog' ) || 'in_stock_add_to_card' === get_option( 'woocommerce_awooc_mode_catalog' ) ) {
 			unset( $data['qty'] );
 		}
@@ -92,11 +97,10 @@ class AWOOC_Ajax {
 	/**
 	 * Получение заголовка товара
 	 *
-	 * @param WC_Product $product
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return bool|string
 	 * @since 1.8.0
-	 *
 	 */
 	public function product_title( $product ) {
 
@@ -107,11 +111,10 @@ class AWOOC_Ajax {
 	/**
 	 * Получаем изображение товара
 	 *
-	 * @param WC_Product $product
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return bool|mixed|string
 	 * @since 1.8.0
-	 *
 	 */
 	public function product_image( $product ) {
 
@@ -147,11 +150,10 @@ class AWOOC_Ajax {
 	/**
 	 * Вспомогательная функция для проверки типа товара
 	 *
-	 * @param WC_Product $product
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return mixed
 	 * @since 1.8.0
-	 *
 	 */
 	public function product_id( $product ) {
 
@@ -168,11 +170,10 @@ class AWOOC_Ajax {
 	/**
 	 * Получаем артикул товара
 	 *
-	 * @param WC_Product $product
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return bool|mixed
 	 * @since 1.8.0
-	 *
 	 */
 	public function product_sku( $product ) {
 
@@ -199,11 +200,10 @@ class AWOOC_Ajax {
 	/**
 	 * Получение атрибутов вариативного товара
 	 *
-	 * @param WC_Product $product
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return bool|string
 	 * @since 1.8.0
-	 *
 	 */
 	public function product_attr( $product ) {
 
@@ -259,11 +259,10 @@ class AWOOC_Ajax {
 	/**
 	 * Получаем цену товара
 	 *
-	 * @param WC_Product $product
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return bool|mixed
 	 * @since 1.8.0
-	 *
 	 */
 	public function product_price( $product ) {
 
@@ -312,11 +311,10 @@ class AWOOC_Ajax {
 	/**
 	 * Получаем категории товара
 	 *
-	 * @param WC_Product $product
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return string
 	 * @since 2.1.0
-	 *
 	 */
 	public function product_cat( $product ) {
 
@@ -333,11 +331,10 @@ class AWOOC_Ajax {
 	/**
 	 * Получаем ссылку на товар
 	 *
-	 * @param WC_Product $product
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return string
 	 * @since 1.8.0
-	 *
 	 */
 	public function product_link( $product ) {
 

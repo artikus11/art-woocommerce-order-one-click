@@ -1,7 +1,10 @@
 <?php
 /**
- * @file
  * Файл вспомогательных функций
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes
+ * @version 2.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -9,10 +12,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Комментарии перед кнопкой
+ *
+ * @see awooc_html_comments()
+ *
+ * @since 2.1.1
+ */
+add_action( 'awooc_before_button', 'awooc_html_comments', 10 );
+
+/**
  * Элементы настроек по умолчанию
  *
  * @since 2.0.0
- *
  */
 function awooc_default_elements_item() {
 
@@ -31,10 +42,9 @@ function awooc_default_elements_item() {
 /**
  * Обработка класов окна
  *
- * @param array $elements
+ * @param  array $elements массив элементов.
  *
  * @since 2.1.0
- *
  */
 function awooc_class_full( $elements ) {
 
@@ -60,5 +70,3 @@ function awooc_html_comments() {
 
 	}
 }
-
-add_action( 'awooc_before_button', 'awooc_html_comments', 10 );

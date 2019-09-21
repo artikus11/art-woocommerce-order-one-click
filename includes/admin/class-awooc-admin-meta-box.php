@@ -1,11 +1,17 @@
 <?php
+/**
+ * Метабокс в товарах
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes/admin
+ * @version 2.3.0
+ */
 
 /**
  * Class AWOOC_Admin_Meta_Box
  *
  * @author Artem Abramovich
  * @since  2.3.0
- *
  */
 class AWOOC_Admin_Meta_Box {
 
@@ -36,7 +42,7 @@ class AWOOC_Admin_Meta_Box {
 	/**
 	 * Добавляем дополнительные элементы
 	 *
-	 * @param $options
+	 * @param  array $options входящиий массив опций.
 	 *
 	 * @return array
 	 *
@@ -44,7 +50,7 @@ class AWOOC_Admin_Meta_Box {
 	 */
 	public static function meta_box( $options ) {
 
-		$new_option['awooc_button'] = [
+		$new_option['awooc_button'] = array(
 			'id'            => '_awooc_button',
 			'wrapper_class' => 'show_if_simple show_if_variable',
 			'label'         => __( 'Disable Order One Click Button', 'art-woocommerce-order-one-click' ),
@@ -53,7 +59,7 @@ class AWOOC_Admin_Meta_Box {
 				'art-woocommerce-order-one-click'
 			),
 			'default'       => 'no',
-		];
+		);
 
 		return array_slice( $options, 0, 0 ) + $new_option + $options;
 	}
@@ -62,7 +68,7 @@ class AWOOC_Admin_Meta_Box {
 	/**
 	 * Сохраняем данные
 	 *
-	 * @param $post_id
+	 * @param int $post_id ID продукта.
 	 *
 	 * @since 2.3.0
 	 */

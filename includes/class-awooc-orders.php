@@ -1,4 +1,11 @@
 <?php
+/**
+ * Файл обработки заказов
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes
+ * @version 1.8.2
+ */
 
 /**
  * Class AWOOC_Orders
@@ -8,6 +15,11 @@
  */
 class AWOOC_Orders {
 
+	/**
+	 * Выбранная форма из настроек
+	 *
+	 * @var string ID формы.
+	 */
 	public $select_form;
 
 
@@ -30,9 +42,9 @@ class AWOOC_Orders {
 	/**
 	 * Создание заказа при отправке письма
 	 *
-	 * @param WPCF7_ContactForm $contact_form
+	 * @param  WPCF7_ContactForm $contact_form объект формы.
 	 *
-	 * @throws WC_Data_Exception Exception
+	 * @throws WC_Data_Exception Exception.
 	 * @since 1.5.0
 	 * @since 2.2.6
 	 */
@@ -43,31 +55,31 @@ class AWOOC_Orders {
 		}
 
 		// @codingStandardsIgnoreStart
-		if ( $this->select_form !== sanitize_text_field( $_POST['_wpcf7'] ) ) {
+		if ( ! isset( $_POST['_wpcf7'] ) || sanitize_text_field( wp_unslash( $_POST['_wpcf7'] ) ) !== $this->select_form ) {
 			return;
 		}
 
 		if ( isset( $_POST['awooc-text'] ) && ! empty( $_POST['awooc-text'] ) ) {
-			$user_passed_text = sanitize_text_field( $_POST['awooc-text'] );
+			$user_passed_text = sanitize_text_field( wp_unslash( $_POST['awooc-text'] ) );
 		} else {
 			$user_passed_text = '';
 		}
 
 		if ( isset( $_POST['awooc-email'] ) && ! empty( $_POST['awooc-email'] ) ) {
-			$user_passed_email = sanitize_text_field( $_POST['awooc-email'] );
+			$user_passed_email = sanitize_text_field( wp_unslash( $_POST['awooc-email'] ) );
 		} else {
 			$user_passed_email = '';
 		}
 
 		if ( isset( $_POST['awooc-tel'] ) && ! empty( $_POST['awooc-tel'] ) ) {
-			$user_passed_tel = sanitize_text_field( $_POST['awooc-tel'] );
+			$user_passed_tel = sanitize_text_field( wp_unslash( $_POST['awooc-tel'] ) );
 		} else {
 			$user_passed_tel = '';
 		}
-		// @codingStandardsIgnoreEnd
 
-		$product_id  = sanitize_text_field( $_POST['awooc_product_id'] );
-		$product_qty = sanitize_text_field( $_POST['awooc_product_qty'] );
+		$product_id  = isset( $_POST['awooc_product_id'] ) ? sanitize_text_field( wp_unslash( $_POST['awooc_product_id'] ) ) : null;
+		$product_qty = isset( $_POST['awooc_product_qty'] ) ? sanitize_text_field( wp_unslash( $_POST['awooc_product_qty'] ) ) : null;
+		// @codingStandardsIgnoreEnd
 
 		$address = apply_filters(
 			'awooc_order_address_arg',
@@ -94,12 +106,12 @@ class AWOOC_Orders {
 	/**
 	 * Добавление в заказ данных товара
 	 *
-	 * @param WC_Order $order
-	 * @param          $product_id
-	 * @param          $product_qty
-	 * @param          $address
+	 * @param  WC_Order $order       объект заказа.
+	 * @param  int      $product_id  ID продкта.
+	 * @param  int      $product_qty количество продукта.
+	 * @param  array    $address     адрес для заказа.
 	 *
-	 * @throws WC_Data_Exception Exception
+	 * @throws WC_Data_Exception Exception.
 	 *
 	 * @since 2.2.6
 	 */
@@ -116,8 +128,8 @@ class AWOOC_Orders {
 	/**
 	 * Изменение темы письма
 	 *
-	 * @param WPCF7_ContactForm $contact_form
-	 * @param WC_Order          $order
+	 * @param  WPCF7_ContactForm $contact_form объект формы.
+	 * @param  WC_Order          $order        объект заказа.
 	 *
 	 * @since 2.2.6
 	 */

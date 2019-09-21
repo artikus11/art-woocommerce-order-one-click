@@ -1,7 +1,14 @@
 <?php
+/**
+ * Шаблон окна
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes/view
+ * @version 2.0.0
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
 
 global $product;
@@ -48,7 +55,6 @@ $elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocomm
 
 				/**
 				 * Hook: awooc_popup_column_right
-				 *
 				 */
 				do_action( 'awooc_popup_column_right', $elements, $product );
 
@@ -60,7 +66,6 @@ $elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocomm
 
 		/**
 		 * Hook: awooc_popup_before_column
-		 *
 		 */
 		do_action( 'awooc_popup_after_column', $elements, $product );
 

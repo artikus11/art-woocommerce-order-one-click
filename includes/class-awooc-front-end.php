@@ -1,4 +1,11 @@
-<?php // @codingStandardsIgnoreLine
+<?php
+/**
+ * Файл обработки данных на фронте
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes
+ * @version 1.8.0
+ */
 
 /**
  * Class AWOOC_Front_End
@@ -96,8 +103,8 @@ class AWOOC_Front_End {
 	/**
 	 * Включение кнопки Заказать в если нет цены в простых товарах
 	 *
-	 * @param bool       $bool
-	 * @param WC_Product $product
+	 * @param  bool       $bool    входящее булево значение.
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return bool
 	 *
@@ -135,8 +142,8 @@ class AWOOC_Front_End {
 	/**
 	 * Включение кнопки Заказать в если нет в наличии в простых товарах
 	 *
-	 * @param bool       $status
-	 * @param WC_Product $product
+	 * @param  bool       $status  входящее булево значение.
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return bool
 	 *
@@ -172,7 +179,7 @@ class AWOOC_Front_End {
 	/**
 	 * Изменение надписи на кнопке при включении режима реагирования на отсутствие цены и наличия
 	 *
-	 * @param string $label
+	 * @param  string $label входящая строка из опций.
 	 *
 	 * @return string
 	 *
@@ -189,9 +196,9 @@ class AWOOC_Front_End {
 	/**
 	 * Включение кнопки Заказать в если нет цены или наличия в вариаиях
 	 *
-	 * @param bool                $bool
-	 * @param int                 $product_id
-	 * @param WC_Product_Variable $variation
+	 * @param  bool                $bool       входящее булево значение.
+	 * @param  int                 $product_id ID родительского товара.
+	 * @param  WC_Product_Variable $variation  объект вариации.
 	 *
 	 * @return bool
 	 *
@@ -229,7 +236,6 @@ class AWOOC_Front_End {
 	 * Вывод кнопки Заказать в зависимости от настроек
 	 *
 	 * @since 1.8.0
-	 *
 	 */
 	public function add_custom_button() {
 
@@ -332,12 +338,10 @@ class AWOOC_Front_End {
 	/**
 	 *  Замена урл на кнопках в похожих товарах на страницах товарах
 	 *
-	 *
-	 * @since 1.8.0
-	 *
-	 * @param $url
+	 * @param  string $url входящий урл.
 	 *
 	 * @return string
+	 * @since 1.8.0
 	 */
 	public function disable_url_add_to_cart_to_related( $url ) {
 
@@ -353,11 +357,10 @@ class AWOOC_Front_End {
 	/**
 	 * Замена текста на кнопках в похожих товарах на страницах товарах
 	 *
-	 * @param $text
+	 * @param  string $text входящий текст на кнопке.
 	 *
 	 * @return string
 	 * @since 1.8.0
-	 *
 	 */
 	public function disable_text_add_to_cart_to_related( $text ) {
 
@@ -372,8 +375,8 @@ class AWOOC_Front_End {
 	/**
 	 * Удаление класса вызова ajax в режиме каталога для похожих товаров
 	 *
-	 * @param array      $args
-	 * @param WC_Product $product
+	 * @param  array      $args    массив аргументов.
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return mixed
 	 * @since 2.2.5

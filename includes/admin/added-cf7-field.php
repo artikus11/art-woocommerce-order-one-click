@@ -1,8 +1,16 @@
 <?php
+/**
+ * Создание дополнительных кнопок для CF7
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes/admin
+ * @version 2.0.0
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit;
 }
+
 /**
  * Contact Form 7 hooks
  */
@@ -12,13 +20,18 @@ add_filter( 'wpcf7_validate_awooc_hidden*', 'awooc_fields_validation_filter', 10
 add_action( 'wpcf7_admin_init', 'awooc_fields_add_tag_generator_address', 1 );
 add_action( 'wpcf7_admin_init', 'awooc_fields_add_tag_generator_address', 1 );
 
+/**
+ * Подключаем калбек скрытого поля
+ */
 function awooc_wpcf7_add_form_tag() {
 
 	wpcf7_add_form_tag( 'awooc_hidden', 'awooc_wpcf7_add_form_tag_callback', true );
 }
 
 /**
- * @param WPCF7_FormTag $tag
+ * Добавление поля
+ *
+ * @param  WPCF7_FormTag $tag объект кнопкок.
  *
  * @return string
  */
@@ -47,8 +60,10 @@ function awooc_wpcf7_add_form_tag_callback( $tag ) {
 }
 
 /**
- * @param WPCF7_Validation $result
- * @param WPCF7_FormTag $tag
+ * Проверка формы
+ *
+ * @param  WPCF7_Validation $result результат валидации.
+ * @param  WPCF7_FormTag    $tag    объект кнопкок.
  *
  * @return mixed
  */
@@ -66,12 +81,18 @@ function awooc_fields_validation_filter( $result, $tag ) {
 	return $result;
 }
 
+/**
+ * Подключаем калбек скрытого поля для сбора данных
+ */
 function awooc_fields_add_tag_generator_address() {
 
 	$tag_generator = WPCF7_TagGenerator::get_instance();
 	$tag_generator->add( 'awooc_hidden', __( 'AWOOC hide field', 'art-woocommerce-order-one-click' ), 'awooc_tag_generator_hidden' );
 }
 
+/**
+ * Форма окна для заполнения поля
+ */
 function awooc_tag_generator_hidden() {
 
 	$type = 'awooc_hidden';
@@ -108,13 +129,15 @@ function awooc_tag_generator_hidden() {
 	</div>
 
 	<div class="insert-box" style="overflow: initial;width: 99.5%;height: auto;">
-		<input
-			style=" width: 370px;"
-			type="text"
-			name="<?php echo esc_attr( $type ); ?>"
-			class="tag code"
-			readonly="readonly"
-			onfocus="this.select()"/>
+		<label>
+			<input
+				style=" width: 370px;"
+				type="text"
+				name="<?php echo esc_attr( $type ); ?>"
+				class="tag code"
+				readonly="readonly"
+				onfocus="this.select()"/>
+		</label>
 
 		<div class="submitbox">
 			<input

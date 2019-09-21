@@ -1,4 +1,11 @@
 <?php
+/**
+ * Настройки
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes/admin
+ * @version 1.8.0
+ */
 
 /**
  * Class AWOOC_Admin_Settings
@@ -43,6 +50,8 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 
 	/**
+	 * Дефолтные элементы
+	 *
 	 * @return array
 	 */
 	public static function select_default_elements_item() {
@@ -61,6 +70,8 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 
 	/**
+	 * Обработка селекта Да/Нет
+	 *
 	 * @return array
 	 *
 	 * @since 2.0.0
@@ -77,7 +88,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Произвольное поле для сообщений
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.0.0
 	 */
@@ -102,7 +113,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Открывающий тег сайдбара
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.2.6
 	 */
@@ -122,7 +133,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Закрывающий тег сайдбара
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.2.6
 	 */
@@ -142,7 +153,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Открывающий тег обертки всей страницы настроек
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.2.6
 	 */
@@ -163,7 +174,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Закрывающий тег обертки всей страницы настроек
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.2.6
 	 */
@@ -185,7 +196,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Открывающий тег основного контента
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.2.6
 	 */
@@ -201,7 +212,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Закрывающий тег основного контента
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.2.6
 	 */
@@ -217,7 +228,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Произвольная группа полей
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.1.4
 	 */
@@ -231,11 +242,11 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 			<th scope="row" class="titledesc">
 				<label for="<?php echo esc_attr( $value['id'] ); ?>">
 					<?php echo esc_html( $value['title'] ); ?>
-					<?php echo $field_desc_tooltip['tooltip_html']; // WPCS: XSS ok. ?>
+					<?php echo $field_desc_tooltip['tooltip_html']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</label>
 			</th>
 			<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-				<?php echo $field_desc_tooltip['description']; // WPCS: XSS ok. ?>
+				<?php echo $field_desc_tooltip['description']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<div class="awooc-row" style="<?php echo esc_attr( $value['css'] ); ?>">
 					<?php
 
@@ -291,7 +302,9 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 
 	/**
-	 * @param $option
+	 * Обертка для сгруппированных опций
+	 *
+	 * @param  string $option название опции.
 	 *
 	 * @return array
 	 *
@@ -327,7 +340,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	/**
 	 * Произвольный метабокс в сайдбаре
 	 *
-	 * @param $value
+	 * @param  array $value массив аргументов поля.
 	 *
 	 * @since 2.2.6
 	 */
@@ -357,6 +370,11 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	}
 
 
+	/**
+	 * Отдельная секция во вкладке
+	 *
+	 * @return array|mixed|void
+	 */
 	public function get_sections() {
 
 		$sections = apply_filters(
@@ -383,6 +401,13 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	}
 
 
+	/**
+	 * Настройки
+	 *
+	 * @param  string $current_section название входящей секции.
+	 *
+	 * @return array|mixed|void
+	 */
 	public function get_settings( $current_section = '' ) {
 
 		$settings = apply_filters(
@@ -595,6 +620,8 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 
 	/**
+	 * Дефолтные значения селекта выбора режима
+	 *
 	 * @return array
 	 *
 	 * @since 2.0.0
@@ -616,6 +643,8 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 
 	/**
+	 * Выбор нужной формы
+	 *
 	 * @return array
 	 *
 	 * @since 1.8.0
@@ -629,6 +658,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 		$cf7_forms = get_posts( $args );
 		$select    = array();
+
 		foreach ( $cf7_forms as $form ) {
 			$select[ esc_attr( $form->ID ) ] = '[contact-form-7 id="' . esc_attr( $form->ID ) . '" title="' . esc_html( $form->post_title ) . '"]';
 		}
@@ -638,6 +668,8 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 
 	/**
+	 * Дефолтные значения селекта опции окна
+	 *
 	 * @return array
 	 */
 	public static function select_elements_item() {
@@ -677,7 +709,6 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 	/**
 	 * Призыв поставить рейтинг
-	 *
 	 *
 	 * @return string
 	 * @since  2.2.6
@@ -719,9 +750,9 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 		return $message;
 	}
 
+
 	/**
 	 * Призыв поддержать проект
-	 *
 	 *
 	 * @return string
 	 * @since  2.2.6
@@ -767,9 +798,9 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 		return $message;
 	}
 
+
 	/**
 	 * Ссылка на инструкцию
-	 *
 	 *
 	 * @return string
 	 * @since  2.2.6

@@ -1,20 +1,56 @@
-jQuery(function ($) {
+/**
+ * Вывод данных
+ *
+ * @package art-woocommerce-order-one-click/assets/js
+ */
 
-    $('select#woocommerce_awooc_mode_catalog').change(function () {
+jQuery(
+	function( $ )
+	{
 
-        // Get value.
-        var select_val = $(this).val();
-        //console.log(select_val);
-        $(this).next().next('.description').css({'display': 'block', 'margin-top': '8px', 'max-width': '80%'});
-        if ('dont_show_add_to_card' === select_val) {
-            $(this).next().next('.description').text(awooc_admin.mode_catalog);
-        } else if ('show_add_to_card' === select_val) {
-            $(this).next().next('.description').text(awooc_admin.mode_normal);
-        } else if ('in_stock_add_to_card' === select_val) {
-            $(this).next().next('.description').text(awooc_admin.mode_in_stock);
-        } else if ('no_stock_no_price' === select_val) {
-            $(this).next().next('.description').text(awooc_admin.mode_special);
-        }
-    }).change();
+		$( 'select#woocommerce_awooc_mode_catalog' )
+			.change(
+				function()
+				{
 
-});
+					let select_val = $( this )
+						.val();
+
+					$( this )
+						.next()
+						.next( '.description' )
+						.css(
+							{
+								'display': 'block',
+								'margin-top': '8px',
+								'max-width': '80%',
+							},
+						);
+
+					if ( 'dont_show_add_to_card' === select_val ) {
+						$( this )
+							.next()
+							.next( '.description' )
+							.text( awooc_admin.mode_catalog );
+					} else if ( 'show_add_to_card' === select_val ) {
+						$( this )
+							.next()
+							.next( '.description' )
+							.text( awooc_admin.mode_normal );
+					} else if ( 'in_stock_add_to_card' === select_val ) {
+						$( this )
+							.next()
+							.next( '.description' )
+							.text( awooc_admin.mode_in_stock );
+					} else if ( 'no_stock_no_price' === select_val ) {
+						$( this )
+							.next()
+							.next( '.description' )
+							.text( awooc_admin.mode_special );
+					}
+
+				},
+			)
+			.change();
+	},
+);
