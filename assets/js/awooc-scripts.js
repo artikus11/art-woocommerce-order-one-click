@@ -25,7 +25,8 @@ jQuery( document )
 					function( event, variation )
 					{
 						$( '.awooc-custom-order.button' )
-							.removeClass( 'disabled wc-variation-selection-needed wc-variation-is-unavailable' );
+							.removeClass(
+								'disabled wc-variation-selection-needed wc-variation-is-unavailable' );
 
 						// Если у вариации нет цены или ее нет в наличие то скрываем сообщения.
 						if ( awooc_scripts.mode === 'no_stock_no_price' ) {
@@ -37,6 +38,14 @@ jQuery( document )
 						}
 					},
 				);
+
+			var orderTitle = $( '.awooc-form-custom-order-title' ),
+			    orderImg   = $( '.awooc-form-custom-order-img' ),
+			    orderPrice = $( '.awooc-form-custom-order-price' ),
+			    orderQty   = $( '.awooc-form-custom-order-qty' ),
+			    orderSku   = $( '.awooc-form-custom-order-sku' ),
+			    orderAttr  = $( '.awooc-form-custom-order-attr' ),
+			    preload    = '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>';
 
 			$( document )
 				.on(
@@ -57,21 +66,13 @@ jQuery( document )
 							}
 							return false;
 						}
+
 						// Задаем переменные.
 						let prodictSelectedId,
-
-							productVariantId = $( '.variations_form' )
-								.find( 'input[name="variation_id"]' )
-								.val(),
-
-							productId = $( this )
-								.attr( 'data-value-product-id' ),
-
-							productQty = $( '.quantity' )
-								.find( 'input[name="quantity"]' )
-								.val(),
-
-							dataOut = {};
+							 productVariantId = $( '.variations_form' ).find( 'input[name="variation_id"]' ).val(),
+							 productId = $( this ).attr( 'data-value-product-id' ),
+							 productQty = $( '.quantity' ).find( 'input[name="quantity"]' ).val(),
+							 dataOut = {};
 
 						// Проверяем ID товара, для вариаций свой, для простых свой.
 						if ( 0 !== productVariantId && typeof productVariantId !== 'undefined' ) {
@@ -95,96 +96,95 @@ jQuery( document )
 								type: 'POST',
 								dataType: 'json',
 								beforeSend: function( xhr, data )
-									{
-										// Вызываем прелоадер.
-										$( event.currentTarget )
-											.block(
-												{
-													message: null,
-													overlayCSS: {
-														opacity: 0.6,
-													},
+								{
+									// Вызываем прелоадер.
+									$( event.currentTarget )
+										.block(
+											{
+												message: null,
+												overlayCSS: {
+													opacity: 0.6,
 												},
-											);
-										$( event.currentTarget )
-											.fadeIn( 200 )
-											.prepend( '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>' );
-									},
+											},
+										);
+									$( event.currentTarget )
+										.fadeIn( 200 )
+										.prepend( preload );
+								},
 								success: function( data )
-									{
+								{
 
-										// Отключаем прелоадер
-										$( event.currentTarget )
-											.unblock();
-										$( event.currentTarget )
-											.find( '.cssload-container' )
-											.remove();
+									// Отключаем прелоадер.
+									$( event.currentTarget )
+										.unblock();
+									$( event.currentTarget )
+										.find( '.cssload-container' )
+										.remove();
 
-										//Добавляем тайтл к кнопке закрытия окнa
-										$( '.awooc-close' )
-											.attr( 'title', awooc_scripts.title_close );
+									// Добавляем тайтл к кнопке закрытия окнa.
+									$( '.awooc-close' )
+										.attr( 'title', awooc_scripts.title_close );
 
-										// Проверяем данные после аякса и формируем нужные строки
-										dataOut = {
-											outID: 'ID: ' + prodictSelectedId,
-											outTitle: data.title === false ? '' : '\n' +
-											                                      awooc_scripts.product_title +
-											                                      data.title,
-											outAttr: data.attr === false ? '' : '\n' + data.attr,
-											outPrice: data.price === false ? '' : '\n' +
-											                                      awooc_scripts.product_price +
-											                                      data.pricenumber,
-											outSku: data.sku === false ? '' : '\n' + data.sku,
-											outCat: data.cat === false ? '' : '\n' + data.cat,
-											outLink: data.link === false ? '' : '\n' + data.link,
-											outQty: data.qty === false ? '' : '\n' +
-											                                  awooc_scripts.product_qty +
-											                                  productQty,
-										};
+									// Проверяем данные после аякса и формируем нужные строки.
+									dataOut = {
+										outID: 'ID: ' + prodictSelectedId,
+										outTitle: data.title === false
+											? ''
+											: '\n' + awooc_scripts.product_title + data.title,
+										outAttr: data.attr === false ? '' : '\n' + data.attr,
+										outPrice: data.price === false
+											? ''
+											: '\n' + awooc_scripts.product_price + data.pricenumber,
+										outSku: data.sku === false ? '' : '\n' + data.sku,
+										outCat: data.cat === false ? '' : '\n' + data.cat,
+										outLink: data.link === false ? '' : '\n' + data.link,
+										outQty: data.qty === false
+											? ''
+											: '\n' + awooc_scripts.product_qty + productQty,
+									};
 
-										// Формируем данные
-										$( '.awooc-form-custom-order-title' )
-											.text( data.title );
-										$( '.awooc-form-custom-order-img' )
-											.html( data.image );
-										$( '.awooc-form-custom-order-price' )
-											.html( data.price );
-										$( '.awooc-form-custom-order-price' )
-											.after( data.qty );
-										$( '.awooc-form-custom-order-qty' )
-											.text( awooc_scripts.product_qty +
-											       productQty );
-										$( '.awooc-form-custom-order-sku' )
-											.html( data.sku );
-										$( '.awooc-form-custom-order-attr' )
-											.html( data.attr );
+									// Формируем данные.
+									orderTitle
+										.text( data.title );
+									orderImg
+										.html( data.image );
+									orderPrice
+										.html( data.price );
+									orderPrice
+										.after( data.qty );
+									orderQty
+										.text( awooc_scripts.product_qty + productQty );
+									orderSku
+										.html( data.sku );
+									orderAttr
+										.html( data.attr );
 
-										// Загружаем форму
-										$( '.awooc-col.columns-right' )
-											.html( data.form );
+									// Загружаем форму.
+									$( '.awooc-col.columns-right' )
+										.html( data.form );
 
-										// Инициализация формы
-										awoocInitContactForm();
+									// Инициализация формы.
+									awoocInitContactForm();
 
-										// Собираем данные для письма
-										var hiddenData = awoocHiddenDataToMail( dataOut );
+									// Собираем данные для письма.
+									var hiddenData = awoocHiddenDataToMail( dataOut );
 
-										// Записываем данные с скрытое поле для отправки письма
-										$( '.awooc-hidden-data' )
-											.val( hiddenData );
+									// Записываем данные с скрытое поле для отправки письма.
+									$( '.awooc-hidden-data' )
+										.val( hiddenData );
 
-										// Записываем id товара и количество в скрытое поле
-										$( '.awooc-hidden-product-id' )
-											.val( prodictSelectedId );
-										$( '.awooc-hidden-product-qty' )
-											.val( productQty );
+									// Записываем id товара и количество в скрытое поле.
+									$( '.awooc-hidden-product-id' )
+										.val( prodictSelectedId );
+									$( '.awooc-hidden-product-qty' )
+										.val( productQty );
 
-										// Проверка на наличчие маски телефона
-										awooMaskField();
+									// Проверка на наличчие маски телефона.
+									awooMaskField();
 
-										// Выводим всплывающее окно
-										awoocPopupWindow();
-									},
+									// Выводим всплывающее окно.
+									awoocPopupWindow();
+								},
 							},
 						);
 
@@ -265,15 +265,15 @@ jQuery( document )
 
 			function awoocHiddenDataToMail( dataOut ) {
 				return '\n' + awooc_scripts.product_data_title +
-				'\n &mdash;&mdash;&mdash;' +
-				dataOut.outTitle +
-				'\n' + dataOut.outID +
-				dataOut.outCat.replace( /(<([^>]+)>)/ig, '' ) +
-				dataOut.outPrice +
-				dataOut.outAttr.replace( /(<([^>]+)>)/ig, '' ) +
-				dataOut.outSku.replace( /(<([^>]+)>)/ig, '' ) +
-				dataOut.outQty +
-				dataOut.outLink;
+						'\n &mdash;&mdash;&mdash;' +
+						dataOut.outTitle +
+						'\n' + dataOut.outID +
+						dataOut.outCat.replace( /(<([^>]+)>)/ig, '' ) +
+						dataOut.outPrice +
+						dataOut.outAttr.replace( /(<([^>]+)>)/ig, '' ) +
+						dataOut.outSku.replace( /(<([^>]+)>)/ig, '' ) +
+						dataOut.outQty +
+						dataOut.outLink;
 			}
 
 
@@ -376,25 +376,23 @@ jQuery( document )
 
 
 			function awoocFormDataEmpty() {
-				$( '.awooc-form-custom-order-title' )
+				orderTitle
 					.empty();
-				$( '.awooc-form-custom-order-img' )
+				orderImg
 					.empty();
-				$( '.awooc-form-custom-order-price' )
+				orderPrice
 					.empty();
-				$( '.awooc-form-custom-order-qty' )
+				orderQty
 					.empty();
-				$( '.awooc-form-custom-order-sku' )
+				orderSku
 					.empty();
-				$( '.awooc-form-custom-order-attr' )
+				orderAttr
 					.empty();
 			}
 
 
 			function awooMaskFieldItem() {
-				let $this = $( this ),
-
-					data_mask = $this.data( 'mask' );
+				let $this = $( this ), data_mask = $this.data( 'mask' );
 
 				try {
 
@@ -428,5 +426,5 @@ jQuery( document )
 				}
 			}
 
-		}
+		},
 	);
