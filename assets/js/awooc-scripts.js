@@ -25,8 +25,7 @@ jQuery( document )
 					function( event, variation )
 					{
 						$( '.awooc-custom-order.button' )
-							.removeClass(
-								'disabled wc-variation-selection-needed wc-variation-is-unavailable' );
+							.removeClass( 'disabled wc-variation-selection-needed wc-variation-is-unavailable' );
 
 						// Если у вариации нет цены или ее нет в наличие то скрываем сообщения.
 						if ( awooc_scripts.mode === 'no_stock_no_price' ) {
