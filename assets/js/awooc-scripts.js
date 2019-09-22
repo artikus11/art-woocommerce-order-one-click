@@ -25,17 +25,20 @@ jQuery( function( $ ) {
 		 preload    = '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>';
 
 	$( document )
-		.on( 'hide_variation', function() {
-
+		.on( 'hide_variation', function( event ) {
 			awoocBtn.addClass( 'disabled wc-variation-selection-needed' );
 
 		} )
 		.on( 'show_variation', function( event, variation ) {
-			awoocBtn.removeClass( 'disabled wc-variation-selection-needed wc-variation-is-unavailable' );
+			if ( false !== variation.is_in_stock ) {
+				awoocBtn.removeClass( 'disabled wc-variation-selection-needed' );
+			} else {
+				awoocBtn.addClass( 'disabled wc-variation-is-unavailable' );
+			}
 
 			// Если у вариации нет цены или ее нет в наличие то скрываем сообщения.
-			if ( awooc_scripts.mode === 'no_stock_no_price' || false === variation ) {
-				if ( ! variation.is_purchasable || false !== variation.is_in_stock ) {
+			if ( awooc_scripts.mode === 'no_stock_no_price' ) {
+				if ( false === variation.is_purchasable || false === variation.is_in_stock ) {
 					$( 'body.woocommerce' )
 						.find( '.single_variation' )
 						.hide();
