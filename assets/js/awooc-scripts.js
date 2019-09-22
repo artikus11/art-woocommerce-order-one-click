@@ -30,7 +30,7 @@ jQuery( function( $ ) {
 
 		} )
 		.on( 'show_variation', function( event, variation ) {
-			if ( false !== variation.is_in_stock ) {
+			if ( false !== variation.is_in_stock) {
 				awoocBtn.removeClass( 'disabled wc-variation-selection-needed' );
 			} else {
 				awoocBtn.addClass( 'disabled wc-variation-is-unavailable' );
@@ -39,9 +39,18 @@ jQuery( function( $ ) {
 			// Если у вариации нет цены или ее нет в наличие то скрываем сообщения.
 			if ( awooc_scripts.mode === 'no_stock_no_price' ) {
 				if ( false === variation.is_purchasable || false === variation.is_in_stock ) {
+					awoocBtn.removeClass( 'disabled wc-variation-selection-needed' );
 					$( 'body.woocommerce' )
 						.find( '.single_variation' )
 						.hide();
+					/*$( 'body.woocommerce' )
+						.find( '.quantity')
+						.hide();
+
+					$( 'body.woocommerce' )
+						.find( '.woocommerce-variation-add-to-cart .single_add_to_cart_button' )
+						.hide();*/
+
 				}
 			}
 		} )
