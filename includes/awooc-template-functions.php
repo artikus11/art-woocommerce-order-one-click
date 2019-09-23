@@ -80,7 +80,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		}
 
 		$defaults = array(
-			'href'       => '#awooc',
+			'href'       => '',
 			'product_id' => $product->get_id(),
 			'class'      => apply_filters( 'awooc_classes_button', 'awooc-custom-order button alt ' . awooc_mode_classes() ),
 			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button' ),
