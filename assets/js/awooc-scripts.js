@@ -15,7 +15,7 @@ jQuery( function( $ ) {
 	}
 
 	// Задаем переменные.
-	var awoocBtn   = $( '.awooc-custom-order.button' ),
+	const awoocBtn   = $( '.awooc-custom-order.button' ),
 		 orderTitle = $( '.awooc-form-custom-order-title' ),
 		 orderImg   = $( '.awooc-form-custom-order-img' ),
 		 orderPrice = $( '.awooc-form-custom-order-price' ),
@@ -87,9 +87,8 @@ jQuery( function( $ ) {
 				nonce: awooc_scripts.nonce,
 			};
 
-			//var requerst =
 			// Отправляем запрос.
-			var request = $.ajax( {
+			let request = $.ajax( {
 					url: awooc_scripts.url,
 					data: data,
 					type: 'POST',
@@ -215,7 +214,7 @@ jQuery( function( $ ) {
 	function awoocInitContactForm() {
 		$( 'div.wpcf7 > form' )
 			.each( function() {
-					var $form = $( this );
+					let $form = $( this );
 					wpcf7.initForm( $form );
 					if ( wpcf7.cached ) {
 						wpcf7.refill( $form );
