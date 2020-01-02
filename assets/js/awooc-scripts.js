@@ -16,21 +16,23 @@ jQuery( function( $ ) {
 
 	// Задаем переменные.
 	const awoocBtn   = $( '.awooc-custom-order.button' ),
-		 orderTitle = $( '.awooc-form-custom-order-title' ),
-		 orderImg   = $( '.awooc-form-custom-order-img' ),
-		 orderPrice = $( '.awooc-form-custom-order-price' ),
-		 orderQty   = $( '.awooc-form-custom-order-qty' ),
-		 orderSku   = $( '.awooc-form-custom-order-sku' ),
-		 orderAttr  = $( '.awooc-form-custom-order-attr' ),
-		 preload    = '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>';
+			orderTitle = $( '.awooc-form-custom-order-title' ),
+			orderImg   = $( '.awooc-form-custom-order-img' ),
+			orderPrice = $( '.awooc-form-custom-order-price' ),
+			orderQty   = $( '.awooc-form-custom-order-qty' ),
+			orderSku   = $( '.awooc-form-custom-order-sku' ),
+			orderAttr  = $( '.awooc-form-custom-order-attr' ),
+			preload    = '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>';
 
 	$( document )
+
 		.on( 'hide_variation', function( event ) {
 			awoocBtn.addClass( 'disabled wc-variation-selection-needed' );
 
 		} )
+
 		.on( 'show_variation', function( event, variation ) {
-			if ( false !== variation.is_in_stock) {
+			if ( false !== variation.is_in_stock ) {
 				awoocBtn.removeClass( 'disabled wc-variation-selection-needed' );
 			} else {
 				awoocBtn.addClass( 'disabled wc-variation-is-unavailable' );
@@ -43,17 +45,18 @@ jQuery( function( $ ) {
 					$( 'body.woocommerce' )
 						.find( '.single_variation' )
 						.hide();
-					/*$( 'body.woocommerce' )
-						.find( '.quantity')
+					$( 'body.woocommerce' )
+						.find( '.quantity' )
 						.hide();
 
 					$( 'body.woocommerce' )
 						.find( '.woocommerce-variation-add-to-cart .single_add_to_cart_button' )
-						.hide();*/
+						.hide();
 
 				}
 			}
 		} )
+
 		.on( 'click', '.awooc-custom-order.button', function( event ) {
 			if ( $( this ).is( '.disabled' ) ) {
 				event.preventDefault();
@@ -95,15 +98,13 @@ jQuery( function( $ ) {
 					dataType: 'json',
 					beforeSend: function( xhr, data ) {
 						// Вызываем прелоадер.
-						$( event.currentTarget )
-							.block(
-								{
-									message: null,
-									overlayCSS: {
-										opacity: 0.6,
-									},
+						$( event.currentTarget ).block( {
+								message: null,
+								overlayCSS: {
+									opacity: 0.6,
 								},
-							);
+							}
+						);
 						$( event.currentTarget )
 							.fadeIn( 200 )
 							.prepend( preload );
@@ -174,40 +175,42 @@ jQuery( function( $ ) {
 						return data;
 					},
 
-				},
+				}
 			);
 
 			return false;
 		} )
+
 		.on( 'click', '.awooc-close', function() {
 			// При клику на оверлей закрываем окно.
 			$.unblockUI();
+
 			// При клику на оверлей добавлем нужный класс.
 			$( '#awooc-form-custom-order' ).addClass( 'awooc-hide' );
 		} )
+
 		.on( 'wpcf7mailsent', function( event, detail ) {
 
 			$( document.body ).trigger( 'awooc_mail_sent_trigger', [ event, detail ] );
 
-			setTimeout(
-				$.unblockUI,
-				3000,
-			);
+			setTimeout( $.unblockUI, 3000 );
+
 			setTimeout( function() {
 					$( '.wpcf7-form' )[0].reset();
 					$( '.wpcf7-response-output' ).remove();
-				}, 3000,
+				}, 3000
 			);
 		} )
+
 		.on( 'wpcf7invalid', function( event, detail ) {
 
 			$( document.body ).trigger( 'awooc_mail_invalid_trigger', [ event, detail ] );
 
 			setTimeout( function() {
-					$( '.wpcf7-response-output' ).remove();
-					$( '.wpcf7-not-valid-tip' ).remove();
-				}, 5000,
-			);
+				$( '.wpcf7-response-output' ).remove();
+				$( '.wpcf7-not-valid-tip' ).remove();
+			}, 5000 );
+
 		} );
 
 
@@ -219,7 +222,7 @@ jQuery( function( $ ) {
 					if ( wpcf7.cached ) {
 						wpcf7.refill( $form );
 					}
-				},
+				}
 			);
 	}
 
@@ -263,8 +266,8 @@ jQuery( function( $ ) {
 				},
 				bindEvents: true,
 				timeout: 0,
-				fadeIn: 400,
-				fadeOut: 400,
+				fadeIn: awooc_scripts.fadeIn,
+				fadeOut: awooc_scripts.fadeOut,
 				allowBodyStretch: true,
 				centerX: true,
 				centerY: true,
@@ -298,8 +301,8 @@ jQuery( function( $ ) {
 					// При закрытии окна очищаем данные.
 					awoocFormDataEmpty();
 
-				},
-			},
+				}
+			}
 		);
 	}
 
@@ -315,7 +318,8 @@ jQuery( function( $ ) {
 
 
 	function awooMaskFieldItem() {
-		let $this = $( this ), data_mask = $this.data( 'mask' );
+		let $this = $( this ),
+			 data_mask = $this.data( 'mask' );
 
 		try {
 
@@ -323,8 +327,8 @@ jQuery( function( $ ) {
 
 			if ( data_mask.indexOf( '*' ) === -1 && data_mask.indexOf( 'a' ) === -1 ) {
 				$this.attr( {
-						'inputmode': 'numeric',
-					},
+						'inputmode': 'numeric'
+					}
 				);
 			}
 
@@ -339,6 +343,7 @@ jQuery( function( $ ) {
 
 	function awoocMaskField() {
 		let mask_fields = $( '.wpcf7-mask' );
+
 		if ( mask_fields.length > 0 ) {
 			mask_fields.each( awooMaskFieldItem() );
 		}

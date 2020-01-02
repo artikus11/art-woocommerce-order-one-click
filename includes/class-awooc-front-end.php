@@ -47,9 +47,6 @@ class AWOOC_Front_End {
 
 		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		/*
-		 * @todo Кнопка не работает на темах Divi и Phlox
-		 */
 		wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts' . $suffix . '.js', array( 'jquery', 'jquery-blockui' ), AWOOC_PLUGIN_VER, false );
 		wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles' . $suffix . '.css', array(), AWOOC_PLUGIN_VER );
 		wp_localize_script(
@@ -66,9 +63,12 @@ class AWOOC_Front_End {
 				'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
 				'title_close'        => __( 'Click to close', 'art-woocommerce-order-one-click' ),
 				'mode'               => get_option( 'woocommerce_awooc_mode_catalog' ),
+				'fadeIn'             => '400',
+				'fadeOut'            => '400',
 			)
 		);
 	}
+
 
 	/**
 	 * Подключаем нужные стили и скрипты
@@ -187,7 +187,8 @@ class AWOOC_Front_End {
 	 */
 	public function custom_button_label( $label ) {
 
-		$label = get_option( 'woocommerce_awooc_title_custom' ) ? esc_html( get_option( 'woocommerce_awooc_title_custom' ) ) : esc_html( get_option( 'woocommerce_awooc_title_button' ) );
+		$label = get_option( 'woocommerce_awooc_title_custom' ) ? esc_html( get_option( 'woocommerce_awooc_title_custom' ) ) :
+			esc_html( get_option( 'woocommerce_awooc_title_button' ) );
 
 		return $label;
 	}
@@ -274,10 +275,10 @@ class AWOOC_Front_End {
 	/**
 	 * Скрытие кнопки купить
 	 *
-	 * @since 1.8.0
+	 * @return mixed|void
 	 * @since 1.8.3
 	 *
-	 * @return mixed|void
+	 * @since 1.8.0
 	 */
 	public function hide_button_add_to_card() {
 
@@ -308,9 +309,9 @@ class AWOOC_Front_End {
 	/**
 	 * Показ кнопки В корзину
 	 *
+	 * @return mixed|void
 	 * @since 1.8.0
 	 *
-	 * @return mixed|void
 	 */
 	public function show_button_add_to_card() {
 
