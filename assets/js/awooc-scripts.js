@@ -24,6 +24,8 @@ jQuery( function( $ ) {
 			orderAttr  = $( '.awooc-form-custom-order-attr' ),
 			preload    = '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>';
 
+	let selectedProduct;
+
 	$( document )
 
 		.on( 'hide_variation', function( event ) {
@@ -169,6 +171,17 @@ jQuery( function( $ ) {
 						// Выводим всплывающее окно.
 						awoocPopupWindow();
 
+						// Данные для аналитики
+						selectedProduct = {
+							productId:prodictSelectedId,
+							productName: data.title,
+							productSku:data.productSku,
+							productQty: productQty,
+							productPrice: data.pricenumber,
+							productCat: data.productCat,
+							productAttr: data.productAttr
+						};
+
 						// Событитие открытия окна.
 						$( document.body ).trigger( 'awooc_popup_open_trigger', [ data ] );
 
@@ -189,9 +202,15 @@ jQuery( function( $ ) {
 			$( '#awooc-form-custom-order' ).addClass( 'awooc-hide' );
 		} )
 
-		.on( 'wpcf7mailsent', function( event, detail ) {
+		.on( 'wpcf7mailsent', function( detail ) {
 
-			$( document.body ).trigger( 'awooc_mail_sent_trigger', [ event, detail ] );
+			$( document.body ).trigger(
+				'awooc_mail_sent_trigger',
+				{
+					'selectedProduct': selectedProduct,
+					'mailDetail' : detail
+				}
+			);
 
 			setTimeout( $.unblockUI, 3000 );
 

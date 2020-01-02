@@ -61,17 +61,21 @@ class AWOOC_Ajax {
 		$product = wc_get_product( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
 
 		$data = array(
-			'elements'    => 'full',
-			'title'       => $this->product_title( $product ),
-			'image'       => $this->product_image( $product ),
-			'link'        => esc_url( get_permalink( $this->product_id( $product ) ) ),
-			'sku'         => $this->product_sku( $product ),
-			'attr'        => $this->product_attr( $product ),
-			'price'       => $this->product_price( $product ),
-			'pricenumber' => $product->get_price(),
-			'qty'         => '',
-			'form'        => $this->select_form(),
-			'cat'         => $this->product_cat( $product ),
+			'elements'        => 'full',
+			'title'           => $this->product_title( $product ),
+			'image'           => $this->product_image( $product ),
+			'link'            => esc_url( get_permalink( $this->product_id( $product ) ) ),
+			'sku'             => $this->the_product_sku( $product ),
+			'attr'            => $this->the_product_attr( $product ),
+			'price'           => $this->product_price( $product ),
+			'pricenumber'     => $product->get_price(),
+			'qty'             => '',
+			'form'            => $this->select_form(),
+			'cat'             => $this->the_product_cat( $product ),
+			'productParentId' => $product->get_parent_id(),
+			'productSku'      => $this->product_sku( $product ),
+			'productAttr'     => $this->product_attr( $product ),
+			'productCat'      => $this->product_cat( $product ),
 		);
 
 		// проверяем на включенный режим, если включен режим любой кроме шатного, то удаляем количество.
@@ -181,20 +185,9 @@ class AWOOC_Ajax {
 			return false;
 		}
 
-		$sku = $product->get_sku() ? $product->get_sku() : 'N/A';
-
-		return wp_kses_post(
-			apply_filters(
-				'awooc_popup_sku_html',
-				sprintf(
-					'<span class="awooc-sku-wrapper">%s</span><span class="awooc-sku">%s</span>',
-					apply_filters( 'awooc_popup_sku_label', __( 'SKU: ', 'art-woocommerce-order-one-click' ) ),
-					$sku
-				),
-				$product
-			)
-		);
+		return $product->get_sku() ? $product->get_sku() : __( 'N/A', 'woocommerce' );
 	}
+
 
 
 	/**
@@ -245,16 +238,27 @@ class AWOOC_Ajax {
 			return false;
 		}
 
-		$attr_json = sprintf(
-			'%s</br><span class="awooc-attr-wrapper"><span>%s</span></span>',
-			apply_filters( 'awooc_popup_attr_label', esc_html__( 'Attributes: ', 'art-woocommerce-order-one-click' ) ),
-			$product_var_attr
-		);
-
-		return $attr_json;
+		return $product_var_attr;
 
 	}
 
+
+	/**
+	 * Форматирование атрибутов вариативного товара
+	 *
+	 * @param WC_Product $product объект продукта.
+	 *
+	 * @return string
+	 * @since 2.3.2
+	 */
+	public function the_product_attr( $product ) {
+
+		return sprintf(
+			'%s</br><span class="awooc-attr-wrapper"><span>%s</span></span>',
+			apply_filters( 'awooc_popup_attr_label', esc_html__( 'Attributes: ', 'art-woocommerce-order-one-click' ) ),
+			$this->product_attr( $product )
+		);
+	}
 
 	/**
 	 * Получаем цену товара
@@ -316,7 +320,7 @@ class AWOOC_Ajax {
 	 * @return string
 	 * @since 2.1.0
 	 */
-	public function product_cat( $product ) {
+	public function the_product_cat( $product ) {
 
 		return wc_get_product_category_list(
 			$this->product_id( $product ),
@@ -325,6 +329,31 @@ class AWOOC_Ajax {
 			'</span>'
 		);
 
+	}
+
+
+	/**
+	 * Получаем первый термин для аналитики
+	 *
+	 * @param WC_Product $product объект продукта.
+	 *
+	 * @return bool|string
+	 * @since 2.3.2
+	 */
+	public function product_cat( $product ) {
+
+		$term  = '';
+		$terms = get_the_terms( $this->product_id( $product ), 'product_cat' );
+
+		if ( false === $terms ) {
+			return false;
+		}
+
+		if ( $terms ) {
+			$term = array_shift( $terms );
+		}
+
+		return $term->name;
 	}
 
 
@@ -343,6 +372,30 @@ class AWOOC_Ajax {
 			esc_url( get_permalink( $this->product_id( $product ) ) )
 		);
 
+	}
+
+
+	/**
+	 * Форматирование артикула
+	 *
+	 * @param WC_Product $product объект продукта.
+	 *
+	 * @return string
+	 * @since 2.3.2
+	 */
+	public function the_product_sku( $product ) {
+
+		return wp_kses_post(
+			apply_filters(
+				'awooc_popup_sku_html',
+				sprintf(
+					'<span class="awooc-sku-wrapper">%s</span><span class="awooc-sku">%s</span>',
+					apply_filters( 'awooc_popup_sku_label', __( 'SKU: ', 'art-woocommerce-order-one-click' ) ),
+					$this->product_sku( $product )
+				),
+				$product
+			)
+		);
 	}
 
 }
