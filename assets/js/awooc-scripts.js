@@ -215,8 +215,8 @@ jQuery( function( $ ) {
 			setTimeout( $.unblockUI, 3000 );
 
 			setTimeout( function() {
-					$( '.wpcf7-form' )[0].reset();
-					$( '.wpcf7-response-output' ).remove();
+					$( '.awooc-form-custom-order .wpcf7-form' )[0].reset();
+					$( '.awooc-form-custom-order .wpcf7-response-output' ).remove();
 				}, 3000
 			);
 		} )
@@ -226,15 +226,15 @@ jQuery( function( $ ) {
 			$( document.body ).trigger( 'awooc_mail_invalid_trigger', [ event, detail ] );
 
 			setTimeout( function() {
-				$( '.wpcf7-response-output' ).remove();
-				$( '.wpcf7-not-valid-tip' ).remove();
+				$( '.awooc-form-custom-order .wpcf7-response-output' ).remove();
+				$( '.awooc-form-custom-order .wpcf7-not-valid-tip' ).remove();
 			}, 5000 );
 
 		} );
 
 
 	function awoocInitContactForm() {
-		$( 'div.wpcf7 > form' )
+		$( '.awooc-form-custom-order div.wpcf7 > form' )
 			.each( function() {
 					let $form = $( this );
 					wpcf7.initForm( $form );
@@ -335,36 +335,31 @@ jQuery( function( $ ) {
 		orderAttr.empty();
 	}
 
-
-	function awooMaskFieldItem() {
-		let $this = $( this ),
-			 data_mask = $this.data( 'mask' );
-
-		try {
-
-			$this.mask( data_mask );
-
-			if ( data_mask.indexOf( '*' ) === -1 && data_mask.indexOf( 'a' ) === -1 ) {
-				$this.attr( {
-						'inputmode': 'numeric'
-					}
-				);
-			}
-
-		} catch ( e ) {
-
-			console.log( 'Ошибка ' + e.name + ':' + e.message + '\n' + e.stack );
-
-		}
-
-	}
-
-
 	function awoocMaskField() {
-		let mask_fields = $( '.wpcf7-mask' );
-
+		let mask_fields = $( '.awooc-form-custom-order .wpcf7-mask' );
 		if ( mask_fields.length > 0 ) {
-			mask_fields.each( awooMaskFieldItem() );
+			mask_fields.each( function() {
+				let $this     = $( this ),
+					 data_mask = $this.data( 'mask' );
+
+				//Если ошибка определения, то выводим в консоль сообщение и продолжаем
+				try {
+
+					$this.mask( data_mask );
+
+					if ( data_mask.indexOf( '*' ) === -1 && data_mask.indexOf( 'a' ) === -1 ) {
+						$this.attr( {
+							'inputmode': 'numeric',
+						} );
+					}
+
+				} catch ( e ) {
+
+					console.log( 'Ошибка ' + e.name + ':' + e.message + '\n' + e.stack );
+
+				}
+
+			} );
 		}
 	}
 
