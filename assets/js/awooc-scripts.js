@@ -179,7 +179,7 @@ jQuery( function( $ ) {
 							productQty: productQty,
 							productPrice: data.pricenumber,
 							productCat: data.productCat,
-							productAttr: data.productAttr
+							productAttr: data.productAttr.replace(/<\/?[^>]+>/g,'')
 						};
 
 						// Событитие открытия окна.
