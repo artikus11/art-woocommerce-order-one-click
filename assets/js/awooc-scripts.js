@@ -173,13 +173,13 @@ jQuery( function( $ ) {
 
 						// Данные для аналитики
 						selectedProduct = {
-							productId:prodictSelectedId,
+							productId: prodictSelectedId,
 							productName: data.title,
-							productSku:data.productSku,
+							productSku: data.productSku,
 							productQty: productQty,
 							productPrice: data.pricenumber,
 							productCat: data.productCat,
-							productAttr: data.productAttr.replace(/<\/?[^>]+>/g,'')
+							productAttr: data.productAttr ? data.productAttr.replace( /<\/?[^>]+>/g, '' ) : '',
 						};
 
 						// Событитие открытия окна.
@@ -355,7 +355,7 @@ jQuery( function( $ ) {
 
 				} catch ( e ) {
 
-					console.log( 'Ошибка ' + e.name + ':' + e.message + '\n' + e.stack );
+					console.log( 'Error ' + e.name + ':' + e.message + '\n' + e.stack );
 
 				}
 
