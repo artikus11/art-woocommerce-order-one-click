@@ -6,11 +6,8 @@
 
 jQuery( function( $ ) {
 
-	if ( typeof wc_add_to_cart_params === 'undefined' ) {
-		return false;
-	}
-
 	if ( typeof awooc_scripts === 'undefined' ) {
+		console.log('awooc_scripts not found');
 		return false;
 	}
 

@@ -53,7 +53,7 @@ script:
 before_deploy:
 - git config --local user.name "artikus11"
 - git config --local user.email "artikus.sol@gmail.ru"
-- git tag "2.3.4"
+- git tag "2.3.5"
 deploy:
   provider: releases
   api_key:
