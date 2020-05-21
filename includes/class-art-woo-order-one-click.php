@@ -1,4 +1,4 @@
-<?php // @codingStandardsIgnoreLine
+<?php
 
 /**
  * Class ArtWoo_Order_One_Click

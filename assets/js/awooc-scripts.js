@@ -285,6 +285,7 @@ jQuery( function( $ ) {
 				fadeIn: awooc_scripts.fadeIn,
 				fadeOut: awooc_scripts.fadeOut,
 				allowBodyStretch: true,
+				focusInput: false,
 				centerX: true,
 				centerY: true,
 				onBlock: function() {
