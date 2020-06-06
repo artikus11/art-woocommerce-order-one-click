@@ -3,7 +3,7 @@ Contributors: artabr
 Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
-Tested up to: 5.3
+Tested up to: 5.4
 Stable tag: 2.3.5
 Requires PHP: 5.6
 License: GPLv2 or later
@@ -98,6 +98,10 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.3.6 =
+* Измененно - выключен фокус в поле формы при открытии окна
+* Исправлено - ошибка при первой активации плагина
 
 = 2.3.5 =
 * Исправлено - правки в js, убрана проверка на объект WC
