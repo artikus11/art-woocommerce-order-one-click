@@ -60,22 +60,26 @@ class AWOOC_Ajax {
 
 		$product = wc_get_product( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
 
-		$data = array(
-			'elements'        => 'full',
-			'title'           => $this->product_title( $product ),
-			'image'           => $this->product_image( $product ),
-			'link'            => esc_url( get_permalink( $this->product_id( $product ) ) ),
-			'sku'             => $this->the_product_sku( $product ),
-			'attr'            => $this->the_product_attr( $product ),
-			'price'           => $this->product_price( $product ),
-			'pricenumber'     => $product->get_price(),
-			'qty'             => '',
-			'form'            => $this->select_form(),
-			'cat'             => $this->the_product_cat( $product ),
-			'productParentId' => $product->get_parent_id(),
-			'productSku'      => $this->product_sku( $product ),
-			'productAttr'     => $this->product_attr( $product ),
-			'productCat'      => $this->product_cat( $product ),
+		$data = apply_filters(
+			'awooc_data_ajax',
+			array(
+				'elements'        => 'full',
+				'title'           => $this->product_title( $product ),
+				'image'           => $this->product_image( $product ),
+				'link'            => esc_url( get_permalink( $this->product_id( $product ) ) ),
+				'sku'             => $this->the_product_sku( $product ),
+				'attr'            => $this->the_product_attr( $product ),
+				'price'           => $this->product_price( $product ),
+				'pricenumber'     => $product->get_price(),
+				'qty'             => '',
+				'form'            => $this->select_form(),
+				'cat'             => $this->the_product_cat( $product ),
+				'productParentId' => $product->get_parent_id(),
+				'productSku'      => $this->product_sku( $product ),
+				'productAttr'     => $this->product_attr( $product ),
+				'productCat'      => $this->product_cat( $product ),
+			),
+			$product
 		);
 
 		// проверяем на включенный режим, если включен режим любой кроме шатного, то удаляем количество.
@@ -189,7 +193,6 @@ class AWOOC_Ajax {
 	}
 
 
-
 	/**
 	 * Получение атрибутов вариативного товара
 	 *
@@ -246,7 +249,7 @@ class AWOOC_Ajax {
 	/**
 	 * Форматирование атрибутов вариативного товара
 	 *
-	 * @param WC_Product $product объект продукта.
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return string
 	 * @since 2.3.2
@@ -259,6 +262,7 @@ class AWOOC_Ajax {
 			$this->product_attr( $product )
 		);
 	}
+
 
 	/**
 	 * Получаем цену товара
@@ -335,7 +339,7 @@ class AWOOC_Ajax {
 	/**
 	 * Получаем первый термин для аналитики
 	 *
-	 * @param WC_Product $product объект продукта.
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return bool|string
 	 * @since 2.3.2
@@ -378,7 +382,7 @@ class AWOOC_Ajax {
 	/**
 	 * Форматирование артикула
 	 *
-	 * @param WC_Product $product объект продукта.
+	 * @param  WC_Product $product объект продукта.
 	 *
 	 * @return string
 	 * @since 2.3.2
