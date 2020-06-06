@@ -112,7 +112,7 @@ class AWOOC_Ajax {
 	 */
 	public function product_title( $product ) {
 
-		return $product->get_title();
+		return html_entity_decode( $product->get_title() );
 	}
 
 
