@@ -7,7 +7,7 @@
 jQuery( function( $ ) {
 
 	if ( typeof awooc_scripts === 'undefined' ) {
-		console.log('awooc_scripts not found');
+		console.log( 'awooc_scripts not found' );
 		return false;
 	}
 
@@ -102,7 +102,7 @@ jQuery( function( $ ) {
 								overlayCSS: {
 									opacity: 0.6,
 								},
-							}
+							},
 						);
 						$( event.currentTarget )
 							.fadeIn( 200 )
@@ -185,7 +185,7 @@ jQuery( function( $ ) {
 						return data;
 					},
 
-				}
+				},
 			);
 
 			return false;
@@ -205,8 +205,8 @@ jQuery( function( $ ) {
 				'awooc_mail_sent_trigger',
 				{
 					'selectedProduct': selectedProduct,
-					'mailDetail' : detail
-				}
+					'mailDetail': detail,
+				},
 			);
 
 			setTimeout( $.unblockUI, 3000 );
@@ -214,7 +214,7 @@ jQuery( function( $ ) {
 			setTimeout( function() {
 					$( '.awooc-form-custom-order .wpcf7-form' )[0].reset();
 					$( '.awooc-form-custom-order .wpcf7-response-output' ).remove();
-				}, 3000
+				}, 3000,
 			);
 		} )
 
@@ -234,11 +234,17 @@ jQuery( function( $ ) {
 		$( '.awooc-form-custom-order div.wpcf7 > form' )
 			.each( function() {
 					let $form = $( this );
-					wpcf7.initForm( $form );
-					if ( wpcf7.cached ) {
-						wpcf7.refill( $form );
+
+					if ( typeof wpcf7 === 'undefined' || wpcf7 === null ) {
+						console.log( 'На странице не существует объекта wpcf7. Что-то не так с темой...' );
+					} else {
+						wpcf7.initForm( $form );
+						if ( wpcf7.cached ) {
+							wpcf7.refill( $form );
+						}
 					}
-				}
+
+				},
 			);
 	}
 
@@ -318,8 +324,8 @@ jQuery( function( $ ) {
 					// При закрытии окна очищаем данные.
 					awoocFormDataEmpty();
 
-				}
-			}
+				},
+			},
 		);
 	}
 
@@ -332,6 +338,7 @@ jQuery( function( $ ) {
 		orderSku.empty();
 		orderAttr.empty();
 	}
+
 
 	function awoocMaskField() {
 		let mask_fields = $( '.awooc-form-custom-order .wpcf7-mask' );
