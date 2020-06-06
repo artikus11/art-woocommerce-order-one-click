@@ -245,7 +245,7 @@ jQuery( function( $ ) {
 
 	function awoocHiddenDataToMail( dataOut ) {
 		return '\n' + awooc_scripts.product_data_title +
-				 '\n &mdash;&mdash;&mdash;' +
+				 '\n ———' +
 				 dataOut.outTitle +
 				 '\n' + dataOut.outID +
 				 dataOut.outCat.replace( /(<([^>]+)>)/ig, '' ) +
