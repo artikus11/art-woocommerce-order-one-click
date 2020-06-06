@@ -56,7 +56,7 @@ jQuery( function( $ ) {
 			}
 		} )
 
-		.on( 'click', '.awooc-custom-order.button', function( event ) {
+		.on( 'click', '.awooc-custom-order-button', function( event ) {
 			if ( $( this ).is( '.disabled' ) ) {
 				event.preventDefault();
 

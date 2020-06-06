@@ -82,7 +82,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		$defaults = array(
 			'href'       => '',
 			'product_id' => $product->get_id(),
-			'class'      => apply_filters( 'awooc_classes_button', 'awooc-custom-order button alt ' . awooc_mode_classes() ),
+			'class'      => apply_filters( 'awooc_classes_button', 'awooc-custom-order button alt awooc-custom-order-button ' . awooc_mode_classes() ),
 			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button' ),
 			'label'      => apply_filters( 'awooc_button_label', get_option( 'woocommerce_awooc_title_button' ) ),
 		);
