@@ -59,22 +59,20 @@ class AWOOC_Orders {
 			return;
 		}
 
+		$user_passed_text = '';
+		$user_passed_email = '';
+		$user_passed_tel = '';
+
 		if ( isset( $_POST['awooc-text'] ) && ! empty( $_POST['awooc-text'] ) ) {
 			$user_passed_text = sanitize_text_field( wp_unslash( $_POST['awooc-text'] ) );
-		} else {
-			$user_passed_text = '';
 		}
 
 		if ( isset( $_POST['awooc-email'] ) && ! empty( $_POST['awooc-email'] ) ) {
 			$user_passed_email = sanitize_text_field( wp_unslash( $_POST['awooc-email'] ) );
-		} else {
-			$user_passed_email = '';
 		}
 
 		if ( isset( $_POST['awooc-tel'] ) && ! empty( $_POST['awooc-tel'] ) ) {
 			$user_passed_tel = sanitize_text_field( wp_unslash( $_POST['awooc-tel'] ) );
-		} else {
-			$user_passed_tel = '';
 		}
 
 		$product_id  = isset( $_POST['awooc_product_id'] ) ? sanitize_text_field( wp_unslash( $_POST['awooc_product_id'] ) ) : null;
