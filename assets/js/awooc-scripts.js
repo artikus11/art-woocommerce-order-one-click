@@ -97,13 +97,6 @@ jQuery( function( $ ) {
 					dataType: 'json',
 					beforeSend: function( xhr, data ) {
 						// Вызываем прелоадер.
-						$( event.currentTarget ).block( {
-								message: null,
-								overlayCSS: {
-									opacity: 0.6,
-								},
-							},
-						);
 						$( event.currentTarget )
 							.fadeIn( 200 )
 							.prepend( preload );
