@@ -25,8 +25,6 @@ class AWOOC_Front_End {
 		/**
 		 * Base hooks
 		 */
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script_style' ), 100 );
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_script_style' ) );
 		add_action( 'wp_footer', array( $this, 'popup_window_html' ), 30 );
 
 		/**
@@ -41,45 +39,40 @@ class AWOOC_Front_End {
 
 
 	/**
-	 * Подключаем нужные стили и скрипты
-	 */
-	public function enqueue_script_style() {
-
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
-		wp_enqueue_script( 'awooc-scripts', AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts' . $suffix . '.js', array( 'jquery', 'jquery-blockui' ), AWOOC_PLUGIN_VER, false );
-		wp_enqueue_style( 'awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/awooc-styles' . $suffix . '.css', array(), AWOOC_PLUGIN_VER );
-		wp_localize_script(
-			'awooc-scripts',
-			'awooc_scripts',
-			array(
-				'url'                => admin_url( 'admin-ajax.php' ),
-				'nonce'              => wp_create_nonce( 'awooc-nonce' ),
-				'product_qty'        => __( 'Quantity: ', 'art-woocommerce-order-one-click' ),
-				'product_title'      => __( 'Title: ', 'art-woocommerce-order-one-click' ),
-				'product_price'      => __( 'Price: ', 'art-woocommerce-order-one-click' ),
-				'product_sku'        => __( 'SKU: ', 'art-woocommerce-order-one-click' ),
-				'product_attr'       => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
-				'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
-				'title_close'        => __( 'Click to close', 'art-woocommerce-order-one-click' ),
-				'mode'               => get_option( 'woocommerce_awooc_mode_catalog' ),
-				'fadeIn'             => '400',
-				'fadeOut'            => '400',
-			)
-		);
-	}
-
-
-	/**
-	 * Подключаем нужные стили и скрипты
+	 * Вывод кнопки Заказать в зависимости от настроек
 	 *
-	 * @since  2.0.0
+	 * @since 1.8.0
 	 */
-	public function admin_enqueue_script_style() {
+	public function add_custom_button() {
 
-		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$product = wc_get_product();
 
-		wp_enqueue_style( 'admin-awooc-styles', AWOOC_PLUGIN_URI . 'assets/css/admin-style' . $suffix . '.css', array(), AWOOC_PLUGIN_VER );
+		$show_add_to_card = get_option( 'woocommerce_awooc_mode_catalog' );
+
+		$visible_button = $product->get_meta( '_awooc_button', true );
+
+		if ( ! isset( $visible_button ) || 'yes' !== $visible_button ) {
+			switch ( $show_add_to_card ) {
+				case 'dont_show_add_to_card':
+					add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
+					add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
+					add_filter( 'woocommerce_loop_add_to_cart_args', array( $this, 'disable_ajax_add_to_cart_to_related' ), 10, 2 );
+
+					$this->hide_button_add_to_card();
+					awooc_html_custom_add_to_cart();
+					break;
+				case 'no_stock_no_price':
+				case 'show_add_to_card':
+					awooc_html_custom_add_to_cart();
+					break;
+				case 'in_stock_add_to_card':
+					if ( $product->is_on_backorder() || 0 === $product->get_price() || empty( $product->get_price() ) || ! $product->is_in_stock() ) {
+						$this->hide_button_add_to_card();
+						awooc_html_custom_add_to_cart();
+					}
+					break;
+			}
+		}
 
 	}
 
@@ -229,45 +222,6 @@ class AWOOC_Front_End {
 		}
 
 		return $bool;
-
-	}
-
-
-	/**
-	 * Вывод кнопки Заказать в зависимости от настроек
-	 *
-	 * @since 1.8.0
-	 */
-	public function add_custom_button() {
-
-		$product = wc_get_product();
-
-		$show_add_to_card = get_option( 'woocommerce_awooc_mode_catalog' );
-
-		$visible_button = $product->get_meta( '_awooc_button', true );
-
-		if ( ! isset( $visible_button ) || 'yes' !== $visible_button ) {
-			switch ( $show_add_to_card ) {
-				case 'dont_show_add_to_card':
-					add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
-					add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
-					add_filter( 'woocommerce_loop_add_to_cart_args', array( $this, 'disable_ajax_add_to_cart_to_related' ), 10, 2 );
-
-					$this->hide_button_add_to_card();
-					awooc_html_custom_add_to_cart();
-					break;
-				case 'no_stock_no_price':
-				case 'show_add_to_card':
-					awooc_html_custom_add_to_cart();
-					break;
-				case 'in_stock_add_to_card':
-					if ( $product->is_on_backorder() || 0 === $product->get_price() || empty( $product->get_price() ) || ! $product->is_in_stock() ) {
-						$this->hide_button_add_to_card();
-						awooc_html_custom_add_to_cart();
-					}
-					break;
-			}
-		}
 
 	}
 
