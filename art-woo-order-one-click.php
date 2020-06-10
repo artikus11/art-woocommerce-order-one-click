@@ -53,10 +53,10 @@ define( 'AWOOC_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 define( 'AWOOC_PLUGIN_VER', $plugin_data['ver'] );
 define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 
-require __DIR__ . '/includes/class-art-woo-order-one-click.php';
+require __DIR__ . '/includes/class-awooc.php';
 
-register_uninstall_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'uninstall' ) );
-register_activation_hook( __FILE__, array( 'ArtWoo_Order_One_Click', 'install_form' ) );
+register_uninstall_hook( __FILE__, array( 'AWOOC', 'uninstall' ) );
+register_activation_hook( __FILE__, array( 'AWOOC', 'install_form' ) );
 
 if ( ! function_exists( 'awooc_order_one_click' ) ) {
 	/**
@@ -71,7 +71,7 @@ if ( ! function_exists( 'awooc_order_one_click' ) ) {
 	 */
 	function awooc_order_one_click() {
 
-		return ArtWoo_Order_One_Click::instance();
+		return AWOOC::instance();
 	}
 }
 

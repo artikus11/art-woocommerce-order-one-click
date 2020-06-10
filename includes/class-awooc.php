@@ -8,7 +8,7 @@
  * @version     1.8.0
  * @author      Artem Abramovich
  */
-class ArtWoo_Order_One_Click {
+class AWOOC {
 
 	/**
 	 * Instance of ArtWoo_Order_One_Click.
