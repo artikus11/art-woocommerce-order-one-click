@@ -6,6 +6,8 @@
 
 jQuery( function( $ ) {
 
+	'use strict';
+
 	if ( typeof awooc_scripts_ajax === 'undefined' ) {
 		console.log( 'awooc_scripts_ajax not found' );
 		return false;
@@ -22,7 +24,8 @@ jQuery( function( $ ) {
 	}
 
 	// Задаем переменные.
-	const awoocBtn   = $( '.awooc-custom-order.button' ),
+	const awoocBtn   = $( '.awooc-custom-order-button' ),
+			awoocPopup = $( '.awooc-form-custom-order' ),
 			orderTitle = $( '.awooc-form-custom-order-title' ),
 			orderImg   = $( '.awooc-form-custom-order-img' ),
 			orderPrice = $( '.awooc-form-custom-order-price' ),
@@ -168,7 +171,7 @@ jQuery( function( $ ) {
 						awoocMaskField();
 
 						// Выводим всплывающее окно.
-						awoocPopupWindow();
+						awoocPopupWindow( awoocPopup );
 
 						// Данные для аналитики
 						selectedProduct = {
@@ -198,7 +201,7 @@ jQuery( function( $ ) {
 			$.unblockUI();
 
 			// При клику на оверлей добавлем нужный класс.
-			$( '#awooc-form-custom-order' ).addClass( 'awooc-hide' );
+			awoocPopup.hide();
 		} )
 
 		.on( 'wpcf7mailsent', function( detail ) {
@@ -265,9 +268,9 @@ jQuery( function( $ ) {
 	}
 
 
-	function awoocPopupWindow() {
+	function awoocPopupWindow( popUp ) {
 		$.blockUI( {
-				message: $( '#awooc-form-custom-order' ),
+				message: popUp,
 				css: {
 					width: '100%',
 					maxWidth: '600px',
@@ -298,13 +301,12 @@ jQuery( function( $ ) {
 				centerY: true,
 				onBlock: function() {
 
-					$( '#awooc-form-custom-order' ).removeClass( 'awooc-hide' );
+					popUp.show();
 
 				},
 				onUnblock: function() {
 					// При закрытии окна добавлем нужный класс.
-					$( '#awooc-form-custom-order' )
-						.addClass( 'awooc-hide' );
+					popUp.hide();
 
 					// При закрытии окна очищаем данные.
 					awoocFormDataEmpty();
@@ -316,8 +318,7 @@ jQuery( function( $ ) {
 				onOverlayClick: function() {
 
 					// При закрытии окна добавлем нужный класс.
-					$( '#awooc-form-custom-order' )
-						.addClass( 'awooc-hide' );
+					popUp.hide();
 					$( 'html' )
 						.css( { 'overflow': 'initial' } );
 
