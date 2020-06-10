@@ -256,6 +256,10 @@ class AWOOC_Ajax {
 	 */
 	public function the_product_attr( $product ) {
 
+		if ( $product->is_type( 'simple' ) ) {
+			return false;
+		}
+
 		return sprintf(
 			'%s</br><span class="awooc-attr-wrapper"><span>%s</span></span>',
 			apply_filters( 'awooc_popup_attr_label', esc_html__( 'Attributes: ', 'art-woocommerce-order-one-click' ) ),
