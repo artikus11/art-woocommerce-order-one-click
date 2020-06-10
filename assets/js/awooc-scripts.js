@@ -104,7 +104,6 @@ jQuery( function( $ ) {
 					success: function( data ) {
 
 						// Отключаем прелоадер.
-						$( event.currentTarget ).unblock();
 						$( event.currentTarget )
 							.find( '.cssload-container' )
 							.remove();
