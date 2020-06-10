@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Комментарии перед кнопкой
  *
- * @see awooc_html_comments()
+ * @see   awooc_html_comments()
  *
  * @since 2.1.1
  */
@@ -27,7 +27,7 @@ add_action( 'awooc_before_button', 'awooc_html_comments', 10 );
  */
 function awooc_default_elements_item() {
 
-	$default = array(
+	return array(
 		'title',
 		'image',
 		'price',
@@ -36,7 +36,6 @@ function awooc_default_elements_item() {
 		'qty',
 	);
 
-	return $default;
 }
 
 /**
