@@ -6,8 +6,18 @@
 
 jQuery( function( $ ) {
 
-	if ( typeof awooc_scripts === 'undefined' ) {
-		console.log( 'awooc_scripts not found' );
+	if ( typeof awooc_scripts_ajax === 'undefined' ) {
+		console.log( 'awooc_scripts_ajax not found' );
+		return false;
+	}
+
+	if ( typeof awooc_scripts_translate === 'undefined' ) {
+		console.log( 'awooc_scripts_translate not found' );
+		return false;
+	}
+
+	if ( typeof awooc_scripts_settings === 'undefined' ) {
+		console.log( 'awooc_scripts_settings not found' );
 		return false;
 	}
 
@@ -38,7 +48,7 @@ jQuery( function( $ ) {
 			}
 
 			// Если у вариации нет цены или ее нет в наличие то скрываем сообщения.
-			if ( awooc_scripts.mode === 'no_stock_no_price' ) {
+			if ( awooc_scripts_settings.mode === 'no_stock_no_price' ) {
 				if ( false === variation.is_purchasable || false === variation.is_in_stock ) {
 					awoocBtn.removeClass( 'disabled wc-variation-selection-needed' );
 					$( 'body.woocommerce' )
@@ -86,12 +96,12 @@ jQuery( function( $ ) {
 			let data = {
 				id: prodictSelectedId,
 				action: 'awooc_ajax_product_form',
-				nonce: awooc_scripts.nonce,
+				nonce: awooc_scripts_ajax.nonce,
 			};
 
 			// Отправляем запрос.
 			let request = $.ajax( {
-					url: awooc_scripts.url,
+					url: awooc_scripts_ajax.url,
 					data: data,
 					type: 'POST',
 					dataType: 'json',
@@ -109,24 +119,24 @@ jQuery( function( $ ) {
 							.remove();
 
 						// Добавляем тайтл к кнопке закрытия окнa.
-						$( '.awooc-close' ).attr( 'title', awooc_scripts.title_close );
+						$( '.awooc-close' ).attr( 'title', awooc_scripts_translate.title_close );
 
 						// Проверяем данные после аякса и формируем нужные строки.
 						dataOut = {
 							outID: 'ID: ' + prodictSelectedId,
 							outTitle: data.title === false
 								? ''
-								: '\n' + awooc_scripts.product_title + data.title,
+								: '\n' + awooc_scripts_translate.product_title + data.title,
 							outAttr: data.attr === false ? '' : '\n' + data.attr,
 							outPrice: data.price === false
 								? ''
-								: '\n' + awooc_scripts.product_price + data.pricenumber,
+								: '\n' + awooc_scripts_translate.product_price + data.pricenumber,
 							outSku: data.sku === false ? '' : '\n' + data.sku,
 							outCat: data.cat === false ? '' : '\n' + data.cat,
 							outLink: data.link === false ? '' : '\n' + data.link,
 							outQty: data.qty === false
 								? ''
-								: '\n' + awooc_scripts.product_qty + productQty,
+								: '\n' + awooc_scripts_translate.product_qty + productQty,
 						};
 
 						// Формируем данные.
@@ -134,7 +144,7 @@ jQuery( function( $ ) {
 						orderImg.html( data.image );
 						orderPrice.html( data.price );
 						orderPrice.after( data.qty );
-						orderQty.text( awooc_scripts.product_qty + productQty );
+						orderQty.text( awooc_scripts_translate.product_qty + productQty );
 						orderSku.html( data.sku );
 						orderAttr.html( data.attr );
 
@@ -242,7 +252,7 @@ jQuery( function( $ ) {
 
 
 	function awoocHiddenDataToMail( dataOut ) {
-		return '\n' + awooc_scripts.product_data_title +
+		return '\n' + awooc_scripts_translate.product_data_title +
 				 '\n ———' +
 				 dataOut.outTitle +
 				 '\n' + dataOut.outID +
@@ -280,8 +290,8 @@ jQuery( function( $ ) {
 				},
 				bindEvents: true,
 				timeout: 0,
-				fadeIn: awooc_scripts.fadeIn,
-				fadeOut: awooc_scripts.fadeOut,
+				fadeIn: awooc_scripts_settings.fadeIn,
+				fadeOut: awooc_scripts_settings.fadeOut,
 				allowBodyStretch: true,
 				focusInput: false,
 				centerX: true,
