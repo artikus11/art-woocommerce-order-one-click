@@ -42,8 +42,12 @@ class AWOOC_Front_End {
 	 * Вывод кнопки Заказать в зависимости от настроек
 	 *
 	 * @since 1.8.0
+	 * @since 2.3.6
 	 */
 	public function add_custom_button() {
+
+		wp_enqueue_script( 'awooc-scripts' );
+		wp_enqueue_style( 'awooc-styles' );
 
 		$product = wc_get_product();
 
