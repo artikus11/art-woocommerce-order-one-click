@@ -60,13 +60,13 @@ register_activation_hook( __FILE__, array( 'AWOOC', 'install_form' ) );
 
 if ( ! function_exists( 'awooc_order_one_click' ) ) {
 	/**
-	 * The main function responsible for returning the ArtWoo_Order_One_Click object.
+	 * The main function responsible for returning the AWOOC object.
 	 *
 	 * Use this function like you would a global variable, except without needing to declare the global.
 	 *
 	 * Example: <?php awooc_order_one_click()->method_name(); ?>
 	 *
-	 * @return object ArtWoo_Order_One_Click class object.
+	 * @return object AWOOC class object.
 	 * @since 1.0.0
 	 */
 	function awooc_order_one_click() {
