@@ -71,9 +71,35 @@ class AWOOC_Enqueue {
 			'awooc-scripts',
 			'awooc_scripts_settings',
 			array(
-				'mode'    => get_option( 'woocommerce_awooc_mode_catalog' ),
-				'fadeIn'  => '400',
-				'fadeOut' => '400',
+				'mode'  => get_option( 'woocommerce_awooc_mode_catalog' ),
+				'popup' => apply_filters(
+					'awooc_popup_setting',
+					array(
+						'css'        => array(
+							'width'        => '100%',
+							'maxWidth'     => '600px',
+							'maxHeight'    => '600px',
+							'top'          => '50%',
+							'left'         => '50%',
+							'border'       => '4px',
+							'borderRadius' => '4px',
+							'cursor'       => 'default',
+							'overflowY'    => 'auto',
+							'boxShadow'    => '0px 0px 3px 0px rgba(0, 0, 0, 0.2)',
+							'zIndex'       => '1000000',
+							'transform'    => 'translate(-50%, -50%)',
+						),
+						'overlay'    => array(
+							'zIndex'          => '1000000',
+							'backgroundColor' => '#000',
+							'opacity'         => 0.6,
+							'cursor'          => 'wait',
+						),
+						'fadeIn'     => '400',
+						'fadeOut'    => '400',
+						'focusInput' => false,
+					)
+				),
 			)
 		);
 	}

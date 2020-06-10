@@ -271,38 +271,18 @@ jQuery( function( $ ) {
 	function awoocPopupWindow( popUp ) {
 		$.blockUI( {
 				message: popUp,
-				css: {
-					width: '100%',
-					maxWidth: '600px',
-					maxHeight: '600px',
-					top: '50%',
-					left: '50%',
-					border: '4px',
-					borderRadius: '4px',
-					cursor: 'default',
-					overflowY: 'auto',
-					boxShadow: '0px 0px 3px 0px rgba(0, 0, 0, 0.2)',
-					zIndex: '1000000',
-					transform: 'translate(-50%, -50%)',
-				},
-				overlayCSS: {
-					zIndex: '1000000',
-					backgroundColor: '#000',
-					opacity: 0.6,
-					cursor: 'wait',
-				},
+				css: awooc_scripts_settings.popup.css,
+				overlayCSS: awooc_scripts_settings.popup.overlay,
+				fadeIn: awooc_scripts_settings.popup.fadeIn,
+				fadeOut: awooc_scripts_settings.popup.fadeOut,
+				focusInput: awooc_scripts_settings.popup.focusInput,
 				bindEvents: true,
 				timeout: 0,
-				fadeIn: awooc_scripts_settings.fadeIn,
-				fadeOut: awooc_scripts_settings.fadeOut,
 				allowBodyStretch: true,
-				focusInput: false,
 				centerX: true,
 				centerY: true,
 				onBlock: function() {
-
 					popUp.show();
-
 				},
 				onUnblock: function() {
 					// При закрытии окна добавлем нужный класс.
