@@ -163,7 +163,9 @@ class AWOOC {
 
 		add_action( 'admin_init', array( $this, 'check_requirements' ) );
 		add_action( 'admin_init', array( $this, 'check_php_version' ) );
+
 		add_action( 'wp_ajax_awooc_rated', array( $this, 'add_rated' ) );
+
 		add_filter( 'plugin_action_links_' . AWOOC_PLUGIN_FILE, array( $this, 'add_plugin_action_links' ), 10, 1 );
 		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_awooc_admin_settings' ), 15 );
 
@@ -283,8 +285,7 @@ class AWOOC {
 	public function add_plugin_action_links( $links ) {
 
 		$plugin_links = array(
-			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=awooc_settings' ) ) . '">' .
-			              esc_html__( 'Settings', 'art-woocommerce-order-one-click' ) . '</a>',
+			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=awooc_settings' ) ) . '">' . esc_html__( 'Settings', 'art-woocommerce-order-one-click' ) . '</a>',
 		);
 
 		return array_merge( $plugin_links, $links );
@@ -301,12 +302,10 @@ class AWOOC {
 	public function php_version_notice() {
 
 		$message = sprintf(
-		/* translators: 1: Name plugins, 2:PHP version */ esc_html__(
-			                                                  '%1$s requires PHP version 5.6 or higher. Your current PHP version is %2$s. Please upgrade PHP version to run this plugin.',
-			                                                  'art-woocommerce-order-one-click'
-		                                                  ),
-		                                                  esc_html( AWOOC_PLUGIN_NAME ),
-		                                                  PHP_VERSION
+		/* translators: 1: Name plugins, 2:PHP version */
+			esc_html__( '%1$s requires PHP version 5.6 or higher. Your current PHP version is %2$s. Please upgrade PHP version to run this plugin.', 'art-woocommerce-order-one-click' ),
+			esc_html( AWOOC_PLUGIN_NAME ),
+			PHP_VERSION
 		);
 
 		$this->admin_notice( $message, 'notice notice-error is-dismissible' );
@@ -417,8 +416,9 @@ class AWOOC {
 	public function show_plugin_not_found_notice() {
 
 		$message = sprintf(
-		/* translators: 1: Name author plugin */ __( 'The %s requires installed and activated plugins: ', 'art-woocommerce-order-one-click' ),
-		                                         esc_attr( AWOOC_PLUGIN_NAME )
+		/* translators: 1: Name author plugin */
+			__( 'The %s requires installed and activated plugins: ', 'art-woocommerce-order-one-click' ),
+			esc_attr( AWOOC_PLUGIN_NAME )
 		);
 
 		$message_parts = array();
@@ -429,8 +429,7 @@ class AWOOC {
 
 				$href .= $required_plugin['slug'] . '&TB_iframe=true&width=640&height=500';
 
-				$message_parts[] = '<strong><em><a href="' . $href . '" class="thickbox">' . $required_plugin['name'] . __( ' version ', 'art-woocommerce-order-one-click' ) .
-				                   $required_plugin['version'] . '</a>' . __( ' or higher', 'art-woocommerce-order-one-click' ) . '</em></strong>';
+				$message_parts[] = '<strong><em><a href="' . $href . '" class="thickbox">' . $required_plugin['name'] . __( ' version ', 'art-woocommerce-order-one-click' ) . $required_plugin['version'] . '</a>' . __( ' or higher', 'art-woocommerce-order-one-click' ) . '</em></strong>';
 			}
 		}
 
@@ -461,8 +460,9 @@ class AWOOC {
 	public function show_deactivate_notice() {
 
 		$message = sprintf(
-		/* translators: 1: Name author plugin */ __( '%s plugin has been deactivated.', 'art-woocommerce-order-one-click' ),
-		                                         esc_attr( AWOOC_PLUGIN_NAME )
+		/* translators: 1: Name author plugin */
+			__( '%s plugin has been deactivated.', 'art-woocommerce-order-one-click' ),
+			esc_attr( AWOOC_PLUGIN_NAME )
 		);
 
 		$this->admin_notice( $message, 'notice notice-warning is-dismissible' );
