@@ -241,17 +241,15 @@ jQuery( function( $ ) {
 
 
 	function awoocInitContactForm() {
-		$( '.awooc-form-custom-order div.wpcf7 > form' )
-			.each( function() {
-					let $form = $( this );
+		$( '.awooc-form-custom-order div.wpcf7 > form' ).each( function() {
+				let $form = $( this );
 
-					wpcf7.initForm( $form );
-					if ( wpcf7.cached ) {
-						wpcf7.refill( $form );
-					}
-				},
-			);
-
+				wpcf7.initForm( $form );
+				if ( wpcf7.cached ) {
+					wpcf7.refill( $form );
+				}
+			},
+		);
 	}
 
 
