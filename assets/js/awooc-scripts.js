@@ -23,6 +23,11 @@ jQuery( function( $ ) {
 		return false;
 	}
 
+	if ( typeof wpcf7 === 'undefined' || wpcf7 === null ) {
+		console.log('На странице не существует объекта wpcf7. Что-то не так с темой...');
+		return false;
+	}
+
 	// Задаем переменные.
 	const awoocBtn   = $( '.awooc-custom-order-button' ),
 			awoocPopup = $( '.awooc-form-custom-order' ),
@@ -240,17 +245,13 @@ jQuery( function( $ ) {
 			.each( function() {
 					let $form = $( this );
 
-					if ( typeof wpcf7 === 'undefined' || wpcf7 === null ) {
-						console.log( 'На странице не существует объекта wpcf7. Что-то не так с темой...' );
-					} else {
-						wpcf7.initForm( $form );
-						if ( wpcf7.cached ) {
-							wpcf7.refill( $form );
-						}
+					wpcf7.initForm( $form );
+					if ( wpcf7.cached ) {
+						wpcf7.refill( $form );
 					}
-
 				},
 			);
+
 	}
 
 
