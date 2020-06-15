@@ -327,13 +327,12 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 	 */
 	public static function group_fields_default() {
 
-		$default = array(
+		return array(
 			'id'    => '',
 			'type'  => '',
 			'label' => '',
 		);
 
-		return $default;
 	}
 
 
