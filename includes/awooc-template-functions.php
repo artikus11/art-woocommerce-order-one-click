@@ -130,7 +130,7 @@ if ( ! function_exists( 'awooc_popup_window_title' ) ) {
 					'awooc_popup_title_html',
 					sprintf(
 						'<h2 class="%s"></h2>',
-						esc_attr( 'awooc-form-custom-order-title' )
+						esc_attr( 'awooc-form-custom-order-title awooc-popup-title' )
 					),
 					$product
 				)
@@ -152,7 +152,7 @@ if ( ! function_exists( 'awooc_popup_window_image' ) ) {
 
 		if ( in_array( 'image', $elements, true ) ) {
 
-			echo '<div class="awooc-form-custom-order-img"></div>';
+			echo '<div class="awooc-form-custom-order-img awooc-popup-image"></div>';
 
 		}
 	}
@@ -175,7 +175,7 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 			echo wp_kses_post(
 				apply_filters(
 					'awooc_popup_price_html',
-					'<div class="awooc-form-custom-order-price"></div>',
+					'<div class="awooc-form-custom-order-price awooc-popup-price"></div>',
 					$product
 				)
 			);
@@ -198,7 +198,7 @@ if ( ! function_exists( 'awooc_popup_window_sku' ) ) {
 
 		if ( in_array( 'sku', $elements, true ) ) {
 
-			echo '<div class="awooc-form-custom-order-sku"></div>';
+			echo '<div class="awooc-form-custom-order-sku awooc-popup-sku"></div>';
 
 		}
 
@@ -217,7 +217,7 @@ if ( ! function_exists( 'awooc_popup_window_qty' ) ) {
 
 		if ( in_array( 'qty', $elements, true ) ) {
 
-			echo '<div class="awooc-form-custom-order-qty"></div>';
+			echo '<div class="awooc-form-custom-order-qty awooc-popup-qty"></div>';
 
 		}
 
@@ -236,7 +236,7 @@ if ( ! function_exists( 'awooc_popup_window_attr' ) ) {
 	function awooc_popup_window_attr( $elements ) {
 
 		if ( in_array( 'attr', $elements, true ) ) {
-			echo '<div class="awooc-form-custom-order-attr"></div>';
+			echo '<div class="awooc-form-custom-order-attr awooc-popup-attr"></div>';
 		}
 
 	}

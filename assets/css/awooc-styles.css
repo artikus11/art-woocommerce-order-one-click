@@ -12,21 +12,84 @@
 	margin-left: 0.6125rem;
 }
 
-.awooc-custom-order-wrap {
+.awooc-popup-wrapper,
+.awooc-popup-inner {
+	display: flex;
+	flex-direction: column;
+}
+
+.awooc-popup-inner {
 	padding: 2.125rem;
 }
 
-.awooc-form-custom-order-img {
+.awooc-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: flex-start;
+	align-items: center;
+}
+
+.awooc-col {
+	flex: 0 1 100%;
+	max-width: 100%;
+	align-self: flex-start;
+	padding: 0.875rem 0.875rem;
+}
+
+@media (min-width: 568px) {
+	.awooc-col {
+		flex: 0 1 50%;
+		max-width: 50%;
+	}
+}
+
+.awooc-col.columns-left {
+	text-align: left;
+}
+
+.awooc-col.awooc-col-full {
+	flex: 0 1 100%;
+	max-width: 100%;
+}
+
+
+.awooc-popup-image {
 	text-align: center;
 }
 
-.awooc-form-custom-order-img img {
-	width: 40%;
+.awooc-popup-image img {
+	width: 100%;
+	max-width: 100px;
 	height: auto;
 	float: left;
 	margin-right: 1rem;
 }
 
+@media (min-width: 568px) {
+	.awooc-popup-image img {
+		width: 100%;
+		max-width: 300px;
+		height: auto;
+	}
+}
+
+.awooc-popup-price,
+.awooc-popup-sku,
+.awooc-popup-qty,
+.awooc-popup-attr {
+	font-size: 0.875rem;
+}
+
+@media (min-width: 568px) {
+	.awooc-popup-price,
+	.awooc-popup-sku,
+	.awooc-popup-qty,
+	.awooc-popup-attr {
+		font-size: inherit;
+	}
+}
 
 .woocommerce .awooc-custom-order-wrap .wpcf7-form-control {
 	border: 0;
@@ -142,47 +205,5 @@
 	100% {
 		-moz-transform: rotate(360deg);
 		transform: rotate(360deg);
-	}
-}
-.awooc-popup-wrapper,
-.awooc-popup-inner{
-	display: flex;
-	flex-direction: column;
-}
-
-.awooc-row {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-content: flex-start;
-	align-items: center;
-}
-
-.awooc-col {
-	flex: 0 1 100%;
-	max-width: 100%;
-	align-self: flex-start;
-	padding: 0.875rem 0.875rem;
-}
-
-.awooc-col.columns-left {
-	text-align: left;
-}
-
-.awooc-col.awooc-col-full {
-	flex: 0 1 100%;
-	max-width: 100%;
-}
-
-@media (min-width: 568px) {
-	.awooc-col {
-		flex: 0 1 50%;
-		max-width: 50%;
-	}
-
-	.awooc-form-custom-order-img img {
-		width: 100%;
-		height: auto;
 	}
 }

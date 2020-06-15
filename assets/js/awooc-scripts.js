@@ -24,20 +24,20 @@ jQuery( function( $ ) {
 	}
 
 	if ( typeof wpcf7 === 'undefined' || wpcf7 === null ) {
-		console.log('На странице не существует объекта wpcf7. Что-то не так с темой...');
+		console.log( 'На странице не существует объекта wpcf7. Что-то не так с темой...' );
 		return false;
 	}
 
 	// Задаем переменные.
 	const awoocBtn   = $( '.awooc-custom-order-button' ),
-			awoocPopup = $( '.awooc-form-custom-order' ),
-			orderTitle = $( '.awooc-form-custom-order-title' ),
-			orderImg   = $( '.awooc-form-custom-order-img' ),
-			orderPrice = $( '.awooc-form-custom-order-price' ),
-			orderQty   = $( '.awooc-form-custom-order-qty' ),
-			orderSku   = $( '.awooc-form-custom-order-sku' ),
-			orderAttr  = $( '.awooc-form-custom-order-attr' ),
-			preload    = '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>';
+	      awoocPopup = $( '.awooc-form-custom-order' ),
+	      orderTitle = $( '.awooc-form-custom-order-title' ),
+	      orderImg   = $( '.awooc-form-custom-order-img' ),
+	      orderPrice = $( '.awooc-form-custom-order-price' ),
+	      orderQty   = $( '.awooc-form-custom-order-qty' ),
+	      orderSku   = $( '.awooc-form-custom-order-sku' ),
+	      orderAttr  = $( '.awooc-form-custom-order-attr' ),
+	      preload    = '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>';
 
 	let selectedProduct;
 
@@ -88,10 +88,10 @@ jQuery( function( $ ) {
 			}
 
 			let prodictSelectedId,
-				 productVariantId = $( '.variations_form' ).find( 'input[name="variation_id"]' ).val(),
-				 productId        = $( this ).attr( 'data-value-product-id' ),
-				 productQty       = $( '.quantity' ).find( 'input[name="quantity"]' ).val(),
-				 dataOut          = {};
+			    productVariantId = $( '.variations_form' ).find( 'input[name="variation_id"]' ).val(),
+			    productId        = $( this ).attr( 'data-value-product-id' ),
+			    productQty       = $( '.quantity' ).find( 'input[name="quantity"]' ).val(),
+			    dataOut          = {};
 
 			// Проверяем ID товара, для вариаций свой, для простых свой.
 			if ( 0 !== productVariantId && typeof productVariantId !== 'undefined' ) {
@@ -104,11 +104,11 @@ jQuery( function( $ ) {
 			let data = {
 				id: prodictSelectedId,
 				action: 'awooc_ajax_product_form',
-				nonce: awooc_scripts_ajax.nonce,
+				nonce: awooc_scripts_ajax.nonce
 			};
 
 			// Отправляем запрос.
-			let request = $.ajax( {
+			$.ajax( {
 					url: awooc_scripts_ajax.url,
 					data: data,
 					type: 'POST',
@@ -144,7 +144,7 @@ jQuery( function( $ ) {
 							outLink: data.link === false ? '' : '\n' + data.link,
 							outQty: data.qty === false
 								? ''
-								: '\n' + awooc_scripts_translate.product_qty + productQty,
+								: '\n' + awooc_scripts_translate.product_qty + productQty
 						};
 
 						// Формируем данные.
@@ -186,16 +186,16 @@ jQuery( function( $ ) {
 							productQty: productQty,
 							productPrice: data.pricenumber,
 							productCat: data.productCat,
-							productAttr: data.productAttr ? data.productAttr.replace( /<\/?[^>]+>/g, '' ) : '',
+							productAttr: data.productAttr ? data.productAttr.replace( /<\/?[^>]+>/g, '' ) : ''
 						};
 
 						// Событитие открытия окна.
 						$( document.body ).trigger( 'awooc_popup_open_trigger', [ data ] );
 
 						return data;
-					},
+					}
 
-				},
+				}
 			);
 
 			return false;
@@ -215,8 +215,8 @@ jQuery( function( $ ) {
 				'awooc_mail_sent_trigger',
 				{
 					'selectedProduct': selectedProduct,
-					'mailDetail': detail,
-				},
+					'mailDetail': detail
+				}
 			);
 
 			setTimeout( $.unblockUI, 3000 );
@@ -224,7 +224,7 @@ jQuery( function( $ ) {
 			setTimeout( function() {
 					$( '.awooc-form-custom-order .wpcf7-form' )[0].reset();
 					$( '.awooc-form-custom-order .wpcf7-response-output' ).remove();
-				}, 3000,
+				}, 3000
 			);
 		} )
 
@@ -248,22 +248,22 @@ jQuery( function( $ ) {
 				if ( wpcf7.cached ) {
 					wpcf7.refill( $form );
 				}
-			},
+			}
 		);
 	}
 
 
 	function awoocHiddenDataToMail( dataOut ) {
 		return '\n' + awooc_scripts_translate.product_data_title +
-				 '\n ———' +
-				 dataOut.outTitle +
-				 '\n' + dataOut.outID +
-				 dataOut.outCat.replace( /(<([^>]+)>)/ig, '' ) +
-				 dataOut.outPrice +
-				 dataOut.outAttr.replace( /(<([^>]+)>)/ig, '' ) +
-				 dataOut.outSku.replace( /(<([^>]+)>)/ig, '' ) +
-				 dataOut.outQty +
-				 dataOut.outLink;
+		       '\n ———' +
+		       dataOut.outTitle +
+		       '\n' + dataOut.outID +
+		       dataOut.outCat.replace( /(<([^>]+)>)/ig, '' ) +
+		       dataOut.outPrice +
+		       dataOut.outAttr.replace( /(<([^>]+)>)/ig, '' ) +
+		       dataOut.outSku.replace( /(<([^>]+)>)/ig, '' ) +
+		       dataOut.outQty +
+		       dataOut.outLink;
 	}
 
 
@@ -306,8 +306,8 @@ jQuery( function( $ ) {
 					// При закрытии окна очищаем данные.
 					awoocFormDataEmpty();
 
-				},
-			},
+				}
+			}
 		);
 	}
 
@@ -326,27 +326,28 @@ jQuery( function( $ ) {
 		let mask_fields = $( '.awooc-form-custom-order .wpcf7-mask' );
 		if ( mask_fields.length > 0 ) {
 			mask_fields.each( function() {
-				let $this     = $( this ),
-					 data_mask = $this.data( 'mask' );
+					let $this     = $( this ),
+					    data_mask = $this.data( 'mask' );
 
-				//Если ошибка определения, то выводим в консоль сообщение и продолжаем
-				try {
+					//Если ошибка определения, то выводим в консоль сообщение и продолжаем
+					try {
 
-					$this.mask( data_mask );
+						$this.mask( data_mask );
 
-					if ( data_mask.indexOf( '*' ) === -1 && data_mask.indexOf( 'a' ) === -1 ) {
-						$this.attr( {
-							'inputmode': 'numeric',
-						} );
+						if ( data_mask.indexOf( '*' ) === -1 && data_mask.indexOf( 'a' ) === -1 ) {
+							$this.attr( {
+								'inputmode': 'numeric'
+							} );
+						}
+
+					} catch ( e ) {
+
+						console.log( 'Error ' + e.name + ':' + e.message + '\n' + e.stack );
+
 					}
 
-				} catch ( e ) {
-
-					console.log( 'Error ' + e.name + ':' + e.message + '\n' + e.stack );
-
 				}
-
-			} );
+			);
 		}
 	}
 
