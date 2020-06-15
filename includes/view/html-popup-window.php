@@ -17,9 +17,9 @@ $elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocomm
 
 ?>
 
-<div id="awooc-form-custom-order" class="awooc-form-custom-order" style="display: none">
+<div id="awooc-form-custom-order" class="awooc-form-custom-order awooc-popup-wrapper" style="display: none">
 	<div class="awooc-close">&#215;</div>
-	<div class="awooc-custom-order-wrap">
+	<div class="awooc-custom-order-wrap awooc-popup-inner">
 		<?php
 
 		/**
@@ -30,7 +30,7 @@ $elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocomm
 		do_action( 'awooc_popup_before_column', $elements, $product );
 
 		?>
-		<div class="awooc-col-wrap">
+		<div class="awooc-col-wrap awooc-row">
 			<div class="awooc-col columns-left <?php awooc_class_full( $elements ); ?>">
 
 				<?php
