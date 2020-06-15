@@ -79,10 +79,6 @@
 
 .cssload-container * {
 	box-sizing: border-box;
-	-o-box-sizing: border-box;
-	-ms-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
 }
 
 .cssload-container {
@@ -110,8 +106,6 @@
 	border-left-color: transparent;
 	border-right-color: transparent;
 	animation: cssload-spin 575ms infinite linear;
-	-o-animation: cssload-spin 575ms infinite linear;
-	-ms-animation: cssload-spin 575ms infinite linear;
 	-webkit-animation: cssload-spin 575ms infinite linear;
 	-moz-animation: cssload-spin 575ms infinite linear;
 }
@@ -150,35 +144,24 @@
 		transform: rotate(360deg);
 	}
 }
-
-.awooc-col-wrap {
-	display: -ms-flexbox;
-	display: -webkit-flex;
+.awooc-popup-wrapper,
+.awooc-popup-inner{
 	display: flex;
-	-webkit-flex-direction: row;
-	-ms-flex-direction: row;
+	flex-direction: column;
+}
+
+.awooc-row {
+	display: flex;
 	flex-direction: row;
-	-webkit-flex-wrap: wrap;
-	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
-	-webkit-justify-content: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	-webkit-align-content: flex-start;
-	-ms-flex-line-pack: start;
+	justify-content: space-between;
 	align-content: flex-start;
-	-webkit-align-items: center;
-	-ms-flex-align: center;
 	align-items: center;
 }
 
 .awooc-col {
-	-webkit-flex: 0 1 100%;
-	-ms-flex: 0 1 100%;
 	flex: 0 1 100%;
 	max-width: 100%;
-	-webkit-align-self: flex-start;
-	-ms-flex-item-align: flex-start;
 	align-self: flex-start;
 	padding: 0.875rem 0.875rem;
 }
@@ -188,16 +171,12 @@
 }
 
 .awooc-col.awooc-col-full {
-	-webkit-flex: 0 1 100%;
-	-ms-flex: 0 1 100%;
 	flex: 0 1 100%;
 	max-width: 100%;
 }
 
 @media (min-width: 568px) {
 	.awooc-col {
-		-webkit-flex: 0 1 50%;
-		-ms-flex: 0 1 50%;
 		flex: 0 1 50%;
 		max-width: 50%;
 	}
