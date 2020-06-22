@@ -56,7 +56,6 @@ define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 require __DIR__ . '/includes/class-awooc.php';
 
 register_uninstall_hook( __FILE__, array( 'AWOOC', 'uninstall' ) );
-register_activation_hook( __FILE__, array( 'AWOOC', 'install_form' ) );
 
 if ( ! function_exists( 'awooc_order_one_click' ) ) {
 	/**

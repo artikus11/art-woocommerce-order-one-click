@@ -6,6 +6,7 @@
  * @package art-woocommerce-order-one-click/includes/admin
  * @version 2.3.1
  */
+
 /**
  * Class AWOOC_Install_Form
  *
@@ -13,7 +14,8 @@
  * @since  2.3.1
  *
  */
-class AWOOC_Install_Form  {
+class AWOOC_Install_Form {
+
 	/**
 	 * Создание формы при первой активации
 	 *
@@ -53,7 +55,7 @@ class AWOOC_Install_Form  {
 
 		$option = array(
 			'awooc_validate' => array(
-				'timestamp'     => current_time( 'timestamp' ),
+				'timestamp'     => time(),
 				'version'       => AWOOC_PLUGIN_VER,
 				'count_valid'   => 1,
 				'count_invalid' => 0,
@@ -71,7 +73,7 @@ class AWOOC_Install_Form  {
 	 * @param  string $mail_form
 	 * @param  string $mail_body
 	 */
-	public static function created_form( string $mail_form, string $mail_body ){
+	public static function created_form( $mail_form, $mail_body ) {
 
 		$contact_form = WPCF7_ContactForm::get_template();
 
@@ -133,4 +135,5 @@ class AWOOC_Install_Form  {
 		}
 	}
 }
+
 AWOOC_Install_Form::install_form();
