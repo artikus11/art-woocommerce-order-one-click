@@ -7,7 +7,8 @@
 	display: none !important;
 }
 
-#awooc-custom-order-button.awooc-custom-order.button.alt.show-add-to-card {
+.awooc-custom-order-button.button.alt.show-add-to-card,
+.awooc-custom-order-button.button.alt.no-stock-no-price {
 	position: relative;
 	margin-left: 0.6125rem;
 }

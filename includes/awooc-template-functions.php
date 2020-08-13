@@ -56,6 +56,9 @@ if ( ! function_exists( 'awooc_mode_classes' ) ) {
 			case 'in_stock_add_to_card':
 				$mode_classes = 'in-stock-add-to-card';
 				break;
+			case 'no_stock_no_price':
+				$mode_classes = 'no-stock-no-price';
+				break;
 		}
 
 		return $mode_classes;
