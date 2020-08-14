@@ -16,11 +16,31 @@
 class AWOOC_Front_End {
 
 	/**
+	 * @var string Режим работы из опций
+	 */
+	private $mode;
+
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 1.8.0
 	 */
 	public function __construct() {
+
+		$this->mode = get_option( 'woocommerce_awooc_mode_catalog' );
+
+		$this->hooks();
+
+	}
+
+
+	/**
+	 * Инициализация хуков
+	 *
+	 * @since 2.3.6
+	 */
+	public function hooks() {
 
 		/**
 		 * Base hooks
@@ -34,7 +54,6 @@ class AWOOC_Front_End {
 		add_filter( 'woocommerce_product_is_in_stock', array( $this, 'disable_add_to_cart_out_stock' ), 10, 2 );
 		add_filter( 'woocommerce_hide_invisible_variations', array( $this, 'hide_variable_add_to_cart' ), 10, 3 );
 		add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'add_custom_button' ), 15 );
-
 	}
 
 
@@ -51,33 +70,28 @@ class AWOOC_Front_End {
 
 		$product = wc_get_product();
 
-		$show_add_to_card = get_option( 'woocommerce_awooc_mode_catalog' );
-
-		$visible_button = $product->get_meta( '_awooc_button', true );
-
-		if ( ! isset( $visible_button ) || 'yes' !== $visible_button ) {
-			switch ( $show_add_to_card ) {
-				case 'dont_show_add_to_card':
-					add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
-					add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
-					add_filter( 'woocommerce_loop_add_to_cart_args', array( $this, 'disable_ajax_add_to_cart_to_related' ), 10, 2 );
-
-					$this->hide_button_add_to_card();
-					awooc_html_custom_add_to_cart();
-					break;
-				case 'no_stock_no_price':
-				case 'show_add_to_card':
-					awooc_html_custom_add_to_cart();
-					break;
-				case 'in_stock_add_to_card':
-					if ( $product->is_on_backorder() || 0 === $product->get_price() || empty( $product->get_price() ) || ! $product->is_in_stock() ) {
-						$this->hide_button_add_to_card();
-						awooc_html_custom_add_to_cart();
-					}
-					break;
-			}
+		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
+			return;
 		}
 
+		switch ( $this->mode ) {
+			case 'dont_show_add_to_card':
+				$this->disable_loop();
+				$this->hide_button_add_to_card();
+				awooc_html_custom_add_to_cart();
+				break;
+			case 'no_stock_no_price':
+			case 'show_add_to_card':
+				awooc_html_custom_add_to_cart();
+				break;
+			case 'in_stock_add_to_card':
+				if ( $product->is_on_backorder() || $product->is_in_stock() || ( 0 === $product->get_price() || empty( $product->get_price() ) ) ) {
+					$this->disable_loop();
+					$this->hide_button_add_to_card();
+					awooc_html_custom_add_to_cart();
+				}
+				break;
+		}
 	}
 
 
@@ -117,9 +131,7 @@ class AWOOC_Front_End {
 			return $bool;
 		}
 
-		$mode_catalog = get_option( 'woocommerce_awooc_mode_catalog' );
-
-		if ( 'dont_show_add_to_card' === $mode_catalog ) {
+		if ( 'dont_show_add_to_card' === $this->mode ) {
 
 			if ( is_product() ) {
 				$bool = true;
@@ -128,7 +140,15 @@ class AWOOC_Front_End {
 			}
 		}
 
-		if ( 'no_stock_no_price' === $mode_catalog && false === $bool ) {
+		if ( 'in_stock_add_to_card' === $this->mode && false === $bool ) {
+
+			if ( is_product() ) {
+				$bool = true;
+			}
+
+		}
+
+		if ( 'no_stock_no_price' === $this->mode && false === $bool ) {
 
 			if ( is_product() ) {
 				$bool = true;
@@ -162,23 +182,30 @@ class AWOOC_Front_End {
 			return $status;
 		}
 
-		$mode_catalog = get_option( 'woocommerce_awooc_mode_catalog' );
+		if ( false === $status ) {
+			switch ( $this->mode ) {
+				case 'dont_show_add_to_card':
+					if ( is_product() ) {
+						$status = true;
+					}
 
-		if ( 'dont_show_add_to_card' === $mode_catalog && false === $status ) {
+					break;
+				case 'in_stock_add_to_card':
+					if ( is_product() ) {
+						$status = true;
+					}
 
-			if ( is_product() ) {
-				$status = true;
+					add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
+					break;
+				case 'no_stock_no_price':
+					if ( is_product() ) {
+						$status = true;
+					}
+
+					add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
+					add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
+					break;
 			}
-		}
-
-		if ( 'no_stock_no_price' === $mode_catalog && false === $status ) {
-
-			if ( is_product() ) {
-				$status = true;
-			}
-
-			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
-			add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
 		}
 
 		return $status;
@@ -218,13 +245,11 @@ class AWOOC_Front_End {
 
 		$product = wc_get_product( $product_id );
 
-		$mode = get_option( 'woocommerce_awooc_mode_catalog' );
-
 		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
 			return $bool;
 		}
 
-		if ( 'no_stock_no_price' === $mode || 'dont_show_add_to_card' === $mode ) {
+		if ( 'no_stock_no_price' === $this->mode || 'dont_show_add_to_card' === $this->mode ) {
 
 			if ( ! $product->get_price() ) {
 				$bool = false;
@@ -317,6 +342,7 @@ class AWOOC_Front_End {
 	public function disable_url_add_to_cart_to_related( $url ) {
 
 		$product = wc_get_product();
+
 		if ( is_product() ) {
 			$url = get_permalink();
 		}
@@ -364,5 +390,18 @@ class AWOOC_Front_End {
 		}
 
 		return $args;
+	}
+
+
+	/**
+	 * Метод отключения надписей в цикле товаров для разных режимов
+	 *
+	 * @since 2.3.6
+	 */
+	public function disable_loop() {
+
+		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
+		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
+		add_filter( 'woocommerce_loop_add_to_cart_args', array( $this, 'disable_ajax_add_to_cart_to_related' ), 10, 2 );
 	}
 }
