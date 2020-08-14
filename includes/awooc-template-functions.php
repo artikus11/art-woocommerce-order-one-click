@@ -37,31 +37,38 @@ if ( ! function_exists( 'awooc_mode_classes' ) ) {
 	/**
 	 * Вспомогательная функция вывода класса в зависимости от режима работы
 	 *
-	 * @return string
+	 * @param  \WC_Product $product
 	 *
+	 * @return string[]
 	 * @since 2.1.4
 	 */
-	function awooc_mode_classes() {
+	function awooc_mode_classes( $product ) {
 
-		$mode_classes     = '';
-		$show_add_to_card = get_option( 'woocommerce_awooc_mode_catalog' );
+		$mode_classes = [ 'awooc-custom-order', 'button', 'alt', 'awooc-custom-order-button' ];
 
-		switch ( $show_add_to_card ) {
+		$mode = get_option( 'woocommerce_awooc_mode_catalog' );
+
+		switch ( $mode ) {
 			case 'dont_show_add_to_card':
-				$mode_classes = 'dont-show-add-to-card';
+				$mode_classes[] = 'dont-show-add-to-card';
 				break;
 			case 'show_add_to_card':
-				$mode_classes = 'show-add-to-card';
+				$mode_classes[] = 'show-add-to-card';
 				break;
 			case 'in_stock_add_to_card':
-				$mode_classes = 'in-stock-add-to-card';
+				$mode_classes[] = 'in-stock-add-to-card';
 				break;
 			case 'no_stock_no_price':
-				$mode_classes = 'no-stock-no-price';
+				$mode_classes[] = 'no-stock-no-price';
+
+				if ( 'onbackorder' === $product->get_stock_status() || 'outofstock' === $product->get_stock_status() ) {
+					$mode_classes[] = 'no-margin';
+				}
+
 				break;
 		}
 
-		return $mode_classes;
+		return apply_filters( 'awooc_mode_classes_button', $mode_classes );
 	}
 }
 
@@ -70,8 +77,8 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 	/**
 	 * Displaying the button add to card in product page
 	 *
-	 * @param array $args массив параметров.
-	 * @param null  $product объект продукта.
+	 * @param  array $args    массив параметров.
+	 * @param  null  $product объект продукта.
 	 *
 	 * @since 1.5.0
 	 * @since 2.1.4
@@ -85,7 +92,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		$defaults = array(
 			'href'       => '',
 			'product_id' => $product->get_id(),
-			'class'      => apply_filters( 'awooc_classes_button', 'awooc-custom-order button alt awooc-custom-order-button ' . awooc_mode_classes() ),
+			'class'      => apply_filters( 'awooc_classes_button', implode( ' ', awooc_mode_classes( $product ) ) ),
 			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button' ),
 			'label'      => apply_filters( 'awooc_button_label', get_option( 'woocommerce_awooc_title_button' ) ),
 		);

@@ -240,6 +240,8 @@ class AWOOC_Front_End {
 	 * @return bool
 	 *
 	 * @since 2.0.0
+	 *
+	 * @todo  странное поведение кнопки для вариации если нет на складе вариации или нет цены
 	 */
 	public function hide_variable_add_to_cart( $bool, $product_id, $variation ) {
 
@@ -256,7 +258,7 @@ class AWOOC_Front_End {
 				add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
 				remove_filter( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 
-				if ( 'no_stock_no_price' === $mode ) {
+				if ( 'no_stock_no_price' === $this->mode ) {
 					add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
 				}
 			}
