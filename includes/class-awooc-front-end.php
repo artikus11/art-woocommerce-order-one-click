@@ -62,6 +62,8 @@ class AWOOC_Front_End {
 	 *
 	 * @since 1.8.0
 	 * @since 2.3.6
+	 *
+	 * @todo режим спецзаказа - отключение похожих если нет запасов
 	 */
 	public function add_custom_button() {
 
@@ -81,6 +83,13 @@ class AWOOC_Front_End {
 				awooc_html_custom_add_to_cart();
 				break;
 			case 'no_stock_no_price':
+
+				if ( $product->is_on_backorder() || $product->is_in_stock() ) {
+					$this->disable_loop();
+				}
+
+				awooc_html_custom_add_to_cart();
+				break;
 			case 'show_add_to_card':
 				awooc_html_custom_add_to_cart();
 				break;
@@ -342,8 +351,6 @@ class AWOOC_Front_End {
 	 * @since 1.8.0
 	 */
 	public function disable_url_add_to_cart_to_related( $url ) {
-
-		$product = wc_get_product();
 
 		if ( is_product() ) {
 			$url = get_permalink();
