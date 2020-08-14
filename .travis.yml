@@ -29,6 +29,9 @@ matrix:
     - php: '7.3'
      # env:
       #  - SNIFF=1
+    - php: '7.4'
+     # env:
+      #  - SNIFF=1
 
 before_install:
   #- if [[ "$SNIFF" == "1" ]]; then export PHPCS_DIR=/tmp/phpcs; fi
@@ -53,7 +56,7 @@ script:
 before_deploy:
 - git config --local user.name "artikus11"
 - git config --local user.email "artikus.sol@gmail.ru"
-- git tag "2.3.5"
+- git tag "2.3.6"
 deploy:
   provider: releases
   api_key:
