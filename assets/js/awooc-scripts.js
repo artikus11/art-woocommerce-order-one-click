@@ -37,7 +37,7 @@ jQuery( function( $ ) {
 	      orderQty   = $( '.awooc-form-custom-order-qty' ),
 	      orderSku   = $( '.awooc-form-custom-order-sku' ),
 	      orderAttr  = $( '.awooc-form-custom-order-attr' ),
-	      preload    = '<div class="cssload-container"><div class="cssload-speeding-wheel"></div></div>';
+	      preload    = '<div class="awooc-preload-container"><div class="awooc-preload-speeding-wheel"></div></div>';
 
 	let selectedProduct;
 
@@ -123,7 +123,7 @@ jQuery( function( $ ) {
 
 						// Отключаем прелоадер.
 						$( event.currentTarget )
-							.find( '.cssload-container' )
+							.find( '.awooc-preload-container' )
 							.remove();
 
 						// Добавляем тайтл к кнопке закрытия окнa.
