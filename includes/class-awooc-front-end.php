@@ -67,9 +67,6 @@ class AWOOC_Front_End {
 	 */
 	public function add_custom_button() {
 
-		wp_enqueue_script( 'awooc-scripts' );
-		wp_enqueue_style( 'awooc-styles' );
-
 		$product = wc_get_product();
 
 		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {

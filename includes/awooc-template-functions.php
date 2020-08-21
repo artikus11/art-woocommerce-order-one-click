@@ -85,6 +85,9 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 	 */
 	function awooc_html_custom_add_to_cart( $args = array(), $product = null ) {
 
+		wp_enqueue_script( 'awooc-scripts' );
+		wp_enqueue_style( 'awooc-styles' );
+
 		if ( is_null( $product ) ) {
 			$product = $GLOBALS['product'];
 		}
