@@ -146,9 +146,14 @@
 }
 
 .cssload-container {
-	margin: 0 auto 0 auto;
-	display: inline-block;
-	vertical-align: middle;
+	position: absolute !important;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	background-color: rgba(0,0,0,0.25);
 }
 
 
