@@ -64,4 +64,4 @@ deploy:
   file: latest.zip
   on:
     repo: artikus11/art-woocommerce-order-one-click
-after_deploy: release created
+after_deploy: release creat
