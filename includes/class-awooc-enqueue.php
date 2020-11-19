@@ -90,7 +90,7 @@ class AWOOC_Enqueue {
 							'transform'    => 'translate(-50%, -50%)',
 						),
 						'overlay'    => array(
-							'zIndex'          => '1000000',
+							'zIndex'          => '100000',
 							'backgroundColor' => '#000',
 							'opacity'         => 0.6,
 							'cursor'          => 'wait',
@@ -102,6 +102,12 @@ class AWOOC_Enqueue {
 				),
 			)
 		);
+
+		if ( get_option( 'woocommerce_awooc_enable_enqueue' ) && is_woocommerce() ) {
+			wp_enqueue_script( 'awooc-scripts' );
+			wp_enqueue_style( 'awooc-styles' );
+		}
+
 	}
 
 
