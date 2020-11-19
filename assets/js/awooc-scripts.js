@@ -280,6 +280,7 @@ jQuery( function( $ ) {
 				allowBodyStretch: true,
 				centerX: true,
 				centerY: true,
+				blockMsgClass: 'blockMsg blockMsgAwooc',
 				onBlock: function() {
 					popUp.show();
 				},
