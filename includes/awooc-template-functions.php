@@ -100,7 +100,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		$defaults = array(
 			'product_id' => $product->get_id(),
 			'class'      => apply_filters( 'awooc_classes_button', implode( ' ', awooc_mode_classes( $product ) ) ),
-			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button' ),
+			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button-' . $product->get_id() ),
 			'label'      => apply_filters( 'awooc_button_label', get_option( 'woocommerce_awooc_title_button' ) ),
 		);
 
