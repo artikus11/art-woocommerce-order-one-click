@@ -288,9 +288,6 @@ class AWOOC_Front_End {
 		ob_start();
 		?>
 		<style>
-			.woocommerce button.btn,
-			.woocommerce button.button.alt,
-			.woocommerce-page button.button.alt,
 			.woocommerce-variation-add-to-cart .quantity,
 			.woocommerce-variation-add-to-cart .single_add_to_cart_button,
 			.single_add_to_cart_button,

@@ -44,7 +44,12 @@ if ( ! function_exists( 'awooc_mode_classes' ) ) {
 	 */
 	function awooc_mode_classes( $product ) {
 
-		$mode_classes = [ 'awooc-custom-order', 'button', 'alt', 'awooc-custom-order-button' ];
+		$mode_classes = [
+			'awooc-custom-order',
+			'button',
+			'alt',
+			'awooc-custom-order-button',
+		];
 
 		$mode = get_option( 'woocommerce_awooc_mode_catalog' );
 
