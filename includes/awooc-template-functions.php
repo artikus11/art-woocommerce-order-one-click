@@ -93,7 +93,6 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		}
 
 		$defaults = array(
-			'href'       => '',
 			'product_id' => $product->get_id(),
 			'class'      => apply_filters( 'awooc_classes_button', implode( ' ', awooc_mode_classes( $product ) ) ),
 			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button' ),
@@ -107,14 +106,14 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 		do_action( 'awooc_before_button' );
 
 		?>
-		<a
-			href="<?php echo esc_url( $args['href'] ); ?>"
+		<button
+			type="button"
 			data-value-product-id="<?php echo esc_attr( $args['product_id'] ); ?>"
 			class="<?php echo esc_attr( $args['class'] ); ?>"
 			id="<?php echo esc_attr( $args['id'] ); ?>"
 			<?php do_action( 'awooc_attributes_button' ); ?>>
 			<?php echo esc_html( trim( $args['label'] ) ); ?>
-		</a>
+		</button>
 
 		<?php
 
