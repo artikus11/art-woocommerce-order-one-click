@@ -90,7 +90,7 @@ jQuery( function( $ ) {
 			let prodictSelectedId,
 			    productVariantId = $( '.variations_form' ).find( 'input[name="variation_id"]' ).val(),
 			    productId        = $( this ).attr( 'data-value-product-id' ),
-			    productQty       = $( '.quantity' ).find( 'input[name="quantity"]' ).val(),
+			    productQty       = $( '.quantity' ).find( 'input[name="quantity"]' ).val() || 1,
 			    dataOut          = {};
 
 			// Проверяем ID товара, для вариаций свой, для простых свой.
