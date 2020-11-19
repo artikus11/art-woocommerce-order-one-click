@@ -209,6 +209,14 @@ jQuery( function( $ ) {
 			awoocPopup.hide();
 		} )
 
+		.on( 'click', '.blockOverlay', function() {
+			// При клику на оверлей закрываем окно.
+			$.unblockUI();
+
+			// При клику на оверлей добавлем нужный класс.
+			awoocPopup.hide();
+		} )
+
 		.on( 'wpcf7mailsent', function( detail ) {
 
 			$( document.body ).trigger(
@@ -275,7 +283,7 @@ jQuery( function( $ ) {
 				fadeIn: awooc_scripts_settings.popup.fadeIn,
 				fadeOut: awooc_scripts_settings.popup.fadeOut,
 				focusInput: awooc_scripts_settings.popup.focusInput,
-				bindEvents: true,
+				bindEvents: false,
 				timeout: 0,
 				allowBodyStretch: true,
 				centerX: true,
