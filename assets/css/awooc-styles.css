@@ -7,9 +7,12 @@
 	display: none !important;
 }
 
+.awooc-custom-order-button{
+	position: relative;
+}
+
 .awooc-custom-order-button.button.alt.show-add-to-card,
 .awooc-custom-order-button.button.alt.no-stock-no-price:not(.no-margin) {
-	position: relative;
 	margin-left: 0.6125rem;
 }
 
