@@ -3,8 +3,8 @@ Contributors: artabr
 Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 4.8
-Tested up to: 5.5
-Stable tag: 2.3.8
+Tested up to: 5.6
+Stable tag: 2.3.9
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -98,6 +98,10 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+= 2.3.9 =
+* Исправлено - исправление html статуса, если товара нет в наличии
+* Исправлено - стили скытия шататной кнопки Купить
 
 = 2.3.8 =
 * Исправлено - стили скрытия кнопки
