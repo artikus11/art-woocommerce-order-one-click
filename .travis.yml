@@ -25,7 +25,7 @@
   "before_deploy": [
       "git config --local user.name \"artikus11\"",
       "git config --local user.email \"artikus.sol@gmail.ru\"",
-      "git tag \"2.3.9\""
+      "git tag \"2.3.9.1\""
   ],
   "deploy": [
     {

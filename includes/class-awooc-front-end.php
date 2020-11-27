@@ -94,10 +94,6 @@ class AWOOC_Front_End {
 					$this->disable_loop();
 				}
 
-				if ( $product->is_in_stock() ) {
-					$this->hide_button_add_to_card();
-				}
-
 				awooc_html_custom_add_to_cart();
 				break;
 			case 'show_add_to_card':
