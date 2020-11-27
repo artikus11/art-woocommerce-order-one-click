@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Contact Form 7 hooks
+ * Contact Form 7 setup_hooks
  */
 add_action( 'wpcf7_init', 'awooc_wpcf7_add_form_tag', 10 );
 add_filter( 'wpcf7_validate_awooc_hidden', 'awooc_fields_validation_filter', 10, 2 );

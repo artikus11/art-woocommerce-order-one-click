@@ -33,7 +33,7 @@ class AWOOC_Orders {
 		$this->select_form = get_option( 'woocommerce_awooc_select_form' );
 
 		/**
-		 * Contact Form 7 hooks
+		 * Contact Form 7 setup_hooks
 		 */
 		add_action( 'wpcf7_before_send_mail', array( $this, 'created_order_mail_send' ), 10, 1 );
 	}

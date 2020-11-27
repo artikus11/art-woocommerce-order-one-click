@@ -43,17 +43,26 @@ class AWOOC_Front_End {
 	public function hooks() {
 
 		/**
-		 * Base hooks
+		 * Base setup_hooks
 		 */
 		add_action( 'wp_footer', array( $this, 'popup_window_html' ), 30 );
 
 		/**
-		 * WooCommerce hooks
+		 * WooCommerce setup_hooks
 		 */
 		add_filter( 'woocommerce_is_purchasable', array( $this, 'disable_add_to_cart_no_price' ), 10, 2 );
 		add_filter( 'woocommerce_product_is_in_stock', array( $this, 'disable_add_to_cart_out_stock' ), 10, 2 );
 		add_filter( 'woocommerce_hide_invisible_variations', array( $this, 'hide_variable_add_to_cart' ), 10, 3 );
 		add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'add_custom_button' ), 15 );
+		add_filter('woocommerce_locate_template', [$this, 'intercept_wc_template'], 20, 3);
+	}
+
+	function intercept_wc_template($template, $template_name, $template_path) {
+		/*if ($template_name == 'that_template.php') {
+			$template = 'the/path/of/your/plugin/template.php';
+		}*/
+		error_log( print_r( $template, 1 ) );
+		return $template;
 	}
 
 
@@ -63,7 +72,7 @@ class AWOOC_Front_End {
 	 * @since 1.8.0
 	 * @since 2.3.6
 	 *
-	 * @todo режим спецзаказа - отключение похожих если нет запасов
+	 * @todo  режим спецзаказа - отключение похожих если нет запасов
 	 */
 	public function add_custom_button() {
 
@@ -83,6 +92,10 @@ class AWOOC_Front_End {
 
 				if ( $product->is_on_backorder() || $product->is_in_stock() ) {
 					$this->disable_loop();
+				}
+
+				if ( $product->is_in_stock() ) {
+					$this->hide_button_add_to_card();
 				}
 
 				awooc_html_custom_add_to_cart();
@@ -208,7 +221,7 @@ class AWOOC_Front_End {
 						$status = true;
 					}
 
-					add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
+					add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
 					add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
 					break;
 			}
@@ -290,7 +303,7 @@ class AWOOC_Front_End {
 		<style>
 			.woocommerce-variation-add-to-cart .quantity,
 			.woocommerce-variation-add-to-cart .single_add_to_cart_button,
-			.single_add_to_cart_button,
+			.woocommerce button.button.single_add_to_cart_button,
 			.quantity {
 				display: none !important;
 			}
