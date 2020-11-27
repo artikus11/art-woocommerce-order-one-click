@@ -219,6 +219,18 @@ class AWOOC_Front_End {
 				case 'no_stock_no_price':
 					if ( is_product() ) {
 						$status = true;
+
+						add_filter(
+							'woocommerce_get_stock_html',
+							function ( $html, $product ) {
+
+								$html = '<p class="stock out-of-stock">Нет наличии</p>';
+
+								return $html;
+							},
+							10,
+							2
+						);
 					}
 
 					add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
