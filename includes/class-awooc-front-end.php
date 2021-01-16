@@ -54,14 +54,11 @@ class AWOOC_Front_End {
 		add_filter( 'woocommerce_product_is_in_stock', array( $this, 'disable_add_to_cart_out_stock' ), 10, 2 );
 		add_filter( 'woocommerce_hide_invisible_variations', array( $this, 'hide_variable_add_to_cart' ), 10, 3 );
 		add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'add_custom_button' ), 15 );
-		add_filter('woocommerce_locate_template', [$this, 'intercept_wc_template'], 20, 3);
+		//add_filter('woocommerce_locate_template', [$this, 'intercept_wc_template'], 20, 3);
 	}
 
 	function intercept_wc_template($template, $template_name, $template_path) {
-		/*if ($template_name == 'that_template.php') {
-			$template = 'the/path/of/your/plugin/template.php';
-		}*/
-		error_log( print_r( $template, 1 ) );
+
 		return $template;
 	}
 
