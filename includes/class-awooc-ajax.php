@@ -32,8 +32,8 @@ class AWOOC_Ajax {
 	 */
 	public function __construct() {
 
-		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', array( $this, 'ajax_scripts_callback' ) );
-		add_action( 'wp_ajax_awooc_ajax_product_form', array( $this, 'ajax_scripts_callback' ) );
+		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', [ $this, 'ajax_scripts_callback' ] );
+		add_action( 'wp_ajax_awooc_ajax_product_form', [ $this, 'ajax_scripts_callback' ] );
 	}
 
 
@@ -62,7 +62,7 @@ class AWOOC_Ajax {
 
 		$data = apply_filters(
 			'awooc_data_ajax',
-			array(
+			[
 				'elements'        => 'full',
 				'title'           => $this->product_title( $product ),
 				'image'           => $this->product_image( $product ),
@@ -78,7 +78,7 @@ class AWOOC_Ajax {
 				'productSku'      => $this->product_sku( $product ),
 				'productAttr'     => $this->product_attr( $product ),
 				'productCat'      => $this->product_cat( $product ),
-			),
+			],
 			$product
 		);
 
@@ -198,8 +198,9 @@ class AWOOC_Ajax {
 	 *
 	 * @param  WC_Product $product объект продукта.
 	 *
-	 * @return bool|string
+	 * @return false|string
 	 * @since 1.8.0
+	 * @since 2.4.0
 	 */
 	public function product_attr( $product ) {
 
@@ -207,42 +208,78 @@ class AWOOC_Ajax {
 			return false;
 		}
 
-		$attributes       = $product->get_attributes();
+		$product_attr = $product->get_attribute_summary();
+
+		if ( $product_attr ) {
+			$product_var_attr = $this->get_formatted_attr( explode( ',', $product_attr ) );
+		} else {
+			$product_var_attr = $this->get_formatted_attr( $this->get_alt_method_attributes( $product ) );
+		}
+
+		return $product_var_attr;
+
+	}
+
+
+	/**
+	 * Альтернативный метод получения атрибутов, если не сработает получение из ядра WC
+	 *
+	 * @param  \WC_Product $product
+	 *
+	 * @return array
+	 */
+	protected function get_alt_method_attributes( $product ) {
+
+
+		$attributes = $product->get_attributes();
+		$attr_name  = [];
+
 		$product_variable = new WC_Product_Variable( $product->get_parent_id() );
 		$variations       = $product_variable->get_variation_attributes();
-		$attr_name        = array();
 
 		foreach ( $attributes as $attr => $value ) {
 
 			$attr_label = wc_attribute_label( $attr );
-			$meta       = get_post_meta( $product->get_id(), wc_variation_attribute_name( $attr ), true );
-			$term       = get_term_by( 'slug', $meta, $attr );
+
+			$meta = get_post_meta( $product->get_id(), wc_variation_attribute_name( $attr ), true );
+			$term = get_term_by( 'slug', $meta, $attr );
 
 			if ( false !== $term ) {
 				$attr_name[] = $attr_label . ': ' . $term->name;
 			}
 		}
 
-		if ( empty( $attr_name ) && isset( $variations ) ) {
+		if ( empty( $attr_name ) && $variations ) {
 			foreach ( $variations as $key => $item ) {
 
 				$attr_name[] = wc_attribute_label( $key ) . ' &mdash; ' . implode( array_intersect( $item, $attributes ) );
 			}
 		}
 
-		$allowed_html = array(
-			'br'   => array(),
-			'span' => array(),
-		);
-
-		$product_var_attr = wp_kses( implode( '; </span><span>', $attr_name ), $allowed_html );
-
 		if ( ! isset( $variations ) ) {
-			return false;
+			$attr_name = [];
 		}
 
-		return $product_var_attr;
+		return $attr_name;
+	}
 
+
+	/**
+	 * Форматирование массива атрибутов
+	 *
+	 * @param  array $product_attr
+	 *
+	 * @return string
+	 * @since 2.4.0
+	 */
+	protected function get_formatted_attr( $product_attr ) {
+
+		$allowed_html = [
+			'br'   => [],
+			'span' => [],
+		];
+
+		return wp_kses( implode( '; </span><span>', $product_attr ), $allowed_html );
 	}
 
 
@@ -310,7 +347,7 @@ class AWOOC_Ajax {
 			return false;
 		}
 
-		$form = wpcf7_contact_form_tag_func( array( 'id' => esc_attr( $select_form ) ), null, 'contact-form-7' );
+		$form = wpcf7_contact_form_tag_func( [ 'id' => esc_attr( $select_form ) ], null, 'contact-form-7' );
 
 		if ( ! $form ) {
 			return false;
