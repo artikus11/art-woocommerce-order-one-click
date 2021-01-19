@@ -28,13 +28,15 @@
 	<arg name="parallel" value="12"/><!-- Enables parallel processing when available for faster results. -->
 	<arg name="cache" value=".phpcs.cache"/>
 
-	<config name="installed_paths" value="vendor/phpcompatibility/php-compatibility,vendor/phpcompatibility/phpcompatibility-paragonie,vendor/phpcompatibility/phpcompatibility-wp,vendor/wp-coding-standards/wpcs"/>
-	<config name="testVersion" value="5.6-"/>
+	<config name="installed_paths" value="C:\laragon\bin\wpcs"/>
+	<config name="testVersion" value="5.2-"/>
 	<config name="minimum_supported_wp_version" value="4.8"/>
 
 	<!-- Rules: Check PHP version compatibility -->
 	<rule ref="PHPCompatibility"/>
-	<rule ref="PHPCompatibilityWP"/>
+	<rule ref="PHPCompatibilityWP">
+		<include-pattern>*\.php$</include-pattern>
+	</rule>
 
 	<!-- Rules: WordPress Coding Standards -->
 	<config name="minimum_supported_wp_version" value="5.1"/>
