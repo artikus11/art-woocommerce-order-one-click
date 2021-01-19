@@ -4,26 +4,47 @@
 
 	<!-- What to scan -->
 	<file>.</file>
-	<exclude-pattern>/vendor/</exclude-pattern>
-	<exclude-pattern>/tests/</exclude-pattern>
+	<exclude-pattern>*/\.make/*</exclude-pattern>
+	<exclude-pattern>*/assets/*</exclude-pattern>
+	<exclude-pattern>*/css/*</exclude-pattern>
+	<exclude-pattern>*/dist/*</exclude-pattern>
+	<exclude-pattern>*/js/*</exclude-pattern>
+	<exclude-pattern>*/languages/*</exclude-pattern>
+	<exclude-pattern>*/lib/*</exclude-pattern>
+	<exclude-pattern>*/src/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*\.js</exclude-pattern>
+	<exclude-pattern>*\.mo</exclude-pattern>
+	<exclude-pattern>*\.po</exclude-pattern>
+	<exclude-pattern>*\.twig</exclude-pattern>
+	<exclude-pattern>*\.css</exclude-pattern>
+	<exclude-pattern>*\.scss</exclude-pattern>
 
 	<!-- How to scan -->
-	<arg value="sp"/>
-	<arg name="basepath" value="./"/>
-	<arg name="colors"/>
+	<arg value="sp"/><!-- Show sniff and progress -->
+	<arg name="basepath" value="./"/><!-- Strip the file paths down to the relevant bit -->
 	<arg name="extensions" value="php"/>
-	<arg name="parallel" value="8"/>
+	<arg name="parallel" value="12"/><!-- Enables parallel processing when available for faster results. -->
+	<arg name="cache" value=".phpcs.cache"/>
 
-	<config name="testVersion" value="5.2-"/>
+	<config name="installed_paths" value="vendor/phpcompatibility/php-compatibility,vendor/phpcompatibility/phpcompatibility-paragonie,vendor/phpcompatibility/phpcompatibility-wp,vendor/wp-coding-standards/wpcs"/>
+	<config name="testVersion" value="5.6-"/>
 	<config name="minimum_supported_wp_version" value="4.8"/>
 
+	<!-- Rules: Check PHP version compatibility -->
 	<rule ref="PHPCompatibility"/>
+	<rule ref="PHPCompatibilityWP"/>
 
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-		<properties>
-			<property name="prefixes" type="array" value="dco_iac"/>
-		</properties>
+	<!-- Rules: WordPress Coding Standards -->
+	<config name="minimum_supported_wp_version" value="5.1"/>
+	<rule ref="WordPress"/>
+
+	<!-- Allow only short array syntax -->
+	<rule ref="Generic.Arrays.DisallowShortArraySyntax.Found">
+		<severity>0</severity>
 	</rule>
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found"/>
 
 	<rule ref="WordPress.WP.I18n">
 		<properties>
