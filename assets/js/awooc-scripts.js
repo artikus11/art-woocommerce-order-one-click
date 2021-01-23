@@ -91,7 +91,7 @@ jQuery( function( $ ) {
 			    productVariantId = $( '.variations_form' ).find( 'input[name="variation_id"]' ).val(),
 			    productId        = $( this ).attr( 'data-value-product-id' ),
 			    productQty       = $( '.quantity' ).find( 'input[name="quantity"]' ).val() || 1,
-			    dataOut          = {};
+			    dataOutForMail   = {};
 
 			// Проверяем ID товара, для вариаций свой, для простых свой.
 			if ( 0 !== productVariantId && typeof productVariantId !== 'undefined' ) {
@@ -103,6 +103,7 @@ jQuery( function( $ ) {
 			// Собираем данные для отправки.
 			let data = {
 				id: prodictSelectedId,
+				qty: productQty,
 				action: 'awooc_ajax_product_form',
 				nonce: awooc_scripts_ajax.nonce
 			};
@@ -130,7 +131,7 @@ jQuery( function( $ ) {
 						$( '.awooc-close' ).attr( 'title', awooc_scripts_translate.title_close );
 
 						// Проверяем данные после аякса и формируем нужные строки.
-						dataOut = {
+						dataOutForMail = {
 							outID: 'ID: ' + prodictSelectedId,
 							outTitle: data.title === false
 								? ''
@@ -151,7 +152,6 @@ jQuery( function( $ ) {
 						orderTitle.text( data.title );
 						orderImg.html( data.image );
 						orderPrice.html( data.price );
-						orderPrice.after( data.qty );
 						orderQty.text( awooc_scripts_translate.product_qty + productQty );
 						orderSku.html( data.sku );
 						orderAttr.html( data.attr );
@@ -163,7 +163,7 @@ jQuery( function( $ ) {
 						awoocInitContactForm();
 
 						// Собираем данные для письма.
-						let hiddenData = awoocHiddenDataToMail( dataOut );
+						let hiddenData = awoocHiddenDataToMail( dataOutForMail );
 
 						// Записываем данные с скрытое поле для отправки письма.
 						$( '.awooc-hidden-data' ).val( hiddenData );

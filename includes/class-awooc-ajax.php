@@ -58,7 +58,8 @@ class AWOOC_Ajax {
 			);
 		}
 
-		$product = wc_get_product( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
+		$product     = wc_get_product( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
+		$product_qty = $_POST['qty'] ? sanitize_text_field( wp_unslash( $_POST['qty'] ) ) : 1;
 
 		$data = apply_filters(
 			'awooc_data_ajax',
@@ -69,9 +70,9 @@ class AWOOC_Ajax {
 				'link'            => esc_url( get_permalink( $this->product_id( $product ) ) ),
 				'sku'             => $this->the_product_sku( $product ),
 				'attr'            => $this->the_product_attr( $product ),
-				'price'           => $this->product_price( $product ),
-				'pricenumber'     => $product->get_price(),
-				'qty'             => '',
+				'price'           => $this->product_price( $product, $product_qty ),
+				'pricenumber'     => $product->get_price() * $product_qty,
+				'qty'             => $product_qty,
 				'form'            => $this->select_form(),
 				'cat'             => $this->the_product_cat( $product ),
 				'productParentId' => $product->get_parent_id(),
@@ -313,7 +314,7 @@ class AWOOC_Ajax {
 	 * @return bool|mixed
 	 * @since 1.8.0
 	 */
-	public function product_price( $product ) {
+	public function product_price( $product, $product_qty ) {
 
 		if ( ! $product->get_price() ) {
 			return false;
@@ -324,7 +325,7 @@ class AWOOC_Ajax {
 			sprintf(
 				'%s<span class="awooc-price-wrapper">%s</span></div>',
 				apply_filters( 'awooc_popup_price_label', __( 'Price: ', 'art-woocommerce-order-one-click' ) ),
-				wc_price( $product->get_price() )
+				wc_price( $product->get_price() * $product_qty )
 			),
 			$product
 		);
