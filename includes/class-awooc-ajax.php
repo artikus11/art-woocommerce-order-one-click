@@ -58,6 +58,8 @@ class AWOOC_Ajax {
 			);
 		}
 
+		$mode = get_option( 'woocommerce_awooc_mode_catalog' );
+
 		$product     = wc_get_product( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
 		$product_qty = $_POST['qty'] ? sanitize_text_field( wp_unslash( $_POST['qty'] ) ) : 1;
 
@@ -84,7 +86,7 @@ class AWOOC_Ajax {
 		);
 
 		// проверяем на включенный режим, если включен режим любой кроме шатного, то удаляем количество.
-		if ( 'dont_show_add_to_card' === get_option( 'woocommerce_awooc_mode_catalog' ) || 'in_stock_add_to_card' === get_option( 'woocommerce_awooc_mode_catalog' ) ) {
+		if ( 'dont_show_add_to_card' === $mode || 'in_stock_add_to_card' === $mode ) {
 			unset( $data['qty'] );
 		}
 
@@ -98,8 +100,6 @@ class AWOOC_Ajax {
 		}
 
 		wp_send_json( $data );
-
-		wp_die();
 	}
 
 
@@ -228,6 +228,7 @@ class AWOOC_Ajax {
 	 * @param  \WC_Product $product
 	 *
 	 * @return array
+	 * @since 2.4.0
 	 */
 	protected function get_alt_method_attributes( $product ) {
 
@@ -313,6 +314,7 @@ class AWOOC_Ajax {
 	 *
 	 * @return bool|mixed
 	 * @since 1.8.0
+	 * @since 2.4.0
 	 */
 	public function product_price( $product, $product_qty ) {
 
