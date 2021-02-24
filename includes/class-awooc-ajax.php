@@ -72,8 +72,10 @@ class AWOOC_Ajax {
 				'link'            => esc_url( get_permalink( $this->product_id( $product ) ) ),
 				'sku'             => $this->the_product_sku( $product ),
 				'attr'            => $this->the_product_attr( $product ),
-				'price'           => $this->product_price( $product, $product_qty ),
-				'pricenumber'     => $product->get_price() * $product_qty,
+				'price'           => $this->product_price( $product ),
+				'pricenumber'     => $product->get_price(),
+				'sum'             => $this->product_sum( $product, $product_qty ),
+				'sumnumber'       => $product->get_price() * $product_qty,
 				'qty'             => $product_qty,
 				'form'            => $this->select_form(),
 				'cat'             => $this->the_product_cat( $product ),
@@ -316,7 +318,7 @@ class AWOOC_Ajax {
 	 * @since 1.8.0
 	 * @since 2.4.0
 	 */
-	public function product_price( $product, $product_qty ) {
+	public function product_price( $product ) {
 
 		if ( ! $product->get_price() ) {
 			return false;
@@ -327,6 +329,33 @@ class AWOOC_Ajax {
 			sprintf(
 				'%s<span class="awooc-price-wrapper">%s</span></div>',
 				apply_filters( 'awooc_popup_price_label', __( 'Price: ', 'art-woocommerce-order-one-click' ) ),
+				wc_price( $product->get_price() )
+			),
+			$product
+		);
+
+	}
+
+
+	/**
+	 * Получаем сумму товара
+	 *
+	 * @param  WC_Product $product объект продукта.
+	 *
+	 * @return bool|mixed
+	 * @since 2.4.0
+	 */
+	public function product_sum( $product, $product_qty ) {
+
+		if ( ! $product->get_price() ) {
+			return false;
+		}
+
+		return apply_filters(
+			'awooc_popup_price_html',
+			sprintf(
+				'%s<span class="awooc-sum-wrapper">%s</span></div>',
+				apply_filters( 'awooc_popup_sum_label', __( 'Amount: ', 'art-woocommerce-order-one-click' ) ),
 				wc_price( $product->get_price() * $product_qty )
 			),
 			$product

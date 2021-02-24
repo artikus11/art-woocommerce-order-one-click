@@ -37,6 +37,7 @@ jQuery( function( $ ) {
 	      orderQty   = $( '.awooc-form-custom-order-qty' ),
 	      orderSku   = $( '.awooc-form-custom-order-sku' ),
 	      orderAttr  = $( '.awooc-form-custom-order-attr' ),
+	      orderSum  = $( '.awooc-form-custom-order-sum' ),
 	      preload    = '<div class="awooc-preload-container"><div class="awooc-preload-speeding-wheel"></div></div>';
 
 	let selectedProduct;
@@ -137,15 +138,18 @@ jQuery( function( $ ) {
 								? ''
 								: '\n' + awooc_scripts_translate.product_title + data.title,
 							outAttr: data.attr === false ? '' : '\n' + data.attr,
+							outSku: data.sku === false ? '' : '\n' + data.sku,
+							outCat: data.cat === false ? '' : '\n' + data.cat,
+							outLink: data.link === false ? '' : '\n' + awooc_scripts_translate.product_link + data.link,
 							outPrice: data.price === false
 								? ''
 								: '\n' + awooc_scripts_translate.product_price + data.pricenumber,
-							outSku: data.sku === false ? '' : '\n' + data.sku,
-							outCat: data.cat === false ? '' : '\n' + data.cat,
-							outLink: data.link === false ? '' : '\n' + data.link,
 							outQty: data.qty === false
 								? ''
-								: '\n' + awooc_scripts_translate.product_qty + productQty
+								: '\n' + awooc_scripts_translate.product_qty + productQty,
+							outSum: data.sum === false
+								? ''
+								: '\n' + awooc_scripts_translate.product_sum + data.sumnumber
 						};
 
 						// Формируем данные.
@@ -155,6 +159,7 @@ jQuery( function( $ ) {
 						orderQty.text( awooc_scripts_translate.product_qty + productQty );
 						orderSku.html( data.sku );
 						orderAttr.html( data.attr );
+						orderSum.html( data.sum );
 
 						// Загружаем форму.
 						$( '.awooc-col.columns-right' ).html( data.form );
@@ -279,10 +284,11 @@ jQuery( function( $ ) {
 		       dataOut.outTitle +
 		       '\n' + dataOut.outID +
 		       dataOut.outCat.replace( /(<([^>]+)>)/ig, '' ) +
-		       dataOut.outPrice +
 		       dataOut.outAttr.replace( /(<([^>]+)>)/ig, '' ) +
 		       dataOut.outSku.replace( /(<([^>]+)>)/ig, '' ) +
+		       dataOut.outPrice +
 		       dataOut.outQty +
+		       dataOut.outSum +
 		       dataOut.outLink;
 	}
 

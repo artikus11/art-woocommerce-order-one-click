@@ -34,6 +34,7 @@ function awooc_default_elements_item() {
 		'sku',
 		'attr',
 		'qty',
+		'sum',
 	);
 
 }

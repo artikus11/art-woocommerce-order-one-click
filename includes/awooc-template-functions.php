@@ -32,6 +32,7 @@ add_action( 'awooc_popup_column_left', 'awooc_popup_window_sku', 20, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_attr', 30, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_price', 40, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_qty', 50, 2 );
+add_action( 'awooc_popup_column_left', 'awooc_popup_window_sum', 60, 2 );
 
 if ( ! function_exists( 'awooc_mode_classes' ) ) {
 	/**
@@ -193,6 +194,33 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 				apply_filters(
 					'awooc_popup_price_html',
 					'<div class="awooc-form-custom-order-price awooc-popup-price"></div>',
+					$product
+				)
+			);
+
+		}
+
+	}
+}
+
+if ( ! function_exists( 'awooc_popup_window_sum' ) ) {
+	/**
+	 * Output of a product price in a popup window
+	 *
+	 * @param  array       $elements массив настроек элементов окна.
+	 * @param  \WC_Product $product  объект продукта.
+	 *
+	 * @since 1.5.0
+	 * @since 2.4.0
+	 */
+	function awooc_popup_window_sum( $elements, $product ) {
+
+		if ( in_array( 'sum', $elements, true ) ) {
+
+			echo wp_kses_post(
+				apply_filters(
+					'awooc_popup_price_html',
+					'<div class="awooc-form-custom-order-sum awooc-popup-sum"></div>',
 					$product
 				)
 			);

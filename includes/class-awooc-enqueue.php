@@ -61,8 +61,10 @@ class AWOOC_Enqueue {
 				'product_title'      => __( 'Title: ', 'art-woocommerce-order-one-click' ),
 				'product_price'      => __( 'Price: ', 'art-woocommerce-order-one-click' ),
 				'product_sku'        => __( 'SKU: ', 'art-woocommerce-order-one-click' ),
+				'product_sum'        => __( 'Amount: ', 'art-woocommerce-order-one-click' ),
 				'product_attr'       => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
 				'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
+				'product_link'        => __( 'Link to the product: ', 'art-woocommerce-order-one-click' ),
 				'title_close'        => __( 'Click to close', 'art-woocommerce-order-one-click' ),
 			)
 		);

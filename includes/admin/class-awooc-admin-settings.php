@@ -689,6 +689,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 			'sku'   => __( 'SKU', 'art-woocommerce-order-one-click' ),
 			'attr'  => __( 'Attributes', 'art-woocommerce-order-one-click' ),
 			'qty'   => __( 'Quantity', 'art-woocommerce-order-one-click' ),
+			'sum'   => __( 'Amount', 'art-woocommerce-order-one-click' ),
 		);
 
 		return $options;
