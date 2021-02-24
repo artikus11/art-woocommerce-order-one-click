@@ -7,7 +7,7 @@
 	display: none !important;
 }
 
-.awooc-custom-order-button{
+.awooc-custom-order-button {
 	position: relative;
 }
 
@@ -156,31 +156,8 @@
 	bottom: 0;
 	display: flex;
 	align-items: center;
-	background-color: rgba(0, 0, 0, 0.25);
 }
 
-
-.awooc-preload-spinner {
-	width: 100%;
-	height: 17px;
-	text-align: center;
-	position: absolute;
-	left: 2px;
-	top: 6px;
-}
-
-.awooc-preload-speeding-wheel {
-	width: 15px;
-	height: 15px;
-	margin: 0 auto;
-	border: 1px solid rgb(240, 240, 240);
-	border-radius: 50%;
-	border-left-color: transparent;
-	border-right-color: transparent;
-	animation: awooc-preload-spin 575ms infinite linear;
-	-webkit-animation: awooc-preload-spin 575ms infinite linear;
-	-moz-animation: awooc-preload-spin 575ms infinite linear;
-}
 
 .blockMsgAwooc::-webkit-scrollbar {
 	width: 5px;
@@ -198,36 +175,44 @@
 	border-radius: 5px;
 }
 
-@keyframes awooc-preload-spin {
-	100% {
-		transform: rotate(360deg);
-	}
+.awooc-ajax-loader {
+	visibility: visible;
+	display: inline-block;
+	background-color: #23282d; /* Dark Gray 800 */
+	opacity: 0.75;
+	width: 24px;
+	height: 24px;
+	border: none;
+	border-radius: 100%;
+	padding: 0;
+	margin: 0 auto;
+	position: relative;
 }
 
-@-o-keyframes awooc-preload-spin {
-	100% {
-		-o-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
+.awooc-ajax-loader::before {
+	content: '';
+	position: absolute;
+	background-color: #fbfbfc; /* Light Gray 100 */
+	top: 4px;
+	left: 4px;
+	width: 6px;
+	height: 6px;
+	border: none;
+	border-radius: 100%;
+	transform-origin: 8px 8px;
+	animation-name: spin;
+	animation-duration: 1000ms;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	
 }
 
-@-ms-keyframes awooc-preload-spin {
-	100% {
-		-ms-transform: rotate(360deg);
-		transform: rotate(360deg);
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
 	}
-}
-
-@-webkit-keyframes awooc-preload-spin {
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
-
-@-moz-keyframes awooc-preload-spin {
-	100% {
-		-moz-transform: rotate(360deg);
+	
+	to {
 		transform: rotate(360deg);
 	}
 }

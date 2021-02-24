@@ -38,7 +38,7 @@ jQuery( function( $ ) {
 	      orderSku   = $( '.awooc-form-custom-order-sku' ),
 	      orderAttr  = $( '.awooc-form-custom-order-attr' ),
 	      orderSum  = $( '.awooc-form-custom-order-sum' ),
-	      preload    = '<div class="awooc-preload-container"><div class="awooc-preload-speeding-wheel"></div></div>';
+	      preload    = '<div class="awooc-preload-container"><div class="awooc-ajax-loader"></div></div>';
 
 	let selectedProduct;
 
