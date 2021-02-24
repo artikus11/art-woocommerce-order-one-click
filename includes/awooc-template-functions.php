@@ -28,9 +28,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'awooc_popup_before_column', 'awooc_popup_window_title', 10, 2 );
 
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_image', 10, 2 );
-add_action( 'awooc_popup_column_left', 'awooc_popup_window_price', 20, 2 );
-add_action( 'awooc_popup_column_left', 'awooc_popup_window_sku', 30, 2 );
-add_action( 'awooc_popup_column_left', 'awooc_popup_window_attr', 40, 2 );
+add_action( 'awooc_popup_column_left', 'awooc_popup_window_sku', 20, 2 );
+add_action( 'awooc_popup_column_left', 'awooc_popup_window_attr', 30, 2 );
+add_action( 'awooc_popup_column_left', 'awooc_popup_window_price', 40, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_qty', 50, 2 );
 
 if ( ! function_exists( 'awooc_mode_classes' ) ) {
