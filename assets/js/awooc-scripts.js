@@ -251,9 +251,19 @@ jQuery( function( $ ) {
 	function awoocInitContactForm() {
 
 		$( '.awooc-form-custom-order div.wpcf7 > form' ).each( function() {
-				let $form = this;
 
-				wpcf7.init( $form );
+				let version = $( this ).find( 'input[name="_wpcf7_version"]' ).val();
+
+				if ( ( typeof version !== 'undefined' && version !== null ) && version >= '5.4' ) {
+					let $form = this;
+
+					wpcf7.init( $form );
+				} else {
+					let $form = $( this );
+
+					wpcf7.initForm( $form );
+				}
+
 				if ( wpcf7.cached ) {
 					wpcf7.refill( $form );
 				}
