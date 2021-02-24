@@ -241,7 +241,7 @@ jQuery( function( $ ) {
 			$( document.body ).trigger( 'awooc_mail_invalid_trigger', [ event, detail ] );
 
 			setTimeout( function() {
-				$( '.awooc-form-custom-order .wpcf7-response-output' ).remove();
+				$( '.awooc-form-custom-order .wpcf7-response-output' ).empty();
 				$( '.awooc-form-custom-order .wpcf7-not-valid-tip' ).remove();
 			}, 5000 );
 
