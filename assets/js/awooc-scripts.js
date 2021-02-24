@@ -259,23 +259,23 @@ jQuery( function( $ ) {
 
 				let version = $( this ).find( 'input[name="_wpcf7_version"]' ).val();
 
-				if ( ( typeof version !== 'undefined' && version !== null ) && version >= '5.4' ) {
-					let $form = this;
-
-					wpcf7.init( $form );
-					if ( wpcf7.cached ) {
-						wpcf7.refill( $form );
-					}
-				} else {
+				if ( ( typeof version !== 'undefined' && version !== null ) && version !== '5.4' ) {
 					let $form = $( this );
 
 					wpcf7.initForm( $form );
 					if ( wpcf7.cached ) {
 						wpcf7.refill( $form );
 					}
+
+				} else {
+
+					let $form = this;
+
+					wpcf7.init( $form );
+					if ( wpcf7.cached ) {
+						wpcf7.refill( $form );
+					}
 				}
-
-
 			}
 		);
 
