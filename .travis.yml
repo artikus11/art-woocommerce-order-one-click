@@ -5,10 +5,8 @@
   ],
   "dist": "xenial",
   "php": [
-      "5.6",
-      "7.0",
-      "7.1",
-      "7.2"
+      "7.3",
+      "7.4"
   ],
   "notifications": {
     "email": [
@@ -25,7 +23,7 @@
   "before_deploy": [
       "git config --local user.name \"artikus11\"",
       "git config --local user.email \"artikus.sol@gmail.ru\"",
-      "git tag \"2.3.9.1\""
+      "git tag \"2.4.0\""
   ],
   "deploy": [
     {
@@ -46,18 +44,6 @@
   ],
   "jobs": {
     "include": [
-      {
-        "php": "5.6"
-      },
-      {
-        "php": "7.0"
-      },
-      {
-        "php": "7.1"
-      },
-      {
-        "php": "7.2"
-      },
       {
         "php": "7.3"
       },

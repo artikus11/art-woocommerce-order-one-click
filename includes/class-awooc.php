@@ -303,7 +303,7 @@ class AWOOC {
 
 		$message = sprintf(
 		/* translators: 1: Name plugins, 2:PHP version */
-			esc_html__( '%1$s requires PHP version 5.6 or higher. Your current PHP version is %2$s. Please upgrade PHP version to run this plugin.', 'art-woocommerce-order-one-click' ),
+			esc_html__( '%1$s requires PHP version 7.3 or higher. Your current PHP version is %2$s. Please upgrade PHP version to run this plugin.', 'art-woocommerce-order-one-click' ),
 			esc_html( AWOOC_PLUGIN_NAME ),
 			PHP_VERSION
 		);
