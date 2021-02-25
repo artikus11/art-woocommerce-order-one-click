@@ -75,7 +75,7 @@ class AWOOC_Ajax {
 				'price'           => $this->product_price( $product ),
 				'pricenumber'     => $product->get_price(),
 				'sum'             => $this->product_sum( $product, $product_qty ),
-				'sumnumber'       => $product->get_price() * $product_qty,
+				'sumnumber'       => $this->get_product_sum($product, $product_qty ),
 				'qty'             => $product_qty,
 				'form'            => $this->select_form(),
 				'cat'             => $this->the_product_cat( $product ),
@@ -349,6 +349,26 @@ class AWOOC_Ajax {
 			),
 			$product
 		);
+
+	}
+
+
+	/**
+	 * Получаем сумму товара без форматирования
+	 *
+	 * @param  WC_Product $product     объект продукта.
+	 * @param  int        $product_qty количество
+	 *
+	 * @return float|int
+	 * @since 2.4.2
+	 */
+	public function get_product_sum( WC_Product $product, int $product_qty ) {
+
+		if ( ! $product->get_price() ) {
+			return 0;
+		}
+
+		return $product->get_price() * $product_qty;
 
 	}
 
