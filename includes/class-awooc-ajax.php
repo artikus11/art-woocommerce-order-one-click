@@ -211,60 +211,48 @@ class AWOOC_Ajax {
 			return false;
 		}
 
-		$product_attr = $product->get_attribute_summary();
-
-		if ( $product_attr ) {
-			$product_var_attr = $this->get_formatted_attr( explode( ',', $product_attr ) );
-		} else {
-			$product_var_attr = $this->get_formatted_attr( $this->get_alt_method_attributes( $product ) );
-		}
-
-		return $product_var_attr;
+		return $this->get_formatted_attr( $this->get_attributes_alt_method( $product ) );
 
 	}
 
 
 	/**
-	 * Альтернативный метод получения атрибутов, если не сработает получение из ядра WC
+	 * ПолучениеЛ атрибутов, если не сработает получение из ядра WC
 	 *
 	 * @param  \WC_Product $product
 	 *
 	 * @return array
 	 * @since 2.4.0
 	 */
-	protected function get_alt_method_attributes( $product ) {
+	public function get_attributes_alt_method( $product ) {
 
-
-		$attributes = $product->get_attributes();
-		$attr_name  = [];
-
+		$attributes       = $product->get_attributes();
 		$product_variable = new WC_Product_Variable( $product->get_parent_id() );
 		$variations       = $product_variable->get_variation_attributes();
+		$attr_name        = [];
 
 		foreach ( $attributes as $attr => $value ) {
 
-			$attr_label = wc_attribute_label( $attr );
-
-			$meta = get_post_meta( $product->get_id(), wc_variation_attribute_name( $attr ), true );
-			$term = get_term_by( 'slug', $meta, $attr );
+			$attr_label = wc_attribute_label( $attr, $product );
+			$meta       = get_post_meta( $product->get_id(), wc_variation_attribute_name( $attr ), true );
+			$term       = get_term_by( 'slug', $meta, $attr );
 
 			if ( false !== $term ) {
-				$attr_name[] = $attr_label . ': ' . $term->name;
+				$attr_name[] = sprintf( '%s: %s', $attr_label, $term->name );
+			} elseif ( $value && ! is_object( $value ) ) {
+				$attr_name[] = sprintf( '%s: %s', $attr_label, $value );
 			}
 		}
 
-		if ( empty( $attr_name ) && $variations ) {
+		if ( empty( $attr_name ) && isset( $variations ) ) {
 			foreach ( $variations as $key => $item ) {
 
-				$attr_name[] = wc_attribute_label( $key ) . ' &mdash; ' . implode( array_intersect( $item, $attributes ) );
+				$attr_name[] = sprintf( '%s &mdash; %s', wc_attribute_label( $key ), implode( array_intersect( $item, $attributes ) ) );
 			}
-		}
-
-		if ( ! isset( $variations ) ) {
-			$attr_name = [];
 		}
 
 		return $attr_name;
+
 	}
 
 
