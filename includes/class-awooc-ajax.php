@@ -61,7 +61,7 @@ class AWOOC_Ajax {
 		$mode = get_option( 'woocommerce_awooc_mode_catalog' );
 
 		$product     = wc_get_product( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
-		$product_qty = $_POST['qty'] ? sanitize_text_field( wp_unslash( $_POST['qty'] ) ) : 1;
+		$product_qty = $_POST['qty'] ? (int) sanitize_text_field( wp_unslash( $_POST['qty'] ) ) : 1;
 
 		$data = apply_filters(
 			'awooc_data_ajax',
@@ -328,7 +328,8 @@ class AWOOC_Ajax {
 	/**
 	 * Получаем сумму товара
 	 *
-	 * @param  WC_Product $product объект продукта.
+	 * @param  WC_Product $product     объект продукта.
+	 * @param  int        $product_qty количество
 	 *
 	 * @return bool|mixed
 	 * @since 2.4.0
