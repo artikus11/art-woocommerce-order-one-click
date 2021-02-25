@@ -263,18 +263,14 @@ jQuery( function( $ ) {
 					let $form = $( this );
 
 					wpcf7.initForm( $form );
+
 					if ( wpcf7.cached ) {
 						wpcf7.refill( $form );
 					}
 
 				} else {
+					wpcf7.init( this );
 
-					let $form = this;
-
-					wpcf7.init( $form );
-					if ( wpcf7.cached ) {
-						wpcf7.refill( $form );
-					}
 				}
 			}
 		);
