@@ -259,7 +259,7 @@ jQuery( function( $ ) {
 
 				let version = $( this ).find( 'input[name="_wpcf7_version"]' ).val();
 
-				if ( ( typeof version !== 'undefined' && version !== null ) && version !== '5.4' ) {
+				if ( ( typeof version !== 'undefined' && version !== null ) && version <= '5.4' ) {
 					let $form = $( this );
 
 					wpcf7.initForm( $form );
