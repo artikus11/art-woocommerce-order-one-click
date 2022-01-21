@@ -57,7 +57,7 @@ require __DIR__ . '/includes/class-awooc.php';
 
 register_uninstall_hook( __FILE__, array( 'AWOOC', 'uninstall' ) );
 
-if ( ! function_exists( 'awooc_order_one_click' ) ) {
+if ( ! function_exists( 'awooc' ) ) {
 	/**
 	 * The main function responsible for returning the AWOOC object.
 	 *
@@ -68,10 +68,10 @@ if ( ! function_exists( 'awooc_order_one_click' ) ) {
 	 * @return object AWOOC class object.
 	 * @since 1.0.0
 	 */
-	function awooc_order_one_click() {
+	function awooc() {
 
 		return AWOOC::instance();
 	}
 }
 
-$GLOBALS['awooc'] = awooc_order_one_click();
+awooc();
