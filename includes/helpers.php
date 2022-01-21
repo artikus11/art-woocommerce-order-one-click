@@ -27,7 +27,7 @@ add_action( 'awooc_before_button', 'awooc_html_comments', 10 );
  */
 function awooc_default_elements_item() {
 
-	return array(
+	return [
 		'title',
 		'image',
 		'price',
@@ -35,8 +35,7 @@ function awooc_default_elements_item() {
 		'attr',
 		'qty',
 		'sum',
-	);
-
+	];
 }
 
 /**
@@ -69,6 +68,5 @@ function awooc_html_comments() {
 			esc_html( AWOOC_PLUGIN_VER ),
 			esc_html( get_option( 'woocommerce_awooc_mode_catalog' ) )
 		);
-
 	}
 }

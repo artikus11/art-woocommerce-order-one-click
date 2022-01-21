@@ -35,7 +35,7 @@ class AWOOC_Orders {
 		/**
 		 * Contact Form 7 setup_hooks
 		 */
-		add_action( 'wpcf7_before_send_mail', array( $this, 'created_order_mail_send' ), 10, 1 );
+		add_action( 'wpcf7_before_send_mail', [ $this, 'created_order_mail_send' ], 10, 1 );
 	}
 
 
@@ -59,9 +59,9 @@ class AWOOC_Orders {
 			return;
 		}
 
-		$user_passed_text = '';
+		$user_passed_text  = '';
 		$user_passed_email = '';
-		$user_passed_tel = '';
+		$user_passed_tel   = '';
 
 		if ( isset( $_POST['awooc-text'] ) && ! empty( $_POST['awooc-text'] ) ) {
 			$user_passed_text = sanitize_text_field( wp_unslash( $_POST['awooc-text'] ) );
@@ -81,11 +81,11 @@ class AWOOC_Orders {
 
 		$address = apply_filters(
 			'awooc_order_address_arg',
-			array(
+			[
 				'first_name' => $user_passed_text,
 				'email'      => $user_passed_email,
 				'phone'      => $user_passed_tel,
-			)
+			]
 		);
 
 		$order = wc_create_order();
@@ -97,7 +97,6 @@ class AWOOC_Orders {
 		$this->change_subject( $contact_form, $order );
 
 		do_action( 'awooc_after_mail_send', $product_id, $order->get_id() );
-
 	}
 
 
@@ -141,8 +140,7 @@ class AWOOC_Orders {
 
 		$mail['subject'] = $mail['subject'] . ' №' . $order->get_order_number();
 
-		$contact_form->set_properties( array( 'mail' => $mail ) );
-
+		$contact_form->set_properties( [ 'mail' => $mail ] );
 	}
 
 }

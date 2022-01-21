@@ -153,7 +153,7 @@ jQuery( function( $ ) {
 						};
 
 						// Формируем данные.
-						orderTitle.text( data.title );
+						orderTitle.html( data.title );
 						orderImg.html( data.image );
 						orderPrice.html( data.price );
 						orderQty.text( awooc_scripts_translate.product_qty + productQty );

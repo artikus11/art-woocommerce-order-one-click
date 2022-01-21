@@ -57,7 +57,7 @@ class AWOOC {
 	 * @since 2.0.0
 	 * @var array Required plugins.
 	 */
-	protected $required_plugins = array();
+	protected $required_plugins = [];
 
 
 	/**
@@ -68,24 +68,24 @@ class AWOOC {
 	 */
 	public function __construct() {
 
-		$this->required_plugins = array(
-			array(
+		$this->required_plugins = [
+			[
 				'plugin'  => 'woocommerce/woocommerce.php',
 				'name'    => 'WooCommerce',
 				'slug'    => 'woocommerce',
 				'class'   => 'WooCommerce',
 				'version' => '3.0',
 				'active'  => false,
-			),
-			array(
+			],
+			[
 				'plugin'  => 'contact-form-7/wp-contact-form-7.php',
 				'name'    => 'Contact Form 7',
 				'slug'    => 'contact-form-7',
 				'class'   => 'WPCF7',
 				'version' => '5.0',
 				'active'  => false,
-			),
-		);
+			],
+		];
 
 		$this->includes();
 
@@ -161,13 +161,13 @@ class AWOOC {
 	 */
 	public function init() {
 
-		add_action( 'admin_init', array( $this, 'check_requirements' ) );
-		add_action( 'admin_init', array( $this, 'check_php_version' ) );
+		add_action( 'admin_init', [ $this, 'check_requirements' ] );
+		add_action( 'admin_init', [ $this, 'check_php_version' ] );
 
-		add_action( 'wp_ajax_awooc_rated', array( $this, 'add_rated' ) );
+		add_action( 'wp_ajax_awooc_rated', [ $this, 'add_rated' ] );
 
-		add_filter( 'plugin_action_links_' . AWOOC_PLUGIN_FILE, array( $this, 'add_plugin_action_links' ), 10, 1 );
-		add_filter( 'woocommerce_get_settings_pages', array( $this, 'add_awooc_admin_settings' ), 15 );
+		add_filter( 'plugin_action_links_' . AWOOC_PLUGIN_FILE, [ $this, 'add_plugin_action_links' ], 10, 1 );
+		add_filter( 'woocommerce_get_settings_pages', [ $this, 'add_awooc_admin_settings' ], 15 );
 
 		foreach ( $this->required_plugins as $required_plugin ) {
 			if ( ! class_exists( $required_plugin['class'] ) ) {
@@ -230,7 +230,7 @@ class AWOOC {
 
 		$options = apply_filters(
 			'awooc_uninstall_options',
-			array(
+			[
 				'woocommerce_awooc_padding',
 				'woocommerce_awooc_margin',
 				'woocommerce_awooc_mode_catalog',
@@ -244,7 +244,7 @@ class AWOOC {
 				'woocommerce_awooc_сhange_subject',
 				'woocommerce_awooc_not_del_settings',
 				'woocommerce_awooc_text_rated',
-			)
+			]
 		);
 
 		foreach ( $options as $option ) {
@@ -284,9 +284,13 @@ class AWOOC {
 	 */
 	public function add_plugin_action_links( $links ) {
 
-		$plugin_links = array(
-			'settings' => '<a href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=awooc_settings' ) ) . '">' . esc_html__( 'Settings', 'art-woocommerce-order-one-click' ) . '</a>',
-		);
+		$plugin_links = [
+			'settings' => sprintf(
+				'<a href="%s">%s</a>',
+				esc_url( admin_url( 'admin.php?page=wc-settings&tab=awooc_settings' ) ),
+				esc_html__( 'Settings', 'art-woocommerce-order-one-click' )
+			),
+		];
 
 		return array_merge( $plugin_links, $links );
 
@@ -303,7 +307,10 @@ class AWOOC {
 
 		$message = sprintf(
 		/* translators: 1: Name plugins, 2:PHP version */
-			esc_html__( '%1$s requires PHP version 7.3 or higher. Your current PHP version is %2$s. Please upgrade PHP version to run this plugin.', 'art-woocommerce-order-one-click' ),
+			esc_html__(
+				'%1$s requires PHP version 7.3 or higher. Your current PHP version is %2$s. Please upgrade PHP version to run this plugin.',
+				'art-woocommerce-order-one-click'
+			),
 			esc_html( AWOOC_PLUGIN_NAME ),
 			PHP_VERSION
 		);
@@ -343,12 +350,12 @@ class AWOOC {
 	 */
 	public function check_php_version() {
 
-		if ( version_compare( PHP_VERSION, '5.6', 'lt' ) ) {
+		if ( PHP_VERSION_ID < 50600 ) {
 
 			deactivate_plugins( plugin_basename( AWOOC_PLUGIN_FILE ) );
 
-			add_action( 'admin_notices', array( $this, 'php_version_notice' ) );
-			add_action( 'admin_notices', array( $this, 'show_deactivate_notice' ) );
+			add_action( 'admin_notices', [ $this, 'php_version_notice' ] );
+			add_action( 'admin_notices', [ $this, 'show_deactivate_notice' ] );
 		}
 
 	}
@@ -394,7 +401,7 @@ class AWOOC {
 	 */
 	public function deactivation_plugin() {
 
-		add_action( 'admin_notices', array( $this, 'show_plugin_not_found_notice' ) );
+		add_action( 'admin_notices', [ $this, 'show_plugin_not_found_notice' ] );
 		if ( is_plugin_active( AWOOC_PLUGIN_FILE ) ) {
 
 			deactivate_plugins( AWOOC_PLUGIN_FILE );
@@ -403,7 +410,7 @@ class AWOOC {
 				unset( $_GET['activate'] );
 			}
 			// @codingStandardsIgnoreEnd
-			add_action( 'admin_notices', array( $this, 'show_deactivate_notice' ) );
+			add_action( 'admin_notices', [ $this, 'show_deactivate_notice' ] );
 		}
 	}
 
@@ -421,19 +428,27 @@ class AWOOC {
 			esc_attr( AWOOC_PLUGIN_NAME )
 		);
 
-		$message_parts = array();
+		$message_parts = [];
 
 		foreach ( $this->required_plugins as $key => $required_plugin ) {
 			if ( ! $required_plugin['active'] ) {
 				$href = '/wp-admin/plugin-install.php?tab=plugin-information&plugin=';
 
-				$href .= $required_plugin['slug'] . '&TB_iframe=true&width=640&height=500';
+				$href .= sprintf( '%s&TB_iframe=true&width=640&height=500', $required_plugin['slug'] );
 
-				$message_parts[] = '<strong><em><a href="' . $href . '" class="thickbox">' . $required_plugin['name'] . __( ' version ', 'art-woocommerce-order-one-click' ) . $required_plugin['version'] . '</a>' . __( ' or higher', 'art-woocommerce-order-one-click' ) . '</em></strong>';
+				$message_parts[] = sprintf(
+					'<strong><em><a href="%s" class="thickbox">%s%s%s</a>%s</em></strong>',
+					$href,
+					$required_plugin['name'],
+					__( ' version ', 'art-woocommerce-order-one-click' ),
+					$required_plugin['version'],
+					__( ' or higher', 'art-woocommerce-order-one-click' )
+				);
 			}
 		}
 
 		$count = count( $message_parts );
+
 		foreach ( $message_parts as $key => $message_part ) {
 			if ( 0 !== $key ) {
 				if ( ( ( $count - 1 ) === $key ) ) {
@@ -479,6 +494,8 @@ class AWOOC {
 		}
 
 		update_option( 'woocommerce_awooc_text_rated', 1 );
+
 		wp_die();
 	}
+
 }
