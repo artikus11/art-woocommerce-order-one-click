@@ -6,14 +6,14 @@
  * @package art-woocommerce-order-one-click/includes
  * @version 1.8.0
  */
-
+namespace Art\AWOOC;
 /**
  * Class AWOOC_Front_End
  *
  * @author Artem Abramovich
  * @since  1.8.0
  */
-class AWOOC_Front_End {
+class Front {
 
 	/**
 	 * @var string Режим работы из опций

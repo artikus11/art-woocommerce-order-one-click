@@ -6,14 +6,14 @@
  * @package art-woocommerce-order-one-click/includes
  * @version 1.8.0
  */
-
+namespace Art\AWOOC;
 /**
  * Class AWOOC_Ajax
  *
  * @author Artem Abramovich
  * @since  1.8.0
  */
-class AWOOC_Ajax {
+class Ajax {
 
 	/**
 	 * Переменная для сверки с настройками

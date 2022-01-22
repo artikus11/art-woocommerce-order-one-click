@@ -1,5 +1,7 @@
 <?php
 
+namespace Art\AWOOC;
+
 /**
  * Class AWOOC
  * Main AWOOC class, initialized the plugin
@@ -8,7 +10,7 @@
  * @version     1.8.0
  * @author      Artem Abramovich
  */
-class AWOOC {
+class Main {
 
 	/**
 	 * Instance of ArtWoo_Order_One_Click.
@@ -113,43 +115,44 @@ class AWOOC {
 		require AWOOC_PLUGIN_DIR . '/includes/admin/added-cf7-field.php';
 
 		/**
+		 * Template functions
+		 */
+		require AWOOC_PLUGIN_DIR . '/includes/awooc-template-functions.php';
+
+		/**
 		 * Created form for firs install
 		 */
-		require AWOOC_PLUGIN_DIR . '/includes/admin/class-awooc-install-form.php';
+		require AWOOC_PLUGIN_DIR . '/classes/class-setup-form.php';
 
 		/**
 		 * Hiding field to CF7
 		 */
-		require AWOOC_PLUGIN_DIR . '/includes/admin/class-awooc-admin-meta-box.php';
+		require AWOOC_PLUGIN_DIR . '/classes/class-product-meta.php';
 
 		/**
 		 * Enqueue
 		 */
-		require AWOOC_PLUGIN_DIR . '/includes/class-awooc-enqueue.php';
-		$this->enqueue = new AWOOC_Enqueue();
+		require AWOOC_PLUGIN_DIR . '/classes/class-enqueue.php';
+		$this->enqueue = new Enqueue();
 
 		/**
 		 * Front end
 		 */
-		require AWOOC_PLUGIN_DIR . '/includes/class-awooc-front-end.php';
-		$this->front_end = new AWOOC_Front_End();
+		require AWOOC_PLUGIN_DIR . '/classes/class-front.php';
+		$this->front_end = new Front();
 
 		/**
 		 * Ajax
 		 */
-		require AWOOC_PLUGIN_DIR . '/includes/class-awooc-ajax.php';
-		$this->ajax = new AWOOC_Ajax();
+		require AWOOC_PLUGIN_DIR . '/classes/class-ajax.php';
+		$this->ajax = new Ajax();
 
 		/**
 		 * Создание заказов
 		 */
-		require AWOOC_PLUGIN_DIR . '/includes/class-awooc-orders.php';
-		$this->orders = new AWOOC_Orders();
+		require AWOOC_PLUGIN_DIR . '/classes/class-orders.php';
+		$this->orders = new Orders();
 
-		/**
-		 * Template functions
-		 */
-		require AWOOC_PLUGIN_DIR . '/includes/awooc-template-functions.php';
 	}
 
 
@@ -167,6 +170,7 @@ class AWOOC {
 		add_action( 'wp_ajax_awooc_rated', [ $this, 'add_rated' ] );
 
 		add_filter( 'plugin_action_links_' . AWOOC_PLUGIN_FILE, [ $this, 'add_plugin_action_links' ], 10, 1 );
+
 		add_filter( 'woocommerce_get_settings_pages', [ $this, 'add_awooc_admin_settings' ], 15 );
 
 		foreach ( $this->required_plugins as $required_plugin ) {
@@ -174,6 +178,7 @@ class AWOOC {
 				return;
 			}
 		}
+
 	}
 
 
@@ -196,7 +201,7 @@ class AWOOC {
 
 	/**
 	 * Instance.
-	 * An global instance of the class. Used to retrieve the instance
+	 * A global instance of the class. Used to retrieve the instance
 	 * to use on other files/plugins/themes.
 	 *
 	 * @return object Instance of the class.
@@ -214,47 +219,6 @@ class AWOOC {
 
 
 	/**
-	 * Deleting settings when uninstalling the plugin
-	 *
-	 * @since 2.0.0
-	 */
-	public static function uninstall() {
-
-		if ( ! current_user_can( 'activate_plugins' ) ) {
-			return;
-		}
-
-		if ( 'yes' === get_option( 'woocommerce_awooc_not_del_settings' ) ) {
-			return;
-		}
-
-		$options = apply_filters(
-			'awooc_uninstall_options',
-			[
-				'woocommerce_awooc_padding',
-				'woocommerce_awooc_margin',
-				'woocommerce_awooc_mode_catalog',
-				'woocommerce_awooc_select_form',
-				'woocommerce_awooc_title_button',
-				'woocommerce_awooc_select_item',
-				'woocommerce_awooc_created_order',
-				'woocommerce_awooc_title_custom',
-				'woocommerce_awooc_no_price',
-				'woocommerce_awooc_text_rated',
-				'woocommerce_awooc_сhange_subject',
-				'woocommerce_awooc_not_del_settings',
-				'woocommerce_awooc_text_rated',
-			]
-		);
-
-		foreach ( $options as $option ) {
-			delete_option( $option );
-		}
-
-	}
-
-
-	/**
 	 * Settings.
 	 * Include the WooCommerce settings class.
 	 *
@@ -266,7 +230,7 @@ class AWOOC {
 	 */
 	public function add_awooc_admin_settings( $settings ) {
 
-		$settings[] = include __DIR__ . '/admin/class-awooc-admin-settings.php';
+		$settings[] = include __DIR__ . '/class-settings.php';
 
 		return $settings;
 	}
@@ -330,15 +294,11 @@ class AWOOC {
 	 */
 	private function admin_notice( $message, $class ) {
 
-		?>
-		<div class="<?php echo esc_attr( $class ); ?>">
-			<p>
-				<span>
-				<?php echo wp_kses_post( $message ); ?>
-				</span>
-			</p>
-		</div>
-		<?php
+		printf(
+			'<div class="%1$s"><p><span>%2$s</span></p></div>',
+			esc_attr( $class ),
+			wp_kses_post( $message )
+		);
 
 	}
 
@@ -383,7 +343,9 @@ class AWOOC {
 	private function requirements() {
 
 		$all_active = true;
+
 		include_once ABSPATH . 'wp-admin/includes/plugin.php';
+
 		foreach ( $this->required_plugins as $key => $required_plugin ) {
 			if ( is_plugin_active( $required_plugin['plugin'] ) ) {
 				$this->required_plugins[ $key ]['active'] = true;

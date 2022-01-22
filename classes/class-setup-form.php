@@ -6,7 +6,7 @@
  * @package art-woocommerce-order-one-click/includes/admin
  * @version 2.3.1
  */
-
+namespace Art\AWOOC;
 /**
  * Class AWOOC_Install_Form
  *
@@ -14,7 +14,7 @@
  * @since  2.3.1
  *
  */
-class AWOOC_Install_Form {
+class Setup_Form {
 
 	/**
 	 * Создание формы при первой активации
@@ -136,4 +136,4 @@ class AWOOC_Install_Form {
 	}
 }
 
-AWOOC_Install_Form::install_form();
+Setup_Form::install_form();

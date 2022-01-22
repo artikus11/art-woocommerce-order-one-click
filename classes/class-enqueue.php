@@ -7,13 +7,14 @@
  * @version 2.3.6
  */
 
+namespace Art\AWOOC;
 /**
  * Class AWOOC_Enqueue
  *
  * @author Artem Abramovich
  * @since  2.3.6
  */
-class AWOOC_Enqueue {
+class Enqueue {
 
 	public function __construct() {
 

@@ -6,6 +6,9 @@
  * @package art-woocommerce-order-one-click/includes/admin
  * @version 1.8.0
  */
+namespace Art\AWOOC;
+use WC_Admin_Settings;
+use WC_Settings_Page;
 
 /**
  * Class AWOOC_Admin_Settings
@@ -17,7 +20,7 @@
  * @todo   Сделать настройку изменения статуса заказа
  * @todo   Сделать проверку на наличие выбранных элементов
  */
-class AWOOC_Admin_Settings extends WC_Settings_Page {
+class Settings extends WC_Settings_Page {
 
 	/**
 	 * Constructor.
@@ -542,7 +545,7 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 						'If you enable this setting, then the order number will be added to the subject of the letter in the format of the "Letter Subject No. 112233"',
 						'art-woocommerce-order-one-click'
 					),
-					'id'      => 'woocommerce_awooc_сhange_subject',
+					'id'      => 'woocommerce_awooc_change_subject',
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
@@ -875,7 +878,9 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 		global $current_section;
 
 		$settings = $this->get_settings( $current_section );
+
 		WC_Admin_Settings::save_fields( $settings );
+
 		if ( $current_section ) {
 			do_action( 'woocommerce_update_options_' . $this->id . '_' . $current_section );
 		}
@@ -883,4 +888,4 @@ class AWOOC_Admin_Settings extends WC_Settings_Page {
 
 }
 
-new AWOOC_Admin_Settings();
+new Settings();

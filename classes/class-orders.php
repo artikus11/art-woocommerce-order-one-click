@@ -6,14 +6,14 @@
  * @package art-woocommerce-order-one-click/includes
  * @version 1.8.2
  */
-
+namespace Art\AWOOC;
 /**
  * Class AWOOC_Orders
  *
  * @author Artem Abramovich
  * @since  1.8.2
  */
-class AWOOC_Orders {
+class Orders {
 
 	/**
 	 * Выбранная форма из настроек
@@ -132,7 +132,7 @@ class AWOOC_Orders {
 	 */
 	public function change_subject( $contact_form, $order ) {
 
-		if ( 'yes' !== get_option( 'woocommerce_awooc_сhange_subject' ) ) {
+		if ( 'yes' !== get_option( 'woocommerce_awooc_change_subject' ) ) {
 			return;
 		}
 

@@ -6,14 +6,14 @@
  * @package art-woocommerce-order-one-click/includes/admin
  * @version 2.3.0
  */
-
+namespace Art\AWOOC;
 /**
  * Class AWOOC_Admin_Meta_Box
  *
  * @author Artem Abramovich
  * @since  2.3.0
  */
-class AWOOC_Admin_Meta_Box {
+class Product_Meta {
 
 	/**
 	 * Инициализация класса
@@ -88,4 +88,4 @@ class AWOOC_Admin_Meta_Box {
 
 }
 
-AWOOC_Admin_Meta_Box::init();
+Product_Meta::init();

@@ -53,9 +53,12 @@ define( 'AWOOC_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 define( 'AWOOC_PLUGIN_VER', $plugin_data['ver'] );
 define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 
-require __DIR__ . '/includes/class-awooc.php';
+require __DIR__ . '/classes/class-main.php';
+require __DIR__ . '/classes/class-uninstall.php';
 
-register_uninstall_hook( __FILE__, array( 'AWOOC', 'uninstall' ) );
+//register_uninstall_hook( __FILE__, array( Art\AWOOC\Uninstall::class, 'uninstall' ) );
+//@todo - поменять хук на проде
+register_deactivation_hook( __FILE__, array( Art\AWOOC\Uninstall::class, 'uninstall' ) );
 
 if ( ! function_exists( 'awooc' ) ) {
 	/**
@@ -70,7 +73,7 @@ if ( ! function_exists( 'awooc' ) ) {
 	 */
 	function awooc() {
 
-		return AWOOC::instance();
+		return \Art\AWOOC\Main::instance();
 	}
 }
 
