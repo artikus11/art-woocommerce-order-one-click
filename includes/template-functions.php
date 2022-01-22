@@ -43,12 +43,13 @@ if ( ! function_exists( 'awooc_mode_classes' ) ) {
 	 * @return string[]
 	 * @since 2.1.4
 	 */
-	function awooc_mode_classes( $product ) {
+	function awooc_mode_classes( WC_Product $product ): array {
 
 		$mode_classes = [
 			'awooc-custom-order',
 			'button',
 			'alt',
+			'awooc-button-js',
 			'awooc-custom-order-button',
 		];
 
@@ -83,13 +84,13 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 	/**
 	 * Displaying the button add to card in product page
 	 *
-	 * @param  array $args    массив параметров.
-	 * @param  null  $product объект продукта.
+	 * @param  array           $args    массив параметров.
+	 * @param  WC_Product|null $product объект продукта.
 	 *
 	 * @since 1.5.0
-	 * @since 2.1.4
+	 * @since 3.0.0
 	 */
-	function awooc_html_custom_add_to_cart( $args = array(), $product = null ) {
+	function awooc_html_custom_add_to_cart( array $args = [], WC_Product $product = null ) {
 
 		wp_enqueue_script( 'awooc-scripts' );
 		wp_enqueue_style( 'awooc-styles' );
@@ -98,35 +99,30 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 			$product = $GLOBALS['product'];
 		}
 
-		$defaults = array(
+		$defaults = [
 			'product_id' => $product->get_id(),
 			'class'      => apply_filters( 'awooc_classes_button', implode( ' ', awooc_mode_classes( $product ) ) ),
 			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button-' . $product->get_id() ),
 			'label'      => apply_filters( 'awooc_button_label', get_option( 'woocommerce_awooc_title_button' ) ),
+			'loop'       => false,
+		];
+
+		$args = apply_filters(
+			'awooc_button_args',
+			wp_parse_args( $args, $defaults ),
+			$product
 		);
 
-		$args = apply_filters( 'awooc_button_args', wp_parse_args( $args, $defaults ), $product );
-
-		ob_start();
-
-		do_action( 'awooc_before_button' );
-
-		?>
-		<button
-			type="button"
-			data-value-product-id="<?php echo esc_attr( $args['product_id'] ); ?>"
-			class="<?php echo esc_attr( $args['class'] ); ?>"
-			id="<?php echo esc_attr( $args['id'] ); ?>"
-			<?php do_action( 'awooc_attributes_button' ); ?>>
-			<?php echo esc_html( trim( $args['label'] ) ); ?>
-		</button>
-
-		<?php
-
-		do_action( 'awooc_after_button' );
-
-		echo ob_get_clean();//phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-
+		load_template(
+			awooc()->templater->get_template( 'button.php' ),
+			$args['loop'],
+			[
+				'product_id' => $args['product_id'],
+				'class'      => $args['class'],
+				'id'         => $args['id'],
+				'label'      => $args['label'],
+			]
+		);
 	}
 }
 
