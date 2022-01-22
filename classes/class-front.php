@@ -120,7 +120,10 @@ class Front {
 			return;
 		}
 
-		include AWOOC_PLUGIN_DIR . '/templates/popup.php';
+		load_template(
+			awooc()->templater->get_template( 'popup.php' ),
+			true,
+		);
 	}
 
 

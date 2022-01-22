@@ -22,36 +22,36 @@ class Main {
 	private static $instance;
 
 	/**
-	 * Added AWOOC_Front_End.
-	 *
 	 * @since 2.0.0
-	 * @var object AWOOC_Front_End $front_end
+	 * @var object Front $front_end
 	 */
-	public $front_end;
+	public $front;
 
 	/**
-	 * Added AWOOC_Enqueue.
-	 *
 	 * @since 2.3.6
-	 * @var object AWOOC_Enqueue $enqueue
+	 * @var object Enqueue $enqueue
 	 */
 	public $enqueue;
 
 	/**
-	 * Added AWOOC_Ajax.
-	 *
 	 * @since 2.0.0
-	 * @var object AWOOC_Ajax $ajax
+	 * @var object Ajax $ajax
 	 */
 	public $ajax;
 
 	/**
-	 * Added AWOOC_Orders.
+	 * Added Orders.
 	 *
 	 * @since 2.0.0
-	 * @var object AWOOC_Orders $front_end
+	 * @var object Orders $orders
 	 */
 	public $orders;
+
+	/**
+	 * @since 3.0.0
+	 * @var object Templater $templater
+	 */
+	public $templater;
 
 	/**
 	 * Required plugins
@@ -94,6 +94,7 @@ class Main {
 		$this->init();
 
 		$this->load_textdomain();
+
 	}
 
 
@@ -136,10 +137,16 @@ class Main {
 		$this->enqueue = new Enqueue();
 
 		/**
+		 * Enqueue
+		 */
+		require AWOOC_PLUGIN_DIR . '/classes/class-templater.php';
+		$this->templater = new Templater();
+
+		/**
 		 * Front end
 		 */
 		require AWOOC_PLUGIN_DIR . '/classes/class-front.php';
-		$this->front_end = new Front();
+		$this->front = new Front();
 
 		/**
 		 * Ajax

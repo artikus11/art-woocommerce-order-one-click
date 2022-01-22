@@ -7,6 +7,8 @@
  * @version 1.8.0
  */
 namespace Art\AWOOC;
+use WC_Product;
+
 /**
  * Class AWOOC_Ajax
  *
