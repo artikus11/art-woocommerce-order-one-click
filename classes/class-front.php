@@ -115,11 +115,12 @@ class Front {
 	public function popup_window_html() {
 
 		$elements = get_option( 'woocommerce_awooc_select_item' );
+
 		if ( ! is_array( $elements ) ) {
 			return;
 		}
 
-		include AWOOC_PLUGIN_DIR . '/includes/view/html-popup-window.php';
+		include AWOOC_PLUGIN_DIR . '/templates/popup.php';
 	}
 
 

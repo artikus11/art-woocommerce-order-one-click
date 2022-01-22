@@ -9,7 +9,7 @@ class Uninstall {
 	 *
 	 * @since 2.0.0
 	 */
-	public static function uninstall() {
+	public static function uninstall(): void {
 
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			return;

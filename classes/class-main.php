@@ -112,12 +112,12 @@ class Main {
 		/**
 		 * Hiding field to CF7
 		 */
-		require AWOOC_PLUGIN_DIR . '/includes/admin/added-cf7-field.php';
+		require AWOOC_PLUGIN_DIR . '/includes/create-cf7-field.php';
 
 		/**
 		 * Template functions
 		 */
-		require AWOOC_PLUGIN_DIR . '/includes/awooc-template-functions.php';
+		require AWOOC_PLUGIN_DIR . '/includes/template-functions.php';
 
 		/**
 		 * Created form for firs install
