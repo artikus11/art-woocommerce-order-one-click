@@ -3,9 +3,10 @@
  * Файл получения днныех о товаре в окне
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
- * @package art-woocommerce-order-one-click/includes
+ * @package art-woocommerce-order-one-click/classes
  * @version 1.8.0
  */
+
 namespace Art\AWOOC;
 use WC_Product;
 

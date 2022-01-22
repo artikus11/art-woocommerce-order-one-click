@@ -3,10 +3,12 @@
  * Создание формы при первой установке
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
- * @package art-woocommerce-order-one-click/includes/admin
+ * @package art-woocommerce-order-one-click/classes
  * @version 2.3.1
  */
+
 namespace Art\AWOOC;
+
 /**
  * Class AWOOC_Install_Form
  *

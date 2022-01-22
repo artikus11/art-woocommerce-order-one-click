@@ -3,7 +3,8 @@
  * Файл обработки скриптов и стилей
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
- * @package art-woocommerce-order-one-click/includes
+ * @package art-woocommerce-order-one-click/classes
+ *
  * @version 2.3.6
  */
 

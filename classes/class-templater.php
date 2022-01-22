@@ -1,4 +1,11 @@
 <?php
+/**
+ * Подключение файлов
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/classes
+ * @version 3.0.0
+ */
 
 namespace Art\AWOOC;
 

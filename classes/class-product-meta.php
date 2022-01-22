@@ -3,12 +3,13 @@
  * Метабокс в товарах
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
- * @package art-woocommerce-order-one-click/includes/admin
+ * @package art-woocommerce-order-one-click/classes
  * @version 2.3.0
  */
+
 namespace Art\AWOOC;
 /**
- * Class AWOOC_Admin_Meta_Box
+ * Class Product_Meta
  *
  * @author Artem Abramovich
  * @since  2.3.0

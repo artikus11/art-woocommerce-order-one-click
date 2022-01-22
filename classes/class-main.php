@@ -105,58 +105,29 @@ class Main {
 	 */
 	private function includes() {
 
-		/**
-		 * Helpers
-		 */
+
 		require AWOOC_PLUGIN_DIR . '/includes/helpers.php';
 
-		/**
-		 * Hiding field to CF7
-		 */
 		require AWOOC_PLUGIN_DIR . '/includes/create-cf7-field.php';
 
-		/**
-		 * Template functions
-		 */
 		require AWOOC_PLUGIN_DIR . '/includes/template-functions.php';
 
-		/**
-		 * Created form for firs install
-		 */
 		require AWOOC_PLUGIN_DIR . '/classes/class-setup-form.php';
 
-		/**
-		 * Hiding field to CF7
-		 */
 		require AWOOC_PLUGIN_DIR . '/classes/class-product-meta.php';
 
-		/**
-		 * Enqueue
-		 */
 		require AWOOC_PLUGIN_DIR . '/classes/class-enqueue.php';
 		$this->enqueue = new Enqueue();
 
-		/**
-		 * Enqueue
-		 */
 		require AWOOC_PLUGIN_DIR . '/classes/class-templater.php';
 		$this->templater = new Templater();
 
-		/**
-		 * Front end
-		 */
 		require AWOOC_PLUGIN_DIR . '/classes/class-front.php';
 		$this->front = new Front();
 
-		/**
-		 * Ajax
-		 */
 		require AWOOC_PLUGIN_DIR . '/classes/class-ajax.php';
 		$this->ajax = new Ajax();
 
-		/**
-		 * Создание заказов
-		 */
 		require AWOOC_PLUGIN_DIR . '/classes/class-orders.php';
 		$this->orders = new Orders();
 

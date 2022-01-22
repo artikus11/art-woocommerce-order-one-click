@@ -3,10 +3,15 @@
  * Файл обработки заказов
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
- * @package art-woocommerce-order-one-click/includes
+ * @package art-woocommerce-order-one-click/classes
  * @version 1.8.2
  */
+
 namespace Art\AWOOC;
+use WC_Data_Exception;
+use WC_Order;
+use WPCF7_ContactForm;
+
 /**
  * Class AWOOC_Orders
  *

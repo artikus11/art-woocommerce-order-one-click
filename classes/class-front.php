@@ -3,12 +3,14 @@
  * Файл обработки данных на фронте
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
- * @package art-woocommerce-order-one-click/includes
+ * @package art-woocommerce-order-one-click/classes
  * @version 1.8.0
  */
+
 namespace Art\AWOOC;
+
 /**
- * Class AWOOC_Front_End
+ * Class Front
  *
  * @author Artem Abramovich
  * @since  1.8.0
