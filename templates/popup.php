@@ -17,7 +17,7 @@ $elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocomm
 
 ?>
 
-<div id="awooc-form-custom-order" class="awooc-form-custom-order awooc-popup-wrapper" style="display: none">
+<div id="awooc-form-custom-order" class="awooc-form-custom-order awooc-popup-wrapper">
 	<div class="awooc-close">&#215;</div>
 	<div class="awooc-custom-order-wrap awooc-popup-inner">
 		<?php

@@ -34,6 +34,8 @@ add_action( 'awooc_popup_column_left', 'awooc_popup_window_price', 40, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_qty', 50, 2 );
 add_action( 'awooc_popup_column_left', 'awooc_popup_window_sum', 60, 2 );
 
+add_action( 'awooc_popup_column_right', 'awooc_popup_window_form', 10 );
+
 if ( ! function_exists( 'awooc_mode_classes' ) ) {
 	/**
 	 * Вспомогательная функция вывода класса в зависимости от режима работы
@@ -144,7 +146,7 @@ if ( ! function_exists( 'awooc_popup_window_title' ) ) {
 					'awooc_popup_title_html',
 					sprintf(
 						'<h2 class="%s"></h2>',
-						esc_attr( 'awooc-form-custom-order-title awooc-popup-title' )
+						esc_attr( 'awooc-form-custom-order-title awooc-popup-item awooc-popup-title skeleton-loader' )
 					),
 					$product
 				)
@@ -166,7 +168,7 @@ if ( ! function_exists( 'awooc_popup_window_image' ) ) {
 
 		if ( in_array( 'image', $elements, true ) ) {
 
-			echo '<div class="awooc-form-custom-order-img awooc-popup-image"></div>';
+			echo '<div class="awooc-form-custom-order-img awooc-popup-item awooc-popup-image skeleton-loader"></div>';
 
 		}
 	}
@@ -189,7 +191,7 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 			echo wp_kses_post(
 				apply_filters(
 					'awooc_popup_price_html',
-					'<div class="awooc-form-custom-order-price awooc-popup-price"></div>',
+					'<div class="awooc-form-custom-order-price awooc-popup-item awooc-popup-price skeleton-loader"></div>',
 					$product
 				)
 			);
@@ -216,7 +218,7 @@ if ( ! function_exists( 'awooc_popup_window_sum' ) ) {
 			echo wp_kses_post(
 				apply_filters(
 					'awooc_popup_price_html',
-					'<div class="awooc-form-custom-order-sum awooc-popup-sum"></div>',
+					'<div class="awooc-form-custom-order-sum awooc-popup-item awooc-popup-sum skeleton-loader"></div>',
 					$product
 				)
 			);
@@ -239,7 +241,7 @@ if ( ! function_exists( 'awooc_popup_window_sku' ) ) {
 
 		if ( in_array( 'sku', $elements, true ) ) {
 
-			echo '<div class="awooc-form-custom-order-sku awooc-popup-sku"></div>';
+			echo '<div class="awooc-form-custom-order-sku awooc-popup-item awooc-popup-sku skeleton-loader"></div>';
 
 		}
 
@@ -258,7 +260,7 @@ if ( ! function_exists( 'awooc_popup_window_qty' ) ) {
 
 		if ( in_array( 'qty', $elements, true ) ) {
 
-			echo '<div class="awooc-form-custom-order-qty awooc-popup-qty"></div>';
+			echo '<div class="awooc-form-custom-order-qty awooc-popup-item awooc-popup-qty skeleton-loader"></div>';
 
 		}
 
@@ -277,9 +279,22 @@ if ( ! function_exists( 'awooc_popup_window_attr' ) ) {
 	function awooc_popup_window_attr( $elements ) {
 
 		if ( in_array( 'attr', $elements, true ) ) {
-			echo '<div class="awooc-form-custom-order-attr awooc-popup-attr"></div>';
+			echo '<div class="awooc-form-custom-order-attr awooc-popup-item awooc-popup-attr skeleton-loader"></div>';
 		}
 
+	}
+}
+
+if ( ! function_exists( 'awooc_popup_window_form' ) ) {
+	/**
+	 * Output of a product attributes in a popup window
+	 *
+	 * @since 1.5.0
+	 * @since 1.8.9
+	 */
+	function awooc_popup_window_form( ){
+
+		echo '<div class="awooc-form-custom-order-form awooc-popup-item awooc-popup-form skeleton-loader"></div>';
 	}
 }
 
@@ -293,6 +308,7 @@ if ( ! function_exists( 'awooc_popup_window_select_form' ) ) {
 	function awooc_popup_window_select_form() {
 
 		$select_form = get_option( 'woocommerce_awooc_select_form' );
+
 		if ( $select_form ) {
 			do_action( 'awooc_popup_before_form' );
 

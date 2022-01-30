@@ -47,7 +47,7 @@ class Front {
 		/**
 		 * Base setup_hooks
 		 */
-		add_action( 'wp_footer', array( $this, 'popup_window_html' ), 30 );
+		//add_action( 'wp_footer', array( $this, 'popup_window_html' ), 30 );
 
 		/**
 		 * WooCommerce setup_hooks
@@ -126,6 +126,29 @@ class Front {
 			awooc()->templater->get_template( 'popup.php' ),
 			true,
 		);
+	}
+
+	/**
+	 * Вывод всплывающего окна
+	 *
+	 * @since 3.0.0
+	 */
+	public function popup() {
+
+		$elements = get_option( 'woocommerce_awooc_select_item' );
+
+		if ( ! is_array( $elements ) ) {
+			return null;
+		}
+
+		ob_start();
+
+		load_template(
+			awooc()->templater->get_template( 'popup.php' ),
+			true,
+		);
+
+		return ob_get_clean();
 	}
 
 

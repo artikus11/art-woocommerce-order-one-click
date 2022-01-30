@@ -61,6 +61,9 @@ class Main {
 	 */
 	protected $required_plugins = [];
 
+	/** @var Conditional */
+	public $conditional;
+
 
 	/**
 	 * Construct.
@@ -103,7 +106,7 @@ class Main {
 	 *
 	 * @since 2.0.0
 	 */
-	private function includes() {
+	private function includes(): void {
 
 
 		require AWOOC_PLUGIN_DIR . '/includes/helpers.php';
@@ -128,6 +131,14 @@ class Main {
 		require AWOOC_PLUGIN_DIR . '/classes/class-ajax.php';
 		$this->ajax = new Ajax();
 
+		require AWOOC_PLUGIN_DIR . '/classes/class-response.php';
+		require AWOOC_PLUGIN_DIR . '/classes/class-response-popup.php';
+		require AWOOC_PLUGIN_DIR . '/classes/class-response-mail.php';
+		require AWOOC_PLUGIN_DIR . '/classes/class-response-analytics.php';
+
+		require AWOOC_PLUGIN_DIR . '/classes/class-conditional.php';
+		$this->conditional = new Conditional();
+
 		require AWOOC_PLUGIN_DIR . '/classes/class-orders.php';
 		$this->orders = new Orders();
 
@@ -140,7 +151,7 @@ class Main {
 	 *
 	 * @since 1.8.0
 	 */
-	public function init() {
+	public function init(): void {
 
 		add_action( 'admin_init', [ $this, 'check_requirements' ] );
 		add_action( 'admin_init', [ $this, 'check_php_version' ] );
@@ -166,7 +177,7 @@ class Main {
 	 *
 	 * @since 2.0.0
 	 */
-	public function load_textdomain() {
+	public function load_textdomain(): void {
 
 		load_plugin_textdomain(
 			'art-woocommerce-order-one-click',
@@ -206,7 +217,7 @@ class Main {
 	 * @since 1.8.0
 	 * @since 1.8.5
 	 */
-	public function add_awooc_admin_settings( $settings ) {
+	public function add_awooc_admin_settings( array $settings ): array {
 
 		$settings[] = include __DIR__ . '/class-settings.php';
 
@@ -224,7 +235,7 @@ class Main {
 	 * @return array List of modified links.
 	 * @since 1.8.0
 	 */
-	public function add_plugin_action_links( $links ) {
+	public function add_plugin_action_links( array $links ): array {
 
 		$plugin_links = [
 			'settings' => sprintf(

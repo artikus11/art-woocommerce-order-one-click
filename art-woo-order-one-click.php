@@ -71,7 +71,7 @@ if ( ! function_exists( 'awooc' ) ) {
 	 * @return object AWOOC class object.
 	 * @since 1.0.0
 	 */
-	function awooc() {
+	function awooc(): object {
 
 		return \Art\AWOOC\Main::instance();
 	}
