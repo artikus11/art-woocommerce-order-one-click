@@ -9,22 +9,22 @@ jQuery( function ( $ ) {
 	'use strict';
 
 	if ( typeof awooc_scripts_ajax === 'undefined' ) {
-		console.log( 'awooc_scripts_ajax not found' );
+		console.warn( 'awooc_scripts_ajax not found' );
 		return false;
 	}
 
 	if ( typeof awooc_scripts_translate === 'undefined' ) {
-		console.log( 'awooc_scripts_translate not found' );
+		console.warn( 'awooc_scripts_translate not found' );
 		return false;
 	}
 
 	if ( typeof awooc_scripts_settings === 'undefined' ) {
-		console.log( 'awooc_scripts_settings not found' );
+		console.warn( 'awooc_scripts_settings not found' );
 		return false;
 	}
 
 	if ( typeof wpcf7 === 'undefined' || wpcf7 === null ) {
-		console.log( 'На странице не существует объекта wpcf7. Что-то не так с темой...' );
+		console.warn( 'На странице не существует объекта wpcf7. Что-то не так с темой...' );
 		return false;
 	}
 
@@ -59,13 +59,11 @@ jQuery( function ( $ ) {
 			let selectedProductId;
 
 			const productVariantId = $( '.variations_form' ).find( 'input[name="variation_id"]' ).val()
-			const productId        = $( e.target ).attr( 'data-value-product-id' )
+			selectedProductId      = $( e.target ).attr( 'data-value-product-id' );
 
 			// Проверяем ID товара, для вариаций свой, для простых свой.
 			if ( 0 !== productVariantId && typeof productVariantId !== 'undefined' ) {
 				selectedProductId = productVariantId;
-			} else {
-				selectedProductId = productId;
 			}
 
 			return selectedProductId
@@ -76,12 +74,22 @@ jQuery( function ( $ ) {
 
 		},
 
-		dataToMail: function ( response ) {
+		removeSkeleton: function () {
+			$( '.awooc-popup-inner' )
+				.find( '.awooc-popup-item' )
+				.each( function ( index, item ) {
+					$( item ).removeClass( 'skeleton-loader' )
+				} )
 
-			const toMail   = response.data.toMail
+		},
+
+
+		addedToMailData: function ( response ) {
+
+			const toMail = response.data.toMail
+			const keys   = Object.keys( toMail );
+
 			let dataToMail = '\n' + awooc_scripts_translate.product_data_title + '\n———\n'
-
-			const keys = Object.keys( toMail );
 
 			keys.forEach( key => {
 				dataToMail += toMail[ key ] + '\n'
@@ -90,14 +98,13 @@ jQuery( function ( $ ) {
 			return dataToMail
 		},
 
-		removeSkeleton: function () {
-			$( '.awooc-popup-inner' )
-				.find( '.awooc-popup-item' )
-				.each( function ( index, item ) {
-					console.log( $( item ) );
-					$( item ).removeClass( 'skeleton-loader' )
-				} )
+		addedToPopupData: function ( response ) {
+			const toPopup = response.data.toPopup
+			const keys    = Object.keys( toPopup );
 
+			keys.forEach( key => {
+				$( '.awooc-popup-' + key ).html( toPopup[ key ] )
+			} );
 		},
 
 		popup: function ( e ) {
@@ -117,9 +124,7 @@ jQuery( function ( $ ) {
 					blockMsgClass:    'blockMsg blockMsgAwooc',
 					onBlock:          function () {
 						$( document.body ).trigger( 'awooc_popup_open_trigger' );
-						console.log( $( '#awooc-form-custom-order' ) );
-						//popUp.show();
-						// Собираем данные для отправки.
+
 						let data = {
 							id:     AWOOC.getProductID( e ),
 							qty:    AWOOC.getQty( e ),
@@ -128,34 +133,26 @@ jQuery( function ( $ ) {
 						};
 
 						AWOOC.xhr = $.ajax( {
-							url:        awooc_scripts_ajax.url,
-							data:       data,
-							type:       'POST',
-							dataType:   'json',
-							beforeSend: function ( xhr, data ) {
-								// Вызываем прелоадер.
-								/*$( event.currentTarget )
-								 .fadeIn( 200 )
-								 .prepend( preload );*/
-							},
-							success:    function ( response ) {
-								console.log( response );
-								const hiddenData = AWOOC.dataToMail( response )
+							url:      awooc_scripts_ajax.url,
+							data:     data,
+							type:     'POST',
+							dataType: 'json',
 
+							success: function ( response ) {
 
-								//AWOOC.removeSkeleton()
+								AWOOC.addedToPopupData( response );
 
-								$( '.awooc-popup-title' ).html( response.data.toPopup.title )
-								$( '.awooc-popup-form' ).html( response.data.toPopup.form );
 
 								awoocInitContactForm()
+
+								const hiddenData = AWOOC.addedToMailData( response )
 								$( 'textarea.awooc-hidden-data' ).val( hiddenData );
+
 								$( document.body ).trigger( 'awooc_popup_ajax_trigger', response );
 							},
-							error:      function ( response ) {
-								console.error( response.responseJSON.data );
-								alert( response.responseJSON.data );
 
+							error: function ( response ) {
+								console.error( response.responseJSON.data );
 							}
 						} )
 					},
@@ -521,7 +518,7 @@ jQuery( function ( $ ) {
 
 					} catch ( e ) {
 
-						console.log( 'Error ' + e.name + ':' + e.message + '\n' + e.stack );
+						console.error( 'Error ' + e.name + ':' + e.message + '\n' + e.stack );
 
 					}
 
