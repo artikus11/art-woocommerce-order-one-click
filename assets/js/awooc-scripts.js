@@ -43,23 +43,22 @@ jQuery( function ( $ ) {
 	let selectedProduct;
 
 	const AWOOC = {
-		$button:     $( '.awooc-button-js' ),
-		$popupInner: $( '.awooc-popup-inner' ),
-
+		$button:      $( '.awooc-button-js' ),
 		xhr: false,
 
 		init: function () {
-
-
 			this.$button.on( 'click', this.popup );
-			$( document.body ).on( 'awooc_popup_ajax_trigger', this.removeSkeleton );
+
+			$( document.body )
+				.on( 'awooc_popup_ajax_trigger', this.removeSkeleton )
+				.on( 'click', '.awooc-close, .blockOverlay', this.unBlock )
+
 		},
 
 		getProductID: function ( e ) {
-			let selectedProductId;
 
 			const productVariantId = $( '.variations_form' ).find( 'input[name="variation_id"]' ).val()
-			selectedProductId      = $( e.target ).attr( 'data-value-product-id' );
+			let selectedProductId  = $( e.target ).attr( 'data-value-product-id' );
 
 			// Проверяем ID товара, для вариаций свой, для простых свой.
 			if ( 0 !== productVariantId && typeof productVariantId !== 'undefined' ) {
@@ -71,7 +70,10 @@ jQuery( function ( $ ) {
 
 		getQty: function ( e ) {
 			return $( '.quantity' ).find( 'input[name="quantity"]' ).val() || 1
+		},
 
+		unBlock: function () {
+			$.unblockUI()
 		},
 
 		removeSkeleton: function () {
@@ -80,9 +82,7 @@ jQuery( function ( $ ) {
 				.each( function ( index, item ) {
 					$( item ).removeClass( 'skeleton-loader' )
 				} )
-
 		},
-
 
 		addedToMailData: function ( response ) {
 
@@ -122,7 +122,8 @@ jQuery( function ( $ ) {
 					centerX:          true,
 					centerY:          true,
 					blockMsgClass:    'blockMsg blockMsgAwooc',
-					onBlock:          function () {
+
+					onBlock: function () {
 						$( document.body ).trigger( 'awooc_popup_open_trigger' );
 
 						let data = {
@@ -156,29 +157,14 @@ jQuery( function ( $ ) {
 							}
 						} )
 					},
-					onUnblock:        function () {
-						// При закрытии окна добавлем нужный класс.
-						//popUp.hide();
 
-						// При закрытии окна очищаем данные.
-						//awoocFormDataEmpty();
-
-						// Событие закрытия окна.
+					onUnblock: function ( ) {						// Событие закрытия окна.
 						$( document.body ).trigger( 'awooc_popup_close_trigger' );
-
 					},
-					onOverlayClick:   function () {
 
-						// При закрытии окна добавлем нужный класс.
-						//popUp.hide();
+					onOverlayClick: function () {
 						$( 'html' )
 							.css( { 'overflow': 'initial' } );
-
-						$.unblockUI();
-
-						// При закрытии окна очищаем данные.
-						//awoocFormDataEmpty();
-
 					}
 				}
 			);
