@@ -9,9 +9,9 @@
  * @global $args
  */
 
-$post_data    = $args['post_data'];
+$letter_data  = $args['letter_data'];
 $product_data = $args['product_data'];
-$post_meta    = $args['post_meta'];
+$letter_meta    = $args['letter_meta'];
 
 ?>
 <!doctype html>
@@ -407,7 +407,7 @@ $post_meta    = $args['post_meta'];
 										<hr>
 										<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="">
 											<tbody>
-												<?php foreach ( $post_data as $label => $value ): ?>
+												<?php foreach ( $letter_data as $label => $value ): ?>
 
 													<?php
 
@@ -462,7 +462,7 @@ $post_meta    = $args['post_meta'];
 						<?php
 						$footer_meta = [];
 
-						foreach ( $post_meta as $key => $meta ):
+						foreach ( $letter_meta as $key => $meta ):
 							if ( 'time' === $key ):
 								$meta['value'] = wp_date( 'd.m.Y H:i:s', $meta['value'] );
 

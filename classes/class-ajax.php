@@ -120,12 +120,12 @@ class Ajax {
 			awooc()->templater->get_template( 'email.php' ),
 			true,
 			[
-				'post_data'    => [
+				'letter_data'    => [
 					'name'  => $name,
 					'email' => $email,
 					'phone' => $tel,
 				],
-				'post_meta'    => [
+				'letter_meta'    => [
 					'ip' => [
 						'label' => esc_html__( 'IP', 'art-woocommerce-order-one-click' ),
 						'value' => $submission->get_meta( 'remote_ip' )
