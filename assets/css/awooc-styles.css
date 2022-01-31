@@ -168,7 +168,7 @@
 .woocommerce .awooc-custom-order-wrap .wpcf7-form-control.wpcf7-submit:hover {
   background-color: #43454b; }
 
-.awooc-attr-wrapper span {
+.awooc-attr-value span {
   padding-left: 1rem;
   display: block;
   line-height: 1.3; }

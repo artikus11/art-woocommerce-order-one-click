@@ -128,11 +128,13 @@ class Response {
 	 */
 	public function sku() {
 
-		if ( ! wc_product_sku_enabled() && ( ! $this->product->get_sku() || ! $this->product->is_type( 'variable' ) ) ) {
-			return __( 'N/A', 'woocommerce' );
+		$sku = $this->product->get_sku();
+
+		if ( ! $sku ) {
+			$sku = __( 'N/A', 'woocommerce' );
 		}
 
-		return $this->product->get_sku();
+		return $sku;
 	}
 
 
