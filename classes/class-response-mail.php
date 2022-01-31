@@ -29,8 +29,7 @@ class Response_Mail extends Response {
 	protected function caption_title(): string {
 
 		return sprintf(
-			'%s%s',
-			__( 'Title: ', 'art-woocommerce-order-one-click' ),
+			__( 'Title: %s', 'art-woocommerce-order-one-click' ),
 			$this->title()
 		);
 	}
@@ -48,9 +47,8 @@ class Response_Mail extends Response {
 	protected function caption_price(): string {
 
 		return sprintf(
-			'%s%s',
-			__( 'Price: ', 'art-woocommerce-order-one-click' ),
-			$this->price()
+			__( 'Price: %s', 'art-woocommerce-order-one-click' ),
+			wp_filter_nohtml_kses( wc_price( $this->price() ) )
 		);
 	}
 
@@ -58,8 +56,7 @@ class Response_Mail extends Response {
 	protected function caption_sku(): string {
 
 		return sprintf(
-			'%s%s',
-			__( 'SKU: ', 'art-woocommerce-order-one-click' ),
+			__( 'SKU: %s', 'art-woocommerce-order-one-click' ),
 			$this->sku()
 		);
 	}
@@ -68,8 +65,7 @@ class Response_Mail extends Response {
 	protected function caption_attributes(): string {
 
 		return sprintf(
-			'%s%s',
-			__( 'Attributes: ', 'art-woocommerce-order-one-click' ),
+			__( 'Attributes: %s', 'art-woocommerce-order-one-click' ),
 			$this->attributes()
 		);
 	}
@@ -78,8 +74,7 @@ class Response_Mail extends Response {
 	protected function caption_qty(): string {
 
 		return sprintf(
-			'%s%s',
-			__( 'Quantity: ', 'art-woocommerce-order-one-click' ),
+			__( 'Quantity: %s', 'art-woocommerce-order-one-click' ),
 			$this->get_qty()
 		);
 	}
@@ -88,9 +83,8 @@ class Response_Mail extends Response {
 	protected function caption_amount(): string {
 
 		return sprintf(
-			'%s%s',
-			__( 'Amount: ', 'art-woocommerce-order-one-click' ),
-			$this->get_sum()
+			__( 'Amount: %s', 'art-woocommerce-order-one-click' ),
+			wp_filter_nohtml_kses( wc_price( $this->get_sum() ) )
 		);
 	}
 
@@ -105,8 +99,7 @@ class Response_Mail extends Response {
 	protected function caption_link(): string {
 
 		return sprintf(
-			'%s%s',
-			__( 'Link to the product: ', 'art-woocommerce-order-one-click' ),
+			__( 'Link to the product: %s', 'art-woocommerce-order-one-click' ),
 			$this->link()
 		);
 

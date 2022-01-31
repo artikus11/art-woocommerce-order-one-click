@@ -1,7 +1,8 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2019-08-25 14:01+0400\n"
+"POT-Creation-Date: 2022-01-31 23:12+0400\n"
 "PO-Revision-Date: 2019-08-25 14:04+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
@@ -9,7 +10,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
@@ -19,110 +20,198 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../includes/admin/added-cf7-field.php:72
-msgid "AWOOC hide field"
-msgstr "AWOOC скрытое поле"
-
-#: ../includes/admin/added-cf7-field.php:80
-#, php-format
-msgid "Generate a special hidden multi-line field. See %s."
-msgstr "Генерируется специальное многострочное поле. Смотрите %s."
-
-#: ../includes/admin/added-cf7-field.php:83
-msgid "https://wpruse.ru/my-plugins/order-one-click/"
-msgstr "https://wpruse.ru/my-plugins/order-one-click/"
-
-#: ../includes/admin/added-cf7-field.php:84
-msgid "the description for details"
-msgstr "подробное описание"
-
-#: ../includes/admin/added-cf7-field.php:97
-msgid "Name"
-msgstr "Имя"
-
-#: ../includes/admin/added-cf7-field.php:123
-msgid "Insert Tag"
-msgstr "Вставить"
-
-#: ../includes/admin/added-cf7-field.php:135
-#, php-format
+#: ../classes/class-ajax.php:59
+#, fuzzy
 msgid ""
-"To use the value input through this field in a mail field, you need to "
-"insert the corresponding mail-tag (%s) into the field on the Mail tab."
+"Something is wrong with sending data. Unable to get product ID. Disable the "
+"output in the popup window or contact the developers of the plugin"
 msgstr ""
-"Чтобы использовать значение, введенное через это поле в письме, необходимо "
-"вставить соответствующий почтовый тег (% s) в поле на вкладке Почта."
+"Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
+"вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
-#: ../includes/admin/class-awooc-admin-meta-box.php:51
+#: ../classes/class-enqueue.php:97 ../classes/class-response-mail.php:82
+#, fuzzy
+msgid "Quantity: "
+msgstr "Количество: "
+
+#: ../classes/class-enqueue.php:98 ../classes/class-response-mail.php:33
+#, fuzzy
+msgid "Title: "
+msgstr "Нет заголовка"
+
+#: ../classes/class-enqueue.php:99 ../classes/class-response-mail.php:52
+#: ../classes/class-response-popup.php:43
+#, fuzzy
+msgid "Price: "
+msgstr "Цена: "
+
+#: ../classes/class-enqueue.php:100 ../classes/class-response-mail.php:62
+#: ../classes/class-response-popup.php:66
+#, fuzzy
+msgid "SKU: "
+msgstr "Артикул: "
+
+#: ../classes/class-enqueue.php:101 ../classes/class-response-mail.php:92
+#: ../classes/class-response-popup.php:112
+#, fuzzy
+msgid "Amount: "
+msgstr "Итого: "
+
+#: ../classes/class-enqueue.php:102 ../classes/class-response-mail.php:72
+#: ../classes/class-response-popup.php:90
+#, fuzzy
+msgid "Attributes: "
+msgstr "Атрибуты: "
+
+#: ../classes/class-enqueue.php:103 ../templates/email.php:430
+#, fuzzy
+msgid "Information about the selected product"
+msgstr "Информация о выбранном товаре"
+
+#: ../classes/class-enqueue.php:104 ../classes/class-response-mail.php:109
+#, fuzzy
+msgid "Link to the product: "
+msgstr "Ссылка на товар: "
+
+#: ../classes/class-enqueue.php:105
+#, fuzzy
+msgid "Click to close"
+msgstr "Ткнуть для закрытия"
+
+#: ../classes/class-front.php:415
+#, fuzzy
+msgid "Read more"
+msgstr "Читать..."
+
+#: ../classes/class-main.php:244
+#, fuzzy
+msgid "Settings"
+msgstr "Настройки"
+
+#: ../classes/class-main.php:264
+#, fuzzy, php-format
+msgid ""
+"%1$s requires PHP version 7.3 or higher. Your current PHP version is %2$s. "
+"Please upgrade PHP version to run this plugin."
+msgstr ""
+"%1$s требует PHP версии 7.3 или выше. Ваша текущая версия PHP%2$s. "
+"Пожалуйста, обновите версию PHP, чтобы запустить этот плагин."
+
+#: ../classes/class-main.php:378
+#, fuzzy, php-format
+msgid "The %s requires installed and activated plugins: "
+msgstr ""
+"Для работы плагина %s требуются установенные и активированные плагины: "
+
+#: ../classes/class-main.php:394
+#, fuzzy
+msgid " version "
+msgstr " версия "
+
+#: ../classes/class-main.php:396
+#, fuzzy
+msgid " or higher"
+msgstr " или выше"
+
+#: ../classes/class-main.php:406
+msgid " and "
+msgstr ""
+
+#: ../classes/class-main.php:430
+#, fuzzy, php-format
+msgid "%s plugin has been deactivated."
+msgstr "Плагин %s деактивирован."
+
+#: ../classes/class-orders.php:126 ../classes/class-settings.php:34
+#, fuzzy
+msgid "One click order"
+msgstr "Заказ в один клик"
+
+#: ../classes/class-product-meta.php:57
+#, fuzzy
 msgid "Disable Order One Click Button"
 msgstr "Отключить кнопку Заказать"
 
-#: ../includes/admin/class-awooc-admin-meta-box.php:52
+#: ../classes/class-product-meta.php:59
+#, fuzzy
 msgid ""
 "If enabled, then on this product the Order button will not be visible. "
 "Product will return to its original condition."
 msgstr ""
 "Если включить, то на этом товаре кнопка Заказать будет не видна. Товар "
-"вернется к исходному состоянию"
+"вернется к исходному состоянию."
 
-#: ../includes/admin/class-awooc-admin-settings.php:23
-#: ../includes/class-awooc-orders.php:112
-msgid "One click order"
-msgstr "Заказ в один клик"
+#: ../classes/class-response.php:132
+#, fuzzy
+msgid "N/A"
+msgstr "Нет"
 
-#: ../includes/admin/class-awooc-admin-settings.php:71
+#: ../classes/class-settings.php:86
+#, fuzzy
 msgid "Off"
 msgstr "Выключить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:72
+#: ../classes/class-settings.php:87
 msgid "On"
-msgstr "Включить"
+msgstr ""
 
-#: ../includes/admin/class-awooc-admin-settings.php:365
+#: ../classes/class-settings.php:386
+#, fuzzy
 msgid "General"
 msgstr "Основные"
 
-#: ../includes/admin/class-awooc-admin-settings.php:402
+#: ../classes/class-settings.php:430
+#, fuzzy
 msgid "General settings"
-msgstr "Общие настройки"
+msgstr "Основные настройки"
 
-#: ../includes/admin/class-awooc-admin-settings.php:408
+#: ../classes/class-settings.php:436
+#, fuzzy
 msgid "Operating mode"
 msgstr "Режим работы"
 
-#: ../includes/admin/class-awooc-admin-settings.php:409
+#: ../classes/class-settings.php:437
+#, fuzzy
 msgid "Select the mode of operation and display the Buy button"
 msgstr "Выберите режим работы и показа кнопки Купить"
 
-#: ../includes/admin/class-awooc-admin-settings.php:419
+#: ../classes/class-settings.php:447
+#, fuzzy
 msgid "Select form"
 msgstr "Выберите форму"
 
-#: ../includes/admin/class-awooc-admin-settings.php:420
+#: ../classes/class-settings.php:448
+#, fuzzy
 msgid "Choose the desired form"
 msgstr "Выберите нужную форму"
 
-#: ../includes/admin/class-awooc-admin-settings.php:424
+#: ../classes/class-settings.php:452
+#, fuzzy
 msgid "-- Select --"
 msgstr "-- Выбрать --"
 
-#: ../includes/admin/class-awooc-admin-settings.php:431
+#: ../classes/class-settings.php:459
+#, fuzzy
 msgid "Button Label"
 msgstr "Надпись на кнопке"
 
-#: ../includes/admin/class-awooc-admin-settings.php:432
+#: ../classes/class-settings.php:460
+#, fuzzy
 msgid "Specify the desired label on the button"
 msgstr "Укажите нужную надпись на кнопке"
 
-#: ../includes/admin/class-awooc-admin-settings.php:435
+#: ../classes/class-settings.php:463
+#, fuzzy
 msgid "Buy in one click"
 msgstr "Купить в один клик"
 
-#: ../includes/admin/class-awooc-admin-settings.php:441
+#: ../classes/class-settings.php:469
+#, fuzzy
 msgid "Special label"
 msgstr "Специальная надпись"
 
-#: ../includes/admin/class-awooc-admin-settings.php:443
+#: ../classes/class-settings.php:471
+#, fuzzy
 msgid ""
 "Special field for the Order button. Allows you to change the label on the "
 "button when turning on the Price and Stocks mode."
@@ -130,27 +219,51 @@ msgstr ""
 "Специальное поле для кнопки Заказать. Позволяет изменять надпись на кнопке "
 "при включении режима Цены и Запасы."
 
-#: ../includes/admin/class-awooc-admin-settings.php:458
+#: ../classes/class-settings.php:486
+#, fuzzy
 msgid "Popup window"
 msgstr "Всплывающее окно"
 
-#: ../includes/admin/class-awooc-admin-settings.php:465
+#: ../classes/class-settings.php:493
+#, fuzzy
 msgid "Turn off window elements"
 msgstr "Выключить элементы окна"
 
-#: ../includes/admin/class-awooc-admin-settings.php:466
+#: ../classes/class-settings.php:494
+#, fuzzy
 msgid "Remove items that are NOT needed."
-msgstr "Уберите элементы, которые НЕ нужны"
+msgstr "Уберите элементы, которые НЕ нужны."
 
-#: ../includes/admin/class-awooc-admin-settings.php:482
+#: ../classes/class-settings.php:504
+#, fuzzy
+msgid "Styles and scripts globally"
+msgstr "Стили и скрипты глобально"
+
+#: ../classes/class-settings.php:506
+#, fuzzy
+msgid ""
+"If you enable this setting, then the files of forces and scripts will be "
+"connected globally on all pages of the site. This setting will be useful for "
+"displaying the One-click Order button on the list of products and when using "
+"quick view"
+msgstr ""
+"Если включить эту настройку, то файлы стилей и скриптов будут подключаться "
+"глобально на всех страницах сайта. Данная настройка будет полезна  при "
+"выводе кнопки Заказать в один клик на странице со списком продуктов и при "
+"использовании быстрого просмотра"
+
+#: ../classes/class-settings.php:519
+#, fuzzy
 msgid "Orders"
 msgstr "Заказы"
 
-#: ../includes/admin/class-awooc-admin-settings.php:496
+#: ../classes/class-settings.php:533
+#, fuzzy
 msgid "Create orders"
 msgstr "Создание заказов"
 
-#: ../includes/admin/class-awooc-admin-settings.php:498
+#: ../classes/class-settings.php:535
+#, fuzzy
 msgid ""
 "When this setting is enabled, orders will be created in the WooCommerce "
 "panel with the status \"Pending payment\""
@@ -158,11 +271,13 @@ msgstr ""
 "При включении этой настройки будут создаваться заказы в панели WooСommerce "
 "со статусом \"В ожидании оплаты\""
 
-#: ../includes/admin/class-awooc-admin-settings.php:507
+#: ../classes/class-settings.php:544
+#, fuzzy
 msgid "Change subject"
 msgstr "Изменить заголовок"
 
-#: ../includes/admin/class-awooc-admin-settings.php:509
+#: ../classes/class-settings.php:546
+#, fuzzy
 msgid ""
 "If you enable this setting, then the order number will be added to the "
 "subject of the letter in the format of the \"Letter Subject No. 112233\""
@@ -170,68 +285,89 @@ msgstr ""
 "Если включить эту настройку, то к теме письма будет добавляться номер заказа "
 "в формате \"Тема письма №112233\""
 
-#: ../includes/admin/class-awooc-admin-settings.php:522
+#: ../classes/class-settings.php:559
+#, fuzzy
 msgid "Others"
 msgstr "Разное"
 
-#: ../includes/admin/class-awooc-admin-settings.php:529
+#: ../classes/class-settings.php:566
+#, fuzzy
 msgid "Do not delete settings"
-msgstr "Не удалять настройки "
+msgstr "Не удалять настройки"
 
-#: ../includes/admin/class-awooc-admin-settings.php:531
+#: ../classes/class-settings.php:568
+#, fuzzy
 msgid ""
 "If enabled, then the settings when you remove the plugin will NOT be deleted"
-msgstr "Если включено, то настроки при удалении плагина НЕ будут удалены"
+msgstr "Если включено, то настройки при удалении плагина НЕ будут удалены"
 
-#: ../includes/admin/class-awooc-admin-settings.php:567
+#: ../classes/class-settings.php:604
+#, fuzzy
 msgid "Useful links"
 msgstr "Социальные ссылки"
 
-#: ../includes/admin/class-awooc-admin-settings.php:576
+#: ../classes/class-settings.php:613
+#, fuzzy
 msgid "Donate"
 msgstr "Поддержать"
 
-#: ../includes/admin/class-awooc-admin-settings.php:607
+#: ../classes/class-settings.php:646
+#, fuzzy
 msgid "Catalog mode"
 msgstr "Режим каталога"
 
-#: ../includes/admin/class-awooc-admin-settings.php:608
+#: ../classes/class-settings.php:647
+#, fuzzy
 msgid "Normal mode"
 msgstr "Штатный режим"
 
-#: ../includes/admin/class-awooc-admin-settings.php:609
+#: ../classes/class-settings.php:648
+#, fuzzy
 msgid "Pre-order mode"
 msgstr "Режим предзаказа"
 
-#: ../includes/admin/class-awooc-admin-settings.php:610
+#: ../classes/class-settings.php:649
+#, fuzzy
 msgid "Special mode"
 msgstr "Специальный режим"
 
-#: ../includes/admin/class-awooc-admin-settings.php:646
+#: ../classes/class-settings.php:690
+#, fuzzy
 msgid "Title"
 msgstr "Название"
 
-#: ../includes/admin/class-awooc-admin-settings.php:647
+#: ../classes/class-settings.php:691
+#, fuzzy
 msgid "Image"
 msgstr "Изображения"
 
-#: ../includes/admin/class-awooc-admin-settings.php:648
+#: ../classes/class-settings.php:692
+#, fuzzy
 msgid "Price"
 msgstr "Цена"
 
-#: ../includes/admin/class-awooc-admin-settings.php:649
+#: ../classes/class-settings.php:693
+#, fuzzy
 msgid "SKU"
 msgstr "Артикул"
 
-#: ../includes/admin/class-awooc-admin-settings.php:650
+#: ../classes/class-settings.php:694
+#, fuzzy
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: ../includes/admin/class-awooc-admin-settings.php:651
+#: ../classes/class-settings.php:695
+#, fuzzy
 msgid "Quantity"
 msgstr "Количество"
 
-#: ../includes/admin/class-awooc-admin-settings.php:667
+#: ../classes/class-settings.php:696
+#, fuzzy
+msgid "Amount"
+msgstr "Итого"
+
+#: ../classes/class-settings.php:712
+#, fuzzy
 msgid ""
 "<strong>Warning! The functionality is under development. </strong> For the "
 "correct operation of this functionality. Requires proper creation of fields "
@@ -241,20 +377,23 @@ msgstr ""
 "корректной работы требуется правильное создание полей в форме Contact Form 7 "
 "c именами:"
 
-#: ../includes/admin/class-awooc-admin-settings.php:668
+#: ../classes/class-settings.php:713
+#, fuzzy
 msgid "field Name - <code>awooc-text</code>;"
 msgstr "поле Имя  - <code>awooc-text</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:669
+#: ../classes/class-settings.php:714
+#, fuzzy
 msgid "field Email - <code>awooc-email</code>;"
 msgstr "поле Емайл - <code>awooc-email</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:670
+#: ../classes/class-settings.php:715
+#, fuzzy
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
-#: ../includes/admin/class-awooc-admin-settings.php:702
-#, php-format
+#: ../classes/class-settings.php:746
+#, fuzzy, php-format
 msgid ""
 "If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in "
 "advance!"
@@ -262,68 +401,80 @@ msgstr ""
 "Если вам нравится плагин %1$s, пожалуйста, поставьте оценку %2$s. Заранее "
 "большое спасибо!"
 
-#: ../includes/admin/class-awooc-admin-settings.php:703
-#: ../includes/admin/class-awooc-admin-settings.php:757
+#: ../classes/class-settings.php:747 ../classes/class-settings.php:802
+#, fuzzy
 msgid "Art WooCommerce Order One Click"
 msgstr "Art WooCommerce Order One Click"
 
-#: ../includes/admin/class-awooc-admin-settings.php:705
+#: ../classes/class-settings.php:749
+#, fuzzy
 msgid "five star"
 msgstr "пять звезд"
 
-#: ../includes/admin/class-awooc-admin-settings.php:705
+#: ../classes/class-settings.php:749
+#, fuzzy
 msgid "Thanks :)"
-msgstr "Спасибо!"
+msgstr "Пожалуйста, не загружайте эту страницу напрямую. Спасибо!"
 
-#: ../includes/admin/class-awooc-admin-settings.php:715
+#: ../classes/class-settings.php:759
+#, fuzzy
 msgid "Thank you for using the plugin!"
 msgstr "Спасибо, что используете плагин!"
 
-#: ../includes/admin/class-awooc-admin-settings.php:739
+#: ../classes/class-settings.php:783
+#, fuzzy
 msgid "PayPal"
 msgstr "PayPal"
 
-#: ../includes/admin/class-awooc-admin-settings.php:740
+#: ../classes/class-settings.php:784
+#, fuzzy
 msgid "Make a donation through PayPal"
 msgstr "Поддержать через PayPal"
 
-#: ../includes/admin/class-awooc-admin-settings.php:744
+#: ../classes/class-settings.php:788
+#, fuzzy
 msgid "Yandex Money"
 msgstr "Яндекс Деньги"
 
-#: ../includes/admin/class-awooc-admin-settings.php:745
+#: ../classes/class-settings.php:789
+#, fuzzy
 msgid "Make a donation through the Yandex Money system. You can use bank cards"
 msgstr "Поддержать через Яндекс Деньги. Можно использовать банковские карты"
 
-#: ../includes/admin/class-awooc-admin-settings.php:749
+#: ../classes/class-settings.php:793
+#, fuzzy
 msgid "WPRUSe"
 msgstr "WPRUSe"
 
-#: ../includes/admin/class-awooc-admin-settings.php:750
+#: ../classes/class-settings.php:794
+#, fuzzy
 msgid "WPRUSe project site"
 msgstr "Описание проекта"
 
-#: ../includes/admin/class-awooc-admin-settings.php:757
-#, php-format
+#: ../classes/class-settings.php:801
+#, fuzzy, php-format
 msgid "You can make a donation to make the plugin %1$s even better!"
 msgstr ""
 "Вы можете сделать пожертвование, чтобы мотивировать автора и сделать плагин "
 "%1$s еще лучше!"
 
-#: ../includes/admin/class-awooc-admin-settings.php:784
+#: ../classes/class-settings.php:829
+#, fuzzy
 msgid ""
 "Detailed step by step instructions for setting up the plugin (in Russian)"
 msgstr "Подробная инструкция по настройке плагина (на русском)"
 
-#: ../includes/admin/class-awooc-admin-settings.php:787
+#: ../classes/class-settings.php:832
+#, fuzzy
 msgid ""
 "Plugin on GitHub, you can write there suggestions, wishes or participate in "
 "the development"
 msgstr ""
 "Плагин на GitHub. Можно оставить пожелания, предложения или поучаствовать в "
-"разработке."
+"разработке"
 
-#: ../includes/admin/class-awooc-admin-settings.php:808
+#: ../classes/class-settings.php:853
+#, fuzzy
 msgid ""
 "On the pages of the categories and the store itself, the Add to Cart buttons "
 "are disabled. On the product page, the \"Add to cart\" button is hidden and "
@@ -333,7 +484,8 @@ msgstr ""
 "отключены. На странице товара кнопка «Добавить в корзину» скрыта, и "
 "появляется кнопка «Заказать»."
 
-#: ../includes/admin/class-awooc-admin-settings.php:812
+#: ../classes/class-settings.php:857
+#, fuzzy
 msgid ""
 "The button \"Add to cart\" works in the normal mode, that is, goods can be "
 "added to the cart and at the same time ordered in one click"
@@ -341,7 +493,8 @@ msgstr ""
 "Кнопка «Добавить в корзину» работает в обычном режиме, то есть товар можно "
 "добавить в корзину и одновременно заказать в один клик"
 
-#: ../includes/admin/class-awooc-admin-settings.php:816
+#: ../classes/class-settings.php:861
+#, fuzzy
 msgid ""
 "The Order button will appear automatically if: Price not available;  stock "
 "status \"In Unfulfilled Order\"; stock status \"Out of stock\"; inventory "
@@ -352,7 +505,8 @@ msgstr ""
 "складе \"; управление запасами включено на уровне товара, а предварительные "
 "заказы разрешены"
 
-#: ../includes/admin/class-awooc-admin-settings.php:820
+#: ../classes/class-settings.php:865
+#, fuzzy
 msgid ""
 "When turned on, it works the same way as normal mode. But if the goods have "
 "no price or the product out of stock, then only the Order button will appear."
@@ -360,134 +514,94 @@ msgstr ""
 "При включении работает так же, как и в обычном режиме. Но если у товара нет "
 "цены или товара нет в наличии, то появится только кнопка Заказать."
 
-#: ../includes/class-art-woo-order-one-click.php:234
-msgid "Settings"
-msgstr "Настройки"
-
-#: ../includes/class-art-woo-order-one-click.php:254
-#, php-format
-msgid ""
-"%1$s requires PHP version 5.6 or higher. Your current PHP version is %2$s. "
-"Please upgrade PHP version to run this plugin."
-msgstr ""
-"%1$s требует PHP версии 5.6 или выше. Ваша текущая версия PHP%2$s. "
-"Пожалуйста, обновите версию PHP, чтобы запустить этот плагин."
-
-#: ../includes/class-art-woo-order-one-click.php:338
-#, php-format
-msgid "The %s requires installed and activated plugins: "
-msgstr ""
-"Для работы плагина %s требуются установенные и активированные плагины: "
-
-#: ../includes/class-art-woo-order-one-click.php:350
-msgid " version "
-msgstr " версия "
-
-#: ../includes/class-art-woo-order-one-click.php:350
-msgid " or higher"
-msgstr " или выше"
-
-#: ../includes/class-art-woo-order-one-click.php:358
-msgid " and "
-msgstr " и "
-
-#: ../includes/class-art-woo-order-one-click.php:406
-#, php-format
-msgid "%s plugin has been deactivated."
-msgstr "Плагин %s деактивирован."
-
-#: ../includes/class-art-woo-order-one-click.php:472
+#: ../classes/class-setup-form.php:43
+#, fuzzy
 msgid "Your Name"
 msgstr "Ваше имя"
 
-#: ../includes/class-art-woo-order-one-click.php:473
+#: ../classes/class-setup-form.php:44
+#, fuzzy
 msgid "Your Email"
 msgstr "Ваш Email"
 
-#: ../includes/class-art-woo-order-one-click.php:474
+#: ../classes/class-setup-form.php:45
+#, fuzzy
 msgid "Your Phone"
 msgstr "Ваш телефон"
 
-#: ../includes/class-art-woo-order-one-click.php:475
+#: ../classes/class-setup-form.php:46
+#, fuzzy
 msgid "Send"
 msgstr "Отправить"
 
-#: ../includes/class-art-woo-order-one-click.php:480
-#, php-format
+#: ../classes/class-setup-form.php:50
+#, fuzzy, php-format
 msgid "Name: %s"
 msgstr "Имя: %s"
 
-#: ../includes/class-art-woo-order-one-click.php:482
-#, php-format
+#: ../classes/class-setup-form.php:51
+#, fuzzy, php-format
 msgid "Email: %s"
 msgstr "Email: %s"
 
-#: ../includes/class-art-woo-order-one-click.php:484
-#, php-format
+#: ../classes/class-setup-form.php:52
+#, fuzzy, php-format
 msgid "Phone: %s"
 msgstr "Телефон: %s"
 
-#: ../includes/class-art-woo-order-one-click.php:486
-#, php-format
+#: ../classes/class-setup-form.php:54
+#, fuzzy, php-format
 msgid "This e-mail was sent from a contact form on %1$s (%2$s)"
 msgstr "Это письмо было отправлено с формы обратной связи на %1$s (%2$s)"
 
-#: ../includes/class-art-woo-order-one-click.php:495
-#: ../includes/class-art-woo-order-one-click.php:509
-#, php-format
+#: ../classes/class-setup-form.php:87 ../classes/class-setup-form.php:101
+#, fuzzy, php-format
 msgid "Order from the site %1$s (%2$s)"
 msgstr "Заказ с сайта %1$s (%2$s)"
 
-#: ../includes/class-art-woo-order-one-click.php:532
+#: ../classes/class-setup-form.php:124 ../templates/email.php:400
+#, fuzzy
 msgid "Order One Click"
 msgstr "Заказ в один клик"
 
-#: ../includes/class-awooc-ajax.php:43
-msgid "Oops ... Data sent from unknown address"
-msgstr "Упс... Данные отправлены с неизвестного адреса"
+#: ../includes/create-cf7-field.php:90
+#, fuzzy
+msgid "AWOOC hide field"
+msgstr "AWOOC скрытое поле"
 
-#: ../includes/class-awooc-ajax.php:50
+#: ../includes/create-cf7-field.php:101
+#, fuzzy, php-format
+msgid "Generate a special hidden multi-line field. See %s."
+msgstr "Генерируется специальное многострочное поле. Смотрите %s."
+
+#: ../includes/create-cf7-field.php:104
+#, fuzzy
+msgid "https://wpruse.ru/my-plugins/order-one-click/"
+msgstr "https://wpruse.ru/my-plugins/order-one-click/"
+
+#: ../includes/create-cf7-field.php:105
+#, fuzzy
+msgid "the description for details"
+msgstr "подробное описание"
+
+#: ../includes/create-cf7-field.php:118
+#, fuzzy
+msgid "Name"
+msgstr "Имя"
+
+#: ../includes/create-cf7-field.php:146
+#, fuzzy
+msgid "Insert Tag"
+msgstr "Вставить"
+
+#: ../includes/create-cf7-field.php:158
+#, fuzzy, php-format
 msgid ""
-"Something is wrong with sending data. Unable to get product ID. Disable the "
-"output in the popup window or contact the developers of the plugin"
+"To use the value input through this field in a mail field, you need to "
+"insert the corresponding mail-tag (%s) into the field on the Mail tab."
 msgstr ""
-"Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
-"вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
-
-#: ../includes/class-awooc-ajax.php:190
-#: ../includes/class-awooc-frontend.php:57
-msgid "SKU: "
-msgstr "Артикул: "
-
-#: ../includes/class-awooc-ajax.php:250
-#: ../includes/class-awooc-frontend.php:58
-msgid "Attributes: "
-msgstr "Атрибуты: "
-
-#: ../includes/class-awooc-ajax.php:278
-#: ../includes/class-awooc-frontend.php:56
-msgid "Price: "
-msgstr "Цена: "
-
-#: ../includes/class-awooc-frontend.php:54
-msgid "Quantity: "
-msgstr "Количество: "
-
-#: ../includes/class-awooc-frontend.php:55
-msgid "Title: "
-msgstr "Название: "
-
-#: ../includes/class-awooc-frontend.php:59
-msgid "Information about the selected product"
-msgstr "Информация о выбранном товаре"
-
-#: ../includes/class-awooc-frontend.php:60
-msgid "Click to close"
-msgstr "Ткнуть для закрытия"
-
-#: ../includes/class-awooc-frontend.php:365
-msgid "Read more"
-msgstr "Читать..."
+"Чтобы использовать значение, введенное через это поле в письме, необходимо "
+"вставить соответствующий почтовый тег (% s) в поле на вкладке Почта."
 
 #~ msgid "Do not show Buy button: catalog mode"
 #~ msgstr "Не показывать кнопку Купить: режим каталога"

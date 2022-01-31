@@ -36,6 +36,8 @@ class Ajax {
 
 		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', [ $this, 'ajax_scripts_callback' ] );
 		add_action( 'wp_ajax_awooc_ajax_product_form', [ $this, 'ajax_scripts_callback' ] );
+
+		add_action( 'wpcf7_before_send_mail', [ $this, 'email' ], 10, 3 );
 	}
 
 
@@ -56,25 +58,21 @@ class Ajax {
 				esc_html__(
 					'Something is wrong with sending data. Unable to get product ID. Disable the output in the popup window or contact the developers of the plugin',
 					'art-woocommerce-order-one-click'
-				), 403
+				),
+				403
 			);
-
 		}
 
 		$product     = $this->get_product();
 		$product_qty = $this->get_qty();
 
-		$to_popup     = new Response_Popup( $product, $product_qty );
-		$to_mail      = new Response_Mail( $product, $product_qty );
-		$to_analytics = new Response_Analytics( $product, $product_qty );
-
 		$data = apply_filters(
 			'awooc_data_ajax',
 			[
-				'elements'     => 'full',
-				'toPopup'     => $to_popup->get_response(),
-				'toMail'      => $to_mail->get_response(),
-				'toAnalytics' => $to_analytics->get_response(),
+				'elements'    => 'full',
+				'toPopup'     => ( new Response_Popup( $product, $product_qty ) )->get_response(),
+				'toMail'      => ( new Response_Mail( $product, $product_qty ) )->get_response(),
+				'toAnalytics' => ( new Response_Analytics( $product, $product_qty ) )->get_response(),
 			],
 			$product
 		);
@@ -87,21 +85,113 @@ class Ajax {
 	}
 
 
-	/**
-	 * @return false|\WC_Product|null
+	/**1643656254
+	 * @param $contact_form
+	 * @param $abort
+	 * @param $submission
+	 *
+	 * @return void
 	 */
-	public function get_product() {
+	public function email( $contact_form, $abort, $submission ): void {
 
-		return wc_get_product( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
+		if ( 'yes' !== get_option( 'woocommerce_awooc_enable_letter_template' ) ) {
+			return;
+		}
+
+		if (  (int) $contact_form->id() !== (int) get_option( 'woocommerce_awooc_select_form' ) ) {
+			return;
+		}
+
+		$mail_body = $submission->get_posted_data();
+
+		$product_id  = $mail_body['awooc_product_id'];
+		$product_qty = $mail_body['awooc_product_qty'];
+
+		$name  = ! empty( $mail_body['awooc-text'] ) ? sanitize_text_field( wp_unslash( $mail_body['awooc-text'] ) ) : '';
+		$email = ! empty( $mail_body['awooc-email'] ) ? sanitize_text_field( wp_unslash( $mail_body['awooc-email'] ) ) : '';
+		$tel   = ! empty( $mail_body['awooc-tel'] ) ? sanitize_text_field( wp_unslash( $mail_body['awooc-tel'] ) ) : '';
+
+		$mail = $contact_form->prop( 'mail' );
+		$response = $this->response_to_mail( $product_id, $product_qty );
+
+		ob_start();
+
+		load_template(
+			awooc()->templater->get_template( 'email.php' ),
+			true,
+			[
+				'post_data'    => [
+					'name'  => $name,
+					'email' => $email,
+					'phone' => $tel,
+				],
+				'post_meta'    => [
+					'ip' => [
+						'label' => esc_html__( 'IP', 'art-woocommerce-order-one-click' ),
+						'value' => $submission->get_meta( 'remote_ip' )
+					],
+					'time' => [
+						'label' => esc_html__( 'Date', 'art-woocommerce-order-one-click' ),
+						'value' => $submission->get_meta( 'timestamp' )
+					],
+					'url' => [
+						'label' => esc_html__( 'Domain', 'art-woocommerce-order-one-click' ),
+						'value' => $submission->get_meta( 'url' )
+					],
+				],
+				'product_data' => $response->get_response(),
+			]
+		);
+
+		$mail['body'] = ob_get_clean();
+
+		$contact_form->set_properties( [ 'mail' => $mail ] );
+
 	}
 
 
 	/**
+	 * @param  int $id
+	 *
+	 * @return false|\WC_Product|null
+	 */
+	public function get_product( int $id = 0 ) {
+
+		if ( ! empty( $_POST['id'] ) ) {
+			$id = (int) $_POST['id'];
+		}
+
+		return wc_get_product( sanitize_text_field( wp_unslash( $id ) ) );
+	}
+
+
+	/**
+	 * @param  int $qty
+	 *
 	 * @return int
 	 */
-	protected function get_qty(): int {
+	protected function get_qty( int $qty = 1 ): int {
 
-		return $_POST['qty'] ? (int) sanitize_text_field( wp_unslash( $_POST['qty'] ) ) : 1;
+		if ( ! empty( $_POST['qty'] ) ) {
+			$qty = (int) sanitize_text_field( wp_unslash( $_POST['qty'] ) );
+		}
+
+		return $qty;
+	}
+
+
+	/**
+	 * @param $product_id
+	 * @param $product_qty
+	 *
+	 * @return \Art\AWOOC\Response_Mail
+	 */
+	public function response_to_mail( $product_id, $product_qty ): Response_Mail {
+
+		$product     = $this->get_product( $product_id );
+		$product_qty = $this->get_qty( $product_qty );
+
+		return new Response_Mail( $product, $product_qty );
 	}
 
 }

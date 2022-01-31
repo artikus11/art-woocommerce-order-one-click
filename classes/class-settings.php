@@ -550,7 +550,16 @@ class Settings extends WC_Settings_Page {
 					'default' => 'no',
 					'type'    => 'checkbox',
 				),
-
+				array(
+					'title'   => __( 'Custom letter template', 'art-woocommerce-order-one-click' ),
+					'desc'    => __(
+						'When enabled, it will not use the template specified in CF7, but an arbitrary email template from the plugin',
+						'art-woocommerce-order-one-click'
+					),
+					'id'      => 'woocommerce_awooc_enable_letter_template',
+					'default' => 'no',
+					'type'    => 'checkbox',
+				),
 				array(
 					'type' => 'sectionend',
 					'id'   => 'woocommerce_awooc_settings_orders',

@@ -148,6 +148,8 @@ jQuery( function ( $ ) {
 
 								const hiddenData = AWOOC.addedToMailData( response )
 								$( 'textarea.awooc-hidden-data' ).val( hiddenData );
+								$( '.awooc-hidden-product-id' ).val( AWOOC.getProductID( e ) );
+								$( '.awooc-hidden-product-qty' ).val( AWOOC.getQty( e ) );
 
 								$( document.body ).trigger( 'awooc_popup_ajax_trigger', response );
 							},

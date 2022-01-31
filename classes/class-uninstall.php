@@ -49,6 +49,7 @@ class Uninstall {
 				'woocommerce_awooc_settings_others',
 				'woocommerce_awooc_not_del_settings',
 				'woocommerce_awooc_text_rated',
+				'woocommerce_awooc_enable_letter_template',
 			]
 		);
 
