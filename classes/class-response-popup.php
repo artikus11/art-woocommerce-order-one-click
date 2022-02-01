@@ -17,7 +17,7 @@ class Response_Popup extends Response {
 			'form'  => $this->select_form(),
 		];
 
-		if ( awooc()->conditional->is_mode_catalog() || awooc()->conditional->is_mode_preorder() ) {
+		if ( awooc()->mode->is_mode_catalog() || awooc()->mode->is_mode_preorder() ) {
 			unset( $data['qty'] );
 		}
 

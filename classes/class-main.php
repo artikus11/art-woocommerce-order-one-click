@@ -61,8 +61,8 @@ class Main {
 	 */
 	protected $required_plugins = [];
 
-	/** @var Conditional */
-	public $conditional;
+	/** @var Mode */
+	public $mode;
 
 
 	/**
@@ -136,8 +136,8 @@ class Main {
 		require AWOOC_PLUGIN_DIR . '/classes/class-response-mail.php';
 		require AWOOC_PLUGIN_DIR . '/classes/class-response-analytics.php';
 
-		require AWOOC_PLUGIN_DIR . '/classes/class-conditional.php';
-		$this->conditional = new Conditional();
+		require AWOOC_PLUGIN_DIR . '/classes/class-mode.php';
+		$this->mode = new Mode();
 
 		require AWOOC_PLUGIN_DIR . '/classes/class-orders.php';
 		$this->orders = new Orders();

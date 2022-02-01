@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2022-01-31 23:12+0400\n"
+"POT-Creation-Date: 2022-02-01 00:54+0400\n"
 "PO-Revision-Date: 2019-08-25 14:04+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
@@ -29,46 +29,57 @@ msgstr ""
 "Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
-#: ../classes/class-enqueue.php:97 ../classes/class-response-mail.php:82
+#: ../classes/class-ajax.php:130
+#, fuzzy
+msgid "IP"
+msgstr "IP"
+
+#: ../classes/class-ajax.php:134
+#, fuzzy
+msgid "Date"
+msgstr "Дата"
+
+#: ../classes/class-ajax.php:138
+#, fuzzy
+msgid "Domain"
+msgstr "Домен"
+
+#: ../classes/class-enqueue.php:97
 #, fuzzy
 msgid "Quantity: "
 msgstr "Количество: "
 
-#: ../classes/class-enqueue.php:98 ../classes/class-response-mail.php:33
+#: ../classes/class-enqueue.php:98
 #, fuzzy
 msgid "Title: "
 msgstr "Нет заголовка"
 
-#: ../classes/class-enqueue.php:99 ../classes/class-response-mail.php:52
-#: ../classes/class-response-popup.php:43
+#: ../classes/class-enqueue.php:99 ../classes/class-response-popup.php:43
 #, fuzzy
 msgid "Price: "
 msgstr "Цена: "
 
-#: ../classes/class-enqueue.php:100 ../classes/class-response-mail.php:62
-#: ../classes/class-response-popup.php:66
+#: ../classes/class-enqueue.php:100 ../classes/class-response-popup.php:66
 #, fuzzy
 msgid "SKU: "
 msgstr "Артикул: "
 
-#: ../classes/class-enqueue.php:101 ../classes/class-response-mail.php:92
-#: ../classes/class-response-popup.php:112
+#: ../classes/class-enqueue.php:101 ../classes/class-response-popup.php:112
 #, fuzzy
 msgid "Amount: "
 msgstr "Итого: "
 
-#: ../classes/class-enqueue.php:102 ../classes/class-response-mail.php:72
-#: ../classes/class-response-popup.php:90
+#: ../classes/class-enqueue.php:102 ../classes/class-response-popup.php:90
 #, fuzzy
 msgid "Attributes: "
 msgstr "Атрибуты: "
 
-#: ../classes/class-enqueue.php:103 ../templates/email.php:430
+#: ../classes/class-enqueue.php:103 ../templates/email.php:435
 #, fuzzy
 msgid "Information about the selected product"
 msgstr "Информация о выбранном товаре"
 
-#: ../classes/class-enqueue.php:104 ../classes/class-response-mail.php:109
+#: ../classes/class-enqueue.php:104
 #, fuzzy
 msgid "Link to the product: "
 msgstr "Ссылка на товар: "
@@ -140,6 +151,41 @@ msgid ""
 msgstr ""
 "Если включить, то на этом товаре кнопка Заказать будет не видна. Товар "
 "вернется к исходному состоянию."
+
+#: ../classes/class-response-mail.php:32
+#, fuzzy, php-format
+msgid "Title: %s"
+msgstr "Наименование: %s"
+
+#: ../classes/class-response-mail.php:50
+#, fuzzy, php-format
+msgid "Price: %s"
+msgstr "Цена: %s"
+
+#: ../classes/class-response-mail.php:59
+#, fuzzy, php-format
+msgid "SKU: %s"
+msgstr "Артикул: %s"
+
+#: ../classes/class-response-mail.php:68
+#, fuzzy, php-format
+msgid "Attributes: %s"
+msgstr "Атрибуты: %s"
+
+#: ../classes/class-response-mail.php:77
+#, fuzzy, php-format
+msgid "Quantity: %s"
+msgstr "Количество: %s"
+
+#: ../classes/class-response-mail.php:86
+#, fuzzy, php-format
+msgid "Amount: %s"
+msgstr "Итого: %s"
+
+#: ../classes/class-response-mail.php:102
+#, fuzzy, php-format
+msgid "Link to the product: %s"
+msgstr "Ссылка на товар:  %s"
 
 #: ../classes/class-response.php:132
 #, fuzzy
@@ -285,88 +331,102 @@ msgstr ""
 "Если включить эту настройку, то к теме письма будет добавляться номер заказа "
 "в формате \"Тема письма №112233\""
 
-#: ../classes/class-settings.php:559
+#: ../classes/class-settings.php:554
+#, fuzzy
+msgid "Custom letter template"
+msgstr "Произвольный шаблон письма"
+
+#: ../classes/class-settings.php:556
+#, fuzzy
+msgid ""
+"When enabled, it will not use the template specified in CF7, but an "
+"arbitrary email template from the plugin"
+msgstr ""
+"При включении будет использоваться не указанный в CF7 шаблон, а произвольный "
+"шаблон письма из плагина"
+
+#: ../classes/class-settings.php:568
 #, fuzzy
 msgid "Others"
 msgstr "Разное"
 
-#: ../classes/class-settings.php:566
+#: ../classes/class-settings.php:575
 #, fuzzy
 msgid "Do not delete settings"
 msgstr "Не удалять настройки"
 
-#: ../classes/class-settings.php:568
+#: ../classes/class-settings.php:577
 #, fuzzy
 msgid ""
 "If enabled, then the settings when you remove the plugin will NOT be deleted"
 msgstr "Если включено, то настройки при удалении плагина НЕ будут удалены"
 
-#: ../classes/class-settings.php:604
+#: ../classes/class-settings.php:613
 #, fuzzy
 msgid "Useful links"
 msgstr "Социальные ссылки"
 
-#: ../classes/class-settings.php:613
+#: ../classes/class-settings.php:622
 #, fuzzy
 msgid "Donate"
 msgstr "Поддержать"
 
-#: ../classes/class-settings.php:646
+#: ../classes/class-settings.php:655
 #, fuzzy
 msgid "Catalog mode"
 msgstr "Режим каталога"
 
-#: ../classes/class-settings.php:647
+#: ../classes/class-settings.php:656
 #, fuzzy
 msgid "Normal mode"
 msgstr "Штатный режим"
 
-#: ../classes/class-settings.php:648
+#: ../classes/class-settings.php:657
 #, fuzzy
 msgid "Pre-order mode"
 msgstr "Режим предзаказа"
 
-#: ../classes/class-settings.php:649
+#: ../classes/class-settings.php:658
 #, fuzzy
 msgid "Special mode"
 msgstr "Специальный режим"
 
-#: ../classes/class-settings.php:690
+#: ../classes/class-settings.php:699
 #, fuzzy
 msgid "Title"
 msgstr "Название"
 
-#: ../classes/class-settings.php:691
+#: ../classes/class-settings.php:700
 #, fuzzy
 msgid "Image"
 msgstr "Изображения"
 
-#: ../classes/class-settings.php:692
+#: ../classes/class-settings.php:701
 #, fuzzy
 msgid "Price"
 msgstr "Цена"
 
-#: ../classes/class-settings.php:693
+#: ../classes/class-settings.php:702
 #, fuzzy
 msgid "SKU"
 msgstr "Артикул"
 
-#: ../classes/class-settings.php:694
+#: ../classes/class-settings.php:703
 #, fuzzy
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: ../classes/class-settings.php:695
+#: ../classes/class-settings.php:704
 #, fuzzy
 msgid "Quantity"
 msgstr "Количество"
 
-#: ../classes/class-settings.php:696
+#: ../classes/class-settings.php:705
 #, fuzzy
 msgid "Amount"
 msgstr "Итого"
 
-#: ../classes/class-settings.php:712
+#: ../classes/class-settings.php:721
 #, fuzzy
 msgid ""
 "<strong>Warning! The functionality is under development. </strong> For the "
@@ -377,22 +437,22 @@ msgstr ""
 "корректной работы требуется правильное создание полей в форме Contact Form 7 "
 "c именами:"
 
-#: ../classes/class-settings.php:713
+#: ../classes/class-settings.php:722
 #, fuzzy
 msgid "field Name - <code>awooc-text</code>;"
 msgstr "поле Имя  - <code>awooc-text</code>;"
 
-#: ../classes/class-settings.php:714
+#: ../classes/class-settings.php:723
 #, fuzzy
 msgid "field Email - <code>awooc-email</code>;"
 msgstr "поле Емайл - <code>awooc-email</code>;"
 
-#: ../classes/class-settings.php:715
+#: ../classes/class-settings.php:724
 #, fuzzy
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
-#: ../classes/class-settings.php:746
+#: ../classes/class-settings.php:755
 #, fuzzy, php-format
 msgid ""
 "If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in "
@@ -401,70 +461,70 @@ msgstr ""
 "Если вам нравится плагин %1$s, пожалуйста, поставьте оценку %2$s. Заранее "
 "большое спасибо!"
 
-#: ../classes/class-settings.php:747 ../classes/class-settings.php:802
+#: ../classes/class-settings.php:756 ../classes/class-settings.php:811
 #, fuzzy
 msgid "Art WooCommerce Order One Click"
 msgstr "Art WooCommerce Order One Click"
 
-#: ../classes/class-settings.php:749
+#: ../classes/class-settings.php:758
 #, fuzzy
 msgid "five star"
 msgstr "пять звезд"
 
-#: ../classes/class-settings.php:749
+#: ../classes/class-settings.php:758
 #, fuzzy
 msgid "Thanks :)"
 msgstr "Пожалуйста, не загружайте эту страницу напрямую. Спасибо!"
 
-#: ../classes/class-settings.php:759
+#: ../classes/class-settings.php:768
 #, fuzzy
 msgid "Thank you for using the plugin!"
 msgstr "Спасибо, что используете плагин!"
 
-#: ../classes/class-settings.php:783
+#: ../classes/class-settings.php:792
 #, fuzzy
 msgid "PayPal"
 msgstr "PayPal"
 
-#: ../classes/class-settings.php:784
+#: ../classes/class-settings.php:793
 #, fuzzy
 msgid "Make a donation through PayPal"
 msgstr "Поддержать через PayPal"
 
-#: ../classes/class-settings.php:788
+#: ../classes/class-settings.php:797
 #, fuzzy
 msgid "Yandex Money"
 msgstr "Яндекс Деньги"
 
-#: ../classes/class-settings.php:789
+#: ../classes/class-settings.php:798
 #, fuzzy
 msgid "Make a donation through the Yandex Money system. You can use bank cards"
 msgstr "Поддержать через Яндекс Деньги. Можно использовать банковские карты"
 
-#: ../classes/class-settings.php:793
+#: ../classes/class-settings.php:802
 #, fuzzy
 msgid "WPRUSe"
 msgstr "WPRUSe"
 
-#: ../classes/class-settings.php:794
+#: ../classes/class-settings.php:803
 #, fuzzy
 msgid "WPRUSe project site"
 msgstr "Описание проекта"
 
-#: ../classes/class-settings.php:801
+#: ../classes/class-settings.php:810
 #, fuzzy, php-format
 msgid "You can make a donation to make the plugin %1$s even better!"
 msgstr ""
 "Вы можете сделать пожертвование, чтобы мотивировать автора и сделать плагин "
 "%1$s еще лучше!"
 
-#: ../classes/class-settings.php:829
+#: ../classes/class-settings.php:838
 #, fuzzy
 msgid ""
 "Detailed step by step instructions for setting up the plugin (in Russian)"
 msgstr "Подробная инструкция по настройке плагина (на русском)"
 
-#: ../classes/class-settings.php:832
+#: ../classes/class-settings.php:841
 #, fuzzy
 msgid ""
 "Plugin on GitHub, you can write there suggestions, wishes or participate in "
@@ -473,7 +533,7 @@ msgstr ""
 "Плагин на GitHub. Можно оставить пожелания, предложения или поучаствовать в "
 "разработке"
 
-#: ../classes/class-settings.php:853
+#: ../classes/class-settings.php:862
 #, fuzzy
 msgid ""
 "On the pages of the categories and the store itself, the Add to Cart buttons "
@@ -484,7 +544,7 @@ msgstr ""
 "отключены. На странице товара кнопка «Добавить в корзину» скрыта, и "
 "появляется кнопка «Заказать»."
 
-#: ../classes/class-settings.php:857
+#: ../classes/class-settings.php:866
 #, fuzzy
 msgid ""
 "The button \"Add to cart\" works in the normal mode, that is, goods can be "
@@ -493,7 +553,7 @@ msgstr ""
 "Кнопка «Добавить в корзину» работает в обычном режиме, то есть товар можно "
 "добавить в корзину и одновременно заказать в один клик"
 
-#: ../classes/class-settings.php:861
+#: ../classes/class-settings.php:870
 #, fuzzy
 msgid ""
 "The Order button will appear automatically if: Price not available;  stock "
@@ -505,7 +565,7 @@ msgstr ""
 "складе \"; управление запасами включено на уровне товара, а предварительные "
 "заказы разрешены"
 
-#: ../classes/class-settings.php:865
+#: ../classes/class-settings.php:874
 #, fuzzy
 msgid ""
 "When turned on, it works the same way as normal mode. But if the goods have "
@@ -559,7 +619,7 @@ msgstr "Это письмо было отправлено с формы обра
 msgid "Order from the site %1$s (%2$s)"
 msgstr "Заказ с сайта %1$s (%2$s)"
 
-#: ../classes/class-setup-form.php:124 ../templates/email.php:400
+#: ../classes/class-setup-form.php:124 ../templates/email.php:405
 #, fuzzy
 msgid "Order One Click"
 msgstr "Заказ в один клик"

@@ -44,22 +44,34 @@ class Front {
 	 */
 	public function hooks() {
 
-		/**
-		 * Base setup_hooks
-		 */
-		//add_action( 'wp_footer', array( $this, 'popup_window_html' ), 30 );
 
 		/**
 		 * WooCommerce setup_hooks
 		 */
-		add_filter( 'woocommerce_is_purchasable', array( $this, 'disable_add_to_cart_no_price' ), 10, 2 );
-		add_filter( 'woocommerce_product_is_in_stock', array( $this, 'disable_add_to_cart_out_stock' ), 10, 2 );
-		add_filter( 'woocommerce_hide_invisible_variations', array( $this, 'hide_variable_add_to_cart' ), 10, 3 );
-		add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'add_custom_button' ), 15 );
-		//add_filter('woocommerce_locate_template', [$this, 'intercept_wc_template'], 20, 3);
+		//add_filter( 'woocommerce_is_purchasable', [ $this, 'disable_add_to_cart_no_price' ], 10, 2 );
+		//add_filter( 'woocommerce_product_is_in_stock', [ $this, 'disable_add_to_cart_out_stock' ], 10, 2 );
+		//add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_variable_add_to_cart' ], 10, 3 );
+		//add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'add_custom_button' ], 15 );
+
+		add_filter( 'wc_get_template', [ $this, 'modify_add_to_cart_button_template' ], 1, 5 );
+
 	}
 
-	function intercept_wc_template($template, $template_name, $template_path) {
+
+	public function modify_add_to_cart_button_template( $template, $template_name, $args, $template_path, $default_path ) {
+
+
+		if ( 'single-product/add-to-cart/simple.php' === $template_name ) {
+
+			$template = $this->get_template_mode( $template );
+
+		}
+
+		if ( 'single-product/add-to-cart/variation-add-to-cart-button.php' === $template_name ) {
+
+			$template = $this->get_template_mode( $template, 'variable' );
+
+		}
 
 		return $template;
 	}
@@ -108,25 +120,6 @@ class Front {
 		}
 	}
 
-
-	/**
-	 * Вывод всплывающего окна
-	 *
-	 * @since 1.8.0
-	 */
-	public function popup_window_html() {
-
-		$elements = get_option( 'woocommerce_awooc_select_item' );
-
-		if ( ! is_array( $elements ) ) {
-			return;
-		}
-
-		load_template(
-			awooc()->templater->get_template( 'popup.php' ),
-			true,
-		);
-	}
 
 	/**
 	 * Вывод всплывающего окна
@@ -195,8 +188,8 @@ class Front {
 				$bool = true;
 			}
 
-			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
-			add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
+			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
+			add_filter( 'awooc_button_label', [ $this, 'custom_button_label' ] );
 		}
 
 		return $bool;
@@ -236,7 +229,7 @@ class Front {
 						$status = true;
 					}
 
-					add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
+					add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
 					break;
 				case 'no_stock_no_price':
 					if ( is_product() ) {
@@ -255,8 +248,8 @@ class Front {
 						);
 					}
 
-					add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
-					add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
+					add_action( 'woocommerce_before_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
+					add_filter( 'awooc_button_label', [ $this, 'custom_button_label' ] );
 					break;
 			}
 		}
@@ -308,11 +301,11 @@ class Front {
 
 			if ( ! $product->get_price() ) {
 				$bool = false;
-				add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'hide_button_add_to_card' ) );
+				add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
 				remove_filter( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 
 				if ( 'no_stock_no_price' === $this->mode ) {
-					add_filter( 'awooc_button_label', array( $this, 'custom_button_label' ) );
+					add_filter( 'awooc_button_label', [ $this, 'custom_button_label' ] );
 				}
 			}
 		}
@@ -349,7 +342,7 @@ class Front {
 		<?php
 
 		$disable_add_to_card = apply_filters( 'awooc_disable_add_to_card_style', ob_get_clean() );
-		echo wp_kses( $disable_add_to_card, array( 'style' => array() ) );
+		echo wp_kses( $disable_add_to_card, [ 'style' => [] ] );
 	}
 
 
@@ -379,7 +372,7 @@ class Front {
 
 		$enable_add_to_card = apply_filters( 'awooc_enable_add_to_card_style', ob_get_clean() );
 
-		echo wp_kses( $enable_add_to_card, array( 'style' => array() ) );
+		echo wp_kses( $enable_add_to_card, [ 'style' => [] ] );
 	}
 
 
@@ -448,10 +441,41 @@ class Front {
 	 *
 	 * @since 2.3.6
 	 */
-	public function disable_loop() {
+	public function disable_loop(): void {
 
-		add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'disable_text_add_to_cart_to_related' ) );
-		add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'disable_url_add_to_cart_to_related' ) );
-		add_filter( 'woocommerce_loop_add_to_cart_args', array( $this, 'disable_ajax_add_to_cart_to_related' ), 10, 2 );
+		add_filter( 'woocommerce_product_add_to_cart_text', [ $this, 'disable_text_add_to_cart_to_related' ] );
+		add_filter( 'woocommerce_product_add_to_cart_url', [ $this, 'disable_url_add_to_cart_to_related' ] );
+		add_filter( 'woocommerce_loop_add_to_cart_args', [ $this, 'disable_ajax_add_to_cart_to_related' ], 10, 2 );
 	}
+
+
+	/**
+	 *
+	 * 'dont_show_add_to_card' => __( 'Catalog mode', 'art-woocommerce-order-one-click' )
+	 * 'show_add_to_card'      => __( 'Normal mode', 'art-woocommerce-order-one-click' )
+	 * 'in_stock_add_to_card'  => __( 'Pre-order mode', 'art-woocommerce-order-one-click' )
+	 * 'no_stock_no_price'     => __( 'Special mode', 'art-woocommerce-order-one-click' )
+	 *
+	 * @param         $template
+	 * @param  string $type
+	 *
+	 * @return mixed
+	 */
+	protected function get_template_mode( $template, string $type = 'simple' ) {
+
+		$product = wc_get_product();
+
+		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
+			return $template;
+		}
+
+		foreach ( awooc()->mode->modes() as $option => $name ) {
+			if ( $option === awooc()->mode->get_mode() ) {
+				$template = awooc()->templater->get_template( "add-to-cart/{$type}-{$name}.php" );
+			}
+		}
+
+		return $template;
+	}
+
 }

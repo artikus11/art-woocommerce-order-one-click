@@ -111,10 +111,9 @@ class Response {
 	/**
 	 * Цена товара
 	 *
-	 * @return int
 	 * @since  3.0.0
 	 */
-	public function price(): int {
+	public function price(): string {
 
 		return $this->product->get_price();
 	}

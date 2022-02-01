@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2022-02-01 00:29+0400\n"
-"PO-Revision-Date: 2022-02-01 00:30+0400\n"
+"POT-Creation-Date: 2022-02-01 00:54+0400\n"
+"PO-Revision-Date: 2022-02-01 00:54+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -28,15 +28,15 @@ msgstr ""
 "Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
-#: ../classes/class-ajax.php:129
+#: ../classes/class-ajax.php:130
 msgid "IP"
 msgstr "IP"
 
-#: ../classes/class-ajax.php:133
+#: ../classes/class-ajax.php:134
 msgid "Date"
 msgstr "Дата"
 
-#: ../classes/class-ajax.php:137
+#: ../classes/class-ajax.php:138
 msgid "Domain"
 msgstr "Домен"
 
@@ -64,7 +64,7 @@ msgstr "Итого: "
 msgid "Attributes: "
 msgstr "Атрибуты: "
 
-#: ../classes/class-enqueue.php:103 ../templates/email.php:430
+#: ../classes/class-enqueue.php:103 ../templates/email.php:435
 msgid "Information about the selected product"
 msgstr "Информация о выбранном товаре"
 
@@ -540,7 +540,7 @@ msgstr "Это письмо было отправлено с формы обра
 msgid "Order from the site %1$s (%2$s)"
 msgstr "Заказ с сайта %1$s (%2$s)"
 
-#: ../classes/class-setup-form.php:124 ../templates/email.php:400
+#: ../classes/class-setup-form.php:124 ../templates/email.php:405
 msgid "Order One Click"
 msgstr "Заказ в один клик"
 

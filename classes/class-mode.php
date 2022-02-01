@@ -2,7 +2,7 @@
 
 namespace Art\AWOOC;
 
-class Conditional {
+class Mode {
 
 	public function is_mode_special(): bool {
 
@@ -42,6 +42,17 @@ class Conditional {
 	public function get_mode() {
 
 		return get_option( 'woocommerce_awooc_mode_catalog' );
+	}
+
+
+	public function modes(): array {
+
+		return [
+			'dont_show_add_to_card' => 'catalog',
+			'show_add_to_card'      => 'normal',
+			'in_stock_add_to_card'  => 'preorder',
+			'no_stock_no_price'     => 'special',
+		];
 	}
 
 }

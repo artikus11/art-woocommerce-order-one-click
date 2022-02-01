@@ -16,7 +16,7 @@ class Response_Analytics extends Response {
 			'category' => $this->product_category(),
 		];
 
-		if ( awooc()->conditional->is_mode_catalog() || awooc()->conditional->is_mode_preorder() ) {
+		if ( awooc()->mode->is_mode_catalog() || awooc()->mode->is_mode_preorder() ) {
 			unset( $data['qty'] );
 		}
 
