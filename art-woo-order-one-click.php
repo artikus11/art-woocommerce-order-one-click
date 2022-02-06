@@ -59,9 +59,7 @@ define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 require __DIR__ . '/classes/class-main.php';
 require __DIR__ . '/classes/class-uninstall.php';
 
-//register_uninstall_hook( __FILE__, array( Art\AWOOC\Uninstall::class, 'uninstall' ) );
-//@todo - поменять хук на проде
-register_deactivation_hook( __FILE__, array( Art\AWOOC\Uninstall::class, 'uninstall' ) );
+register_uninstall_hook( __FILE__, array( Art\AWOOC\Uninstall::class, 'uninstall' ) );
 
 if ( ! function_exists( 'awooc' ) ) {
 	/**

@@ -36,16 +36,10 @@ class Uninstall {
 
 		global $wpdb;
 
-		$like = sprintf(
-			'%s%s',
-			$wpdb->esc_like( 'woocommerce_awooc_' ),
-			'%'
-		);
-
 		$wpdb->query(
 			$wpdb->prepare(
 				"DELETE FROM $wpdb->options WHERE option_name LIKE %s",
-				$like
+				sprintf( '%s%s', $wpdb->esc_like( 'woocommerce_awooc_' ), '%' )
 			)
 		);
 
