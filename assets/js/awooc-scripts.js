@@ -52,7 +52,7 @@ jQuery( function ( $ ) {
 				.on( 'wpcf7invalid', this.sendInvalid )
 		},
 
-		disableButton: function ( e ) {
+		disableButton: function () {
 			AWOOC.$button.addClass( 'disabled wc-variation-selection-needed' )
 		},
 
@@ -66,6 +66,7 @@ jQuery( function ( $ ) {
 
 			// Если у вариации нет цены или ее нет в наличие то скрываем сообщения.
 			if ( awooc_scripts_settings.mode === 'no_stock_no_price' ) {
+
 				if ( false === variation.is_purchasable || false === variation.is_in_stock ) {
 					AWOOC.$button.removeClass( 'disabled wc-variation-selection-needed' );
 					$( 'body.woocommerce' )
@@ -79,6 +80,7 @@ jQuery( function ( $ ) {
 						.hide();
 
 				}
+
 			}
 		},
 
@@ -92,15 +94,15 @@ jQuery( function ( $ ) {
 				selectedProductId = productVariantId;
 			}
 
-			return selectedProductId
+			return selectedProductId;
 		},
 
-		getQty: function ( e ) {
-			return $( '.quantity' ).find( 'input[name="quantity"]' ).val() || 1
+		getQty: function () {
+			return $( '.quantity' ).find( 'input[name="quantity"]' ).val() || 1;
 		},
 
 		unBlock: function () {
-			$.unblockUI()
+			$.unblockUI();
 		},
 
 		removeSkeleton: function () {
@@ -108,29 +110,29 @@ jQuery( function ( $ ) {
 				.find( '.awooc-popup-item' )
 				.each( function ( index, item ) {
 					$( item ).removeClass( 'skeleton-loader' )
-				} )
+				} );
 		},
 
 		addedToMailData: function ( response ) {
 
-			const toMail = response.data.toMail
+			const toMail = response.data.toMail;
 			const keys   = Object.keys( toMail );
 
-			let dataToMail = '\n' + awooc_scripts_translate.product_data_title + '\n———\n'
+			let dataToMail = '\n' + awooc_scripts_translate.product_data_title + '\n———\n';
 
 			keys.forEach( function ( key ) {
-				dataToMail += toMail[ key ] + '\n'
+				dataToMail += toMail[ key ] + '\n';
 			} );
 
-			return dataToMail
+			return dataToMail;
 		},
 
 		addedToPopupData: function ( response ) {
-			const toPopup = response.data.toPopup
+			const toPopup = response.data.toPopup;
 			const keys    = Object.keys( toPopup );
 
 			keys.forEach( function ( key ) {
-				$( '.awooc-popup-' + key ).html( toPopup[ key ] )
+				$( '.awooc-popup-' + key ).html( toPopup[ key ] );
 			} );
 		},
 
@@ -159,6 +161,7 @@ jQuery( function ( $ ) {
 
 		initMask: function () {
 			const mask_fields = $( '.awooc-form-custom-order .wpcf7-mask' );
+
 			if ( mask_fields.length > 0 ) {
 				mask_fields.each( function () {
 						let $this     = $( this ),
@@ -200,8 +203,8 @@ jQuery( function ( $ ) {
 
 					AWOOC.addedToPopupData( response );
 					AWOOC.analyticData = response.data.toAnalytics;
-					AWOOC.initContactForm()
-					AWOOC.initMask()
+					AWOOC.initContactForm();
+					AWOOC.initMask();
 
 					$( 'textarea.awooc-hidden-data' ).val( AWOOC.addedToMailData( response ) );
 					$( '.awooc-hidden-product-id' ).val( AWOOC.getProductID( e ) );
@@ -227,7 +230,9 @@ jQuery( function ( $ ) {
 
 					if ( (
 					     typeof version !== 'undefined' && version !== null
-					     ) && version <= '5.4' ) {
+					     )
+					     && version <= '5.4' ) {
+
 						let $form = $( this );
 
 						wpcf7.initForm( $form );
@@ -256,7 +261,7 @@ jQuery( function ( $ ) {
 					window.alert( wc_add_to_cart_variation_params.i18n_make_a_selection_text );
 				}
 
-				return false
+				return false;
 			}
 
 
@@ -294,6 +299,6 @@ jQuery( function ( $ ) {
 
 	}
 
-	AWOOC.init()
+	AWOOC.init();
 
 } );

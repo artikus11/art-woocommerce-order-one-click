@@ -43,7 +43,7 @@
   height: 300px;
   animation: loading 3s infinite;
   background-repeat: no-repeat;
-  background-image: linear-gradient(#e1e1e1 100%, transparent 0), linear-gradient(#e1e1e1 100%, transparent 0), linear-gradient(#e1e1e1 100%, transparent 0), linear-gradient(#c4c4c4 100%, transparent 0), linear-gradient(to right, rgba(255, 255, 255, 0) -40%, rgba(255, 255, 255, 0.5) 45%, rgba(255, 255, 255, 0) 100%), linear-gradient(lightgray 100%, transparent 0);
+  background-image: linear-gradient(#f8f8f8 100%, transparent 0), linear-gradient(#f8f8f8 100%, transparent 0), linear-gradient(#f8f8f8 100%, transparent 0), linear-gradient(#eaeaea 100%, transparent 0), linear-gradient(to right, rgba(255, 255, 255, 0) -40%, rgba(255, 255, 255, 0.5) 45%, rgba(255, 255, 255, 0) 100%), linear-gradient(lightgray 100%, transparent 0);
   background-size: 200px 44px, 200px 44px, 200px 44px, 200px 44px, 30px, 300px, 100% 100%;
   background-position: 24px 32px, 24px 92px, 24px 152px, 24px 225px, -150% 0, 0 0; }
 
@@ -183,53 +183,5 @@
   background-color: #a9a9a9;
   outline: 1px solid #708090;
   border-radius: 5px; }
-
-.awooc-preload-container * {
-  box-sizing: border-box; }
-
-.awooc-preload-container {
-  position: absolute !important;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center; }
-
-.awooc-ajax-loader {
-  visibility: visible;
-  display: inline-block;
-  background-color: #23282d;
-  /* Dark Gray 800 */
-  opacity: 0.75;
-  width: 24px;
-  height: 24px;
-  border: none;
-  border-radius: 100%;
-  padding: 0;
-  margin: 0 auto;
-  position: relative; }
-  .awooc-ajax-loader:before {
-    content: '';
-    position: absolute;
-    background-color: #fbfbfc;
-    /* Light Gray 100 */
-    top: 4px;
-    left: 4px;
-    width: 6px;
-    height: 6px;
-    border: none;
-    border-radius: 100%;
-    transform-origin: 8px 8px;
-    animation-name: spin;
-    animation-duration: 1000ms;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite; }
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg); }
-  to {
-    transform: rotate(360deg); } }
 
 /*# sourceMappingURL=awooc-styles.css.map */

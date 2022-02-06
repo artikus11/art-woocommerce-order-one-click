@@ -87,11 +87,11 @@
       height: 300px;
       animation: loading 3s infinite;
       background-repeat: no-repeat;
-      background-image: linear-gradient(#e1e1e1 100%, transparent 0),
-      linear-gradient(#e1e1e1 100%, transparent 0),
-      linear-gradient(#e1e1e1 100%, transparent 0),
-      linear-gradient(#c4c4c4 100%, transparent 0),
-      linear-gradient(to right, rgba(255, 255, 255, 0) -40%,  rgba(255, 255, 255, 0.5) 45%, rgba(255, 255, 255, 0) 100%),
+      background-image: linear-gradient(#f8f8f8 100%, transparent 0),
+      linear-gradient(#f8f8f8 100%, transparent 0),
+      linear-gradient(#f8f8f8 100%, transparent 0),
+      linear-gradient(#eaeaea 100%, transparent 0),
+      linear-gradient(to right, rgba(255, 255, 255, 0) -40%, rgba(255, 255, 255, 0.5) 45%, rgba(255, 255, 255, 0) 100%),
       linear-gradient(lightgray 100%, transparent 0);
       background-size: 200px 44px,
       200px 44px,

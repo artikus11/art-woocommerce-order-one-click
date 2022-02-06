@@ -18,7 +18,7 @@ none
 
 # Sass
 .sass-cache/
-
+*.css.map
 # OS X metadata
 .DS_Store
 
