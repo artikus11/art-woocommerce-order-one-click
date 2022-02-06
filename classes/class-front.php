@@ -53,12 +53,12 @@ class Front {
 		//add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_variable_add_to_cart' ], 10, 3 );
 		//add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'add_custom_button' ], 15 );
 
-		add_filter( 'wc_get_template', [ $this, 'modify_add_to_cart_button_template' ], 1, 5 );
+		add_filter( 'woocommerce_locate_template', [ $this, 'modify_add_to_cart_button_template' ], 1, 3 );
 
 	}
 
 
-	public function modify_add_to_cart_button_template( $template, $template_name, $args, $template_path, $default_path ) {
+	public function modify_add_to_cart_button_template( $template, $template_name, $template_path ) {
 
 
 		if ( 'single-product/add-to-cart/simple.php' === $template_name ) {
