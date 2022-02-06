@@ -22,52 +22,46 @@ class Main {
 	 *
 	 * @since  1.8.0
 	 * @access private
-	 * @var object $instance The instance of ArtWoo_Order_One_Click.
 	 */
-	private static $instance;
+	private static ?Main $instance = null;
 
 	/**
 	 * @since 2.0.0
-	 * @var object Front $front_end
+	 * @var Front $front_end
 	 */
-	public $front;
+	public Front $front;
 
 	/**
 	 * @since 2.3.6
-	 * @var object Enqueue $enqueue
+	 * @var Enqueue $enqueue
 	 */
-	public $enqueue;
+	public Enqueue $enqueue;
 
 	/**
 	 * @since 2.0.0
-	 * @var object Ajax $ajax
+	 * @var Ajax $ajax
 	 */
-	public $ajax;
+	public Ajax $ajax;
 
 	/**
 	 * Added Orders.
 	 *
 	 * @since 2.0.0
-	 * @var object Orders $orders
+	 * @var Orders $orders
 	 */
-	public $orders;
+	public Orders $orders;
 
 	/**
 	 * @since 3.0.0
-	 * @var object Templater $templater
+	 * @var Templater $templater
 	 */
-	public $templater;
+	public Templater $templater;
 
 	/**
-	 * Required plugins
-	 *
-	 * @since 2.0.0
-	 * @var array Required plugins.
+	 * @since 3.0.0
+	 * @var Mode
 	 */
-	protected $required_plugins = [];
-
-	/** @var Mode */
-	public $mode;
+	public Mode $mode;
 
 
 	/**
@@ -232,7 +226,7 @@ class Main {
 	/**
 	 * Приглашение поставить оценку
 	 */
-	public function add_rated() {
+	public function add_rated(): void {
 
 		if ( ! current_user_can( 'manage_woocommerce' ) ) {
 			wp_die( - 1 );
