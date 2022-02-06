@@ -30,7 +30,7 @@ jQuery( function ( $ ) {
 
 
 	const AWOOC = {
-		xhr: false,
+		xhr:          false,
 		$button:      $( '.awooc-button-js' ),
 		analyticData: {},
 
@@ -118,7 +118,7 @@ jQuery( function ( $ ) {
 
 			let dataToMail = '\n' + awooc_scripts_translate.product_data_title + '\n———\n'
 
-			keys.forEach( key => {
+			keys.forEach( function ( key ) {
 				dataToMail += toMail[ key ] + '\n'
 			} );
 
@@ -129,7 +129,7 @@ jQuery( function ( $ ) {
 			const toPopup = response.data.toPopup
 			const keys    = Object.keys( toPopup );
 
-			keys.forEach( key => {
+			keys.forEach( function ( key ) {
 				$( '.awooc-popup-' + key ).html( toPopup[ key ] )
 			} );
 		},
