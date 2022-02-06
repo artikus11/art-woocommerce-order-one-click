@@ -18,7 +18,7 @@ class Response_Mail extends Response {
 			'link'       => $this->caption_link(),
 		];
 
-		if ( awooc()->mode->is_mode_catalog() || awooc()->mode->is_mode_preorder() ) {
+		if ( awooc()->mode->is_mode_catalog() ) {
 			unset( $data['qty'] );
 		}
 

@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 global $product;
 
-awooc()->front->disable_loop();
+awooc()->get_front()->disable_loop();
 
 ?>
 <div class="woocommerce-variation-add-to-cart variations_button">

@@ -111,7 +111,7 @@ class Enqueue {
 			'awooc_scripts_settings',
 			[
 				'mode'  => get_option( 'woocommerce_awooc_mode_catalog' ),
-				'template'         => awooc()->front->popup(),
+				'template'         => awooc()->get_front()->popup(),
 				'popup' => apply_filters(
 					'awooc_popup_setting',
 					[

@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-awooc()->front->disable_loop();
+awooc()->get_front()->disable_loop();
  ?>
 
 	<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>

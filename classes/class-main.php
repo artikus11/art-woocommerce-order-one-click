@@ -29,7 +29,7 @@ class Main {
 	 * @since 2.0.0
 	 * @var Front $front_end
 	 */
-	public Front $front;
+	private Front $front;
 
 	/**
 	 * @since 2.3.6
@@ -235,6 +235,15 @@ class Main {
 		update_option( 'woocommerce_awooc_text_rated', 1 );
 
 		wp_die();
+	}
+
+
+	/**
+	 * @return \Art\AWOOC\Front
+	 */
+	public function get_front(): Front {
+
+		return $this->front;
 	}
 
 }
