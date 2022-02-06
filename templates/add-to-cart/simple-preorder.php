@@ -44,19 +44,20 @@ echo wc_get_stock_html( $product ); // WPCS: XSS ok.
 
 	do_action( 'woocommerce_after_add_to_cart_quantity' );
 	?>
-	<?php if ( ( $product->managing_stock() && ! $product->is_on_backorder( 1 ) )
-	           || ( ! $product->managing_stock() && ! $product->is_on_backorder( 1 ) )
-	) : ?>
+	<?php if ( empty( $product->get_price() ) || ( $product->is_on_backorder( 1 ) ) ) : ?>
+
+		<?php awooc_html_custom_add_to_cart(); ?>
+
+	<?php else: ?>
 		<button
 			type="submit"
 			name="add-to-cart"
 			value="<?php echo esc_attr( $product->get_id() ); ?>"
 			class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
-
 	<?php endif; ?>
 
 
-	<?php awooc_html_custom_add_to_cart(); ?>
+
 
 	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 </form>
