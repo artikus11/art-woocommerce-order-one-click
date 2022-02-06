@@ -23,12 +23,12 @@ class Response {
 	/**
 	 * @var \WC_Product
 	 */
-	private $product;
+	private WC_Product $product;
 
 	/**
-	 * @var
+	 * @var int
 	 */
-	private $qty;
+	private int $qty;
 
 
 	/**
@@ -221,7 +221,7 @@ class Response {
 		foreach ( $attributes as $attr => $value ) {
 
 			$attr_label = wc_attribute_label( $attr, $this->product );
-			$meta       = get_post_meta( $this->product->get_id(), wc_variation_attribute_name( $attr ), true );
+			$meta       = get_post_meta( $this->id(), wc_variation_attribute_name( $attr ), true );
 			$term       = get_term_by( 'slug', $meta, $attr );
 
 			if ( false !== $term ) {
@@ -282,7 +282,7 @@ class Response {
 	 */
 	public function category_list(): array {
 
-		$current_terms = get_the_terms( $this->parent_id(), 'product_category' );
+		$current_terms = get_the_terms( $this->parent_id(), 'product_cat' );
 
 		$terms = [];
 
