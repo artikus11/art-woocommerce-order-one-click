@@ -14,6 +14,9 @@
  * WC requires at least: 3.3.0
  * WC tested up to: 5.0
  *
+ * Requires PHP: 7.4
+ * Requires WP:5.5
+ *
  * Copyright Artem Abramovich
  *
  *     This file is part of Art WooCommerce Order One Click,
