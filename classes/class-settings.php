@@ -441,6 +441,7 @@ class Settings extends WC_Settings_Page {
 					'default' => 'dont_show_add_to_card',
 					'type'    => 'select',
 					'options' => self::select_operating_mode(),
+					'autoload'    => false,
 				),
 
 				array(
@@ -453,6 +454,7 @@ class Settings extends WC_Settings_Page {
 					'type'     => 'select',
 					'options'  => $this->select_forms(),
 					'desc_tip' => true,
+					'autoload'    => false,
 				),
 
 				array(
@@ -463,6 +465,7 @@ class Settings extends WC_Settings_Page {
 					'default'  => esc_html__( 'Buy in one click', 'art-woocommerce-order-one-click' ),
 					'type'     => 'text',
 					'desc_tip' => true,
+					'autoload'    => false,
 				),
 
 				array(
@@ -475,6 +478,7 @@ class Settings extends WC_Settings_Page {
 					'css'      => 'min-width:350px;',
 					'type'     => 'text',
 					'desc_tip' => true,
+					'autoload'    => false,
 				),
 
 				array(
@@ -499,6 +503,7 @@ class Settings extends WC_Settings_Page {
 					'default'  => awooc_default_elements_item(),
 					'options'  => self::select_elements_item(),
 					'desc_tip' => true,
+					'autoload'    => false,
 				),
 				array(
 					'title'   => __( 'Styles and scripts globally', 'art-woocommerce-order-one-click' ),
@@ -509,6 +514,7 @@ class Settings extends WC_Settings_Page {
 					'id'      => 'woocommerce_awooc_enable_enqueue',
 					'default' => 'no',
 					'type'    => 'checkbox',
+					'autoload'    => false,
 				),
 				array(
 					'type' => 'sectionend',
@@ -527,6 +533,7 @@ class Settings extends WC_Settings_Page {
 					'class'   => 'awooc-notice notice-warning',
 					'style'   => '',
 					'message' => self::order_setting_notice(),
+					'autoload'    => false,
 				),
 
 				array(
@@ -538,6 +545,7 @@ class Settings extends WC_Settings_Page {
 					'id'      => 'woocommerce_awooc_created_order',
 					'default' => 'no',
 					'type'    => 'checkbox',
+					'autoload'    => false,
 				),
 
 				array(
@@ -549,6 +557,7 @@ class Settings extends WC_Settings_Page {
 					'id'      => 'woocommerce_awooc_change_subject',
 					'default' => 'no',
 					'type'    => 'checkbox',
+					'autoload'    => false,
 				),
 				array(
 					'title'   => __( 'Custom letter template', 'art-woocommerce-order-one-click' ),
@@ -559,6 +568,7 @@ class Settings extends WC_Settings_Page {
 					'id'      => 'woocommerce_awooc_enable_letter_template',
 					'default' => 'no',
 					'type'    => 'checkbox',
+					'autoload'    => false,
 				),
 				array(
 					'type' => 'sectionend',
@@ -580,6 +590,7 @@ class Settings extends WC_Settings_Page {
 					'id'      => 'woocommerce_awooc_not_del_settings',
 					'default' => 'no',
 					'type'    => 'checkbox',
+					'autoload'    => false,
 				),
 
 				array(
@@ -603,6 +614,7 @@ class Settings extends WC_Settings_Page {
 					'style'   => '',
 					'title'   => '',
 					'message' => self::call_to_rate(),
+					'autoload'    => false,
 				),
 
 				array(
@@ -612,6 +624,7 @@ class Settings extends WC_Settings_Page {
 					'style'   => '',
 					'title'   => __( 'Useful links', 'art-woocommerce-order-one-click' ),
 					'message' => self::guide_link(),
+					'autoload'    => false,
 				),
 
 				array(
@@ -621,6 +634,7 @@ class Settings extends WC_Settings_Page {
 					'style'   => '',
 					'title'   => __( 'Donate', 'art-woocommerce-order-one-click' ),
 					'message' => self::call_to_donate(),
+					'autoload'    => false,
 				),
 
 				array(
@@ -649,7 +663,7 @@ class Settings extends WC_Settings_Page {
 	 */
 	public static function select_operating_mode() {
 
-		$options = apply_filters(
+		return apply_filters(
 			'awooc_select_operating_mode',
 			array(
 				'dont_show_add_to_card' => __( 'Catalog mode', 'art-woocommerce-order-one-click' ),
@@ -658,8 +672,6 @@ class Settings extends WC_Settings_Page {
 				'no_stock_no_price'     => __( 'Special mode', 'art-woocommerce-order-one-click' ),
 			)
 		);
-
-		return $options;
 	}
 
 
