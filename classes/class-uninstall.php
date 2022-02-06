@@ -34,28 +34,21 @@ class Uninstall {
 
 	protected static function remove_options(): void {
 
+		global $wpdb;
 
-		$options = apply_filters(
-			'awooc_uninstall_options',
-			[
-				'woocommerce_awooc_mode_catalog',
-				'woocommerce_awooc_select_form',
-				'woocommerce_awooc_title_button',
-				'woocommerce_awooc_title_custom',
-				'woocommerce_awooc_select_item',
-				'woocommerce_awooc_enable_enqueue',
-				'woocommerce_awooc_created_order',
-				'woocommerce_awooc_change_subject',
-				'woocommerce_awooc_settings_others',
-				'woocommerce_awooc_not_del_settings',
-				'woocommerce_awooc_text_rated',
-				'woocommerce_awooc_enable_letter_template',
-			]
+		$like = sprintf(
+			'%s%s',
+			$wpdb->esc_like( 'woocommerce_awooc_' ),
+			'%'
 		);
 
-		foreach ( $options as $option ) {
-			delete_option( $option );
-		}
+		$wpdb->query(
+			$wpdb->prepare(
+				"DELETE FROM $wpdb->options WHERE option_name LIKE %s",
+				$like
+			)
+		);
+
 	}
 
 
