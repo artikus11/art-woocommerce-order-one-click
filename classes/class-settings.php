@@ -684,16 +684,20 @@ class Settings extends WC_Settings_Page {
 	 */
 	public function select_forms() {
 
-		$args = array(
+		$args = [
 			'post_type'      => 'wpcf7_contact_form',
 			'posts_per_page' => 20,
-		);
+		];
 
 		$cf7_forms = get_posts( $args );
-		$select    = array();
+		$select    = [];
 
 		foreach ( $cf7_forms as $form ) {
-			$select[ esc_attr( $form->ID ) ] = '[contact-form-7 id="' . esc_attr( $form->ID ) . '" title="' . esc_html( $form->post_title ) . '"]';
+			$select[ esc_attr( $form->ID ) ] = sprintf(
+				'[contact-form-7 id="%s" title="%s"]',
+				esc_attr( $form->ID ),
+				esc_html( $form->post_title )
+			);
 		}
 
 		return $select;
@@ -707,7 +711,7 @@ class Settings extends WC_Settings_Page {
 	 */
 	public static function select_elements_item() {
 
-		$options = array(
+		return array(
 			'title' => __( 'Title', 'art-woocommerce-order-one-click' ),
 			'image' => __( 'Image', 'art-woocommerce-order-one-click' ),
 			'price' => __( 'Price', 'art-woocommerce-order-one-click' ),
@@ -716,8 +720,6 @@ class Settings extends WC_Settings_Page {
 			'qty'   => __( 'Quantity', 'art-woocommerce-order-one-click' ),
 			'sum'   => __( 'Amount', 'art-woocommerce-order-one-click' ),
 		);
-
-		return $options;
 	}
 
 
