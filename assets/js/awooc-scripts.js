@@ -31,7 +31,7 @@ jQuery( function ( $ ) {
 
 	const AWOOC = {
 		xhr: false,
-
+		$button:      $( '.awooc-button-js' ),
 		analyticData: {},
 
 		init: function () {

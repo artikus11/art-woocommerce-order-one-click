@@ -33,18 +33,13 @@ class Response_Analytics extends Response {
 	 */
 	protected function product_category() {
 
-		$term  = '';
-		$terms = get_the_terms( $this->parent_id(), 'product_category' );
+		$terms = get_the_terms( $this->parent_id(), 'product_cat' );
 
-		if ( false === $terms ) {
+		if ( ! $terms || is_wp_error( $terms ) ) {
 			return false;
 		}
 
-		if ( $terms ) {
-			$term = array_shift( $terms );
-		}
-
-		return $term->name;
+		return array_shift( $terms )->name;
 	}
 
 }
