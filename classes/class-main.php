@@ -246,4 +246,21 @@ class Main {
 		return $this->front;
 	}
 
+
+	/**
+	 * Проверка на простой товар
+	 *
+	 * @return bool
+	 */
+	public function is_simple(): bool {
+
+		$product = wc_get_product();
+
+		if ( is_null( $product ) ) {
+			$product = $GLOBALS['product'];
+		}
+
+		return $product->is_type( 'simple' );
+
+	}
 }
