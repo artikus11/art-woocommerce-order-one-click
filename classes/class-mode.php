@@ -6,25 +6,25 @@ class Mode {
 
 	public function is_mode_special(): bool {
 
-		return 'no_stock_no_price' === $this->get_mode();
+		return 'no_stock_no_price' === $this->get_mode_value();
 	}
 
 
 	public function is_mode_catalog(): bool {
 
-		return 'dont_show_add_to_card' === $this->get_mode();
+		return 'dont_show_add_to_card' === $this->get_mode_value();
 	}
 
 
 	public function is_mode_preorder(): bool {
 
-		return 'in_stock_add_to_card' === $this->get_mode();
+		return 'in_stock_add_to_card' === $this->get_mode_value();
 	}
 
 
 	public function is_mode_normal(): bool {
 
-		return 'show_add_to_card' === $this->get_mode();
+		return 'show_add_to_card' === $this->get_mode_value();
 	}
 
 
@@ -39,13 +39,13 @@ class Mode {
 	 * @return false|mixed|void
 	 * @since  3.0.0
 	 */
-	public function get_mode() {
+	public function get_mode_value() {
 
 		return get_option( 'woocommerce_awooc_mode_catalog' );
 	}
 
 
-	public function modes(): array {
+	public function get_modes(): array {
 
 		return [
 			'dont_show_add_to_card' => 'catalog',
