@@ -79,6 +79,16 @@ jQuery( function ( $ ) {
 						.find( '.woocommerce-variation-add-to-cart .single_add_to_cart_button' )
 						.hide();
 
+				} else {
+					$( 'body.woocommerce' )
+						.find( '.single_variation' )
+						.show();
+					$( 'body.woocommerce' )
+						.find( '.quantity' )
+						.show();
+					$( 'body.woocommerce' )
+						.find( '.woocommerce-variation-add-to-cart .single_add_to_cart_button' )
+						.show();
 				}
 
 			}
