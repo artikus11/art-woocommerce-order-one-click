@@ -86,20 +86,24 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 	/**
 	 * Displaying the button add to card in product page
 	 *
-	 * @param  array           $args    массив параметров.
+	 * @param  array|string    $args    массив параметров.
 	 * @param  WC_Product|null $product объект продукта.
 	 *
 	 * @since 1.5.0
 	 * @since 3.0.0
 	 */
-	function awooc_html_custom_add_to_cart( array $args = [], WC_Product $product = null ) {
-
-		wp_enqueue_script( 'awooc-scripts' );
-		wp_enqueue_style( 'awooc-styles' );
+	function awooc_html_custom_add_to_cart( $args = [], WC_Product $product = null ) {
 
 		if ( is_null( $product ) ) {
 			$product = $GLOBALS['product'];
 		}
+
+		if ( 'yes' === $product->get_meta( '_awooc_button' ) ) {
+			return;
+		}
+
+		wp_enqueue_script( 'awooc-scripts' );
+		wp_enqueue_style( 'awooc-styles' );
 
 		$defaults = [
 			'product_id' => $product->get_id(),
@@ -115,10 +119,6 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 			$product
 		);
 
-		if ( 'yes' === $product->get_meta( '_awooc_button' ) ) {
-			return;
-		}
-
 		load_template(
 			awooc()->get_template( 'button.php' ),
 			$args['loop'],
@@ -129,6 +129,36 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 				'label'      => $args['label'],
 			]
 		);
+	}
+}
+
+if ( ! function_exists( 'awooc_popup' ) ) {
+	/**
+	 * Вывод всплывающего окна
+	 *
+	 * @since 3.0.0
+	 */
+	function awooc_popup() {
+
+		$elements = get_option( 'woocommerce_awooc_select_item' );
+		$product  = wc_get_product();
+
+		if ( ! is_array( $elements ) ) {
+			return null;
+		}
+
+		ob_start();
+
+		load_template(
+			awooc()->get_template( 'popup.php' ),
+			true,
+			[
+				'elements' => $elements,
+				'product'  => $product,
+			]
+		);
+
+		return ob_get_clean();
 	}
 }
 
@@ -228,8 +258,8 @@ if ( ! function_exists( 'awooc_popup_window_sum' ) ) {
 	/**
 	 * Output of a product price in a popup window
 	 *
-	 * @param  array       $elements массив настроек элементов окна.
-	 * @param  \WC_Product $product  объект продукта.
+	 * @param  array      $elements массив настроек элементов окна.
+	 * @param  WC_Product $product  объект продукта.
 	 *
 	 * @since 1.5.0
 	 * @since 2.4.0

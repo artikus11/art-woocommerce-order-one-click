@@ -119,8 +119,8 @@ class Enqueue {
 			'awooc-scripts',
 			'awooc_scripts_settings',
 			[
-				'mode'     => get_option( 'woocommerce_awooc_mode_catalog' ),
-				'template' => $this->main->get_front()->popup(),
+				'mode'     => $this->main->get_mode()->get_mode_value(),
+				'template' => awooc_popup(),
 				'popup'    => apply_filters(
 					'awooc_popup_setting',
 					[
