@@ -5,31 +5,40 @@
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
  * @package art-woocommerce-order-one-click/classes
  *
- * @version 2.3.6
+ * @version 3.0.0
  */
 
 namespace Art\AWOOC;
 
 /**
- * Class AWOOC_Enqueue
+ * Class Enqueue
  *
  * @author Artem Abramovich
  * @since  2.3.6
+ * @since  3.0.0
  */
 class Enqueue {
 
-	protected $suffix;
+	protected string $suffix;
+
+	protected Main $main;
 
 
-	public function __construct() {
+	public function __construct( $main ) {
 
+		$this->main   = $main;
 		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+	}
+
+
+	public function init_hooks(): void {
 
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue' ], 100 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'localize' ], 110 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue' ] );
-	}
 
+	}
 
 	/**
 	 * Подключаем нужные стили и скрипты
@@ -95,11 +104,11 @@ class Enqueue {
 			'awooc_scripts_translate',
 			[
 				'product_qty'        => __( 'Quantity: ', 'art-woocommerce-order-one-click' ),
-				'title'      => __( 'Title: ', 'art-woocommerce-order-one-click' ),
-				'price'      => __( 'Price: ', 'art-woocommerce-order-one-click' ),
-				'sku'        => __( 'SKU: ', 'art-woocommerce-order-one-click' ),
-				'formatted_sum'        => __( 'Amount: ', 'art-woocommerce-order-one-click' ),
-				'attributes_list'       => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
+				'title'              => __( 'Title: ', 'art-woocommerce-order-one-click' ),
+				'price'              => __( 'Price: ', 'art-woocommerce-order-one-click' ),
+				'sku'                => __( 'SKU: ', 'art-woocommerce-order-one-click' ),
+				'formatted_sum'      => __( 'Amount: ', 'art-woocommerce-order-one-click' ),
+				'attributes_list'    => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
 				'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
 				'product_link'       => __( 'Link to the product: ', 'art-woocommerce-order-one-click' ),
 				'title_close'        => __( 'Click to close', 'art-woocommerce-order-one-click' ),
@@ -110,9 +119,9 @@ class Enqueue {
 			'awooc-scripts',
 			'awooc_scripts_settings',
 			[
-				'mode'  => get_option( 'woocommerce_awooc_mode_catalog' ),
-				'template'         => awooc()->get_front()->popup(),
-				'popup' => apply_filters(
+				'mode'     => get_option( 'woocommerce_awooc_mode_catalog' ),
+				'template' => $this->main->get_front()->popup(),
+				'popup'    => apply_filters(
 					'awooc_popup_setting',
 					[
 						'mailsent_timeout' => 3000,
