@@ -58,10 +58,14 @@ jQuery( function ( $ ) {
 
 		enableButton: function ( e, variation ) {
 
-			if ( false !== variation.is_in_stock ) {
-				AWOOC.$button.removeClass( 'disabled wc-variation-selection-needed' )
-			} else {
+			if ( ! variation.is_in_stock ) {
 				AWOOC.$button.addClass( 'disabled wc-variation-is-unavailable' )
+			} else {
+				AWOOC.$button.removeClass( 'disabled wc-variation-selection-needed' )
+			}
+
+			if ( awooc_scripts_settings.mode === 'dont_show_add_to_card' ) {
+				AWOOC.$button.removeClass( 'disabled wc-variation-selection-needed' )
 			}
 
 			// Если у вариации нет цены или ее нет в наличие то скрываем сообщения.
