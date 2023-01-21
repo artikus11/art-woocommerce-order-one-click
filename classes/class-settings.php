@@ -60,7 +60,7 @@ class Settings extends WC_Settings_Page {
 	 */
 	public static function select_default_elements_item() {
 
-		$default = array(
+		return array(
 			'title',
 			'image',
 			'price',
@@ -68,8 +68,6 @@ class Settings extends WC_Settings_Page {
 			'attr',
 			'qty',
 		);
-
-		return $default;
 	}
 
 
