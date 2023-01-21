@@ -5,17 +5,22 @@
  * This template can be overridden by copying it to yourtheme/art-woocommerce-order-one-click/popup.php.
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
- * @package art-woocommerce-order-one-click/includes/view
+ * @package art-woocommerce-order-one-click/templates
  * @version 3.0.0
+ *
+ * @global $args
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-global $product;
+$product  = $args['product'];
+$elements = $args['elements'] ? : [];
 
-$elements = get_option( 'woocommerce_awooc_select_item' ) ? : [];
+if ( is_null( $product ) ) {
+	$product = wc_get_product();
+}
 
 ?>
 
