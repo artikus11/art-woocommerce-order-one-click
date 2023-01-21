@@ -1,10 +1,10 @@
 <?php
 /**
- * Файл обработки данных на фронте
+ * Front.
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
  * @package art-woocommerce-order-one-click/classes
- * @version 1.8.0
+ * @version 3.0.0
  */
 
 namespace Art\AWOOC;
@@ -22,17 +22,13 @@ class Front {
 	 */
 	private $mode;
 
+	protected Main $main;
 
-	/**
-	 * Constructor.
-	 *
-	 * @since 1.8.0
-	 */
-	public function __construct() {
 
+	public function __construct( Main $main ) {
+
+		$this->main = $main;
 		$this->mode = get_option( 'woocommerce_awooc_mode_catalog' );
-
-		$this->hooks();
 
 	}
 
@@ -42,16 +38,7 @@ class Front {
 	 *
 	 * @since 2.3.6
 	 */
-	public function hooks() {
-
-
-		/**
-		 * WooCommerce setup_hooks
-		 */
-		//add_filter( 'woocommerce_is_purchasable', [ $this, 'disable_add_to_cart_no_price' ], 10, 2 );
-		//add_filter( 'woocommerce_product_is_in_stock', [ $this, 'disable_add_to_cart_out_stock' ], 10, 2 );
-		//add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_variable_add_to_cart' ], 10, 3 );
-		//add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'add_custom_button' ], 15 );
+	public function init_hooks(): void {
 
 		add_filter( 'woocommerce_locate_template', [ $this, 'modify_add_to_cart_button_template' ], 1, 3 );
 
@@ -78,14 +65,144 @@ class Front {
 
 
 	/**
+	 * Метод отключения надписей в цикле товаров для разных режимов
+	 *
+	 * @since 2.3.6
+	 */
+	public function disable_loop(): void {
+
+		add_filter( 'woocommerce_product_add_to_cart_text', [ $this, 'disable_text_add_to_cart_to_related' ] );
+		add_filter( 'woocommerce_product_add_to_cart_url', [ $this, 'disable_url_add_to_cart_to_related' ] );
+		add_filter( 'woocommerce_loop_add_to_cart_args', [ $this, 'disable_ajax_add_to_cart_to_related' ], 10, 2 );
+	}
+
+
+	/**
+	 *  Замена урл на кнопках в похожих товарах на страницах товарах
+	 *
+	 * @param  string $url входящий урл.
+	 *
+	 * @return string
+	 * @since 1.8.0
+	 */
+	public function disable_url_add_to_cart_to_related( string $url ): string {
+
+		if ( is_product() ) {
+			$url = get_permalink();
+		}
+
+		return $url;
+	}
+
+
+	/**
+	 * Замена текста на кнопках в похожих товарах на страницах товарах
+	 *
+	 * @param  string $text входящий текст на кнопке.
+	 *
+	 * @return string
+	 * @since 1.8.0
+	 */
+	public function disable_text_add_to_cart_to_related( string $text ): string {
+
+		if ( is_product() ) {
+			$text = __( 'Read more', 'woocommerce' );
+		}
+
+		return $text;
+	}
+
+
+	/**
+	 * Удаление класса вызова ajax в режиме каталога для похожих товаров
+	 *
+	 * @param  array       $args    массив аргументов.
+	 * @param  \WC_Product $product объект продукта.
+	 *
+	 * @return array
+	 * @since 2.2.5
+	 */
+	public function disable_ajax_add_to_cart_to_related( array $args, \WC_Product $product ): array {
+
+		$search   = 'ajax_add_to_cart';
+		$position = strrpos( $args['class'], $search );
+
+		if ( false !== $position && ( 'simple' === $product->get_type() && is_product() ) ) {
+			$args['class'] = substr_replace( $args['class'], '', $position, strlen( $search ) );
+		}
+
+		return $args;
+	}
+
+
+	/**
+	 *
+	 * 'dont_show_add_to_card' => __( 'Catalog mode', 'art-woocommerce-order-one-click' )
+	 * 'show_add_to_card'      => __( 'Normal mode', 'art-woocommerce-order-one-click' )
+	 * 'in_stock_add_to_card'  => __( 'Pre-order mode', 'art-woocommerce-order-one-click' )
+	 * 'no_stock_no_price'     => __( 'Special mode', 'art-woocommerce-order-one-click' )
+	 *
+	 * @param         $template
+	 * @param  string $type
+	 *
+	 * @return mixed
+	 */
+	protected function get_template_mode( $template, string $type = 'simple' ) {
+
+		$product = wc_get_product();
+
+		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
+			return $template;
+		}
+
+		foreach ( $this->main->get_modes() as $option => $name ) {
+			if ( $option === $this->main->get_mode()->get_mode_value() ) {
+				$template = $this->main->get_template( "add-to-cart/{$type}-{$name}.php" );
+			}
+		}
+
+		return $template;
+	}
+
+
+	/**
+	 * Инициализация хуков
+	 *
+	 * @deprecated New architecture.
+	 * @since      3.0.0
+	 */
+	public function legacy_hooks(): void {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
+
+		if ( ! WP_DEBUG_LOG ) {
+			return;
+		}
+
+		/**
+		 * WooCommerce setup_hooks
+		 *
+		 * deprecated
+		 */
+		add_filter( 'woocommerce_is_purchasable', [ $this, 'disable_add_to_cart_no_price' ], 10, 2 );
+		add_filter( 'woocommerce_product_is_in_stock', [ $this, 'disable_add_to_cart_out_stock' ], 10, 2 );
+		add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_variable_add_to_cart' ], 10, 3 );
+		add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'add_custom_button' ], 15 );
+
+	}
+
+
+	/**
 	 * Вывод кнопки Заказать в зависимости от настроек
 	 *
-	 * @since 1.8.0
-	 * @since 2.3.6
+	 * @since      1.8.0
+	 * @since      2.3.6
 	 *
-	 * @todo  режим спецзаказа - отключение похожих если нет запасов
+	 * @deprecated 3.0.0 New architecture.
+	 *
+	 * @todo       режим спецзаказа - отключение похожих если нет запасов
 	 */
-	public function add_custom_button() {
+	public function add_custom_button(): void {
 
 		$product = wc_get_product();
 
@@ -122,40 +239,24 @@ class Front {
 
 
 	/**
-	 * Вывод всплывающего окна
-	 *
-	 * @since 3.0.0
-	 */
-	public function popup() {
-
-		$elements = get_option( 'woocommerce_awooc_select_item' );
-
-		if ( ! is_array( $elements ) ) {
-			return null;
-		}
-
-		ob_start();
-
-		load_template(
-			awooc()->templater->get_template( 'popup.php' ),
-			true,
-		);
-
-		return ob_get_clean();
-	}
-
-
-	/**
 	 * Включение кнопки Заказать в если нет цены в простых товарах
 	 *
-	 * @param  bool       $bool    входящее булево значение.
-	 * @param  WC_Product $product объект продукта.
+	 * @param  bool        $bool    входящее булево значение.
+	 * @param  \WC_Product $product объект продукта.
 	 *
 	 * @return bool
 	 *
-	 * @since 2.2.0
+	 * @deprecated 3.0.0 New architecture.
+	 *
+	 * @since      2.2.0
 	 */
-	public function disable_add_to_cart_no_price( $bool, $product ) {
+	public function disable_add_to_cart_no_price( $bool, $product ): bool {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
+
+		if ( ! WP_DEBUG_LOG ) {
+			return $bool;
+		}
 
 		if ( 'variation' === $product->get_type() ) {
 			return $bool;
@@ -199,14 +300,22 @@ class Front {
 	/**
 	 * Включение кнопки Заказать в если нет в наличии в простых товарах
 	 *
-	 * @param  bool       $status  входящее булево значение.
-	 * @param  WC_Product $product объект продукта.
+	 * @param  bool        $status  входящее булево значение.
+	 * @param  \WC_Product $product объект продукта.
 	 *
 	 * @return bool
 	 *
-	 * @since 2.2.0
+	 * @deprecated 3.0.0 New architecture.
+	 *
+	 * @since      2.2.0
 	 */
-	public function disable_add_to_cart_out_stock( $status, $product ) {
+	public function disable_add_to_cart_out_stock( bool $status, \WC_Product $product ): bool {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
+
+		if ( ! WP_DEBUG_LOG ) {
+			return $status;
+		}
 
 		if ( 'variation' === $product->get_type() ) {
 			return $status;
@@ -217,7 +326,7 @@ class Front {
 		}
 
 		if ( false === $status ) {
-			switch ( $this->mode ) {
+			switch ( $this->main->get_mode() ) {
 				case 'dont_show_add_to_card':
 					if ( is_product() ) {
 						$status = true;
@@ -265,31 +374,47 @@ class Front {
 	 *
 	 * @return string
 	 *
-	 * @since 2.2.0
+	 * @deprecated 3.0.0 New architecture.
+	 *
+	 * @since      2.2.0
 	 */
-	public function custom_button_label( $label ) {
+	public function custom_button_label( string $label ): string {
 
-		$label = get_option( 'woocommerce_awooc_title_custom' ) ? esc_html( get_option( 'woocommerce_awooc_title_custom' ) ) :
-			esc_html( get_option( 'woocommerce_awooc_title_button' ) );
+		_deprecated_function( __METHOD__, '3.0.0' );
 
-		return $label;
+		if ( ! WP_DEBUG_LOG ) {
+			return $label;
+		}
+
+		$label_button        = esc_html( get_option( 'woocommerce_awooc_title_button' ) );
+		$custom_label_button = esc_html( get_option( 'woocommerce_awooc_title_custom' ) );
+
+		return $custom_label_button ? : $label_button;
 	}
 
 
 	/**
 	 * Включение кнопки Заказать в если нет цены или наличия в вариаиях
 	 *
-	 * @param  bool                $bool       входящее булево значение.
-	 * @param  int                 $product_id ID родительского товара.
-	 * @param  WC_Product_Variable $variation  объект вариации.
+	 * @param  bool                 $bool       входящее булево значение.
+	 * @param  int                  $product_id ID родительского товара.
+	 * @param  \WC_Product_Variable $variation  объект вариации.
 	 *
 	 * @return bool
 	 *
-	 * @since 2.0.0
+	 * @since      2.0.0
 	 *
-	 * @todo  странное поведение кнопки для вариации если нет на складе вариации или нет цены
+	 * @deprecated 3.0.0 New architecture.
+	 *
+	 * @todo       странное поведение кнопки для вариации если нет на складе вариации или нет цены
 	 */
-	public function hide_variable_add_to_cart( $bool, $product_id, $variation ) {
+	public function hide_variable_add_to_cart( $bool, $product_id, $variation ): bool {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
+
+		if ( ! WP_DEBUG_LOG ) {
+			return $bool;
+		}
 
 		$product = wc_get_product( $product_id );
 
@@ -318,12 +443,20 @@ class Front {
 	/**
 	 * Скрытие кнопки купить
 	 *
-	 * @return mixed|void
-	 * @since 1.8.3
+	 * @return void
+	 * @since      1.8.3
 	 *
-	 * @since 1.8.0
+	 * @deprecated 3.0.0 New architecture.
+	 *
+	 * @since      1.8.0
 	 */
-	public function hide_button_add_to_card() {
+	public function hide_button_add_to_card(): void {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
+
+		if ( ! WP_DEBUG_LOG ) {
+			return;
+		}
 
 		ob_start();
 		?>
@@ -349,11 +482,19 @@ class Front {
 	/**
 	 * Показ кнопки В корзину
 	 *
-	 * @return mixed|void
-	 * @since 1.8.0
+	 * @return void
+	 * @since      1.8.0
+	 *
+	 * @deprecated 3.0.0 New architecture.
 	 *
 	 */
-	public function show_button_add_to_card() {
+	protected function show_button_add_to_card(): void {
+
+		_deprecated_function( __METHOD__, '3.0.0' );
+
+		if ( ! WP_DEBUG_LOG ) {
+			return;
+		}
 
 		ob_start();
 		?>
@@ -373,109 +514,6 @@ class Front {
 		$enable_add_to_card = apply_filters( 'awooc_enable_add_to_card_style', ob_get_clean() );
 
 		echo wp_kses( $enable_add_to_card, [ 'style' => [] ] );
-	}
-
-
-	/**
-	 *  Замена урл на кнопках в похожих товарах на страницах товарах
-	 *
-	 * @param  string $url входящий урл.
-	 *
-	 * @return string
-	 * @since 1.8.0
-	 */
-	public function disable_url_add_to_cart_to_related( $url ) {
-
-		if ( is_product() ) {
-			$url = get_permalink();
-		}
-
-		return $url;
-	}
-
-
-	/**
-	 * Замена текста на кнопках в похожих товарах на страницах товарах
-	 *
-	 * @param  string $text входящий текст на кнопке.
-	 *
-	 * @return string
-	 * @since 1.8.0
-	 */
-	public function disable_text_add_to_cart_to_related( $text ) {
-
-		if ( is_product() ) {
-			$text = __( 'Read more', 'woocommerce' );
-		}
-
-		return $text;
-	}
-
-
-	/**
-	 * Удаление класса вызова ajax в режиме каталога для похожих товаров
-	 *
-	 * @param  array      $args    массив аргументов.
-	 * @param  WC_Product $product объект продукта.
-	 *
-	 * @return mixed
-	 * @since 2.2.5
-	 */
-	public function disable_ajax_add_to_cart_to_related( $args, $product ) {
-
-		if ( 'simple' === $product->get_type() && is_product() ) {
-			$search = 'ajax_add_to_cart';
-			$pos    = strrpos( $args['class'], $search );
-
-			if ( false !== $pos ) {
-				$args['class'] = substr_replace( $args['class'], '', $pos, strlen( $search ) );
-			}
-		}
-
-		return $args;
-	}
-
-
-	/**
-	 * Метод отключения надписей в цикле товаров для разных режимов
-	 *
-	 * @since 2.3.6
-	 */
-	public function disable_loop(): void {
-
-		add_filter( 'woocommerce_product_add_to_cart_text', [ $this, 'disable_text_add_to_cart_to_related' ] );
-		add_filter( 'woocommerce_product_add_to_cart_url', [ $this, 'disable_url_add_to_cart_to_related' ] );
-		add_filter( 'woocommerce_loop_add_to_cart_args', [ $this, 'disable_ajax_add_to_cart_to_related' ], 10, 2 );
-	}
-
-
-	/**
-	 *
-	 * 'dont_show_add_to_card' => __( 'Catalog mode', 'art-woocommerce-order-one-click' )
-	 * 'show_add_to_card'      => __( 'Normal mode', 'art-woocommerce-order-one-click' )
-	 * 'in_stock_add_to_card'  => __( 'Pre-order mode', 'art-woocommerce-order-one-click' )
-	 * 'no_stock_no_price'     => __( 'Special mode', 'art-woocommerce-order-one-click' )
-	 *
-	 * @param         $template
-	 * @param  string $type
-	 *
-	 * @return mixed
-	 */
-	protected function get_template_mode( $template, string $type = 'simple' ) {
-
-		$product = wc_get_product();
-
-		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
-			return $template;
-		}
-
-		foreach ( awooc()->mode->modes() as $option => $name ) {
-			if ( $option === awooc()->mode->get_mode() ) {
-				$template = awooc()->templater->get_template( "add-to-cart/{$type}-{$name}.php" );
-			}
-		}
-
-		return $template;
 	}
 
 }
