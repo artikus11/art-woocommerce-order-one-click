@@ -105,7 +105,7 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 			'product_id' => $product->get_id(),
 			'class'      => apply_filters( 'awooc_classes_button', implode( ' ', awooc_mode_classes( $product ) ) ),
 			'id'         => apply_filters( 'awooc_id_button', 'awooc-custom-order-button-' . $product->get_id() ),
-			'label'      => apply_filters( 'awooc_button_label', get_option( 'woocommerce_awooc_title_button' ) ),
+			'label'      => apply_filters( 'awooc_button_label', awooc_custom_button_label( $product ) ),
 			'loop'       => false,
 		];
 
@@ -115,8 +115,12 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 			$product
 		);
 
+		if ( 'yes' === $product->get_meta( '_awooc_button' ) ) {
+			return;
+		}
+
 		load_template(
-			awooc()->templater->get_template( 'button.php' ),
+			awooc()->get_template( 'button.php' ),
 			$args['loop'],
 			[
 				'product_id' => $args['product_id'],
@@ -125,6 +129,25 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 				'label'      => $args['label'],
 			]
 		);
+	}
+}
+
+if ( ! function_exists( 'awooc_custom_button_label' ) ) {
+	/**
+	 * @param  \WC_Product $product
+	 *
+	 * @return string
+	 */
+	function awooc_custom_button_label( WC_Product $product ): string {
+
+		$label_button        = esc_html( get_option( 'woocommerce_awooc_title_button' ) );
+		$custom_label_button = esc_html( get_option( 'woocommerce_awooc_title_custom' ) );
+
+		if ( ( ! $product->is_in_stock() || ( ! $product->is_purchasable() || $product->get_price() < 0 ) ) && awooc()->get_mode()->is_mode_special() ) {
+			return $custom_label_button ? : $label_button;
+		}
+
+		return $label_button;
 	}
 }
 
@@ -138,7 +161,7 @@ if ( ! function_exists( 'awooc_popup_window_title' ) ) {
 	 * @since 1.5.0
 	 * @since 1.8.10
 	 */
-	function awooc_popup_window_title( $elements, $product ) {
+	function awooc_popup_window_title( array $elements, WC_Product $product ) {
 
 		if ( in_array( 'title', $elements, true ) ) {
 			echo wp_kses_post(
@@ -164,7 +187,7 @@ if ( ! function_exists( 'awooc_popup_window_image' ) ) {
 	 * @since 1.5.0
 	 * @since 1.8.0
 	 */
-	function awooc_popup_window_image( $elements ) {
+	function awooc_popup_window_image( array $elements ) {
 
 		if ( in_array( 'image', $elements, true ) ) {
 
@@ -184,7 +207,7 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 	 * @since 1.5.0
 	 * @since 1.8.10
 	 */
-	function awooc_popup_window_price( $elements, $product ) {
+	function awooc_popup_window_price( array $elements, WC_Product $product ) {
 
 		if ( in_array( 'price', $elements, true ) ) {
 
@@ -211,7 +234,7 @@ if ( ! function_exists( 'awooc_popup_window_sum' ) ) {
 	 * @since 1.5.0
 	 * @since 2.4.0
 	 */
-	function awooc_popup_window_sum( $elements, $product ) {
+	function awooc_popup_window_sum( array $elements, WC_Product $product ) {
 
 		if ( in_array( 'sum', $elements, true ) ) {
 
@@ -237,7 +260,7 @@ if ( ! function_exists( 'awooc_popup_window_sku' ) ) {
 	 * @since 1.5.0
 	 * @since 1.5.0
 	 */
-	function awooc_popup_window_sku( $elements ) {
+	function awooc_popup_window_sku( array $elements ) {
 
 		if ( in_array( 'sku', $elements, true ) ) {
 
@@ -256,7 +279,7 @@ if ( ! function_exists( 'awooc_popup_window_qty' ) ) {
 	 *
 	 * @since 2.1.0
 	 */
-	function awooc_popup_window_qty( $elements ) {
+	function awooc_popup_window_qty( array $elements ) {
 
 		if ( in_array( 'qty', $elements, true ) ) {
 
@@ -276,7 +299,7 @@ if ( ! function_exists( 'awooc_popup_window_attr' ) ) {
 	 * @since 1.5.0
 	 * @since 1.8.9
 	 */
-	function awooc_popup_window_attr( $elements ) {
+	function awooc_popup_window_attr( array $elements ) {
 
 		if ( in_array( 'attr', $elements, true ) ) {
 			echo '<div class="awooc-form-custom-order-attr awooc-popup-item awooc-popup-attr skeleton-loader"></div>';
@@ -292,7 +315,7 @@ if ( ! function_exists( 'awooc_popup_window_form' ) ) {
 	 * @since 1.5.0
 	 * @since 1.8.9
 	 */
-	function awooc_popup_window_form( ){
+	function awooc_popup_window_form() {
 
 		echo '<div class="awooc-form-custom-order-form awooc-popup-item awooc-popup-form skeleton-loader"></div>';
 	}
