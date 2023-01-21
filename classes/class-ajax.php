@@ -26,16 +26,20 @@ class Ajax {
 	 */
 	public $elements;
 
+	protected Main $main;
 
-	/**
-	 * Constructor.
-	 *
-	 * @since 1.8.0
-	 */
-	public function __construct() {
 
-		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', [ $this, 'ajax_scripts_callback' ] );
-		add_action( 'wp_ajax_awooc_ajax_product_form', [ $this, 'ajax_scripts_callback' ] );
+	public function __construct( Main $main ) {
+
+		$this->main = $main;
+
+	}
+
+
+	public function init_hooks(): void {
+
+		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
+		add_action( 'wp_ajax_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
 
 		add_action( 'wpcf7_before_send_mail', [ $this, 'email' ], 10, 3 );
 	}
@@ -44,7 +48,7 @@ class Ajax {
 	/**
 	 * Возвратна функция дл загрузки данных во всплывающем окне
 	 */
-	public function ajax_scripts_callback(): void {
+	public function ajax_callback(): void {
 
 		/**
 		 * Если включено кеширование, то нонсу не проверяем.
@@ -70,9 +74,9 @@ class Ajax {
 			'awooc_data_ajax',
 			[
 				'elements'    => 'full',
-				'toPopup'     => ( new Response_Popup( $product, $product_qty ) )->get_response(),
-				'toMail'      => ( new Response_Mail( $product, $product_qty ) )->get_response(),
-				'toAnalytics' => ( new Response_Analytics( $product, $product_qty ) )->get_response(),
+				'toPopup'     => ( new Prepare_Popup( $this->main, $product, $product_qty ) )->get_response(),
+				'toMail'      => ( new Prepare_Mail( $this->main, $product, $product_qty ) )->get_response(),
+				'toAnalytics' => ( new Prepare_Analytics( $this->main, $product, $product_qty ) )->get_response(),
 			],
 			$product
 		);
@@ -98,7 +102,7 @@ class Ajax {
 			return;
 		}
 
-		if (  (int) $contact_form->id() !== (int) get_option( 'woocommerce_awooc_select_form' ) ) {
+		if ( (int) $contact_form->id() !== (int) get_option( 'woocommerce_awooc_select_form' ) ) {
 			return;
 		}
 
@@ -111,7 +115,7 @@ class Ajax {
 		$email = ! empty( $mail_body['awooc-email'] ) ? sanitize_text_field( wp_unslash( $mail_body['awooc-email'] ) ) : '';
 		$tel   = ! empty( $mail_body['awooc-tel'] ) ? sanitize_text_field( wp_unslash( $mail_body['awooc-tel'] ) ) : '';
 
-		$mail = $contact_form->prop( 'mail' );
+		$mail     = $contact_form->prop( 'mail' );
 		$response = $this->response_to_mail( $product_id, $product_qty );
 
 		ob_start();
@@ -120,23 +124,23 @@ class Ajax {
 			awooc()->templater->get_template( 'email.php' ),
 			true,
 			[
-				'letter_data'    => [
+				'letter_data'  => [
 					'name'  => $name,
 					'email' => $email,
 					'phone' => $tel,
 				],
-				'letter_meta'    => [
-					'ip' => [
+				'letter_meta'  => [
+					'ip'   => [
 						'label' => esc_html__( 'IP', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'remote_ip' )
+						'value' => $submission->get_meta( 'remote_ip' ),
 					],
 					'time' => [
 						'label' => esc_html__( 'Date', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'timestamp' )
+						'value' => $submission->get_meta( 'timestamp' ),
 					],
-					'url' => [
+					'url'  => [
 						'label' => esc_html__( 'Domain', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'url' )
+						'value' => $submission->get_meta( 'url' ),
 					],
 				],
 				'product_data' => $response->get_response(),
@@ -184,14 +188,14 @@ class Ajax {
 	 * @param $product_id
 	 * @param $product_qty
 	 *
-	 * @return \Art\AWOOC\Response_Mail
+	 * @return \Art\AWOOC\Prepare_Mail
 	 */
-	public function response_to_mail( $product_id, $product_qty ): Response_Mail {
+	public function response_to_mail( $product_id, $product_qty ): Prepare_Mail {
 
 		$product     = $this->get_product( $product_id );
 		$product_qty = $this->get_qty( $product_qty );
 
-		return new Response_Mail( $product, $product_qty );
+		return new Prepare_Mail($this->main, $product, $product_qty );
 	}
 
 }
