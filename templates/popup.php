@@ -1,6 +1,8 @@
 <?php
 /**
- * Шаблон окна
+ * Popup window Template
+ *
+ * This template can be overridden by copying it to yourtheme/art-woocommerce-order-one-click/popup.php.
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
  * @package art-woocommerce-order-one-click/includes/view
@@ -13,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 global $product;
 
-$elements = get_option( 'woocommerce_awooc_select_item' ) ? get_option( 'woocommerce_awooc_select_item' ) : array();
+$elements = get_option( 'woocommerce_awooc_select_item' ) ? : [];
 
 ?>
 
