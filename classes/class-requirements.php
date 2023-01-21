@@ -40,7 +40,7 @@ class Requirements {
 	}
 
 
-	public function init(): void {
+	public function init_hooks(): void {
 
 		add_action( 'admin_init', [ $this, 'check_requirements' ] );
 
