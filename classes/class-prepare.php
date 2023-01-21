@@ -13,30 +13,34 @@ use WC_Product;
 use WC_Product_Variable;
 
 /**
- * Class Response
+ * Class Prepare
  *
  * @author Artem Abramovich
  * @since  3.0.0
  */
-class Response {
+abstract class Prepare {
 
 	/**
 	 * @var \WC_Product
 	 */
-	private WC_Product $product;
+	protected WC_Product $product;
 
 	/**
 	 * @var int
 	 */
-	private int $qty;
+	protected int $qty;
+
+	protected Main $main;
 
 
 	/**
-	 * @param  \WC_Product $product
-	 * @param  int         $qty
+	 * @param  \Art\AWOOC\Main $main
+	 * @param  \WC_Product     $product
+	 * @param  int             $qty
 	 */
-	public function __construct( WC_Product $product, int $qty ) {
+	public function __construct( Main $main, WC_Product $product, int $qty ) {
 
+		$this->main    = $main;
 		$this->product = $product;
 		$this->qty     = $qty;
 	}
@@ -48,10 +52,7 @@ class Response {
 	 * @return array
 	 * @since  3.0.0
 	 */
-	public function get_response(): array {
-
-		return [];
-	}
+	abstract public function get_response(): array;
 
 
 	/**

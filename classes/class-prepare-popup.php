@@ -2,7 +2,7 @@
 
 namespace Art\AWOOC;
 
-class Response_Popup extends Response {
+class Prepare_Popup extends Prepare {
 
 	public function get_response(): array {
 
@@ -17,7 +17,7 @@ class Response_Popup extends Response {
 			'form'  => $this->select_form(),
 		];
 
-		if ( awooc()->mode->is_mode_catalog() || awooc()->mode->is_mode_preorder() ) {
+		if ( $this->main->get_mode()->is_mode_catalog() || $this->main->get_mode()->is_mode_preorder() ) {
 			unset( $data['qty'] );
 		}
 

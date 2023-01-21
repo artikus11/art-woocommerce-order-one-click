@@ -2,7 +2,7 @@
 
 namespace Art\AWOOC;
 
-class Response_Analytics extends Response {
+class Prepare_Analytics extends Prepare {
 
 	public function get_response(): array {
 
@@ -16,7 +16,7 @@ class Response_Analytics extends Response {
 			'category' => $this->product_category(),
 		];
 
-		if ( awooc()->mode->is_mode_catalog() ) {
+		if ( $this->main->get_mode()->is_mode_catalog() ) {
 			unset( $data['qty'] );
 		}
 

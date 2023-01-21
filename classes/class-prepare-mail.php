@@ -2,7 +2,7 @@
 
 namespace Art\AWOOC;
 
-class Response_Mail extends Response {
+class Prepare_Mail extends Prepare {
 
 	public function get_response(): array {
 
@@ -18,7 +18,7 @@ class Response_Mail extends Response {
 			'link'       => $this->caption_link(),
 		];
 
-		if ( awooc()->mode->is_mode_catalog() ) {
+		if ( $this->main->get_mode()->is_mode_catalog() ) {
 			unset( $data['qty'] );
 		}
 
