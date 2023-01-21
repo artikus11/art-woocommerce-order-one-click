@@ -6,7 +6,7 @@
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
  * @package art-woocommerce-order-one-click/includes/view
- * @version 2.0.0
+ * @version 3.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
