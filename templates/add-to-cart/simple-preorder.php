@@ -34,8 +34,8 @@ echo wc_get_stock_html( $product ); // WPCS: XSS ok.
 
 	woocommerce_quantity_input(
 		[
-			'min_value' => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
-			'max_value' => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
+			'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $product->get_min_purchase_quantity(), $product ),
+			'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $product->get_max_purchase_quantity(), $product ),
 			'input_value' => isset( $_POST['quantity'] ) ? wc_stock_amount( wp_unslash( $_POST['quantity'] ) ) : $product->get_min_purchase_quantity(),
 			// WPCS: CSRF ok, input var ok.
 		]
@@ -44,7 +44,7 @@ echo wc_get_stock_html( $product ); // WPCS: XSS ok.
 	do_action( 'woocommerce_after_add_to_cart_quantity' );
 	?>
 
-	<?php if ( empty( $product->get_price() ) || ( $product->is_on_backorder( 1 ) ) ) : ?>
+	<?php if ( empty( $product->get_price() ) || ( $product->is_on_backorder( 1 ) ) || ! $product->is_in_stock() ) : ?>
 
 		<?php awooc_html_custom_add_to_cart(); ?>
 
