@@ -29,19 +29,19 @@ class Main {
 	 * @since 2.0.0
 	 * @var Front $front_end
 	 */
-	private Front $front;
+	protected Front $front;
 
 	/**
 	 * @since 2.3.6
 	 * @var Enqueue $enqueue
 	 */
-	public Enqueue $enqueue;
+	protected Enqueue $enqueue;
 
 	/**
 	 * @since 2.0.0
 	 * @var Ajax $ajax
 	 */
-	public Ajax $ajax;
+	protected Ajax $ajax;
 
 	/**
 	 * Added Orders.
@@ -49,7 +49,7 @@ class Main {
 	 * @since 2.0.0
 	 * @var Orders $orders
 	 */
-	public Orders $orders;
+	protected Orders $orders;
 
 	/**
 	 * @since 3.0.0
@@ -72,57 +72,19 @@ class Main {
 	 */
 	public function __construct() {
 
-		$this->includes();
+		( new Requirements() )->init_hooks();
+		( new Enqueue( $this ) )->init_hooks();
+		( new Ajax( $this ) )->init_hooks();
+		$this->front = new Front( $this );
+		$this->front->init_hooks();
 
-		$this->init();
-
-		$this->load_textdomain();
-
-	}
-
-
-	/**
-	 * Load plugin parts.
-	 *
-	 * @since 2.0.0
-	 */
-	private function includes(): void {
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-requirements.php';
-		( new Requirements() )->init();
-
-		require AWOOC_PLUGIN_DIR . '/includes/helpers.php';
-
-		require AWOOC_PLUGIN_DIR . '/includes/create-cf7-field.php';
-
-		require AWOOC_PLUGIN_DIR . '/includes/template-functions.php';
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-setup-form.php';
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-product-meta.php';
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-enqueue.php';
-		$this->enqueue = new Enqueue();
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-templater.php';
+		Product_Meta::init_hooks();
 		$this->templater = new Templater();
+		$this->mode      = new Mode();
+		$this->orders    = new Orders();
 
-		require AWOOC_PLUGIN_DIR . '/classes/class-front.php';
-		$this->front = new Front();
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-ajax.php';
-		$this->ajax = new Ajax();
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-response.php';
-		require AWOOC_PLUGIN_DIR . '/classes/class-response-popup.php';
-		require AWOOC_PLUGIN_DIR . '/classes/class-response-mail.php';
-		require AWOOC_PLUGIN_DIR . '/classes/class-response-analytics.php';
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-mode.php';
-		$this->mode = new Mode();
-
-		require AWOOC_PLUGIN_DIR . '/classes/class-orders.php';
-		$this->orders = new Orders();
+		$this->init_hooks();
+		$this->load_textdomain();
 
 	}
 
@@ -133,7 +95,7 @@ class Main {
 	 *
 	 * @since 1.8.0
 	 */
-	public function init(): void {
+	public function init_hooks(): void {
 
 		add_action( 'wp_ajax_awooc_rated', [ $this, 'add_rated' ] );
 
@@ -239,15 +201,6 @@ class Main {
 
 
 	/**
-	 * @return \Art\AWOOC\Front
-	 */
-	public function get_front(): Front {
-
-		return $this->front;
-	}
-
-
-	/**
 	 * Проверка на простой товар
 	 *
 	 * @return bool
@@ -263,4 +216,52 @@ class Main {
 		return $product->is_type( 'simple' );
 
 	}
+
+
+	/**
+	 * @return \Art\AWOOC\Front
+	 */
+	public function get_front(): Front {
+
+		return $this->front;
+	}
+
+
+	/**
+	 * @return \Art\AWOOC\Templater
+	 */
+	public function get_templater(): Templater {
+
+		return $this->templater;
+	}
+
+
+	/**
+	 * @param $template_name
+	 *
+	 * @return string
+	 */
+	public function get_template( $template_name ): string {
+
+		return $this->get_templater()->get_template( $template_name );
+	}
+
+
+	/**
+	 * @return \Art\AWOOC\Mode
+	 */
+	public function get_mode(): Mode {
+
+		return $this->mode;
+	}
+
+
+	/**
+	 * @return string[]
+	 */
+	public function get_modes(): array {
+
+		return $this->mode->get_modes();
+	}
+
 }

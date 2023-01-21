@@ -1,0 +1,29 @@
+{
+    "name": "art/art-woocommerce-order-one-click",
+    "description": "Plugin for WooCommerce. It includes the catalog mode in the store (there are no prices and the Buy button) and can turn on the Buy/Order button in one click. WooCommerce and Contact Form 7 are required for proper operation.",
+    "license": "GPL-2.0",
+    "keywords": [
+        "art",
+        "woocommerce",
+        "order"
+    ],
+    "homepage": "https://github.com/artikus11/art-woocommerce-order-one-click",
+    "authors": [
+        {
+            "name": "Artem Abramovich",
+            "homepage": "https://wpruse.ru"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "classes"
+        ],
+        "files": [
+            "includes/create-cf7-field.php",
+            "includes/helpers.php",
+            "includes/template-functions.php"
+        ]
+
+    }
+}

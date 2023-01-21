@@ -43,23 +43,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $plugin_data = get_file_data(
 	__FILE__,
-	array(
+	[
 		'ver'  => 'Version',
 		'name' => 'Plugin Name',
-	)
+	]
 );
 
-define( 'AWOOC_PLUGIN_DIR', __DIR__ );
+const AWOOC_PLUGIN_DIR = __DIR__;
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'AWOOC_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 
 define( 'AWOOC_PLUGIN_VER', $plugin_data['ver'] );
 define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 
-require __DIR__ . '/classes/class-main.php';
-require __DIR__ . '/classes/class-uninstall.php';
+require AWOOC_PLUGIN_DIR . '/vendor/autoload.php';
 
-register_uninstall_hook( __FILE__, array( Art\AWOOC\Uninstall::class, 'uninstall' ) );
+register_uninstall_hook( __FILE__, [ Art\AWOOC\Uninstall::class, 'uninstall' ] );
 
 if ( ! function_exists( 'awooc' ) ) {
 	/**
@@ -67,7 +66,7 @@ if ( ! function_exists( 'awooc' ) ) {
 	 *
 	 * Use this function like you would a global variable, except without needing to declare the global.
 	 *
-	 * Example: <?php awooc_order_one_click()->method_name(); ?>
+	 * Example: <?php awooc()->method_name(); ?>
 	 *
 	 * @return object AWOOC class object.
 	 * @since 1.0.0
