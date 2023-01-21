@@ -13,6 +13,10 @@
  * @see https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
  * @version 7.0.1
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes/view
+ * @version 3.0.0
  */
 
 defined( 'ABSPATH' ) || exit;

@@ -1,18 +1,12 @@
 <?php
 /**
- * Simple product add to cart
+ * Simple product add to cart in Special mode
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/single-product/add-to-cart/simple.php.
+ * This template can be overridden by copying it to yourtheme/art-woocommerce-order-one-click/add-to-cart/simple-special.php.
  *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
- *
- * @see https://docs.woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 3.4.0
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes/view
+ * @version 3.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
