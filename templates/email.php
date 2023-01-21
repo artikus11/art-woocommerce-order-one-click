@@ -1,6 +1,8 @@
 <?php
 /**
- * Шаблон письма
+ * Email Template
+ *
+ * This template can be overridden by copying it to yourtheme/art-woocommerce-order-one-click/email.php.
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
  * @package art-woocommerce-order-one-click/templates
@@ -11,7 +13,7 @@
 
 $letter_data  = $args['letter_data'];
 $product_data = $args['product_data'];
-$letter_meta    = $args['letter_meta'];
+$letter_meta  = $args['letter_meta'];
 
 ?>
 <!doctype html>
@@ -440,7 +442,7 @@ $letter_meta    = $args['letter_meta'];
 												foreach ( $product_data as $product ): ?>
 													<tr>
 														<td align="left">
-															<?php echo esc_html($product); ?>
+															<?php echo esc_html( $product ); ?>
 														</td>
 													</tr>
 												<?php endforeach; ?>
@@ -472,12 +474,12 @@ $letter_meta    = $args['letter_meta'];
 
 							endif;
 
-							$footer_meta[] = esc_html($meta['label']) . ': '.  esc_html($meta['value']);
+							$footer_meta[] = esc_html( $meta['label'] ) . ': ' . esc_html( $meta['value'] );
 							?>
 						<?php endforeach; ?>
 						<tr>
 							<td class="content-block powered-by">
-								<?php echo esc_html(implode(' &bull; ', $footer_meta)); ?>
+								<?php echo esc_html( implode( ' &bull; ', $footer_meta ) ); ?>
 							</td>
 						</tr>
 

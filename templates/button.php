@@ -1,7 +1,8 @@
 <?php
 /**
+ * Button Template
  *
- * Шаблон кнопки
+ * This template can be overridden by copying it to yourtheme/art-woocommerce-order-one-click/button.php.
  *
  * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
  * @package art-woocommerce-order-one-click/templates
