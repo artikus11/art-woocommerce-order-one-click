@@ -30,4 +30,3 @@ jQuery(function ($) {
 });
 /******/ })()
 ;
-//# sourceMappingURL=admin-script.js.map

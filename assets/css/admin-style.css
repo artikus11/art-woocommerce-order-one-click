@@ -1,5 +1,5 @@
 /*!**************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].use[3]!./src/scss/admin-style.scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[3]!./src/scss/admin-style.scss ***!
   \**************************************************************************************************************************************************************************************************************************************************/
 .awooc-notice,
 .awooc-error,
@@ -72,5 +72,3 @@
   margin: 0;
   line-height: 1.4;
 }
-
-/*# sourceMappingURL=admin-style.css.map*/

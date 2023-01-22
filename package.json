@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack --watch --mode development --progress",
+    "watch": "cross-env NODE_ENV=development webpack --watch --progress",
     "start:open": "cross-env NODE_ENV=development webpack-dev-server --open",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "build:custom": "wp-scripts build woocommerce.js main.js",
@@ -24,8 +25,6 @@
   "devDependencies": {
     "@wordpress/scripts": "^6.2.0",
     "autoprefixer": "^10.4.2",
-    "browser-sync": "^2.27.7",
-    "browser-sync-webpack-plugin": "^2.3.0",
     "copy-webpack-plugin": "^10.2.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
@@ -45,10 +44,9 @@
     "svgo-loader": "^3.0.0",
     "terser-webpack-plugin": "^5.3.0",
     "thread-loader": "^3.0.4",
+    "unminified-webpack-plugin": "^3.0.0",
     "webpack": "^5.67.0",
     "webpack-cli": "^4.9.2"
   },
-  "dependencies": {
-    "inputmask": "^5.0.7"
-  }
+  "dependencies": {}
 }
