@@ -14,14 +14,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Webpack Build
-        run: | 
+        run: |
           npm install
           npm run dev
 
       - name: Composer Autoloader
-          run: |
-            composer install 
-            composer dump-autoload -o 
+        run: |
+          composer install --no-dev --prefer-dist --no-progress 
+          composer dump-autoload -o 
 
       - name: Create deployment artifact
         uses: thedoctor0/zip-release@master
