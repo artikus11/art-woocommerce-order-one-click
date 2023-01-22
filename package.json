@@ -8,6 +8,7 @@
     "watch": "cross-env NODE_ENV=development webpack --watch --progress",
     "start:open": "cross-env NODE_ENV=development webpack-dev-server --open",
     "build": "cross-env NODE_ENV=production webpack --mode production",
+    "build:unminification": "cross-env NODE_ENV=development webpack",
     "build:custom": "wp-scripts build woocommerce.js main.js",
     "start": "wp-scripts start"
   },
