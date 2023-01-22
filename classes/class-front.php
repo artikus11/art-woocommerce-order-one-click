@@ -9,6 +9,8 @@
 
 namespace Art\AWOOC;
 
+use WC_Product;
+
 /**
  * Class Front
  *
@@ -40,12 +42,12 @@ class Front {
 	 */
 	public function init_hooks(): void {
 
-		add_filter( 'woocommerce_locate_template', [ $this, 'modify_add_to_cart_button_template' ], 1, 3 );
+		add_filter( 'woocommerce_locate_template', [ $this, 'modify_add_to_cart_button_template' ], 1, 2 );
 
 	}
 
 
-	public function modify_add_to_cart_button_template( $template, $template_name, $template_path ) {
+	public function modify_add_to_cart_button_template( $template, $template_name) {
 
 
 		if ( 'single-product/add-to-cart/simple.php' === $template_name ) {
@@ -122,7 +124,7 @@ class Front {
 	 * @return array
 	 * @since 2.2.5
 	 */
-	public function disable_ajax_add_to_cart_to_related( array $args, \WC_Product $product ): array {
+	public function disable_ajax_add_to_cart_to_related( array $args, WC_Product $product ): array {
 
 		$search   = 'ajax_add_to_cart';
 		$position = strrpos( $args['class'], $search );
@@ -157,7 +159,7 @@ class Front {
 
 		foreach ( $this->main->get_modes() as $option => $name ) {
 			if ( $option === $this->main->get_mode()->get_mode_value() ) {
-				$template = $this->main->get_template( "add-to-cart/{$type}-{$name}.php" );
+				$template = $this->main->get_template( "add-to-cart/$type-$name.php" );
 			}
 		}
 
@@ -203,6 +205,11 @@ class Front {
 	 * @todo       режим спецзаказа - отключение похожих если нет запасов
 	 */
 	public function add_custom_button(): void {
+		_deprecated_function( __METHOD__, '3.0.0' );
+
+		if ( ! WP_DEBUG_LOG ) {
+			return;
+		}
 
 		$product = wc_get_product();
 
@@ -309,7 +316,7 @@ class Front {
 	 *
 	 * @since      2.2.0
 	 */
-	public function disable_add_to_cart_out_stock( bool $status, \WC_Product $product ): bool {
+	public function disable_add_to_cart_out_stock( bool $status, WC_Product $product ): bool {
 
 		_deprecated_function( __METHOD__, '3.0.0' );
 
