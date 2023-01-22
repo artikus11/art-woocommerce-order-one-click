@@ -1,10 +1,12 @@
 <?php
 /**
- * Single variation cart button
+ * Single variation cart button in Catalog mode
  *
- * @see https://docs.woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 3.4.0
+ * This template can be overridden by copying it to yourtheme/art-woocommerce-order-one-click/add-to-cart/variable-catalog.php.
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes/view
+ * @version 3.0.0
  */
 
 defined( 'ABSPATH' ) || exit;

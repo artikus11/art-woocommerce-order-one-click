@@ -1,15 +1,20 @@
 <?php
 /**
- * Single variation cart button
+ * Single variation cart button in Special mode
  *
- * @see https://docs.woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 3.4.0
+ * This template can be overridden by copying it to yourtheme/art-woocommerce-order-one-click/add-to-cart/variable-special.php.
+ *
+ * @see     https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
+ * @package art-woocommerce-order-one-click/includes/view
+ * @version 3.0.0
  */
 
 defined( 'ABSPATH' ) || exit;
 
 global $product;
+
+awooc()->get_front()->disable_loop();
+
 ?>
 <div class="woocommerce-variation-add-to-cart variations_button">
 	<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
@@ -28,8 +33,13 @@ global $product;
 	do_action( 'woocommerce_after_add_to_cart_quantity' );
 	?>
 
-	<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+	<button type="submit"
+	        class="single_add_to_cart_button button alt<?php echo esc_attr(
+		        wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : ''
+	        ); ?>"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+
 	<?php awooc_html_custom_add_to_cart(); ?>
+
 	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
 
 	<input type="hidden" name="add-to-cart" value="<?php echo absint( $product->get_id() ); ?>" />

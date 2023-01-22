@@ -1,3 +1,18 @@
 @import "public/skeleton";
 @import "public/popup";
 @import "public/blockMsg";
+.woocommerce{
+  .awooc-hide{
+    display: none !important;
+  }
+  button{
+    &.button{
+      &.awooc-hide{
+        display: none !important;
+      }
+    }
+  }
+}
+.awooc-hide{
+  display: none !important;
+}

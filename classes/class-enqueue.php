@@ -48,7 +48,7 @@ class Enqueue {
 		wp_register_script(
 			'awooc-scripts',
 			AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts' . $this->suffix . '.js',
-			[ 'jquery', 'jquery-blockui' ],
+			[ 'jquery', 'jquery-blockui', 'woocommerce', 'wc-add-to-cart-variation' ],
 			AWOOC_PLUGIN_VER,
 			false
 		);
@@ -121,6 +121,7 @@ class Enqueue {
 			[
 				'mode'     => $this->main->get_mode()->get_mode_value(),
 				'template' => awooc_popup(),
+				'custom_label' => awooc_custom_button_label( ),
 				'popup'    => apply_filters(
 					'awooc_popup_setting',
 					[

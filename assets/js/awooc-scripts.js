@@ -33,12 +33,18 @@ jQuery(function ($) {
     $button: $('.awooc-button-js'),
     analyticData: {},
     init: function init() {
-      $(document.body).on('click', '.awooc-button-js', this.popup).on('awooc_popup_ajax_trigger', this.removeSkeleton).on('click', '.awooc-close, .blockOverlay', this.unBlock).on('hide_variation', this.disableButton).on('show_variation', this.enableButton).on('wpcf7mailsent', this.sendSuccess).on('wpcf7invalid', this.sendInvalid);
+      $(document.body).on('click', '.awooc-button-js', this.popup).on('awooc_popup_ajax_trigger', this.removeSkeleton).on('click', '.awooc-close, .blockOverlay', this.unBlock).on('wc_variation_form', this.wc_variation_form).on('hide_variation', this.disableButton).on('show_variation', this.enableButton).on('wpcf7mailsent', this.sendSuccess).on('wpcf7invalid', this.sendInvalid);
+    },
+    wc_variation_form: function wc_variation_form(e) {
+      console.log(e);
+      if (awooc_scripts_settings.mode === 'in_stock_add_to_card') {
+        //AWOOC.hideAwoocButton();
+      }
     },
     disableButton: function disableButton() {
       AWOOC.$button.addClass('disabled wc-variation-selection-needed');
     },
-    enableButton: function enableButton(e, variation) {
+    enableButton: function enableButton(e, variation, purchasable) {
       if (!variation.is_in_stock) {
         AWOOC.$button.addClass('disabled wc-variation-is-unavailable');
       } else {
@@ -47,20 +53,73 @@ jQuery(function ($) {
       if (awooc_scripts_settings.mode === 'dont_show_add_to_card') {
         AWOOC.$button.removeClass('disabled wc-variation-selection-needed');
       }
-
-      // Если у вариации нет цены или ее нет в наличие то скрываем сообщения.
-      if (awooc_scripts_settings.mode === 'no_stock_no_price') {
-        if (false === variation.is_purchasable || false === variation.is_in_stock) {
-          AWOOC.$button.removeClass('disabled wc-variation-selection-needed');
-          $('body.woocommerce').find('.single_variation').hide();
-          $('body.woocommerce').find('.quantity').hide();
-          $('body.woocommerce').find('.woocommerce-variation-add-to-cart .single_add_to_cart_button').hide();
-        } else {
-          $('body.woocommerce').find('.single_variation').show();
-          $('body.woocommerce').find('.quantity').show();
-          $('body.woocommerce').find('.woocommerce-variation-add-to-cart .single_add_to_cart_button').show();
-        }
+      switch (awooc_scripts_settings.mode) {
+        case 'dont_show_add_to_card':
+          // catalog
+          console.log(variation);
+          break;
+        case 'show_add_to_card':
+          // normal
+          console.log(variation);
+          break;
+        case 'in_stock_add_to_card':
+          // preload
+          if (variation.backorders_allowed || !variation.is_in_stock) {
+            AWOOC.$button.removeClass('disabled wc-variation-selection-needed');
+            AWOOC.hideAddToCartModule();
+            AWOOC.showAwoocButton();
+          } else {
+            AWOOC.showAddToCartModule();
+            AWOOC.hideAwoocButton();
+          }
+          break;
+        case 'no_stock_no_price':
+          // special
+          console.log(purchasable);
+          console.log(variation);
+          console.log(variation.is_in_stock);
+          if (!purchasable) {
+            console.log('hideAddToCartModule max_qty');
+            AWOOC.$button.removeClass('disabled wc-variation-selection-needed');
+            AWOOC.hideAddToCartModule();
+          } else {
+            console.log('showAddToCartModule max_qty');
+            AWOOC.showAddToCartModule();
+          }
+          /*if ( ! variation.is_in_stock ) {
+           console.log( variation );
+           console.log( 'hideAddToCartModule is_in_stock' )
+           AWOOC.$button.removeClass( 'disabled wc-variation-selection-needed' );
+           AWOOC.hideAddToCartModule();
+           } else {
+           console.log( 'showAddToCartModule is_in_stock' )
+           AWOOC.showAddToCartModule();
+           }*/
+          break;
       }
+    },
+    hideAddToCartModule: function hideAddToCartModule() {
+      /*$( 'body.woocommerce' )
+       .find( '.single_variation' )
+       .addClass( 'awooc-hide'
+       )*/
+      /*$( 'body.woocommerce' )
+       .find( '.quantity' ).addClass( 'awooc-hide' )*/
+      $('body.woocommerce').find('.woocommerce-variation-add-to-cart .quantity').addClass('awooc-hide');
+      $('body.woocommerce').find('.woocommerce-variation-add-to-cart .single_add_to_cart_button').addClass('awooc-hide');
+    },
+    showAddToCartModule: function showAddToCartModule() {
+      /*$( 'body.woocommerce' )
+       .find( '.single_variation' )
+       .removeClass( 'awooc-hide' )*/
+      $('body.woocommerce').find('.woocommerce-variation-add-to-cart .quantity').removeClass('awooc-hide');
+      $('body.woocommerce').find('.woocommerce-variation-add-to-cart .single_add_to_cart_button').removeClass('awooc-hide');
+    },
+    hideAwoocButton: function hideAwoocButton(e) {
+      AWOOC.$button.addClass('awooc-hide');
+    },
+    showAwoocButton: function showAwoocButton(e) {
+      AWOOC.$button.removeClass('awooc-hide');
     },
     getProductID: function getProductID(e) {
       var productVariantId = $('.variations_form').find('input[name="variation_id"]').val();

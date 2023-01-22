@@ -164,16 +164,20 @@ if ( ! function_exists( 'awooc_popup' ) ) {
 
 if ( ! function_exists( 'awooc_custom_button_label' ) ) {
 	/**
-	 * @param  \WC_Product $product
+	 * @param  \WC_Product|null $product
 	 *
 	 * @return string
 	 */
-	function awooc_custom_button_label( WC_Product $product ): string {
+	function awooc_custom_button_label( WC_Product $product = null ): string {
+
+		if ( is_null( $product ) ) {
+			$product = wc_get_product();
+		}
 
 		$label_button        = esc_html( get_option( 'woocommerce_awooc_title_button' ) );
 		$custom_label_button = esc_html( get_option( 'woocommerce_awooc_title_custom' ) );
 
-		if ( ( ! $product->is_in_stock() || ( ! $product->is_purchasable() || $product->get_price() < 0 ) ) && awooc()->get_mode()->is_mode_special() ) {
+		if ( awooc()->get_mode()->is_mode_special() ) {
 			return $custom_label_button ? : $label_button;
 		}
 

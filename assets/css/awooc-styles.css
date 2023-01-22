@@ -228,3 +228,14 @@
   outline: 1px solid #708090;
   border-radius: 5px;
 }
+
+.woocommerce .awooc-hide {
+  display: none !important;
+}
+.woocommerce button.button.awooc-hide {
+  display: none !important;
+}
+
+.awooc-hide {
+  display: none !important;
+}
