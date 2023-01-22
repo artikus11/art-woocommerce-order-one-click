@@ -1,3 +1,6 @@
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].use[3]!./src/scss/awooc-styles.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
 .skeleton-loader:empty {
   width: 100%;
   height: 30px;
@@ -7,11 +10,13 @@
   background-repeat: repeat-y;
   background-size: 50px 500px;
   background-position: 0 0;
-  animation: shine 3s infinite; }
+  animation: shine 3s infinite;
+}
 
 .awooc-popup-image.skeleton-loader:empty {
   height: 230px;
-  margin-bottom: 8px; }
+  margin-bottom: 8px;
+}
 
 .awooc-popup-attr.skeleton-loader:empty,
 .awooc-popup-qty.skeleton-loader:empty,
@@ -19,37 +24,48 @@
 .awooc-popup-sum.skeleton-loader:empty,
 .awooc-popup-price.skeleton-loader:empty {
   height: 18px;
-  margin-bottom: 8px; }
+  margin-bottom: 8px;
+}
 
 .awooc-popup-price.skeleton-loader:empty {
-  width: 30%; }
+  width: 30%;
+}
 
 .awooc-popup-sum.skeleton-loader:empty {
-  width: 35%; }
+  width: 35%;
+}
 
 .awooc-popup-sku.skeleton-loader:empty {
-  width: 25%; }
+  width: 25%;
+}
 
 .awooc-popup-qty.skeleton-loader:empty {
-  width: 10%; }
+  width: 10%;
+}
 
 .awooc-popup-attr.skeleton-loader:empty {
-  width: 50%; }
+  width: 50%;
+}
 
 @keyframes shine {
   to {
-    background-position: 350% 0; } }
+    background-position: 350% 0;
+  }
+}
 .awooc-popup-form.skeleton-loader:empty {
   height: 300px;
   animation: loading 3s infinite;
   background-repeat: no-repeat;
   background-image: linear-gradient(#f8f8f8 100%, transparent 0), linear-gradient(#f8f8f8 100%, transparent 0), linear-gradient(#f8f8f8 100%, transparent 0), linear-gradient(#eaeaea 100%, transparent 0), linear-gradient(to right, rgba(255, 255, 255, 0) -40%, rgba(255, 255, 255, 0.5) 45%, rgba(255, 255, 255, 0) 100%), linear-gradient(lightgray 100%, transparent 0);
   background-size: 200px 44px, 200px 44px, 200px 44px, 200px 44px, 30px, 300px, 100% 100%;
-  background-position: 24px 32px, 24px 92px, 24px 152px, 24px 225px, -150% 0, 0 0; }
+  background-position: 24px 32px, 24px 92px, 24px 152px, 24px 225px, -150% 0, 0 0;
+}
 
 @keyframes loading {
   to {
-    background-position: 24px 32px, 24px 92px, 24px 152px, 24px 225px, 350% 0, 0 0; } }
+    background-position: 24px 32px, 24px 92px, 24px 152px, 24px 225px, 350% 0, 0 0;
+  }
+}
 .awooc-close {
   font-size: 35px;
   position: absolute;
@@ -64,32 +80,40 @@
   background: rgba(0, 0, 0, 0);
   -o-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
-  -webkit-transition: all 0.5s ease-in-out; }
-  .awooc-close:hover {
-    opacity: 1;
-    cursor: pointer; }
+  -webkit-transition: all 0.5s ease-in-out;
+}
+.awooc-close:hover {
+  opacity: 1;
+  cursor: pointer;
+}
 
 .awooc-hide {
-  display: none; }
+  display: none;
+}
 
 .blockUI:before,
 .awooc-hidden-data {
-  display: none !important; }
+  display: none !important;
+}
 
 .awooc-custom-order-button {
-  position: relative; }
+  position: relative;
+}
 
 .awooc-custom-order-button.button.alt.show-add-to-card,
 .awooc-custom-order-button.button.alt.no-stock-no-price:not(.no-margin) {
-  margin-left: 0.6125rem; }
+  margin-left: 0.6125rem;
+}
 
 .awooc-popup-wrapper,
 .awooc-popup-inner {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+}
 
 .awooc-popup-inner {
-  padding: 2.125rem; }
+  padding: 2.125rem;
+}
 
 .awooc-row {
   display: flex;
@@ -97,7 +121,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: flex-start;
-  align-items: center; }
+  align-items: center;
+}
 
 .awooc-col {
   flex: 0 1 100%;
@@ -105,51 +130,65 @@
   align-self: flex-start;
   padding-top: 0.875rem;
   /*padding: 0.875rem 0.875rem;
-  margin: 0 -0.875rem;*/ }
-  .awooc-col.columns-left {
-    text-align: left;
-    padding-right: 0.875rem; }
-  .awooc-col.columns-right {
-    text-align: left;
-    padding-left: .875rem; }
+  margin: 0 -0.875rem;*/
+}
+.awooc-col.columns-left {
+  text-align: left;
+  padding-right: 0.875rem;
+}
+.awooc-col.columns-right {
+  text-align: left;
+  padding-left: 0.875rem;
+}
 
 @media (min-width: 568px) {
   .awooc-col {
     flex: 0 1 50%;
-    max-width: 50%; } }
+    max-width: 50%;
+  }
+}
 .awooc-col.columns-left {
-  text-align: left; }
+  text-align: left;
+}
 
 .awooc-col.awooc-col-full {
   flex: 0 1 100%;
-  max-width: 100%; }
+  max-width: 100%;
+}
 
 .awooc-popup-image {
-  text-align: center; }
-  .awooc-popup-image img {
-    width: 100%;
-    max-width: 100px;
-    height: auto;
-    float: left;
-    margin-right: 1rem; }
+  text-align: center;
+}
+.awooc-popup-image img {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  float: left;
+  margin-right: 1rem;
+}
 
 @media (min-width: 568px) {
   .awooc-popup-image img {
     width: 100%;
     max-width: 300px;
-    height: auto; } }
+    height: auto;
+  }
+}
 .awooc-popup-price,
 .awooc-popup-sku,
 .awooc-popup-qty,
 .awooc-popup-attr {
-  font-size: 0.875rem; }
+  font-size: 0.875rem;
+}
 
 @media (min-width: 568px) {
   .awooc-popup-price,
   .awooc-popup-sku,
   .awooc-popup-qty,
   .awooc-popup-attr {
-    font-size: inherit; } }
+    font-size: inherit;
+  }
+}
 .woocommerce .awooc-custom-order-wrap .wpcf7-form-control {
   border: 0;
   width: 100%;
@@ -158,30 +197,36 @@
   color: #43454b;
   outline: 0;
   box-sizing: border-box;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.125); }
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.125);
+}
 
 .woocommerce .awooc-custom-order-wrap .wpcf7-form-control.wpcf7-submit {
   background-color: #13aff0;
   color: #fff;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125); }
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.125);
+}
 
 .woocommerce .awooc-custom-order-wrap .wpcf7-form-control.wpcf7-submit:hover {
-  background-color: #43454b; }
+  background-color: #43454b;
+}
 
 .awooc-attr-value span {
   padding-left: 1rem;
   display: block;
-  line-height: 1.3; }
+  line-height: 1.3;
+}
 
 .blockMsgAwooc::-webkit-scrollbar {
   width: 5px;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 .blockMsgAwooc::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); }
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
 .blockMsgAwooc::-webkit-scrollbar-thumb {
   background-color: #a9a9a9;
   outline: 1px solid #708090;
-  border-radius: 5px; }
+  border-radius: 5px;
+}
 
-/*# sourceMappingURL=awooc-styles.css.map */
+/*# sourceMappingURL=awooc-styles.css.map*/
