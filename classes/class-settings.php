@@ -48,7 +48,7 @@ class Settings extends WC_Settings_Page {
 		add_action( 'woocommerce_admin_field_notice', array( __CLASS__, 'text_notice' ), 10, 1 );
 		add_action( 'woocommerce_admin_field_group_input', array( __CLASS__, 'group_input' ), 15, 1 );
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_script_style' ) );
+
 
 	}
 
@@ -855,40 +855,6 @@ class Settings extends WC_Settings_Page {
 		$message .= '<p><a href="https://github.com/artikus11/art-woocommerce-order-one-click" target="_blank" class="awooc-tutorial-link">Plugin on GitHub</a></p>';
 
 		return $message;
-	}
-
-
-	/**
-	 * Подключаем дополниетльный скрипт в админке для управления описанием
-	 *
-	 * @since  2.2.1
-	 */
-	public function admin_enqueue_script_style() {
-
-		wp_enqueue_script( 'admin-awooc-script', AWOOC_PLUGIN_URI . 'assets/js/admin-script.js', array(), AWOOC_PLUGIN_VER, false );
-		wp_localize_script(
-			'admin-awooc-script',
-			'awooc_admin',
-			array(
-				'mode_catalog'  => __(
-					'On the pages of the categories and the store itself, the Add to Cart buttons are disabled. On the product page, the "Add to cart" button is hidden and the "Order" button appears.',
-					'art-woocommerce-order-one-click'
-				),
-				'mode_normal'   => __(
-					'The button "Add to cart" works in the normal mode, that is, goods can be added to the cart and at the same time ordered in one click',
-					'art-woocommerce-order-one-click'
-				),
-				'mode_in_stock' => __(
-					'The Order button will appear automatically if: Price not available;  stock status "In Unfulfilled Order"; stock status "Out of stock"; inventory management is enabled at item level and preorders allowed',
-					'art-woocommerce-order-one-click'
-				),
-				'mode_special'  => __(
-					'When turned on, it works the same way as normal mode. But if the goods have no price or the product out of stock, then only the Order button will appear.',
-					'art-woocommerce-order-one-click'
-				),
-			)
-		);
-
 	}
 
 

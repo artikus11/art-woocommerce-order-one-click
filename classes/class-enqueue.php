@@ -83,6 +83,35 @@ class Enqueue {
 			AWOOC_PLUGIN_VER
 		);
 
+		wp_enqueue_script(
+			'admin-awooc-script',
+			AWOOC_PLUGIN_URI . 'assets/js/admin-script.js',
+			[ 'jquery' ],
+			AWOOC_PLUGIN_VER,
+			false
+		);
+		wp_localize_script(
+			'admin-awooc-script',
+			'awooc_admin',
+			[
+				'mode_catalog'  => __(
+					'On the pages of the categories and the store itself, the Add to Cart buttons are disabled. On the product page, the "Add to cart" button is hidden and the "Order" button appears.',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_normal'   => __(
+					'The button "Add to cart" works in the normal mode, that is, goods can be added to the cart and at the same time ordered in one click',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_in_stock' => __(
+					'The Order button will appear automatically if: Price not available;  stock status "In Unfulfilled Order"; stock status "Out of stock"; inventory management is enabled at item level and preorders allowed',
+					'art-woocommerce-order-one-click'
+				),
+				'mode_special'  => __(
+					'When turned on, it works the same way as normal mode. But if the goods have no price or the product out of stock, then only the Order button will appear.',
+					'art-woocommerce-order-one-click'
+				),
+			]
+		);
 	}
 
 
@@ -91,7 +120,17 @@ class Enqueue {
 	 */
 	public function localize(): void {
 
-		if ( is_product() || is_shop() || is_product_category() || is_product_tag() ) {
+		if ( ! class_exists( 'Woocommerce' ) ) {
+			return;
+		}
+
+		if ( is_admin() ) {
+			return;
+		}
+
+		[ $has_product_page, $has_wc_blocks, $has_wc_shortcode_products ] = $this->has_product();
+
+		if ( $has_product_page || $has_wc_blocks || $has_wc_shortcode_products ) {
 
 			wp_localize_script(
 				'awooc-scripts',
@@ -159,6 +198,41 @@ class Enqueue {
 			);
 		}
 
+	}
+
+
+	/**
+	 * @return array
+	 */
+	protected function has_product(): array {
+
+		$has_product_page = is_shop() || is_product_category() || is_product_tag() || is_product();
+
+		global $post;
+
+		$parse_content  = parse_blocks( $post->post_content );
+		$blocks_name    = array_filter( wp_list_pluck( $parse_content, 'blockName' ) );
+		$wc_blocks_name = [];
+
+		foreach ( $blocks_name as $block_name ) {
+			if ( false !== strpos( $block_name, 'woocommerce' ) ) {
+				$wc_blocks_name[] = $block_name;
+			}
+		}
+
+		$has_wc_blocks = false;
+
+		if ( ! empty( $wc_blocks_name ) ) {
+			$has_wc_blocks = true;
+		}
+
+		$has_wc_shortcode_products = false;
+
+		if ( has_shortcode( $post->post_content, 'products' ) ) {
+			$has_wc_shortcode_products = true;
+		}
+
+		return [ $has_product_page, $has_wc_blocks, $has_wc_shortcode_products ];
 	}
 
 }
