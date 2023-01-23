@@ -192,10 +192,12 @@ if ( ! function_exists( 'awooc_popup_window_title' ) ) {
 	 * @param  array       $elements массив настроек элементов окна.
 	 * @param  \WC_Product $product  объект продукта.
 	 *
+	 * @todo  проблема с объектов товара всех страницах кроме страниц товара и архивов, если ставить тип, то выбивает фатал
+	 *
 	 * @since 1.5.0
 	 * @since 1.8.10
 	 */
-	function awooc_popup_window_title( array $elements, WC_Product $product ) {
+	function awooc_popup_window_title( array $elements, $product ) {
 
 		if ( in_array( 'title', $elements, true ) ) {
 			echo wp_kses_post(
@@ -241,7 +243,7 @@ if ( ! function_exists( 'awooc_popup_window_price' ) ) {
 	 * @since 1.5.0
 	 * @since 1.8.10
 	 */
-	function awooc_popup_window_price( array $elements, WC_Product $product ) {
+	function awooc_popup_window_price( array $elements, $product ) {
 
 		if ( in_array( 'price', $elements, true ) ) {
 
@@ -268,7 +270,7 @@ if ( ! function_exists( 'awooc_popup_window_sum' ) ) {
 	 * @since 1.5.0
 	 * @since 2.4.0
 	 */
-	function awooc_popup_window_sum( array $elements, WC_Product $product ) {
+	function awooc_popup_window_sum( array $elements, $product ) {
 
 		if ( in_array( 'sum', $elements, true ) ) {
 
