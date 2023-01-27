@@ -32,6 +32,7 @@ jQuery( function ( $ ) {
 	const AWOOC = {
 		xhr:          false,
 		$button:      $( '.awooc-button-js' ),
+		formId:       Number( awooc_scripts_settings.popup.cf7_form_id ),
 		analyticData: {},
 
 		init: function () {
@@ -208,21 +209,27 @@ jQuery( function ( $ ) {
 			} );
 		},
 
-		sendSuccess: function ( detail ) {
+		sendSuccess: function ( event ) {
 
 			setTimeout( AWOOC.unBlock, awooc_scripts_settings.popup.mailsent_timeout );
 
-			$( document.body ).trigger(
-				'awooc_mail_sent_trigger',
-				{
-					'selectedProduct': AWOOC.analyticData,
-					'mailDetail':      detail
-				}
-			);
+			if ( AWOOC.formId === event.detail.contactFormId ) {
+
+				$( document.body ).trigger(
+					'awooc_mail_sent_trigger',
+					{
+						'selectedProduct': AWOOC.analyticData,
+						'mailDetail':      event.detail
+					}
+				);
+			}
+
 		},
 
 		sendInvalid: function ( event, detail ) {
-			$( document.body ).trigger( 'awooc_mail_invalid_trigger', [ event, detail ] );
+			if ( AWOOC.formId === event.detail.contactFormId ) {
+				$( document.body ).trigger( 'awooc_mail_invalid_trigger', [ event, detail ] );
+			}
 
 			setTimeout( function () {
 				$( '.awooc-form-custom-order .wpcf7-response-output' ).empty();

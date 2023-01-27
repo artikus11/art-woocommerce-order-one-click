@@ -164,6 +164,7 @@ class Enqueue {
 						[
 							'mailsent_timeout' => 3000,
 							'invalid_timeout'  => 5000,
+							'cf7_form_id' => get_option( 'woocommerce_awooc_select_form' ),
 							'css'              => [
 								'width'        => '100%',
 								'maxWidth'     => '600px',
