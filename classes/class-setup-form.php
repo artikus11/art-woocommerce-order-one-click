@@ -9,6 +9,9 @@
 
 namespace Art\AWOOC;
 
+use WPCF7_ContactForm;
+use WPCF7_ContactFormTemplate;
+
 /**
  * Class AWOOC_Install_Form
  *
@@ -29,7 +32,7 @@ class Setup_Form {
 			return;
 		}
 
-		if ( get_option( 'awooc_active' ) ) {
+		if ( get_option( 'woocommerce_awooc_active' ) ) {
 			return;
 		}
 
@@ -64,8 +67,8 @@ class Setup_Form {
 			),
 		);
 
-		if ( false === get_option( 'awooc_active' ) ) {
-			update_option( 'awooc_active', $option );
+		if ( false === get_option( 'woocommerce_awooc_active' ) ) {
+			update_option( 'woocommerce_awooc_active', $option );
 		}
 
 	}
@@ -138,4 +141,4 @@ class Setup_Form {
 	}
 }
 
-Setup_Form::install_form();
+

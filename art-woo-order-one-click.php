@@ -59,6 +59,7 @@ define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 require AWOOC_PLUGIN_DIR . '/vendor/autoload.php';
 
 register_uninstall_hook( __FILE__, [ Art\AWOOC\Uninstall::class, 'uninstall' ] );
+register_activation_hook( __FILE__, [ Art\AWOOC\Setup_Form::class, 'install_form' ] );
 
 if ( ! function_exists( 'awooc' ) ) {
 	/**
