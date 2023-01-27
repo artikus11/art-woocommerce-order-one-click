@@ -210,6 +210,10 @@ class Enqueue {
 
 		global $post;
 
+		if ( ! $post ) {
+			return [ false, false, false ];
+		}
+
 		$parse_content  = parse_blocks( $post->post_content );
 		$blocks_name    = array_filter( wp_list_pluck( $parse_content, 'blockName' ) );
 		$wc_blocks_name = [];
