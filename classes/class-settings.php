@@ -504,17 +504,6 @@ class Settings extends WC_Settings_Page {
 					'autoload'    => false,
 				),
 				array(
-					'title'   => __( 'Styles and scripts globally', 'art-woocommerce-order-one-click' ),
-					'desc'    => __(
-						'If you enable this setting, then the files of forces and scripts will be connected globally on all pages of the site. This setting will be useful for displaying the One-click Order button on the list of products and when using quick view',
-						'art-woocommerce-order-one-click'
-					),
-					'id'      => 'woocommerce_awooc_enable_enqueue',
-					'default' => 'no',
-					'type'    => 'checkbox',
-					'autoload'    => false,
-				),
-				array(
 					'type' => 'sectionend',
 					'id'   => 'woocommerce_awooc_settings_popup_window',
 				),

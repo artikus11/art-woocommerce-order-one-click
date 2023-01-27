@@ -61,11 +61,6 @@ class Enqueue {
 			AWOOC_PLUGIN_VER
 		);
 
-		if ( get_option( 'woocommerce_awooc_enable_enqueue' ) && is_woocommerce() ) {
-			wp_enqueue_script( 'awooc-scripts' );
-			wp_enqueue_style( 'awooc-styles' );
-		}
-
 	}
 
 
