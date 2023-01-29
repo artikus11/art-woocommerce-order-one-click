@@ -8,9 +8,10 @@
  */
 
 namespace Art\AWOOC;
-use WC_Data_Exception;
+
 use WC_Order;
 use WPCF7_ContactForm;
+use WPCF7_Submission;
 
 /**
  * Class AWOOC_Orders
@@ -36,11 +37,12 @@ class Orders {
 	public function __construct() {
 
 		$this->select_form = get_option( 'woocommerce_awooc_select_form' );
+	}
 
-		/**
-		 * Contact Form 7 setup_hooks
-		 */
-		add_action( 'wpcf7_before_send_mail', [ $this, 'created_order_mail_send' ], 10, 1 );
+
+	public function init_hooks(): void {
+
+		add_action( 'wpcf7_before_send_mail', [ $this, 'created_order_mail_send' ], 10, 3 );
 	}
 
 
@@ -49,47 +51,35 @@ class Orders {
 	 *
 	 * @param  WPCF7_ContactForm $contact_form объект формы.
 	 *
-	 * @throws WC_Data_Exception Exception.
 	 * @since 1.5.0
 	 * @since 2.2.6
 	 */
-	public function created_order_mail_send( $contact_form ) {
+	public function created_order_mail_send( WPCF7_ContactForm $contact_form, $abort, WPCF7_Submission $submission ): void {
 
 		if ( 'yes' !== get_option( 'woocommerce_awooc_created_order' ) ) {
 			return;
 		}
 
-		// @codingStandardsIgnoreStart
-		if ( ! isset( $_POST['_wpcf7'] ) || sanitize_text_field( wp_unslash( $_POST['_wpcf7'] ) ) !== $this->select_form ) {
+		if ( $contact_form->id() !== (int) $this->select_form ) {
 			return;
 		}
 
-		$user_passed_text  = '';
-		$user_passed_email = '';
-		$user_passed_tel   = '';
+		$posted_data = $submission->get_posted_data();
+		$posted_data = array_map( [ $this, 'sanitize_field' ], $posted_data );
 
-		if ( isset( $_POST['awooc-text'] ) && ! empty( $_POST['awooc-text'] ) ) {
-			$user_passed_text = sanitize_text_field( wp_unslash( $_POST['awooc-text'] ) );
-		}
+		$posted_text  = $posted_data['awooc-text'] ?? '';
+		$posted_email = $posted_data['awooc-email'] ?? '';
+		$posted_tel   = $posted_data['awooc-tel'] ?? '';
 
-		if ( isset( $_POST['awooc-email'] ) && ! empty( $_POST['awooc-email'] ) ) {
-			$user_passed_email = sanitize_text_field( wp_unslash( $_POST['awooc-email'] ) );
-		}
-
-		if ( isset( $_POST['awooc-tel'] ) && ! empty( $_POST['awooc-tel'] ) ) {
-			$user_passed_tel = sanitize_text_field( wp_unslash( $_POST['awooc-tel'] ) );
-		}
-
-		$product_id  = isset( $_POST['awooc_product_id'] ) ? sanitize_text_field( wp_unslash( $_POST['awooc_product_id'] ) ) : null;
-		$product_qty = isset( $_POST['awooc_product_qty'] ) ? sanitize_text_field( wp_unslash( $_POST['awooc_product_qty'] ) ) : null;
-		// @codingStandardsIgnoreEnd
+		$product_id  = $posted_data['awooc_product_id'] ?? 0;
+		$product_qty = $posted_data['awooc_product_qty'] ?? 1;
 
 		$address = apply_filters(
 			'awooc_order_address_arg',
 			[
-				'first_name' => $user_passed_text,
-				'email'      => $user_passed_email,
-				'phone'      => $user_passed_tel,
+				'first_name' => $posted_text,
+				'email'      => $posted_email,
+				'phone'      => $posted_tel,
 			]
 		);
 
@@ -113,11 +103,10 @@ class Orders {
 	 * @param  int      $product_qty количество продукта.
 	 * @param  array    $address     адрес для заказа.
 	 *
-	 * @throws WC_Data_Exception Exception.
 	 *
 	 * @since 2.2.6
 	 */
-	public function add_order( $order, $product_id, $product_qty, $address ) {
+	public function add_order( WC_Order $order, int $product_id, int $product_qty, array $address ): void {
 
 		$order->add_product( wc_get_product( $product_id ), $product_qty );
 		$order->set_address( $address, 'billing' );
@@ -135,7 +124,7 @@ class Orders {
 	 *
 	 * @since 2.2.6
 	 */
-	public function change_subject( $contact_form, $order ) {
+	public function change_subject( WPCF7_ContactForm $contact_form, WC_Order $order ): void {
 
 		if ( 'yes' !== get_option( 'woocommerce_awooc_change_subject' ) ) {
 			return;
@@ -146,6 +135,17 @@ class Orders {
 		$mail['subject'] = $mail['subject'] . ' №' . $order->get_order_number();
 
 		$contact_form->set_properties( [ 'mail' => $mail ] );
+	}
+
+
+	/**
+	 * @param $field
+	 *
+	 * @return string
+	 */
+	protected function sanitize_field( $field ): string {
+
+		return sanitize_text_field( wp_unslash( $field ) );
 	}
 
 }

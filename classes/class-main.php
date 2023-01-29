@@ -75,13 +75,15 @@ class Main {
 		( new Requirements() )->init_hooks();
 		( new Enqueue( $this ) )->init_hooks();
 		( new Ajax( $this ) )->init_hooks();
+		( new Orders() )->init_hooks();
+
 		$this->front = new Front( $this );
 		$this->front->init_hooks();
 
 		Product_Meta::init_hooks();
+
 		$this->templater = new Templater();
 		$this->mode      = new Mode();
-		$this->orders    = new Orders();
 
 		$this->init_hooks();
 		$this->load_textdomain();
