@@ -31,6 +31,7 @@ jQuery(function ($) {
   var AWOOC = {
     xhr: false,
     $button: $('.awooc-button-js'),
+    formId: Number(awooc_scripts_settings.popup.cf7_form_id),
     analyticData: {},
     init: function init() {
       $(document.body).on('click', '.awooc-button-js', this.popup).on('awooc_popup_ajax_trigger', this.removeSkeleton).on('click', '.awooc-close, .blockOverlay', this.unBlock).on('wc_variation_form', this.wc_variation_form).on('hide_variation', this.disableButton).on('show_variation', this.enableButton).on('wpcf7mailsent', this.sendSuccess).on('wpcf7invalid', this.sendInvalid);
@@ -158,15 +159,19 @@ jQuery(function ($) {
         $('.awooc-popup-' + key).html(toPopup[key]);
       });
     },
-    sendSuccess: function sendSuccess(detail) {
+    sendSuccess: function sendSuccess(event) {
       setTimeout(AWOOC.unBlock, awooc_scripts_settings.popup.mailsent_timeout);
-      $(document.body).trigger('awooc_mail_sent_trigger', {
-        'selectedProduct': AWOOC.analyticData,
-        'mailDetail': detail
-      });
+      if (AWOOC.formId === event.detail.contactFormId) {
+        $(document.body).trigger('awooc_mail_sent_trigger', {
+          'selectedProduct': AWOOC.analyticData,
+          'mailDetail': event.detail
+        });
+      }
     },
     sendInvalid: function sendInvalid(event, detail) {
-      $(document.body).trigger('awooc_mail_invalid_trigger', [event, detail]);
+      if (AWOOC.formId === event.detail.contactFormId) {
+        $(document.body).trigger('awooc_mail_invalid_trigger', [event, detail]);
+      }
       setTimeout(function () {
         $('.awooc-form-custom-order .wpcf7-response-output').empty();
         $('.awooc-form-custom-order .wpcf7-not-valid-tip').remove();
