@@ -58,7 +58,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @return array
 	 */
-	public static function select_default_elements_item() {
+	public static function select_default_elements_item(): array {
 
 		return array(
 			'title',
@@ -78,7 +78,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.0.0
 	 */
-	public static function select_on_off() {
+	public static function select_on_off(): array {
 
 		return array(
 			'off' => __( 'Off', 'art-woocommerce-order-one-click' ),
@@ -94,12 +94,12 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.0.0
 	 */
-	public static function text_notice( $value ) {
+	public static function text_notice( array $value ): void {
+
+		$style = '';
 
 		if ( $value['style'] ) {
 			$style = 'style="' . $value['style'] . '"';
-		} else {
-			$style = '';
 		}
 
 		?>
@@ -119,7 +119,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.2.6
 	 */
-	public static function metabox_open( $value ) {
+	public static function metabox_open( array $value ): void {
 
 		if ( ! empty( $value['id'] ) ) {
 			?>
@@ -139,7 +139,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.2.6
 	 */
-	public static function metabox_close( $value ) {
+	public static function metabox_close( array $value ): void {
 
 		if ( ! empty( $value['id'] ) ) {
 			?>
@@ -159,7 +159,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.2.6
 	 */
-	public static function wrap_open( $value ) {
+	public static function wrap_open( array $value ): void {
 
 		if ( ! empty( $value['id'] ) ) {
 			?>
@@ -180,7 +180,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.2.6
 	 */
-	public static function wrap_close( $value ) {
+	public static function wrap_close( array $value ): void {
 
 		if ( ! empty( $value['id'] ) ) {
 			?>
@@ -202,7 +202,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.2.6
 	 */
-	public static function main_open( $value ) {
+	public static function main_open( array $value ): void {
 
 		if ( ! empty( $value['id'] ) ) {
 			echo '<div id="post-body-content">';
@@ -218,7 +218,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.2.6
 	 */
-	public static function main_close( $value ) {
+	public static function main_close( array $value ): void {
 
 		if ( ! empty( $value['id'] ) ) {
 			echo '</div>';
@@ -234,7 +234,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.1.4
 	 */
-	public static function group_input( $value ) {
+	public static function group_input( array $value ): void {
 
 		$option_value       = WC_Admin_Settings::get_option( $value['id'], $value['default'] );
 		$field_desc_tooltip = WC_Admin_Settings::get_field_description( $value );
@@ -269,7 +269,7 @@ class Settings extends WC_Settings_Page {
 							$val['type'] = 'text';
 						}
 
-						if ( ! isset( $val['css'] ) || empty( $val['css'] ) ) {
+						if ( empty( $val['css'] ) ) {
 							$val['css'] = 'width: 100%';
 						}
 
@@ -312,7 +312,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.1.4
 	 */
-	public static function group_fields( $option ) {
+	public static function group_fields( string $option ): array {
 
 		$options = get_option( $option );
 
@@ -327,7 +327,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.1.4
 	 */
-	public static function group_fields_default() {
+	public static function group_fields_default(): array {
 
 		return array(
 			'id'    => '',
@@ -669,7 +669,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 1.8.0
 	 */
-	public function select_forms() {
+	public function select_forms(): array {
 
 		$args = [
 			'post_type'      => 'wpcf7_contact_form',
@@ -680,9 +680,11 @@ class Settings extends WC_Settings_Page {
 		$select    = [];
 
 		foreach ( $cf7_forms as $form ) {
-			$select[ esc_attr( $form->ID ) ] = sprintf(
+			$form_id = esc_attr( $form->ID );
+
+			$select[ $form_id ] = sprintf(
 				'[contact-form-7 id="%s" title="%s"]',
-				esc_attr( $form->ID ),
+				$form_id,
 				esc_html( $form->post_title )
 			);
 		}
@@ -696,7 +698,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @return array
 	 */
-	public static function select_elements_item() {
+	public static function select_elements_item(): array {
 
 		return array(
 			'title' => __( 'Title', 'art-woocommerce-order-one-click' ),
@@ -717,7 +719,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.0.0
 	 */
-	public static function order_setting_notice() {
+	public static function order_setting_notice(): string {
 
 		$message     = '<p>' . __( '<strong>Warning! The functionality is under development. </strong> For the correct operation of this functionality. Requires proper creation of fields in the Contact Form 7 form with the names:', 'art-woocommerce-order-one-click' ) . '</p>';
 		$field_name  = __( 'field Name - <code>awooc-text</code>;', 'art-woocommerce-order-one-click' );
@@ -736,11 +738,11 @@ class Settings extends WC_Settings_Page {
 	 * @return string
 	 * @since  2.2.6
 	 */
-	public static function call_to_rate() {
+	public static function call_to_rate(): string {
 
 		$message = '';
 
-		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) || ! function_exists( 'get_current_screen' ) ) {
+		if ( ! function_exists( 'get_current_screen' ) || ! function_exists( 'wc_get_screen_ids' ) || ! current_user_can( 'manage_woocommerce' ) ) {
 			return $message;
 		}
 
@@ -780,20 +782,15 @@ class Settings extends WC_Settings_Page {
 	 * @return string
 	 * @since  2.2.6
 	 */
-	public static function call_to_donate() {
+	public static function call_to_donate(): string {
 
 		$message = '';
 
-		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
+		if ( ! function_exists( 'wc_get_screen_ids' ) || ! current_user_can( 'manage_woocommerce' ) ) {
 			return $message;
 		}
 
 		$payments = array(
-			'pp'     => array(
-				'title' => __( 'PayPal', 'art-woocommerce-order-one-click' ),
-				'desc'  => __( 'Make a donation through PayPal', 'art-woocommerce-order-one-click' ),
-				'link'  => 'https://www.paypal.me/artabr',
-			),
 			'yd'     => array(
 				'title' => __( 'Yandex Money', 'art-woocommerce-order-one-click' ),
 				'desc'  => __( 'Make a donation through the Yandex Money system. You can use bank cards', 'art-woocommerce-order-one-click' ),
@@ -832,7 +829,7 @@ class Settings extends WC_Settings_Page {
 
 		$message = '';
 
-		if ( ! current_user_can( 'manage_woocommerce' ) || ! function_exists( 'wc_get_screen_ids' ) ) {
+		if ( ! function_exists( 'wc_get_screen_ids' ) || ! current_user_can( 'manage_woocommerce' ) ) {
 			return $message;
 		}
 
