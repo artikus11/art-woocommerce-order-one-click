@@ -35,7 +35,7 @@ function awooc_wpcf7_add_form_tag() {
  *
  * @return string
  */
-function awooc_wpcf7_add_form_tag_callback( $tag ) {
+function awooc_wpcf7_add_form_tag_callback( WPCF7_FormTag $tag ): string {
 
 	if ( empty( $tag->name ) ) {
 		return '';
