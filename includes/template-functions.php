@@ -177,6 +177,10 @@ if ( ! function_exists( 'awooc_custom_button_label' ) ) {
 		$label_button        = esc_html( get_option( 'woocommerce_awooc_title_button' ) );
 		$custom_label_button = esc_html( get_option( 'woocommerce_awooc_title_custom' ) );
 
+		if ( empty( $product ) ) {
+			return $label_button;
+		}
+
 		if ( awooc()->get_mode()->is_mode_special() && ( ( $product->get_price() <= 0 || '' === $product->get_price() ) || ! $product->is_in_stock() ) ) {
 
 			return $custom_label_button ? : $label_button;

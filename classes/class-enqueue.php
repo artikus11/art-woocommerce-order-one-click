@@ -158,7 +158,7 @@ class Enqueue {
 				[
 					'mode'         => $this->main->get_mode()->get_mode_value(),
 					'template'     => awooc_popup(),
-					'custom_label' => awooc_custom_button_label(),
+					'custom_label' => awooc_custom_button_label(), //TODO не работает при выводе товаров шорткодом или блоком. Сделать проверку на шорткод?
 					'popup'        => apply_filters(
 						'awooc_popup_setting',
 						[
