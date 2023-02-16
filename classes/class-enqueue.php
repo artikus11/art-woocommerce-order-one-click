@@ -71,6 +71,10 @@ class Enqueue {
 	 */
 	public function admin_enqueue(): void {
 
+		if ('woocommerce_page_wc-settings' !== get_current_screen()->id && $_GET['tab'] !== 'awooc_settings'){
+			return;
+		}
+
 		wp_enqueue_style(
 			'admin-awooc-styles',
 			AWOOC_PLUGIN_URI . 'assets/css/admin-style' . $this->suffix . '.css',
