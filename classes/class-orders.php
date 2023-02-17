@@ -88,6 +88,7 @@ class Orders extends Ajax {
 		$order->add_product( wc_get_product( $product_id ), $product_qty );
 		$order->set_address( $address, 'billing' );
 		$order->set_address( $address, 'shipping' );
+		$order->add_order_note( __( 'The order was created by using the One-click Order button', 'art-woocommerce-order-one-click' ) );
 		$order->calculate_totals();
 		$order->update_status( 'pending', __( 'One click order', 'art-woocommerce-order-one-click' ), true );
 	}
