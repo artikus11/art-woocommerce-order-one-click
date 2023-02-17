@@ -41,7 +41,6 @@ class Setup_Form {
 [text* awooc-text placeholder "%1$s"]
 [email* awooc-email placeholder "%2$s"]
 [tel* awooc-tel placeholder "%3$s"]
-[awooc_hidden awooc-hidden-data]
 [submit "%4$s"]',
 			__( 'Your Name', 'art-woocommerce-order-one-click' ),
 			__( 'Your Email', 'art-woocommerce-order-one-click' ),
