@@ -75,7 +75,8 @@ class Main {
 		( new Requirements() )->init_hooks();
 		( new Enqueue( $this ) )->init_hooks();
 		( new Ajax( $this ) )->init_hooks();
-		( new Orders() )->init_hooks();
+		( new Orders( $this ) )->init_hooks();
+		( new Email( $this ) )->init_hooks();
 
 		$this->front = new Front( $this );
 		$this->front->init_hooks();

@@ -41,7 +41,6 @@ class Ajax {
 		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
 		add_action( 'wp_ajax_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
 
-		add_action( 'wpcf7_before_send_mail', [ $this, 'email' ], 10, 3 );
 	}
 
 
@@ -89,71 +88,6 @@ class Ajax {
 	}
 
 
-	/**1643656254
-	 * @param $contact_form
-	 * @param $abort
-	 * @param $submission
-	 *
-	 * @return void
-	 */
-	public function email( $contact_form, $abort, $submission ): void {
-
-		if ( 'yes' !== get_option( 'woocommerce_awooc_enable_letter_template' ) ) {
-			return;
-		}
-
-		if ( (int) $contact_form->id() !== (int) get_option( 'woocommerce_awooc_select_form' ) ) {
-			return;
-		}
-
-		$mail_body = $submission->get_posted_data();
-
-		$product_id  = $mail_body['awooc_product_id'];
-		$product_qty = $mail_body['awooc_product_qty'];
-
-		$name  = ! empty( $mail_body['awooc-text'] ) ? sanitize_text_field( wp_unslash( $mail_body['awooc-text'] ) ) : '';
-		$email = ! empty( $mail_body['awooc-email'] ) ? sanitize_text_field( wp_unslash( $mail_body['awooc-email'] ) ) : '';
-		$tel   = ! empty( $mail_body['awooc-tel'] ) ? sanitize_text_field( wp_unslash( $mail_body['awooc-tel'] ) ) : '';
-
-		$mail     = $contact_form->prop( 'mail' );
-		$response = $this->response_to_mail( $product_id, $product_qty );
-
-		ob_start();
-
-		load_template(
-			awooc()->templater->get_template( 'email.php' ),
-			true,
-			[
-				'letter_data'  => [
-					'name'  => $name,
-					'email' => $email,
-					'phone' => $tel,
-				],
-				'letter_meta'  => [
-					'ip'   => [
-						'label' => esc_html__( 'IP', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'remote_ip' ),
-					],
-					'time' => [
-						'label' => esc_html__( 'Date', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'timestamp' ),
-					],
-					'url'  => [
-						'label' => esc_html__( 'Domain', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'url' ),
-					],
-				],
-				'product_data' => $response->get_response(),
-			]
-		);
-
-		$mail['body'] = ob_get_clean();
-
-		$contact_form->set_properties( [ 'mail' => $mail ] );
-
-	}
-
-
 	/**
 	 * @param  int $id
 	 *
@@ -185,17 +119,33 @@ class Ajax {
 
 
 	/**
-	 * @param $product_id
-	 * @param $product_qty
+	 * @param $posted_data
 	 *
-	 * @return \Art\AWOOC\Prepare_Mail
+	 * @return array
 	 */
-	public function response_to_mail( $product_id, $product_qty ): Prepare_Mail {
+	protected function posted_data( $posted_data ): array {
 
-		$product     = $this->get_product( $product_id );
-		$product_qty = $this->get_qty( $product_qty );
+		$posted_data = array_map( [ $this, 'sanitize_field' ], $posted_data );
 
-		return new Prepare_Mail($this->main, $product, $product_qty );
+		$posted_text  = $posted_data['awooc-text'] ?? '';
+		$posted_email = $posted_data['awooc-email'] ?? '';
+		$posted_tel   = $posted_data['awooc-tel'] ?? '';
+
+		$product_id  = $posted_data['awooc_product_id'] ?? 0;
+		$product_qty = $posted_data['awooc_product_qty'] ?? 1;
+
+		return [ $posted_data, $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ];
+	}
+
+
+	/**
+	 * @param $field
+	 *
+	 * @return string
+	 */
+	protected function sanitize_field( $field ): string {
+
+		return sanitize_text_field( wp_unslash( $field ) );
 	}
 
 }
