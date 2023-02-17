@@ -15,9 +15,8 @@ global $product;
 
 echo wc_get_stock_html( $product ); // WPCS: XSS ok.
 
-if ( $product->is_on_backorder() || $product->is_in_stock() ) {
-	awooc()->get_front()->disable_loop();
-}
+//TODO: сделать отключение через опцию
+awooc()->get_front()->disable_loop();
 
 ?>
 
