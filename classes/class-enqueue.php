@@ -71,7 +71,7 @@ class Enqueue {
 	 */
 	public function admin_enqueue(): void {
 
-		if ('woocommerce_page_wc-settings' !== get_current_screen()->id && $_GET['tab'] !== 'awooc_settings'){
+		if ( ( isset( $_GET['tab'] ) && $_GET['tab'] !== 'awooc_settings' ) && 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
 			return;
 		}
 
@@ -89,6 +89,7 @@ class Enqueue {
 			AWOOC_PLUGIN_VER,
 			false
 		);
+
 		wp_localize_script(
 			'admin-awooc-script',
 			'awooc_admin',
