@@ -36,6 +36,8 @@ class Prepare_Popup extends Prepare {
 			return '';
 		}
 
+		add_filter( 'wc_price', [ $this, 'formatted_wc_price' ], 10, 5 );
+
 		return apply_filters(
 			'awooc_popup_price_html',
 			sprintf(
@@ -103,16 +105,54 @@ class Prepare_Popup extends Prepare {
 	 */
 	protected function formatted_qty(): string {
 
-		return wp_kses_post(
+		$allowed_html = [
+			'div'   => [
+				'class' => 'quantity',
+
+			],
+			'span'  => [
+				'class' => [],
+
+			],
+			'label' => [ 'class' => [] ],
+			'input' => [
+				'type'         => [],
+				'id'           => [],
+				'class'        => [],
+				'name'         => [],
+				'value'        => [],
+				'title'        => [],
+				'size'         => [],
+				'min'          => [],
+				'max'          => [],
+				'step'         => [],
+				'placeholder'  => [],
+				'inputmode'    => [],
+				'autocomplete' => [],
+			],
+		];
+
+		return wp_kses(
 			apply_filters(
 				'awooc_popup_qty_html',
 				sprintf(
-					'<span class="awooc-qty-label">%s</span><span class="awooc-qty-value">%s</span>',
+					'<span class="awooc-qty-label">%s</span>%s',
 					apply_filters( 'awooc_popup_qty_label', __( 'Quantity: ', 'art-woocommerce-order-one-click' ) ),
-					$this->get_qty()
+
+					woocommerce_quantity_input(
+						[
+							'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $this->get_product()->get_min_purchase_quantity(), $this->get_product() ),
+							'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $this->get_product()->get_max_purchase_quantity(), $this->get_product() ),
+							'input_value' => $this->get_qty() !== null ? wc_stock_amount( wp_unslash( $this->get_qty() ) ) : $this->get_product()->get_min_purchase_quantity(),
+							'classes'     => [ 'input-text', 'qty', 'text', 'awooc-popup-input-qty' ],
+						],
+						$this->get_product(),
+						false
+					)
+
 				),
 				$this->get_product()
-			)
+			), $allowed_html
 		);
 	}
 
@@ -128,6 +168,8 @@ class Prepare_Popup extends Prepare {
 			return '';
 		}
 
+		add_filter( 'wc_price', [ $this, 'formatted_wc_price' ], 10, 5 );
+
 		return apply_filters(
 			'awooc_popup_price_html',
 			sprintf(
@@ -138,6 +180,19 @@ class Prepare_Popup extends Prepare {
 			$this->get_product()
 		);
 
+	}
+
+
+	public function formatted_wc_price( $return, $price, $args, $unformatted_price, $original_price ): string {
+
+		$negative        = $price < 0;
+		$formatted_price = ( $negative ? '-' : '' ) . sprintf(
+				$args['price_format'],
+				'<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $args['currency'] ) . '</span>',
+				'<span class="woocommerce-Price-currencyValue">' . $price . '</span>'
+			);
+
+		return '<span class="woocommerce-Price-amount amount"><bdi>' . $formatted_price . '</bdi></span>';
 	}
 
 }

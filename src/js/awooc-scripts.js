@@ -30,10 +30,11 @@ jQuery( function ( $ ) {
 
 
 	const AWOOC = {
-		xhr:          false,
-		$button:      $( '.awooc-button-js' ),
-		formId:       Number( awooc_scripts_settings.popup.cf7_form_id ),
-		analyticData: {},
+		xhr:            false,
+		$button:        $( '.awooc-button-js' ),
+		$buttonProduct: $( '.woocommerce-variation-add-to-cart .awooc-button-js' ),
+		formId:         Number( awooc_scripts_settings.popup.cf7_form_id ),
+		analyticData:   {},
 
 		init: function () {
 
@@ -69,13 +70,13 @@ jQuery( function ( $ ) {
 		enableButton: function ( e, variation, purchasable ) {
 
 			if ( ! variation.is_in_stock ) {
-				AWOOC.$button.addClass( 'disabled wc-variation-is-unavailable' )
+				AWOOC.$buttonProduct.addClass( 'disabled wc-variation-is-unavailable' )
 			} else {
-				AWOOC.$button.removeClass( 'disabled wc-variation-selection-needed' )
+				AWOOC.$buttonProduct.removeClass( 'disabled wc-variation-selection-needed' )
 			}
 
 			if ( awooc_scripts_settings.mode === 'dont_show_add_to_card' ) {
-				AWOOC.$button.removeClass( 'disabled wc-variation-selection-needed' )
+				AWOOC.$buttonProduct.removeClass( 'disabled wc-variation-selection-needed' )
 			}
 
 			switch ( awooc_scripts_settings.mode ) {
@@ -186,10 +187,9 @@ jQuery( function ( $ ) {
 				} );
 		},
 
-		addedToMailData: function ( response ) {
+		addedToMailData: function ( toMail ) {
 
-			const toMail = response.data.toMail;
-			const keys   = Object.keys( toMail );
+			const keys = Object.keys( toMail );
 
 			let dataToMail = '\n' + awooc_scripts_translate.product_data_title + '\n———\n';
 
@@ -200,9 +200,8 @@ jQuery( function ( $ ) {
 			return dataToMail;
 		},
 
-		addedToPopupData: function ( response ) {
-			const toPopup = response.data.toPopup;
-			const keys    = Object.keys( toPopup );
+		addedToPopupData: function ( toPopup ) {
+			const keys = Object.keys( toPopup );
 
 			keys.forEach( function ( key ) {
 				$( '.awooc-popup-' + key ).html( toPopup[ key ] );
@@ -264,6 +263,47 @@ jQuery( function ( $ ) {
 			}
 		},
 
+		updateAmount: function ( qtyVal, e, toMail ) {
+			const priceValue = $( '.awooc-popup-price .woocommerce-Price-currencyValue' ).text();
+
+			if ( priceValue ) {
+				let amount = Number( priceValue.replace( /[^+\d]/g, '' ) ) * qtyVal;
+
+				$( e.target )
+					.closest( '.awooc-form-custom-order' )
+					.find( '.awooc-popup-sum .woocommerce-Price-currencyValue' )
+					.text( amount.toLocaleString() );
+
+				let currentAmountValue = $( e.target )
+					.closest( '.awooc-form-custom-order' )
+					.find( '.awooc-popup-sum bdi' )
+					.text();
+
+				toMail[ 'sum' ] = awooc_scripts_translate.formatted_sum + currentAmountValue;
+			} else {
+				delete toMail.sum;
+			}
+
+
+		},
+
+		updateQty: function ( toMail ) {
+
+			$( '.awooc-popup-qty' )
+				.on( 'change', 'input.awooc-popup-input-qty', function ( e ) {
+					let qtyVal = $( e.target ).val();
+
+					toMail[ 'qty' ] = awooc_scripts_translate.product_qty + qtyVal;
+
+					AWOOC.analyticData[ 'qty' ] = qtyVal
+					AWOOC.updateAmount( qtyVal, e, toMail );
+
+					$( 'input[name="awooc-hidden-data"]' ).val( AWOOC.addedToMailData( toMail ) );
+					$( 'input[name="awooc_product_qty"]' ).val( qtyVal );
+
+				} )
+		},
+
 		request: function ( e ) {
 			let data = {
 				id:     AWOOC.getProductID( e ),
@@ -279,15 +319,19 @@ jQuery( function ( $ ) {
 				dataType: 'json',
 
 				success: function ( response ) {
+					const toPopup = response.data.toPopup;
+					let toMail    = response.data.toMail;
 
-					AWOOC.addedToPopupData( response );
+					AWOOC.addedToPopupData( toPopup );
 					AWOOC.analyticData = response.data.toAnalytics;
+
+					AWOOC.updateQty( toMail );
+
 					AWOOC.initContactForm();
 					AWOOC.initMask();
 
-					$( 'textarea.awooc-hidden-data' ).val( AWOOC.addedToMailData( response ) );
-					$( '.awooc-hidden-product-id' ).val( AWOOC.getProductID( e ) );
-					$( '.awooc-hidden-product-qty' ).val( AWOOC.getQty( e ) );
+					$( 'input[name="awooc_product_id"]' ).val( AWOOC.getProductID( e ) );
+
 
 					$( document.body ).trigger( 'awooc_popup_ajax_trigger', response );
 				},

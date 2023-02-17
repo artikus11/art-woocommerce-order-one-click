@@ -146,7 +146,7 @@ abstract class Prepare {
 	 */
 	public function title(): string {
 
-		return html_entity_decode( $this->product->get_title() );
+		return html_entity_decode( $this->product->get_name() );
 	}
 
 
