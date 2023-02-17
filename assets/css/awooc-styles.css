@@ -181,6 +181,12 @@
   font-size: 0.875rem;
 }
 
+.awooc-popup-qty {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 @media (min-width: 568px) {
   .awooc-popup-price,
   .awooc-popup-sku,
