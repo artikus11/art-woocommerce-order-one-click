@@ -331,7 +331,8 @@ jQuery( function ( $ ) {
 					AWOOC.initMask();
 
 					$( 'input[name="awooc_product_id"]' ).val( AWOOC.getProductID( e ) );
-
+					$( 'input[name="awooc_product_qty"]' ).val( AWOOC.getQty( e ) );
+					$( 'input[name="awooc-hidden-data"]' ).val( AWOOC.addedToMailData( toMail ) );
 
 					$( document.body ).trigger( 'awooc_popup_ajax_trigger', response );
 				},
