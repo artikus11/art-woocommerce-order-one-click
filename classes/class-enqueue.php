@@ -128,9 +128,9 @@ class Enqueue {
 			return;
 		}
 
-		[ $has_product_page, $has_wc_blocks, $has_wc_shortcode_products ] = $this->has_product();
-
-		if ( $has_product_page || $has_wc_blocks || $has_wc_shortcode_products ) {
+		//[ $has_product_page, $has_wc_blocks, $has_wc_shortcode_products ] = $this->has_product();
+		// TODO: костыль, надо придумать проверку на наличие товара выведенного через конструкторы
+		//if ( $has_product_page || $has_wc_blocks || $has_wc_shortcode_products || is_front_page() ) {
 
 			wp_localize_script(
 				'awooc-scripts',
@@ -197,7 +197,7 @@ class Enqueue {
 					),
 				]
 			);
-		}
+		//}
 
 	}
 
