@@ -128,116 +128,72 @@ class Enqueue {
 			return;
 		}
 
-		//[ $has_product_page, $has_wc_blocks, $has_wc_shortcode_products ] = $this->has_product();
-		// TODO: костыль, надо придумать проверку на наличие товара выведенного через конструкторы
-		//if ( $has_product_page || $has_wc_blocks || $has_wc_shortcode_products || is_front_page() ) {
+		wp_localize_script(
+			'awooc-scripts',
+			'awooc_scripts_ajax',
+			[
+				'url'   => admin_url( 'admin-ajax.php' ),
+				'nonce' => wp_create_nonce( 'awooc-nonce' ),
+			]
+		);
 
-			wp_localize_script(
-				'awooc-scripts',
-				'awooc_scripts_ajax',
-				[
-					'url'   => admin_url( 'admin-ajax.php' ),
-					'nonce' => wp_create_nonce( 'awooc-nonce' ),
-				]
-			);
+		wp_localize_script(
+			'awooc-scripts',
+			'awooc_scripts_translate',
+			[
+				'product_qty'        => __( 'Quantity: ', 'art-woocommerce-order-one-click' ),
+				'title'              => __( 'Title: ', 'art-woocommerce-order-one-click' ),
+				'price'              => __( 'Price: ', 'art-woocommerce-order-one-click' ),
+				'sku'                => __( 'SKU: ', 'art-woocommerce-order-one-click' ),
+				'formatted_sum'      => __( 'Amount: ', 'art-woocommerce-order-one-click' ),
+				'attributes_list'    => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
+				'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
+				'product_link'       => __( 'Link to the product: ', 'art-woocommerce-order-one-click' ),
+				'title_close'        => __( 'Click to close', 'art-woocommerce-order-one-click' ),
+			]
+		);
 
-			wp_localize_script(
-				'awooc-scripts',
-				'awooc_scripts_translate',
-				[
-					'product_qty'        => __( 'Quantity: ', 'art-woocommerce-order-one-click' ),
-					'title'              => __( 'Title: ', 'art-woocommerce-order-one-click' ),
-					'price'              => __( 'Price: ', 'art-woocommerce-order-one-click' ),
-					'sku'                => __( 'SKU: ', 'art-woocommerce-order-one-click' ),
-					'formatted_sum'      => __( 'Amount: ', 'art-woocommerce-order-one-click' ),
-					'attributes_list'    => __( 'Attributes: ', 'art-woocommerce-order-one-click' ),
-					'product_data_title' => __( 'Information about the selected product', 'art-woocommerce-order-one-click' ),
-					'product_link'       => __( 'Link to the product: ', 'art-woocommerce-order-one-click' ),
-					'title_close'        => __( 'Click to close', 'art-woocommerce-order-one-click' ),
-				]
-			);
+		wp_localize_script(
+			'awooc-scripts',
+			'awooc_scripts_settings',
+			[
+				'mode'         => $this->main->get_mode()->get_mode_value(),
+				'template'     => awooc_popup(),
+				'custom_label' => awooc_custom_button_label(),
+				'popup'        => apply_filters(
+					'awooc_popup_setting',
+					[
+						'mailsent_timeout' => 3000,
+						'invalid_timeout'  => 5000,
+						'cf7_form_id'      => get_option( 'woocommerce_awooc_select_form' ),
+						'css'              => [
+							'width'        => '100%',
+							'maxWidth'     => '600px',
+							'maxHeight'    => '600px',
+							'top'          => '50%',
+							'left'         => '50%',
+							'border'       => '4px',
+							'borderRadius' => '4px',
+							'cursor'       => 'default',
+							'overflowY'    => 'auto',
+							'boxShadow'    => '0px 0px 3px 0px rgba(0, 0, 0, 0.2)',
+							'zIndex'       => '1000000',
+							'transform'    => 'translate(-50%, -50%)',
+						],
+						'overlay'          => [
+							'zIndex'          => '100000',
+							'backgroundColor' => '#000',
+							'opacity'         => 0.6,
+							'cursor'          => 'wait',
+						],
+						'fadeIn'           => '400',
+						'fadeOut'          => '400',
+						'focusInput'       => false,
+					]
+				),
+			]
+		);
 
-			wp_localize_script(
-				'awooc-scripts',
-				'awooc_scripts_settings',
-				[
-					'mode'         => $this->main->get_mode()->get_mode_value(),
-					'template'     => awooc_popup(),
-					'custom_label' => awooc_custom_button_label(), //TODO не работает при выводе товаров шорткодом или блоком. Сделать проверку на шорткод?
-					'popup'        => apply_filters(
-						'awooc_popup_setting',
-						[
-							'mailsent_timeout' => 3000,
-							'invalid_timeout'  => 5000,
-							'cf7_form_id' => get_option( 'woocommerce_awooc_select_form' ),
-							'css'              => [
-								'width'        => '100%',
-								'maxWidth'     => '600px',
-								'maxHeight'    => '600px',
-								'top'          => '50%',
-								'left'         => '50%',
-								'border'       => '4px',
-								'borderRadius' => '4px',
-								'cursor'       => 'default',
-								'overflowY'    => 'auto',
-								'boxShadow'    => '0px 0px 3px 0px rgba(0, 0, 0, 0.2)',
-								'zIndex'       => '1000000',
-								'transform'    => 'translate(-50%, -50%)',
-							],
-							'overlay'          => [
-								'zIndex'          => '100000',
-								'backgroundColor' => '#000',
-								'opacity'         => 0.6,
-								'cursor'          => 'wait',
-							],
-							'fadeIn'           => '400',
-							'fadeOut'          => '400',
-							'focusInput'       => false,
-						]
-					),
-				]
-			);
-		//}
-
-	}
-
-
-	/**
-	 * @return array
-	 */
-	protected function has_product(): array {
-
-		$has_product_page = is_shop() || is_product_category() || is_product_tag() || is_product();
-
-		global $post;
-
-		if ( ! $post ) {
-			return [ false, false, false ];
-		}
-
-		$parse_content  = parse_blocks( $post->post_content );
-		$blocks_name    = array_filter( wp_list_pluck( $parse_content, 'blockName' ) );
-		$wc_blocks_name = [];
-
-		foreach ( $blocks_name as $block_name ) {
-			if ( false !== strpos( $block_name, 'woocommerce' ) ) {
-				$wc_blocks_name[] = $block_name;
-			}
-		}
-
-		$has_wc_blocks = false;
-
-		if ( ! empty( $wc_blocks_name ) ) {
-			$has_wc_blocks = true;
-		}
-
-		$has_wc_shortcode_products = false;
-
-		if ( has_shortcode( $post->post_content, 'products' ) ) {
-			$has_wc_shortcode_products = true;
-		}
-
-		return [ $has_product_page, $has_wc_blocks, $has_wc_shortcode_products ];
 	}
 
 }
