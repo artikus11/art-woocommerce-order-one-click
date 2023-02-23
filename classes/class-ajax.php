@@ -123,7 +123,7 @@ class Ajax {
 	 *
 	 * @return array
 	 */
-	protected function posted_data( $posted_data ): array {
+	protected function prepare_posted_data( $posted_data ): array {
 
 		$posted_data = array_map( [ $this, 'sanitize_field' ], $posted_data );
 
@@ -134,7 +134,7 @@ class Ajax {
 		$product_id  = $posted_data['awooc_product_id'] ?? 0;
 		$product_qty = $posted_data['awooc_product_qty'] ?? 1;
 
-		return [ $posted_data, $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ];
+		return [ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ];
 	}
 
 

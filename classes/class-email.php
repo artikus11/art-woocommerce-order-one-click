@@ -23,7 +23,7 @@ class Email extends Ajax {
 	public function init_hooks(): void {
 
 		add_filter( 'wpcf7_form_hidden_fields', [ $this, 'add_hidden_fields' ], 100, 1 );
-		add_filter( 'awooc_create_order', [ $this, 'change_subject' ], 100, 2 );
+		add_action( 'awooc_create_order', [ $this, 'change_subject' ], 100, 2 );
 		add_action( 'wpcf7_before_send_mail', [ $this, 'email' ], 10, 3 );
 	}
 
@@ -88,7 +88,7 @@ class Email extends Ajax {
 
 		$mail_body = $submission->get_posted_data();
 
-		[ $posted_data, $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ] = $this->posted_data( $mail_body );
+		[ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ] = $this->prepare_posted_data( $mail_body );
 
 		$mail     = $contact_form->prop( 'mail' );
 		$response = $this->response_to_mail( (int) $product_id, (int) $product_qty );
