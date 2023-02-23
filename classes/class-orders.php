@@ -21,23 +21,30 @@ use WPCF7_Submission;
  */
 class Orders extends Ajax {
 
-
-
 	public function init_hooks(): void {
 
-		add_action( 'wpcf7_mail_sent', [ $this, 'created_order_mail_send' ], 10, 1 );
+
+		/**
+		 * wpcf7_before_send_mail - для создания заказв использвется именно этот хук, а не wpcf7_mail_sent,
+		 * потому что только на этом хуке возможно изменять данные письма до его отправки. На хуке wpcf7_mail_sent ничего
+		 * изменить не получиться, письмо уже ушло
+		 */
+		add_action( 'wpcf7_before_send_mail', [ $this, 'created_order_mail_send' ], 10, 3 );
 	}
 
 
 	/**
 	 * Создание заказа при отправке письма
 	 *
-	 * @param  WPCF7_ContactForm $contact_form объект формы.
+	 * @param  \WPCF7_ContactForm $contact_form
+	 * @param                     $abort
+	 * @param  \WPCF7_Submission  $submission
 	 *
-	 * @since 1.5.0
+	 * @return void
 	 * @since 2.2.6
+	 * @since 1.5.0
 	 */
-	public function created_order_mail_send( WPCF7_ContactForm $contact_form ): void {
+	public function created_order_mail_send( WPCF7_ContactForm $contact_form, $abort, WPCF7_Submission $submission ): void {
 
 		if ( 'yes' !== get_option( 'woocommerce_awooc_created_order' ) ) {
 			return;
@@ -47,9 +54,9 @@ class Orders extends Ajax {
 			return;
 		}
 
-		$posted_data = WPCF7_Submission::get_instance()->get_posted_data();
+		$posted_data = $submission->get_posted_data();
 
-		[ $posted_data, $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ] = $this->posted_data( $posted_data );
+		[ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ] = $this->prepare_posted_data( $posted_data );
 
 		$address = apply_filters(
 			'awooc_order_address_arg',
