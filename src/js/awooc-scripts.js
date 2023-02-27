@@ -334,9 +334,7 @@ jQuery( function ( $ ) {
 					$( 'input[name="awooc_product_qty"]' ).val( AWOOC.getQty( e ) );
 					$( 'input[name="awooc-hidden-data"]' ).val( AWOOC.addedToMailData( toMail ) );
 
-					// Поддержка работы Купить в 1 клик в теме Woodmart на архивах товаров
-					// TODO надо проверить на других темах, может имеет смысл проверять на инициализацию магнифика $.magnificPopup.instance
-					if ( $( 'body' ).hasClass( 'theme-woodmart' ) ) {
+					if ( $.magnificPopup !== undefined && $.magnificPopup.instance !== undefined) {
 						$.magnificPopup.close();
 					}
 
