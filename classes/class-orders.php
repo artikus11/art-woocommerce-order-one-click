@@ -9,6 +9,7 @@
 
 namespace Art\AWOOC;
 
+use WC_Data_Exception;
 use WC_Order;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
@@ -56,7 +57,7 @@ class Orders extends Ajax {
 
 		$posted_data = $submission->get_posted_data();
 
-		[ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ] = $this->prepare_posted_data( $posted_data );
+		[ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty, $customer_id ] = $this->prepare_posted_data( $posted_data );
 
 		$address = apply_filters(
 			'awooc_order_address_arg',
@@ -71,7 +72,7 @@ class Orders extends Ajax {
 
 		do_action( 'awooc_after_created_order', $product_id, $order, $address, $product_qty );
 
-		$this->add_order( $order, (int) $product_id, (int) $product_qty, $address );
+		$this->add_order( $order, (int) $product_id, (int) $product_qty, $address, (int) $customer_id );
 
 		do_action( 'awooc_create_order', $order, $contact_form, $posted_data );
 
@@ -87,14 +88,23 @@ class Orders extends Ajax {
 	 * @param  int      $product_qty количество продукта.
 	 * @param  array    $address     адрес для заказа.
 	 *
+	 * @param  int      $customer_id
 	 *
 	 * @since 2.2.6
 	 */
-	public function add_order( WC_Order $order, int $product_id, int $product_qty, array $address ): void {
+	public function add_order( WC_Order $order, int $product_id, int $product_qty, array $address, int $customer_id ): void {
 
 		$order->add_product( wc_get_product( $product_id ), $product_qty );
 		$order->set_address( $address, 'billing' );
 		$order->set_address( $address, 'shipping' );
+
+		if ( 0 !== $customer_id ) {
+			try {
+				$order->set_customer_id( $customer_id );
+			} catch ( WC_Data_Exception $exception ) {
+			}
+		}
+
 		$order->add_order_note( __( 'The order was created by using the One-click Order button', 'art-woocommerce-order-one-click' ) );
 		$order->calculate_totals();
 		$order->update_status( 'pending', __( 'One click order', 'art-woocommerce-order-one-click' ), true );

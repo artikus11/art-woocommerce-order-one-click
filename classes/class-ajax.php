@@ -143,8 +143,9 @@ class Ajax {
 
 		$product_id  = $posted_data['awooc_product_id'] ?? 0;
 		$product_qty = $posted_data['awooc_product_qty'] ?? 1;
+		$customer_id = $posted_data['awooc_customer_id'] ?? 0;
 
-		return [ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ];
+		return [ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty, $customer_id ];
 	}
 
 

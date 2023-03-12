@@ -42,6 +42,7 @@ class Email extends Ajax {
 				'awooc-hidden-data' => '',
 				'awooc_product_id'  => '',
 				'awooc_product_qty' => '',
+				'awooc_customer_id' => get_current_user_id(),
 			]
 		);
 	}
