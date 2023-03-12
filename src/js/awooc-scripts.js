@@ -28,15 +28,19 @@ jQuery( function ( $ ) {
 		return false;
 	}
 
-
 	const AWOOC = {
-		xhr:            false,
-		$button:        $( '.awooc-button-js' ),
-		$buttonProduct: $( '.woocommerce-variation-add-to-cart .awooc-button-js' ),
-		formId:         Number( awooc_scripts_settings.popup.cf7_form_id ),
-		analyticData:   {},
+		xhr:                  false,
+		$button:              $( '.awooc-button-js' ),
+		$cfvswVariationsForm: $( '.cfvsw_variations_form:not(.variation-function-added' ),
+		$buttonProduct:       $( '.woocommerce-variation-add-to-cart .awooc-button-js' ),
+		formId:               Number( awooc_scripts_settings.popup.cf7_form_id ),
+		analyticData:         {},
 
 		init: function () {
+
+			if ( this.$cfvswVariationsForm !== undefined ) {
+				AWOOC.addedToButtonAttributes();
+			}
 
 			$( document.body )
 				.on( 'click', '.awooc-button-js', this.popup )
@@ -54,6 +58,95 @@ jQuery( function ( $ ) {
 				.on( 'wpcf7mailsent', this.sendSuccess )
 
 				.on( 'wpcf7invalid', this.sendInvalid )
+
+				.on( 'cfvswVariationLoad', this.addedToButtonAttributes )
+				.on( 'astraInfinitePaginationLoaded', this.addedToButtonAttributes )
+				.on( 'cfvswVariationLoad', this.addedToButtonAttributes )
+				.on( 'click', '.cfvsw-swatches-option', function ( e ) {
+					AWOOC.onClickSwatchesOption( $( e.target ) );
+				} )
+
+		},
+
+		addedToButtonAttributes: function () {
+
+			AWOOC.$cfvswVariationsForm.each(
+				function () {
+					const thisForm = $( this );
+
+					thisForm.wc_variation_form();
+					if ( thisForm.attr( 'data-cfvsw-catalog' ) ) {
+						return;
+					}
+					console.log( thisForm );
+					thisForm.on( 'found_variation', function ( e, variation ) {
+						console.log( variation );
+						AWOOC.updateButtonData( thisForm, variation );
+					} );
+				}
+			);
+
+		},
+
+		updateButtonData: function ( variant, variation ) {
+
+			const select = variant.find( '.variations select' );
+			const data   = {};
+			const button = variant
+				.parents( 'li' )
+				.find( '.awooc-button-js' );
+
+			select.each( function () {
+				const attributeName =
+					      $( this ).data( 'attribute_name' ) || $( this ).attr( 'name' );
+				console.log( attributeName );
+				data[ attributeName ] = $( this ).val() || '';
+			} );
+
+			button.addClass( 'cfvsw_variation_found' );
+			button.attr( 'data-selected_variant', JSON.stringify( data ) );
+
+
+		},
+
+		resetButtonData: function ( variant ) {
+			const button = variant
+				.parents( 'li' )
+				.find( '.awooc-button-js' );
+
+			button.html( button.data( 'select_options_text' ) );
+			button.removeClass( 'cfvsw_variation_found' );
+			button.attr( 'data-selected_variant', '' );
+
+
+		},
+
+		onClickSwatchesOption: function ( swatch ) {
+			if ( swatch.hasClass( 'cfvsw-selected-swatch' ) ) {
+				swatch.removeClass( 'cfvsw-selected-swatch' );
+				AWOOC.resetButtonData( swatch );
+			} else {
+				const parent = swatch.parent();
+				parent.find( '.cfvsw-swatches-option' ).each( function () {
+					$( this ).removeClass( 'cfvsw-selected-swatch' );
+				} );
+
+				swatch.addClass( 'cfvsw-selected-swatch' );
+			}
+
+			AWOOC.updateSelectOption( swatch );
+
+		},
+
+		updateSelectOption: function ( swatch ) {
+			const value  = swatch.hasClass( 'cfvsw-selected-swatch' )
+			               ? swatch.data( 'slug' )
+			               : '';
+			const select = swatch
+				.closest( '.cfvsw-swatches-container' )
+				.prev()
+				.find( 'select' );
+			select.val( value ).change();
 		},
 
 		wc_variation_form: function ( e ) {
@@ -312,6 +405,10 @@ jQuery( function ( $ ) {
 				nonce:  awooc_scripts_ajax.nonce
 			};
 
+			if ( $( e.target ).data( 'selected_variant' ) !== undefined ) {
+				data[ 'attributes' ] = $( e.target ).data( 'selected_variant' );
+			}
+
 			AWOOC.xhr = $.ajax( {
 				url:      awooc_scripts_ajax.url,
 				data:     data,
@@ -334,7 +431,7 @@ jQuery( function ( $ ) {
 					$( 'input[name="awooc_product_qty"]' ).val( AWOOC.getQty( e ) );
 					$( 'input[name="awooc-hidden-data"]' ).val( AWOOC.addedToMailData( toMail ) );
 
-					if ( $.magnificPopup !== undefined && $.magnificPopup.instance !== undefined) {
+					if ( $.magnificPopup !== undefined && $.magnificPopup.instance !== undefined ) {
 						$.magnificPopup.close();
 					}
 

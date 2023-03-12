@@ -69,13 +69,23 @@ class Ajax {
 		$product     = $this->get_product();
 		$product_qty = $this->get_qty();
 
+		$send_data = [
+			'main'        => $this->main,
+			'product'     => $product,
+			'product_qty' => $product_qty,
+		];
+
+		if ( ! empty( $_POST['attributes'] ) ) {
+			$send_data['attributes'] = $this->sanitize_attribute();
+		}
+
 		$data = apply_filters(
 			'awooc_data_ajax',
 			[
 				'elements'    => 'full',
-				'toPopup'     => ( new Prepare_Popup( $this->main, $product, $product_qty ) )->get_response(),
-				'toMail'      => ( new Prepare_Mail( $this->main, $product, $product_qty ) )->get_response(),
-				'toAnalytics' => ( new Prepare_Analytics( $this->main, $product, $product_qty ) )->get_response(),
+				'toPopup'     => ( new Prepare_Popup( $send_data ) )->get_response(),
+				'toMail'      => ( new Prepare_Mail( $send_data ) )->get_response(),
+				'toAnalytics' => ( new Prepare_Analytics( $send_data ) )->get_response(),
 			],
 			$product
 		);
@@ -146,6 +156,24 @@ class Ajax {
 	protected function sanitize_field( $field ): string {
 
 		return sanitize_text_field( wp_unslash( $field ) );
+	}
+
+
+	protected function sanitize_attribute(): array {
+
+		$attributes = $_POST['attributes'];
+
+		if ( empty( $attributes ) ) {
+			return [];
+		}
+
+		$attr = [];
+
+		foreach ( $attributes as $key => $val ) {
+			$attr[ str_replace( 'attribute_', '', $key ) ] = $this->sanitize_field( $val );
+		}
+
+		return $attr;
 	}
 
 }

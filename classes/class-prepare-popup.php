@@ -87,12 +87,17 @@ class Prepare_Popup extends Prepare {
 			return '';
 		}
 
-		return sprintf(
-			'<span class="awooc-attr-label">%s</span></br><span class="awooc-attr-value"><span>%s</span></span>',
-			apply_filters( 'awooc_popup_attr_label', esc_html__( 'Attributes: ', 'art-woocommerce-order-one-click' ) ),
-			implode( '; </span><span>', $this->get_attributes_alt_method() ),
+		$attributes_html = '';
 
-		);
+		if ( $this->get_attributes_alt_method() ) {
+			$attributes_html = sprintf(
+				'<span class="awooc-attr-label">%s</span></br><span class="awooc-attr-value"><span>%s</span></span>',
+				apply_filters( 'awooc_popup_attr_label', esc_html__( 'Attributes: ', 'art-woocommerce-order-one-click' ) ),
+				implode( '; </span><span>', $this->get_attributes_alt_method() )
+			);
+		}
+
+		return $attributes_html;
 	}
 
 

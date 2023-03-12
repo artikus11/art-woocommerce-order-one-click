@@ -32,17 +32,21 @@ abstract class Prepare {
 
 	protected Main $main;
 
+	/**
+	 * @var array|mixed
+	 */
+	protected $attr;
+
 
 	/**
-	 * @param  \Art\AWOOC\Main $main
-	 * @param  \WC_Product     $product
-	 * @param  int             $qty
+	 * @param  array $data
 	 */
-	public function __construct( Main $main, WC_Product $product, int $qty ) {
+	public function __construct( array $data ) {
 
-		$this->main    = $main;
-		$this->product = $product;
-		$this->qty     = $qty;
+		$this->main    = $data['main'];
+		$this->product = $data['product'];
+		$this->qty     = $data['product_qty'];
+		$this->attr    = empty( $data['attributes'] ) ? [] : $data['attributes'];
 	}
 
 
@@ -214,15 +218,20 @@ abstract class Prepare {
 	 */
 	public function get_attributes_alt_method(): array {
 
-		$attributes       = $this->product->get_attributes();
-		$product_variable = new WC_Product_Variable( $this->parent_id() );
-		$variations       = $product_variable->get_variation_attributes();
-		$attr_name        = [];
+		if ( empty( $this->attr ) ) {
+			$attributes       = $this->product->get_attributes();
+			$product_variable = new WC_Product_Variable( $this->parent_id() );
+			$variations       = $product_variable->get_variation_attributes();
+		} else {
+			$attributes = $this->attr;
+		}
+
+		$attr_name = [];
 
 		foreach ( $attributes as $attr => $value ) {
 
 			$attr_label = wc_attribute_label( $attr, $this->product );
-			$meta       = get_post_meta( $this->id(), wc_variation_attribute_name( $attr ), true );
+			$meta       = is_object( $value ) ? get_post_meta( $this->id(), wc_variation_attribute_name( $attr ), true ) : $value;
 			$term       = get_term_by( 'slug', $meta, $attr );
 
 			if ( false !== $term ) {
