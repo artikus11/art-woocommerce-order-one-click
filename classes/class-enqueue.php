@@ -132,7 +132,7 @@ class Enqueue {
 			'awooc-scripts',
 			'awooc_scripts_ajax',
 			[
-				'url'   => admin_url( 'admin-ajax.php' ),
+				'url'   => admin_url( $this->main->get_ajax_url() ) ,
 				'nonce' => wp_create_nonce( 'awooc-nonce' ),
 			]
 		);
@@ -165,7 +165,7 @@ class Enqueue {
 					[
 						'mailsent_timeout' => 3000,
 						'invalid_timeout'  => 5000,
-						'cf7_form_id'      => get_option( 'woocommerce_awooc_select_form' ),
+						'cf7_form_id'      => $this->main->get_selected_form_id(),
 						'css'              => [
 							'width'        => '100%',
 							'maxWidth'     => '600px',

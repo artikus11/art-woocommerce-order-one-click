@@ -267,4 +267,34 @@ class Main {
 		return $this->mode->get_modes();
 	}
 
+
+	/**
+	 * @return int
+	 * @since 3.0.0
+	 */
+	public function get_selected_form_id(): int {
+
+		return (int) apply_filters( 'awooc_selected_form_id', get_option( 'woocommerce_awooc_select_form' ) );
+	}
+
+
+	/**
+	 * @return string
+	 * @since 3.0.0
+	 */
+	public function get_ajax_url(): string {
+
+		$url = 'admin-ajax.php';
+
+		if ( class_exists( 'Polylang' ) && ! defined( 'WP_CLI' ) ) {
+			$url = add_query_arg( [ 'lang' => pll_current_language() ], $url );
+		}
+
+		if ( defined( 'ICL_LANGUAGE_CODE' ) && ! defined( 'WP_CLI' ) ) {
+			$url = add_query_arg( [ 'lang' => ICL_LANGUAGE_CODE ], $url );
+		}
+
+		return $url;
+	}
+
 }

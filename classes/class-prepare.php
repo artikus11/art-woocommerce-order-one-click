@@ -127,10 +127,10 @@ abstract class Prepare {
 	/**
 	 * Получаем артикул товара
 	 *
-	 * @return string|void
+	 * @return string
 	 * @since  3.0.0
 	 */
-	public function sku() {
+	public function sku(): string {
 
 		$sku = $this->product->get_sku();
 
@@ -314,19 +314,13 @@ abstract class Prepare {
 	 */
 	public function select_form(): string {
 
-		$select_form = apply_filters( 'awooc_selected_form_id', get_option( 'woocommerce_awooc_select_form' ) );
+		$select_form =  $this->main->get_selected_form_id();
 
 		if ( ! $select_form ) {
 			return '';
 		}
 
-		$form = wpcf7_contact_form_tag_func( [ 'id' => esc_attr( $select_form ) ], null, 'contact-form-7' );
-
-		if ( ! $form ) {
-			return '';
-		}
-
-		return $form;
+		return wpcf7_contact_form_tag_func( [ 'id' => esc_attr( $select_form ) ], null, 'contact-form-7' );
 	}
 
 

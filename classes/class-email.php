@@ -30,9 +30,10 @@ class Email extends Ajax {
 
 	public function add_hidden_fields( $fields ): array {
 
-		$form_id = WPCF7_ContactForm::get_current()->id();
+		$form_id     = WPCF7_ContactForm::get_current()->id();
+		$select_form = $this->main->get_selected_form_id();
 
-		if ( (int) get_option( 'woocommerce_awooc_select_form' ) !== $form_id ) {
+		if ( $select_form !== $form_id ) {
 			return $fields;
 		}
 
@@ -83,7 +84,7 @@ class Email extends Ajax {
 			return;
 		}
 
-		if ( (int) $contact_form->id() !== (int) get_option( 'woocommerce_awooc_select_form' ) ) {
+		if ( (int) $contact_form->id() !== $this->main->get_selected_form_id() ) {
 			return;
 		}
 

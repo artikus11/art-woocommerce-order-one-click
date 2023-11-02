@@ -371,7 +371,7 @@ if ( ! function_exists( 'awooc_popup_window_select_form' ) ) {
 	 */
 	function awooc_popup_window_select_form() {
 
-		$select_form = get_option( 'woocommerce_awooc_select_form' );
+		$select_form = awooc()->get_selected_form_id();
 
 		if ( $select_form ) {
 			do_action( 'awooc_popup_before_form' );
