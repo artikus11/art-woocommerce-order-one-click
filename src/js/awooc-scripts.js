@@ -416,7 +416,7 @@ jQuery( function ( $ ) {
 				dataType: 'json',
 
 				success: function ( response ) {
-					const toPopup = response.data.toPopup;
+					let toPopup = response.data.toPopup;
 					let toMail    = response.data.toMail;
 
 					AWOOC.addedToPopupData( toPopup );
