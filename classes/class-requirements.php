@@ -42,6 +42,16 @@ class Requirements {
 
 	public function init_hooks(): void {
 
+		add_action( 'before_woocommerce_init', static function() {
+			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+					'custom_order_tables',
+					AWOOC_PLUGIN_FILE,
+					true
+				);
+			}
+		} );
+
 		add_action( 'admin_init', [ $this, 'check_requirements' ] );
 
 		foreach ( $this->required_plugins as $required_plugin ) {
