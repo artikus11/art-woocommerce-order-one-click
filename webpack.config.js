@@ -5,6 +5,7 @@ const CssMinimizerPlugin      = require( "css-minimizer-webpack-plugin" );
 const { hasBabelConfig }      = require( '@wordpress/scripts/utils' );
 const TerserPlugin            = require( 'terser-webpack-plugin' );
 const UnminifiedWebpackPlugin = require( 'unminified-webpack-plugin' );
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const mode         = isProduction ? 'production' : 'development';
@@ -40,7 +41,9 @@ module.exports = {
 					]
 				},
 			} ),
-			new TerserPlugin(),
+			new TerserPlugin( {
+				extractComments: false,
+			} ),
 		]
 	},
 	module:       {
@@ -105,7 +108,7 @@ module.exports = {
 		],
 	},
 	plugins:      [
-
+		new RemoveEmptyScriptsPlugin(),
 		new MiniCssExtractPlugin( {
 			filename: filename( 'css' ),
 		} ),
