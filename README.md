@@ -11,6 +11,19 @@
 [Плагин в репозитории WordPress](https://wordpress.org/plugins/art-woocommerce-order-one-click/)
 
 ## Changelog
+
+## [3.0.0] - 2023-11-07 [rc5]
+
+### Added
+- Добавлено: поддержка плагина Polylang
+
+### Changed
+- Изменено: рефакторинг
+- Изменено: обновлены переводы
+
+### Fixed
+- Исправлено:
+
 ## [3.0.0] - 2023-03-12 [rc4]
 
 ### Added
