@@ -65,7 +65,7 @@ class Email extends Ajax {
 	 *
 	 * @since 2.2.6
 	 */
-	public function change_subject( WC_Order $order, WPCF7_ContactForm $contact_form ): void {
+	public function change_email_subject( WC_Order $order, WPCF7_ContactForm $contact_form, $posted_data ): void {
 
 		if ( 'yes' !== get_option( 'woocommerce_awooc_change_subject' ) ) {
 			return;
@@ -87,7 +87,7 @@ class Email extends Ajax {
 	 * @return void
 	 * @todo не переводятся строки в письме, разобраться почему
 	 */
-	public function email( $contact_form, $abort, $submission ): void {
+	public function change_email_template( $contact_form, $abort, $submission ): void {
 
 		if ( 'yes' !== get_option( 'woocommerce_awooc_enable_letter_template' ) ) {
 			return;
@@ -148,10 +148,11 @@ class Email extends Ajax {
 	 */
 	public function response_to_mail( $product_id, $product_qty ): Prepare_Mail {
 
-		$product     = $this->get_product( $product_id );
-		$product_qty = $this->get_qty( $product_qty );
-
-		return new Prepare_Mail( $this->main, $product, $product_qty );
+		return new Prepare_Mail( [
+			'main'        => $this->main,
+			'product'     => $this->get_product( $product_id ),
+			'product_qty' => $this->get_qty( $product_qty ),
+		] );
 	}
 
 }
