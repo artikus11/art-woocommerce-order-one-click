@@ -28,6 +28,11 @@ class Ajax {
 
 	protected Main $main;
 
+	/**
+	 * @var \WC_Order|\WP_Error
+	 */
+	public $order;
+
 
 	public function __construct( Main $main ) {
 

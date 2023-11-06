@@ -23,8 +23,10 @@ class Email extends Ajax {
 	public function init_hooks(): void {
 
 		add_filter( 'wpcf7_form_hidden_fields', [ $this, 'add_hidden_fields' ], 100, 1 );
-		add_action( 'awooc_create_order', [ $this, 'change_subject' ], 100, 2 );
-		add_action( 'wpcf7_before_send_mail', [ $this, 'email' ], 10, 3 );
+
+		add_action( 'awooc_create_order', [ $this, 'change_email_subject' ], 10, 3 );
+
+		add_action( 'wpcf7_before_send_mail', [ $this, 'change_email_template' ], 20, 3 );
 	}
 
 
@@ -37,14 +39,20 @@ class Email extends Ajax {
 			return $fields;
 		}
 
+		$addon_fields = [
+			'awooc-hidden-data' => '',
+			'awooc_product_id'  => '',
+			'awooc_product_qty' => '',
+			'awooc_customer_id' => get_current_user_id(),
+		];
+
+		if ( class_exists( 'Polylang' ) && ! defined( 'WP_CLI' ) ) {
+			$addon_fields['lang'] = pll_current_language();
+		}
+
 		return array_merge(
 			$fields,
-			[
-				'awooc-hidden-data' => '',
-				'awooc_product_id'  => '',
-				'awooc_product_qty' => '',
-				'awooc_customer_id' => get_current_user_id(),
-			]
+			$addon_fields
 		);
 	}
 
@@ -77,6 +85,7 @@ class Email extends Ajax {
 	 * @param $submission
 	 *
 	 * @return void
+	 * @todo не переводятся строки в письме, разобраться почему
 	 */
 	public function email( $contact_form, $abort, $submission ): void {
 
