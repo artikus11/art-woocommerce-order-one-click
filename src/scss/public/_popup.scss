@@ -66,16 +66,13 @@
   flex: 0 1 100%;
   max-width: 100%;
   align-self: flex-start;
-  padding-top: 0.875rem;
 
   &.columns-left {
     text-align: left;
-    padding-right: 0.875rem;
   }
 
   &.columns-right {
     text-align: left;
-    padding-left: .875rem;
 
     input {
       width: 100%;
@@ -88,10 +85,14 @@
   }
 }
 
+@media (max-width: 569px) {
+  .columns-right:not(.awooc-col-full) {
+    padding-top: 0.875rem;
+  }
+}
 @media (min-width: 568px) {
   .awooc-col {
-    flex: 0 1 50%;
-    max-width: 50%;
+    max-width: calc(50% - .875rem);
   }
 }
 

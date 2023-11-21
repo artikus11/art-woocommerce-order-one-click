@@ -167,9 +167,9 @@ class Enqueue {
 						'invalid_timeout'  => 5000,
 						'cf7_form_id'      => $this->main->get_selected_form_id(),
 						'css'              => [
-							'width'        => '100%',
+							'width'        => 'calc(100vw - 1rem)',
 							'maxWidth'     => '600px',
-							'maxHeight'    => '600px',
+							'maxHeight'    => 'calc(100vh - 1rem)',
 							'top'          => '50%',
 							'left'         => '50%',
 							'border'       => '4px',
