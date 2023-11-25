@@ -38,10 +38,10 @@ class Setup_Form {
 
 		$mail_form = sprintf(
 			'
-[text* awooc-text placeholder "%1$s"]
-[email* awooc-email placeholder "%2$s"]
-[tel* awooc-tel placeholder "%3$s"]
-[submit "%4$s"]',
+[text* awooc-text class:input-text placeholder "%1$s"]
+[email* awooc-email class:input-text placeholder "%2$s"]
+[tel* awooc-tel class:input-text placeholder "%3$s"]
+[submit class:wp-element-button "%4$s"]',
 			__( 'Your Name', 'art-woocommerce-order-one-click' ),
 			__( 'Your Email', 'art-woocommerce-order-one-click' ),
 			__( 'Your Phone', 'art-woocommerce-order-one-click' ),

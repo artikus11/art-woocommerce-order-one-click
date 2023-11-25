@@ -53,6 +53,7 @@ if ( ! function_exists( 'awooc_mode_classes' ) ) {
 			'alt',
 			'awooc-button-js',
 			'awooc-custom-order-button',
+			'wp-element-button',
 		];
 
 		$mode = get_option( 'woocommerce_awooc_mode_catalog' );
