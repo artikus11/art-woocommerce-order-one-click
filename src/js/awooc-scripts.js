@@ -400,7 +400,6 @@ jQuery( function ( $ ) {
 		request: function ( e ) {
 			let data = {
 				id:     AWOOC.getProductID( e ),
-				qty:    AWOOC.getQty( e ),
 				action: 'awooc_ajax_product_form',
 				nonce:  awooc_scripts_ajax.nonce
 			};
@@ -408,6 +407,10 @@ jQuery( function ( $ ) {
 			if ( $( e.target ).data( 'selected_variant' ) !== undefined ) {
 				data[ 'attributes' ] = $( e.target ).data( 'selected_variant' );
 			}
+
+			$( e.target ).closest( '.cart' ).serializeArray().forEach(function( {name, value} ) {
+			    if( !['id', 'action', 'nonce', 'attributes', 'add-to-cart'].includes( name ) ) data[name] = value;
+			});
 
 			AWOOC.xhr = $.ajax( {
 				url:      awooc_scripts_ajax.url,
