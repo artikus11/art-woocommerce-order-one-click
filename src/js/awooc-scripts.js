@@ -400,7 +400,6 @@ jQuery( function ( $ ) {
 		request: function ( e ) {
 			let data = {
 				id:     AWOOC.getProductID( e ),
-				qty:    AWOOC.getQty( e ),
 				action: 'awooc_ajax_product_form',
 				nonce:  awooc_scripts_ajax.nonce
 			};
@@ -409,30 +408,10 @@ jQuery( function ( $ ) {
 				data[ 'attributes' ] = $( e.target ).data( 'selected_variant' );
 			}
 
-			let productFormCart = $( e.target ).closest( 'form.cart');
-			console.log(data);
-			console.log(productFormCart[0]);
-			let cartFormData = new FormData(productFormCart[0]);
-			/*cartFormData.forEach((num) => {
-				const square = num * num
-				console.log('Квадрат числа равен: ' + square)
-			})
-*/			console.log(cartFormData);
+			$( e.target ).closest( '.cart' ).serializeArray().forEach(function( {name, value} ) {
+			    if( !['id', 'action', 'nonce', 'attributes', 'add-to-cart'].includes( name ) ) data[name] = value;
+			});
 
-let thwepofProductFields = {};
-
-			for(let field of cartFormData.entries()) {
-
-				let name = field[0];
-				let value = field[1];
-				data[name] = value;
-				thwepofProductFields[name] = value;
-
-
-			}
-			data['thwepof_options'] = thwepofProductFields;
-
-			console.log(data);
 			AWOOC.xhr = $.ajax( {
 				url:      awooc_scripts_ajax.url,
 				data:     data,

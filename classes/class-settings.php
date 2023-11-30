@@ -700,15 +700,18 @@ class Settings extends WC_Settings_Page {
 	 */
 	public static function select_elements_item(): array {
 
-		return array(
-			'title' => __( 'Title', 'art-woocommerce-order-one-click' ),
-			'image' => __( 'Image', 'art-woocommerce-order-one-click' ),
-			'price' => __( 'Price', 'art-woocommerce-order-one-click' ),
-			'sku'   => __( 'SKU', 'art-woocommerce-order-one-click' ),
-			'attr'  => __( 'Attributes', 'art-woocommerce-order-one-click' ),
-			'qty'   => __( 'Quantity', 'art-woocommerce-order-one-click' ),
-			'sum'   => __( 'Amount', 'art-woocommerce-order-one-click' ),
-		);
+		return apply_filters(
+			'awooc_select_elements_item', 
+			array(
+				'title' => __( 'Title', 'art-woocommerce-order-one-click' ),
+				'image' => __( 'Image', 'art-woocommerce-order-one-click' ),
+				'price' => __( 'Price', 'art-woocommerce-order-one-click' ),
+				'sku'   => __( 'SKU', 'art-woocommerce-order-one-click' ),
+				'attr'  => __( 'Attributes', 'art-woocommerce-order-one-click' ),
+				'qty'   => __( 'Quantity', 'art-woocommerce-order-one-click' ),
+				'sum'   => __( 'Amount', 'art-woocommerce-order-one-click' ),
+			)
+		);;
 	}
 
 

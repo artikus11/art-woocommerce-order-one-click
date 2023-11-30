@@ -125,8 +125,8 @@ class Ajax {
 	 */
 	protected function get_qty( int $qty = 1 ): int {
 
-		if ( ! empty( $_POST['qty'] ) ) {
-			$qty = (int) sanitize_text_field( wp_unslash( $_POST['qty'] ) );
+		if ( ! empty( $_POST['quantity'] ) ) {
+			$qty = (int) sanitize_text_field( wp_unslash( $_POST['quantity'] ) );
 		}
 
 		return $qty;
