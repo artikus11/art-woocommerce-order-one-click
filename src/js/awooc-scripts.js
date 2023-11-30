@@ -409,6 +409,30 @@ jQuery( function ( $ ) {
 				data[ 'attributes' ] = $( e.target ).data( 'selected_variant' );
 			}
 
+			let productFormCart = $( e.target ).closest( 'form.cart');
+			console.log(data);
+			console.log(productFormCart[0]);
+			let cartFormData = new FormData(productFormCart[0]);
+			/*cartFormData.forEach((num) => {
+				const square = num * num
+				console.log('Квадрат числа равен: ' + square)
+			})
+*/			console.log(cartFormData);
+
+let thwepofProductFields = {};
+
+			for(let field of cartFormData.entries()) {
+
+				let name = field[0];
+				let value = field[1];
+				data[name] = value;
+				thwepofProductFields[name] = value;
+
+
+			}
+			data['thwepof_options'] = thwepofProductFields;
+
+			console.log(data);
 			AWOOC.xhr = $.ajax( {
 				url:      awooc_scripts_ajax.url,
 				data:     data,
