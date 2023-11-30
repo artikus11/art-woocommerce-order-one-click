@@ -408,9 +408,9 @@ jQuery( function ( $ ) {
 				data[ 'attributes' ] = $( e.target ).data( 'selected_variant' );
 			}
 
-			$( e.target ).closest( '.cart' ).serializeArray().forEach(function( {name, value} ) {
-			    if( !['id', 'action', 'nonce', 'attributes', 'add-to-cart'].includes( name ) ) data[name] = value;
-			});
+			$( e.target ).closest( '.cart' ).serializeArray().forEach( function ( { name, value } ) {
+				if ( ! Object.keys( data ).includes( name ) ) data[ name ] = value;
+			} );
 
 			AWOOC.xhr = $.ajax( {
 				url:      awooc_scripts_ajax.url,
