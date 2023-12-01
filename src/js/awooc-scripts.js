@@ -412,6 +412,8 @@ jQuery( function ( $ ) {
 				if ( ! Object.keys( data ).includes( name ) ) data[ name ] = value;
 			} );
 
+			delete data['add-to-cart'];
+
 			AWOOC.xhr = $.ajax( {
 				url:      awooc_scripts_ajax.url,
 				data:     data,
