@@ -78,9 +78,8 @@ jQuery( function ( $ ) {
 					if ( thisForm.attr( 'data-cfvsw-catalog' ) ) {
 						return;
 					}
-					console.log( thisForm );
+
 					thisForm.on( 'found_variation', function ( e, variation ) {
-						console.log( variation );
 						AWOOC.updateButtonData( thisForm, variation );
 					} );
 				}
@@ -99,7 +98,7 @@ jQuery( function ( $ ) {
 			select.each( function () {
 				const attributeName =
 					      $( this ).data( 'attribute_name' ) || $( this ).attr( 'name' );
-				console.log( attributeName );
+
 				data[ attributeName ] = $( this ).val() || '';
 			} );
 
@@ -150,7 +149,7 @@ jQuery( function ( $ ) {
 		},
 
 		wc_variation_form: function ( e ) {
-			console.log( e );
+
 			if ( awooc_scripts_settings.mode === 'in_stock_add_to_card' ) {
 				//AWOOC.hideAwoocButton();
 			}
