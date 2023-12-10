@@ -62,6 +62,14 @@ class Front {
 
 		}
 
+		//@todo сделать отдельные файлы для режимов которые будут подключать кнопку на каталоге, проверить вывод кнопки при выводе товаров блоком
+		if ( 'loop/add-to-cart.php' === $template_name ) {
+
+			$template = $this->get_template_mode( $template );
+
+		}
+
+
 		return $template;
 	}
 
