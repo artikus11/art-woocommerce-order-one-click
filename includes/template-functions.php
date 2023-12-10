@@ -103,6 +103,15 @@ if ( ! function_exists( 'awooc_html_custom_add_to_cart' ) ) {
 			return;
 		}
 
+		if ( function_exists( 'rocket_init' ) && function_exists( 'wpcf7_enqueue_scripts' ) ) {
+			wpcf7_enqueue_scripts();
+		}
+
+		if ( function_exists( 'rocket_init' ) && function_exists( 'wpcf7_enqueue_styles' ) ) {
+			wpcf7_enqueue_styles();
+		}
+
+
 		wp_enqueue_script( 'awooc-scripts' );
 		wp_enqueue_style( 'awooc-styles' );
 
