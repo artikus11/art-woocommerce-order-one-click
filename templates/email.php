@@ -405,13 +405,15 @@ $letter_meta  = $args['letter_meta'];
 								<tr>
 									<td>
 										<h2><?php esc_html_e( 'Order One Click', 'art-woocommerce-order-one-click' ); ?></h2>
-										<p>Пришел заказ в один клик</p>
+										<p><?php esc_html_e( 'A quick one-click order has arrived', 'art-woocommerce-order-one-click' ); ?></p>
 										<hr>
 										<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="">
 											<tbody>
-												<?php foreach ( $letter_data as $label => $value ): ?>
+												<?php foreach ( $letter_data as $key => $value ): ?>
 
 													<?php
+
+													$label = ucfirst( $key );
 
 													if ( 'phone' === $label ):
 														$phone_url = preg_replace( '/\D/', '', $value );
@@ -423,7 +425,7 @@ $letter_meta  = $args['letter_meta'];
 													<tr style="margin-bottom: 10px">
 														<td align="left" style="width: 80px">
 															<strong>
-																<?php esc_html_e( ucfirst( $label ), 'art-woocommerce-order-one-click' ); ?>
+																<?php _e( $label, 'art-woocommerce-order-one-click' ); ?>
 															</strong>
 														</td>
 														<td align="left">

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2023-11-07 00:31+0400\n"
+"POT-Creation-Date: 2024-08-07 19:26+0400\n"
 "PO-Revision-Date: 2019-08-25 14:04+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
@@ -33,17 +33,17 @@ msgstr ""
 "Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
-#: classes/class-email.php:121
+#: classes/class-email.php:120
 #, fuzzy
 msgid "IP"
 msgstr "IP"
 
-#: classes/class-email.php:125
+#: classes/class-email.php:124
 #, fuzzy
 msgid "Date"
 msgstr "Дата"
 
-#: classes/class-email.php:129
+#: classes/class-email.php:128
 #, fuzzy
 msgid "Domain"
 msgstr "Домен"
@@ -134,7 +134,7 @@ msgstr "Ссылка на товар: "
 msgid "Click to close"
 msgstr "Ткнуть для закрытия"
 
-#: classes/class-front.php:111
+#: classes/class-front.php:120
 #, fuzzy
 msgid "Read more"
 msgstr "Читать"
@@ -236,7 +236,7 @@ msgstr "<strong>%s</strong> плагин был деактивирован."
 #: classes/class-settings.php:84
 #, fuzzy
 msgid "Off"
-msgstr "Выключить"
+msgstr "Выкл"
 
 #: classes/class-settings.php:85
 msgid "On"
@@ -414,42 +414,42 @@ msgstr "Режим предзаказа"
 msgid "Special mode"
 msgstr "Специальный режим"
 
-#: classes/class-settings.php:704
+#: classes/class-settings.php:706
 #, fuzzy
 msgid "Title"
 msgstr "Название"
 
-#: classes/class-settings.php:705
+#: classes/class-settings.php:707
 #, fuzzy
 msgid "Image"
 msgstr "﻿Изображение"
 
-#: classes/class-settings.php:706
+#: classes/class-settings.php:708
 #, fuzzy
 msgid "Price"
 msgstr "Цена"
 
-#: classes/class-settings.php:707
+#: classes/class-settings.php:709
 #, fuzzy
 msgid "SKU"
 msgstr "Артикул"
 
-#: classes/class-settings.php:708
+#: classes/class-settings.php:710
 #, fuzzy
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: classes/class-settings.php:709
+#: classes/class-settings.php:711
 #, fuzzy
 msgid "Quantity"
 msgstr "Количество"
 
-#: classes/class-settings.php:710
+#: classes/class-settings.php:712
 #, fuzzy
 msgid "Amount"
 msgstr "Сумма"
 
-#: classes/class-settings.php:724
+#: classes/class-settings.php:727
 #, fuzzy
 msgid ""
 "<strong>Warning! The functionality is under development. </strong> For the "
@@ -460,22 +460,22 @@ msgstr ""
 "корректной работы требуется правильное создание полей в форме Contact Form 7 "
 "c именами:"
 
-#: classes/class-settings.php:725
+#: classes/class-settings.php:728
 #, fuzzy
 msgid "field Name - <code>awooc-text</code>;"
 msgstr "поле Имя  - <code>awooc-text</code>;"
 
-#: classes/class-settings.php:726
+#: classes/class-settings.php:729
 #, fuzzy
 msgid "field Email - <code>awooc-email</code>;"
 msgstr "поле Емайл - <code>awooc-email</code>;"
 
-#: classes/class-settings.php:727
+#: classes/class-settings.php:730
 #, fuzzy
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
-#: classes/class-settings.php:758
+#: classes/class-settings.php:761
 #, fuzzy, php-format
 msgid ""
 "If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in "
@@ -484,60 +484,60 @@ msgstr ""
 "Если вам нравится плагин %1$s, пожалуйста, поставьте оценку %2$s. Заранее "
 "большое спасибо!"
 
-#: classes/class-settings.php:759 classes/class-settings.php:809
+#: classes/class-settings.php:762 classes/class-settings.php:812
 #, fuzzy
 msgid "Art WooCommerce Order One Click"
 msgstr "Art WooCommerce Order One Click"
 
-#: classes/class-settings.php:761
+#: classes/class-settings.php:764
 #, fuzzy
 msgid "five star"
 msgstr "пять звезд"
 
-#: classes/class-settings.php:761
+#: classes/class-settings.php:764
 #, fuzzy
 msgid "Thanks :)"
 msgstr "Пожалуйста, не загружайте эту страницу напрямую. Спасибо!"
 
-#: classes/class-settings.php:771
+#: classes/class-settings.php:774
 #, fuzzy
 msgid "Thank you for using the plugin!"
 msgstr "Спасибо, что используете плагин!"
 
-#: classes/class-settings.php:795
+#: classes/class-settings.php:798
 #, fuzzy
 msgid "Yandex Money"
 msgstr "Яндекс Деньги"
 
-#: classes/class-settings.php:796
+#: classes/class-settings.php:799
 #, fuzzy
 msgid "Make a donation through the Yandex Money system. You can use bank cards"
 msgstr "Поддержать через Яндекс Деньги. Можно использовать банковские карты"
 
-#: classes/class-settings.php:800
+#: classes/class-settings.php:803
 #, fuzzy
 msgid "WPRUSe"
 msgstr "WPRUSe"
 
-#: classes/class-settings.php:801
+#: classes/class-settings.php:804
 #, fuzzy
 msgid "WPRUSe project site"
 msgstr "Описание проекта"
 
-#: classes/class-settings.php:808
+#: classes/class-settings.php:811
 #, fuzzy, php-format
 msgid "You can make a donation to make the plugin %1$s even better!"
 msgstr ""
 "Вы можете сделать пожертвование, чтобы мотивировать автора и сделать плагин "
 "%1$s еще лучше!"
 
-#: classes/class-settings.php:836
+#: classes/class-settings.php:839
 #, fuzzy
 msgid ""
 "Detailed step by step instructions for setting up the plugin (in Russian)"
 msgstr "Подробная инструкция по настройке плагина (на русском)"
 
-#: classes/class-settings.php:839
+#: classes/class-settings.php:842
 #, fuzzy
 msgid ""
 "Plugin on GitHub, you can write there suggestions, wishes or participate in "
@@ -619,7 +619,7 @@ msgstr "подробное описание"
 #: includes/create-cf7-field.php:118
 #, fuzzy
 msgid "Name"
-msgstr "Название"
+msgstr "Имя"
 
 #: includes/create-cf7-field.php:146
 #, fuzzy
