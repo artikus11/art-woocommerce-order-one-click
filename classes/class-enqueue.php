@@ -21,6 +21,7 @@ class Enqueue {
 
 	protected string $suffix;
 
+
 	protected Main $main;
 
 
@@ -28,7 +29,6 @@ class Enqueue {
 
 		$this->main   = $main;
 		$this->suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-
 	}
 
 
@@ -37,7 +37,6 @@ class Enqueue {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue' ], 100 );
 		add_action( 'wp_enqueue_scripts', [ $this, 'localize' ], 110 );
 		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue' ] );
-
 	}
 
 
@@ -60,7 +59,6 @@ class Enqueue {
 			[],
 			AWOOC_PLUGIN_VER
 		);
-
 	}
 
 
@@ -132,7 +130,7 @@ class Enqueue {
 			'awooc-scripts',
 			'awooc_scripts_ajax',
 			[
-				'url'   => admin_url( $this->main->get_ajax_url() ) ,
+				'url'   => admin_url( $this->main->get_ajax_url() ),
 				'nonce' => wp_create_nonce( 'awooc-nonce' ),
 			]
 		);
@@ -194,7 +192,5 @@ class Enqueue {
 				),
 			]
 		);
-
 	}
-
 }

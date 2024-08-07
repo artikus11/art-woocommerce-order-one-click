@@ -136,7 +136,6 @@ class Email extends Ajax {
 		$mail['body'] = ob_get_clean();
 
 		$contact_form->set_properties( [ 'mail' => $mail ] );
-
 	}
 
 
@@ -154,5 +153,4 @@ class Email extends Ajax {
 			'product_qty' => $this->get_qty( $product_qty ),
 		] );
 	}
-
 }

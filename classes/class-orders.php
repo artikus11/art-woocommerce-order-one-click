@@ -38,7 +38,6 @@ class Orders extends Ajax {
 		 * изменить не получиться, письмо уже ушло
 		 */
 		add_action( 'wpcf7_before_send_mail', [ $this, 'created_order_mail_send' ], 10, 3 );
-
 	}
 
 
@@ -116,5 +115,4 @@ class Orders extends Ajax {
 		$this->order->calculate_totals();
 		$this->order->update_status( 'pending', __( 'One click order', 'art-woocommerce-order-one-click' ), true );
 	}
-
 }

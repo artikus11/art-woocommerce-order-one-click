@@ -54,5 +54,4 @@ class Mode {
 			'no_stock_no_price'     => 'special',
 		];
 	}
-
 }

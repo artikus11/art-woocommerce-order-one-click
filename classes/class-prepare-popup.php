@@ -47,7 +47,6 @@ class Prepare_Popup extends Prepare {
 			),
 			$this->get_product()
 		);
-
 	}
 
 
@@ -184,7 +183,6 @@ class Prepare_Popup extends Prepare {
 			),
 			$this->get_product()
 		);
-
 	}
 
 
@@ -199,5 +197,4 @@ class Prepare_Popup extends Prepare {
 
 		return '<span class="woocommerce-Price-amount amount"><bdi>' . $formatted_price . '</bdi></span>';
 	}
-
 }

@@ -41,5 +41,4 @@ class Prepare_Analytics extends Prepare {
 
 		return array_shift( $terms )->name;
 	}
-
 }

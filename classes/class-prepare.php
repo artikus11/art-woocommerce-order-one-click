@@ -25,12 +25,15 @@ abstract class Prepare {
 	 */
 	protected WC_Product $product;
 
+
 	/**
 	 * @var int
 	 */
 	protected int $qty;
 
+
 	protected Main $main;
+
 
 	/**
 	 * @var array|mixed
@@ -170,7 +173,7 @@ abstract class Prepare {
 			$post_thumbnail_id = get_post_thumbnail_id( $this->parent_id() );
 		}
 
-		if( ! $post_thumbnail_id ) {
+		if ( ! $post_thumbnail_id ) {
 			$post_thumbnail_id = get_option( 'woocommerce_placeholder_image', 0 );
 		}
 
@@ -209,7 +212,6 @@ abstract class Prepare {
 		}
 
 		return implode( '; ', $this->get_attributes_alt_method() );
-
 	}
 
 
@@ -253,7 +255,6 @@ abstract class Prepare {
 		}
 
 		return $attr_name;
-
 	}
 
 
@@ -270,7 +271,6 @@ abstract class Prepare {
 		}
 
 		return $this->price() * $this->qty;
-
 	}
 
 
@@ -284,7 +284,6 @@ abstract class Prepare {
 	public function link(): string {
 
 		return esc_url( get_permalink( $this->parent_id() ) );
-
 	}
 
 
@@ -318,7 +317,7 @@ abstract class Prepare {
 	 */
 	public function select_form(): string {
 
-		$select_form =  $this->main->get_selected_form_id();
+		$select_form = $this->main->get_selected_form_id();
 
 		if ( ! $select_form ) {
 			return '';
@@ -336,7 +335,5 @@ abstract class Prepare {
 	public function is_simple(): bool {
 
 		return $this->product->is_type( 'simple' );
-
 	}
-
 }

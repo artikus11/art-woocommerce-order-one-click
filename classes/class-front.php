@@ -24,6 +24,7 @@ class Front {
 	 */
 	private $mode;
 
+
 	protected Main $main;
 
 
@@ -31,7 +32,6 @@ class Front {
 
 		$this->main = $main;
 		$this->mode = get_option( 'woocommerce_awooc_mode_catalog' );
-
 	}
 
 
@@ -43,23 +43,20 @@ class Front {
 	public function init_hooks(): void {
 
 		add_filter( 'woocommerce_locate_template', [ $this, 'modify_add_to_cart_button_template' ], 1, 2 );
-
 	}
 
 
-	public function modify_add_to_cart_button_template( $template, $template_name) {
+	public function modify_add_to_cart_button_template( $template, $template_name ) {
 
 
 		if ( 'single-product/add-to-cart/simple.php' === $template_name ) {
 
 			$template = $this->get_template_mode( $template );
-
 		}
 
 		if ( 'single-product/add-to-cart/variation-add-to-cart-button.php' === $template_name ) {
 
 			$template = $this->get_template_mode( $template, 'variable' );
-
 		}
 
 		/**
@@ -69,7 +66,6 @@ class Front {
 		if ( 'loop/add-to-cart.php' === $template_name ) {
 			$template = $this->get_template_mode_loop( $template );
 		}
-
 
 		return $template;
 	}
@@ -219,7 +215,6 @@ class Front {
 		add_filter( 'woocommerce_product_is_in_stock', [ $this, 'disable_add_to_cart_out_stock' ], 10, 2 );
 		add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_variable_add_to_cart' ], 10, 3 );
 		add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'add_custom_button' ], 15 );
-
 	}
 
 
@@ -234,6 +229,7 @@ class Front {
 	 * @todo       режим спецзаказа - отключение похожих если нет запасов
 	 */
 	public function add_custom_button(): void {
+
 		_deprecated_function( __METHOD__, '3.0.0' );
 
 		if ( ! WP_DEBUG_LOG ) {
@@ -316,7 +312,6 @@ class Front {
 			if ( is_product() ) {
 				$bool = true;
 			}
-
 		}
 
 		if ( 'no_stock_no_price' === $this->mode && false === $bool ) {
@@ -472,7 +467,6 @@ class Front {
 		}
 
 		return $bool;
-
 	}
 
 
@@ -551,5 +545,4 @@ class Front {
 
 		echo wp_kses( $enable_add_to_card, [ 'style' => [] ] );
 	}
-
 }

@@ -36,13 +36,13 @@ class Requirements {
 				'active'  => false,
 			],
 		];
-
 	}
 
 
 	public function init_hooks(): void {
 
-		add_action( 'before_woocommerce_init', static function() {
+		add_action( 'before_woocommerce_init', static function () {
+
 			if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 				\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
 					'custom_order_tables',
@@ -166,7 +166,6 @@ class Requirements {
 			esc_attr( $class ),
 			wp_kses_post( $message )
 		);
-
 	}
 
 
@@ -193,5 +192,4 @@ class Requirements {
 
 		return $all_active;
 	}
-
 }

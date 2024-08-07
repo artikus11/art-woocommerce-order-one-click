@@ -57,19 +57,18 @@ class Setup_Form {
 
 		self::created_form( $mail_form, $mail_body );
 
-		$option = array(
-			'awooc_validate' => array(
+		$option = [
+			'awooc_validate' => [
 				'timestamp'     => time(),
 				'version'       => AWOOC_PLUGIN_VER,
 				'count_valid'   => 1,
 				'count_invalid' => 0,
-			),
-		);
+			],
+		];
 
 		if ( false === get_option( 'woocommerce_awooc_active' ) ) {
 			update_option( 'woocommerce_awooc_active', $option );
 		}
-
 	}
 
 
@@ -82,9 +81,9 @@ class Setup_Form {
 		$contact_form = WPCF7_ContactForm::get_template();
 
 		$contact_form->set_properties(
-			array(
+			[
 				'form'   => $mail_form,
-				'mail'   => array(
+				'mail'   => [
 					'subject'            => /* translators: 1: blog name, 2: blog URL */ sprintf(
 						__( 'Order from the site %1$s (%2$s)', 'art-woocommerce-order-one-click' ),
 						get_bloginfo( 'name' ),
@@ -97,8 +96,8 @@ class Setup_Form {
 					'attachments'        => '',
 					'use_html'           => 1,
 					'exclude_blank'      => 0,
-				),
-				'mail_2' => array(
+				],
+				'mail_2' => [
 					'subject'            => /* translators: 1: blog name, 2: blog URL */ sprintf(
 						__( 'Order from the site %1$s (%2$s)', 'art-woocommerce-order-one-click' ),
 						get_bloginfo( 'name' ),
@@ -111,8 +110,8 @@ class Setup_Form {
 					'attachments'        => '',
 					'use_html'           => 1,
 					'exclude_blank'      => 0,
-				),
-			)
+				],
+			]
 		);
 
 		$props = $contact_form->get_properties();
@@ -120,12 +119,12 @@ class Setup_Form {
 		$post_content = implode( "\n", wpcf7_array_flatten( $props ) );
 
 		$post_id = wp_insert_post(
-			array(
+			[
 				'post_type'    => 'wpcf7_contact_form',
 				'post_status'  => 'publish',
 				'post_title'   => __( 'Order One Click', 'art-woocommerce-order-one-click' ),
 				'post_content' => trim( $post_content ),
-			)
+			]
 		);
 
 		if ( $post_id ) {
@@ -139,5 +138,3 @@ class Setup_Form {
 		}
 	}
 }
-
-

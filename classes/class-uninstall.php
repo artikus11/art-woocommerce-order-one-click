@@ -28,7 +28,6 @@ class Uninstall {
 
 		self::remove_options();
 		self::remove_post_meta();
-
 	}
 
 
@@ -42,7 +41,6 @@ class Uninstall {
 				sprintf( '%s%s', $wpdb->esc_like( 'woocommerce_awooc_' ), '%' )
 			)
 		);
-
 	}
 
 
@@ -52,5 +50,4 @@ class Uninstall {
 
 		$wpdb->delete( $wpdb->postmeta, [ 'meta_key' => '_awooc_button' ], [ '%s' ] );
 	}
-
 }

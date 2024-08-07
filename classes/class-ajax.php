@@ -26,7 +26,9 @@ class Ajax {
 	 */
 	public $elements;
 
+
 	protected Main $main;
+
 
 	/**
 	 * @var \WC_Order|\WP_Error
@@ -37,7 +39,6 @@ class Ajax {
 	public function __construct( Main $main ) {
 
 		$this->main = $main;
-
 	}
 
 
@@ -45,7 +46,6 @@ class Ajax {
 
 		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
 		add_action( 'wp_ajax_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
-
 	}
 
 
@@ -181,5 +181,4 @@ class Ajax {
 
 		return $attr;
 	}
-
 }

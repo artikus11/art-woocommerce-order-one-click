@@ -53,5 +53,4 @@ class Templater {
 
 		return untrailingslashit( plugins_url( '/', AWOOC_PLUGIN_FILE ) );
 	}
-
 }

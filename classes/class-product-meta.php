@@ -75,7 +75,5 @@ class Product_Meta {
 		$product->update_meta_data( '_awooc_button', $button );
 
 		$product->save();
-
 	}
-
 }

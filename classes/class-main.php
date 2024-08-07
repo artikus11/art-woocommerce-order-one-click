@@ -25,11 +25,13 @@ class Main {
 	 */
 	private static ?Main $instance = null;
 
+
 	/**
 	 * @since 2.0.0
 	 * @var Front $front_end
 	 */
 	protected Front $front;
+
 
 	/**
 	 * @since 2.3.6
@@ -37,11 +39,13 @@ class Main {
 	 */
 	protected Enqueue $enqueue;
 
+
 	/**
 	 * @since 2.0.0
 	 * @var Ajax $ajax
 	 */
 	protected Ajax $ajax;
+
 
 	/**
 	 * Added Orders.
@@ -51,11 +55,13 @@ class Main {
 	 */
 	protected Orders $orders;
 
+
 	/**
 	 * @since 3.0.0
 	 * @var Templater $templater
 	 */
 	public Templater $templater;
+
 
 	/**
 	 * @since 3.0.0
@@ -88,7 +94,6 @@ class Main {
 
 		$this->init_hooks();
 		$this->load_textdomain();
-
 	}
 
 
@@ -105,7 +110,6 @@ class Main {
 		add_filter( 'plugin_action_links_' . AWOOC_PLUGIN_FILE, [ $this, 'add_plugin_action_links' ], 10, 1 );
 
 		add_filter( 'woocommerce_get_settings_pages', [ $this, 'add_awooc_admin_settings' ], 15 );
-
 	}
 
 
@@ -130,7 +134,6 @@ class Main {
 		];
 
 		return array_merge( $plugin_links, $links );
-
 	}
 
 
@@ -165,7 +168,6 @@ class Main {
 			false,
 			dirname( AWOOC_PLUGIN_FILE ) . '/languages/'
 		);
-
 	}
 
 
@@ -184,7 +186,6 @@ class Main {
 		endif;
 
 		return self::$instance;
-
 	}
 
 
@@ -217,7 +218,6 @@ class Main {
 		}
 
 		return $product->is_type( 'simple' );
-
 	}
 
 
@@ -296,5 +296,4 @@ class Main {
 
 		return $url;
 	}
-
 }

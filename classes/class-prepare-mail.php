@@ -102,7 +102,6 @@ class Prepare_Mail extends Prepare {
 			__( 'Link to the product: %s', 'art-woocommerce-order-one-click' ),
 			$this->link()
 		);
-
 	}
 
 
@@ -125,7 +124,5 @@ class Prepare_Mail extends Prepare {
 			),
 			implode( ', ', $categories_list )
 		);
-
 	}
-
 }
