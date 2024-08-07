@@ -62,11 +62,12 @@ class Front {
 
 		}
 
-		//@todo сделать отдельные файлы для режимов которые будут подключать кнопку на каталоге, проверить вывод кнопки при выводе товаров блоком
+		/**
+		 * @todo При выводе товаров блоком данная подменя не работает, нет ни фильтров ни файлов
+		 * @see  \Automattic\WooCommerce\Blocks\BlockTypes\AbstractProductGrid::get_button_html
+		 */
 		if ( 'loop/add-to-cart.php' === $template_name ) {
-
-			$template = $this->get_template_mode( $template );
-
+			$template = $this->get_template_mode_loop( $template );
 		}
 
 
@@ -166,8 +167,28 @@ class Front {
 		}
 
 		foreach ( $this->main->get_modes() as $option => $name ) {
+
 			if ( $option === $this->main->get_mode()->get_mode_value() ) {
-				$template = $this->main->get_template( "add-to-cart/$type-$name.php" );
+				$template = $this->main->get_template( "add-to-cart/single/$type-$name.php" );
+			}
+		}
+
+		return $template;
+	}
+
+
+	protected function get_template_mode_loop( $template ) {
+
+		$product = wc_get_product();
+
+		if ( 'yes' === $product->get_meta( '_awooc_button' ) ) {
+			return $template;
+		}
+
+		foreach ( $this->main->get_modes() as $option => $name ) {
+
+			if ( $option === $this->main->get_mode()->get_mode_value() ) {
+				$template = $this->main->get_template( "add-to-cart/loop/$name.php" );
 			}
 		}
 

@@ -172,6 +172,39 @@ if ( ! function_exists( 'awooc_popup' ) ) {
 	}
 }
 
+if ( ! function_exists( 'awooc_loop_add_to_cart_link' ) ) {
+	/**
+	 * Вывод кнопки Купить на архивах
+	 *
+	 * @since 3.0.0
+	 */
+	function awooc_loop_add_to_cart_link( $product, $args ): void {
+
+		$loop_add_to_cart_link =  apply_filters(
+			'woocommerce_loop_add_to_cart_link', // WPCS: XSS ok.
+			sprintf(
+				'<a href="%s" aria-describedby="woocommerce_loop_add_to_cart_link_describedby_%s" data-quantity="%s" class="%s" %s>%s</a>',
+				esc_url( $product->add_to_cart_url() ),
+				esc_attr( $product->get_id() ),
+				esc_attr( isset( $args['quantity'] ) ? $args['quantity'] : 1 ),
+				esc_attr( isset( $args['class'] ) ? $args['class'] : 'button' ),
+				isset( $args['attributes'] ) ? wc_implode_html_attributes( $args['attributes'] ) : '',
+				esc_html( $product->add_to_cart_text() )
+			),
+			$product,
+			$args
+		);
+
+		$loop_add_to_cart_link_describedby = 	sprintf(
+			'<span id="woocommerce_loop_add_to_cart_link_describedby_%s" class="screen-reader-text">%s</span>',
+			esc_attr( $product->get_id() ),
+			esc_html( $args['aria-describedby_text'] )
+		);
+
+		echo $loop_add_to_cart_link . $loop_add_to_cart_link_describedby;
+	}
+}
+
 if ( ! function_exists( 'awooc_custom_button_label' ) ) {
 	/**
 	 * @param  \WC_Product|null $product
