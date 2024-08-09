@@ -7,7 +7,7 @@
  * @version 2.3.1
  */
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\Admin;
 
 use WPCF7_ContactForm;
 use WPCF7_ContactFormTemplate;
@@ -18,7 +18,7 @@ use WPCF7_ContactFormTemplate;
  * @author Artem Abramovich
  * @since  2.3.1
  */
-class Setup_Form {
+class Create_Form {
 
 	/**
 	 * Создание формы при первой активации

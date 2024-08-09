@@ -7,7 +7,7 @@
  * @version 1.8.0
  */
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\Admin;
 
 use WC_Admin_Settings;
 use WC_Settings_Page;

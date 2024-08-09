@@ -152,7 +152,7 @@ class Main {
 	 */
 	public function add_awooc_admin_settings( array $settings ): array {
 
-		$settings[] = include __DIR__ . '/Settings.php';
+		$settings[] = include __DIR__ . '/Admin/Settings.php';
 
 		return $settings;
 	}
