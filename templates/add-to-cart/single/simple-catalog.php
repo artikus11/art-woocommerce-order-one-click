@@ -12,18 +12,16 @@
 defined( 'ABSPATH' ) || exit;
 
 awooc()->get_front()->disable_loop();
- ?>
+?>
 
-	<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
+<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
-	<form class="cart">
-		<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
+<form class="cart">
+	<?php do_action( 'woocommerce_before_add_to_cart_button' ); ?>
 
-		<?php awooc_html_custom_add_to_cart(); ?>
+	<?php awooc_html_custom_add_to_cart(); ?>
 
-		<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
-	</form>
+	<?php do_action( 'woocommerce_after_add_to_cart_button' ); ?>
+</form>
 
-	<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>
-
-
+<?php do_action( 'woocommerce_after_add_to_cart_form' ); ?>

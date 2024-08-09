@@ -19,11 +19,11 @@ global $product;
 
 do_action( 'awooc_before_loop_add_to_cart_link', $product, $args );
 
-if ( $product->is_in_stock() && $product->get_price() > 0 ):
+if ( $product->is_in_stock() && $product->get_price() > 0 ) :
 	awooc_loop_add_to_cart_link( $product, $args );
 endif;
 
-if ( 'variable' !== $product->get_type() ):
+if ( 'variable' !== $product->get_type() ) :
 	awooc_html_custom_add_to_cart();
 endif;
 

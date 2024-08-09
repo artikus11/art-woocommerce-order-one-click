@@ -21,7 +21,7 @@ $letter_meta  = $args['letter_meta'];
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>"/>
-	<title><?php echo get_bloginfo( 'name', 'display' ); ?></title>
+	<title><?php echo esc_html( get_bloginfo( 'name', 'display' ) ); ?></title>
 	<style>
 		/* -------------------------------------
 			GLOBAL RESETS
@@ -409,13 +409,13 @@ $letter_meta  = $args['letter_meta'];
 										<hr>
 										<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="">
 											<tbody>
-												<?php foreach ( $letter_data as $key => $value ): ?>
+												<?php foreach ( $letter_data as $key => $value ) : ?>
 
 													<?php
 
 													$label = ucfirst( $key );
 
-													if ( 'phone' === $label ):
+													if ( 'phone' === $label ) :
 														$phone_url = preg_replace( '/\D/', '', $value );
 
 														$value = sprintf( '<a href="%s">%s</a>', $phone_url, $value );
@@ -425,7 +425,11 @@ $letter_meta  = $args['letter_meta'];
 													<tr style="margin-bottom: 10px">
 														<td align="left" style="width: 80px">
 															<strong>
-																<?php _e( $label, 'art-woocommerce-order-one-click' ); ?>
+
+																<?php
+																//phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+																esc_html_e( $label, 'art-woocommerce-order-one-click' );
+																?>
 															</strong>
 														</td>
 														<td align="left">
@@ -436,12 +440,10 @@ $letter_meta  = $args['letter_meta'];
 											</tbody>
 										</table>
 										<hr>
-										<h3><?php esc_html_e( 'Information about the selected product', 'art-woocommerce-order-one-click' ) ?></h3>
+										<h3><?php esc_html_e( 'Information about the selected product', 'art-woocommerce-order-one-click' ); ?></h3>
 										<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
 											<tbody>
-												<?php
-
-												foreach ( $product_data as $product ): ?>
+												<?php foreach ( $product_data as $product ) : ?>
 													<tr>
 														<td align="left">
 															<?php echo esc_html( $product ); ?>
@@ -466,14 +468,13 @@ $letter_meta  = $args['letter_meta'];
 						<?php
 						$footer_meta = [];
 
-						foreach ( $letter_meta as $key => $meta ):
-							if ( 'time' === $key ):
+						foreach ( $letter_meta as $key => $meta ) :
+							if ( 'time' === $key ) :
 								$meta['value'] = wp_date( 'd.m.Y H:i:s', $meta['value'] );
-
 							endif;
-							if ( 'url' === $key ):
-								$meta['value'] = parse_url( $meta['value'], PHP_URL_HOST );
 
+							if ( 'url' === $key ) :
+								$meta['value'] = wp_parse_url( $meta['value'], PHP_URL_HOST );
 							endif;
 
 							$footer_meta[] = esc_html( $meta['label'] ) . ': ' . esc_html( $meta['value'] );

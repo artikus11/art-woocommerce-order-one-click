@@ -21,7 +21,7 @@ do_action( 'awooc_before_loop_add_to_cart_link', $product, $args );
 
 if ( ( empty( $product->get_price() ) || ( $product->is_on_backorder( 1 ) ) || ! $product->is_in_stock() ) && 'variable' !== $product->get_type() ) :
 	awooc_html_custom_add_to_cart();
-else:
+else :
 	awooc_loop_add_to_cart_link( $product, $args );
 endif;
 

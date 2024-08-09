@@ -1,29 +1,42 @@
 {
-    "name": "art/art-woocommerce-order-one-click",
-    "description": "Plugin for WooCommerce. It includes the catalog mode in the store (there are no prices and the Buy button) and can turn on the Buy/Order button in one click. WooCommerce and Contact Form 7 are required for proper operation.",
-    "license": "GPL-2.0",
-    "keywords": [
-        "art",
-        "woocommerce",
-        "order"
-    ],
-    "homepage": "https://github.com/artikus11/art-woocommerce-order-one-click",
-    "authors": [
-        {
-            "name": "Artem Abramovich",
-            "homepage": "https://wpruse.ru"
-        }
-    ],
-    "require": {},
-    "autoload": {
-        "classmap": [
-            "classes"
-        ],
-        "files": [
-            "includes/create-cf7-field.php",
-            "includes/helpers.php",
-            "includes/template-functions.php"
-        ]
-
+  "name": "art/art-woocommerce-order-one-click",
+  "description": "Plugin for WooCommerce. It includes the catalog mode in the store (there are no prices and the Buy button) and can turn on the Buy/Order button in one click. WooCommerce and Contact Form 7 are required for proper operation.",
+  "license": "GPL-2.0",
+  "keywords": [
+    "art",
+    "woocommerce",
+    "order"
+  ],
+  "homepage": "https://github.com/artikus11/art-woocommerce-order-one-click",
+  "authors": [
+    {
+      "name": "Artem Abramovich",
+      "homepage": "https://wpruse.ru"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Art\\AWOOC\\": "classes/"
+    },
+    "files": [
+      "includes/create-cf7-field.php",
+      "includes/helpers.php",
+      "includes/template-functions.php"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.1",
+    "squizlabs/php_codesniffer": "^3.10",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "phpcompatibility/phpcompatibility-wp": "*"
+  },
+  "scripts": {
+    "phpcs": "phpcs --standard=./phpcs.xml",
+    "phpcbf": "phpcbf --standard=./phpcs.xml"
+  }
 }

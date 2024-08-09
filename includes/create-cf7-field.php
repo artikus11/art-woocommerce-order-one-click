@@ -28,6 +28,7 @@ function awooc_wpcf7_add_form_tag() {
 	wpcf7_add_form_tag( 'awooc_hidden', 'awooc_wpcf7_add_form_tag_callback', true );
 }
 
+
 /**
  * Добавление поля
  *
@@ -41,7 +42,7 @@ function awooc_wpcf7_add_form_tag_callback( WPCF7_FormTag $tag ): string {
 		return '';
 	}
 
-	$atts          = array();
+	$atts          = [];
 	$class         = wpcf7_form_controls_class( $tag->type ) . ' awooc-hidden-data';
 	$atts['class'] = apply_filters( 'awooc_class_hidden_field', $tag->get_class_option( $class ) );
 	$atts['id']    = $tag->get_id_option();
@@ -58,6 +59,7 @@ function awooc_wpcf7_add_form_tag_callback( WPCF7_FormTag $tag ): string {
 
 	return $html;
 }
+
 
 /**
  * Проверка формы
@@ -81,6 +83,7 @@ function awooc_fields_validation_filter( $result, $tag ) {
 	return $result;
 }
 
+
 /**
  * Подключаем калбек скрытого поля для сбора данных
  */
@@ -89,6 +92,7 @@ function awooc_fields_add_tag_generator_address() {
 	$tag_generator = WPCF7_TagGenerator::get_instance();
 	$tag_generator->add( 'awooc_hidden', __( 'AWOOC hide field', 'art-woocommerce-order-one-click' ), 'awooc_tag_generator_hidden' );
 }
+
 
 /**
  * Форма окна для заполнения поля
@@ -109,20 +113,20 @@ function awooc_tag_generator_hidden() {
 	<div class="control-box" style="width: 100%;overflow: initial;">
 		<fieldset>
 			<legend>
-				<?php echo sprintf( esc_html( $description ), wp_kses_post( $desc_link ) ); ?>
+				<?php printf( esc_html( $description ), wp_kses_post( $desc_link ) ); ?>
 			</legend>
 
 			<table class="form-table">
 				<tbody>
-				<tr>
-					<th scope="row"><label for="tag-generator-panel-awooc_hidden-name"><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?></label>
-					</th>
-					<td><input
-							type="text"
-							name="name"
-							class="tg-name oneline"
-							id="tag-generator-panel-awooc_hidden-name"/></td>
-				</tr>
+					<tr>
+						<th scope="row"><label for="tag-generator-panel-awooc_hidden-name"><?php echo esc_html( __( 'Name', 'contact-form-7' ) ); ?></label>
+						</th>
+						<td><input
+								type="text"
+								name="name"
+								class="tg-name oneline"
+								id="tag-generator-panel-awooc_hidden-name"/></td>
+					</tr>
 				</tbody>
 			</table>
 		</fieldset>
@@ -152,8 +156,8 @@ function awooc_tag_generator_hidden() {
 				for="tag-generator-panel-mailtag">
 				<?php
 
-				echo sprintf(
-					/* translators: %s: field description */
+				printf(
+				/* translators: %s: field description */
 					esc_html__(
 						'To use the value input through this field in a mail field, you need to insert the corresponding mail-tag (%s) into the field on the Mail tab.',
 						'contact-form-7'

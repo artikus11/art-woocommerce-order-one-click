@@ -21,10 +21,8 @@ do_action( 'awooc_before_loop_add_to_cart_link', $product, $args );
 
 awooc_loop_add_to_cart_link( $product, $args );
 
-if ( 'variable' !== $product->get_type() ):
+if ( 'variable' !== $product->get_type() ) :
 	awooc_html_custom_add_to_cart();
 endif;
 
 do_action( 'awooc_after_loop_add_to_cart_link', $product, $args );
-
-

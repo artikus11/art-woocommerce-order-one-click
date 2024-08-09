@@ -19,11 +19,10 @@ global $product;
 
 do_action( 'awooc_before_loop_add_to_cart_link', $product, $args );
 
-if ( 'simple' !== $product->get_type() ):
+if ( 'simple' !== $product->get_type() ) :
 	awooc_loop_add_to_cart_link( $product, $args );
-else:
+else :
 	awooc_html_custom_add_to_cart();
 endif;
 
 do_action( 'awooc_after_loop_add_to_cart_link', $product, $args );
-
