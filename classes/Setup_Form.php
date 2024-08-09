@@ -17,7 +17,6 @@ use WPCF7_ContactFormTemplate;
  *
  * @author Artem Abramovich
  * @since  2.3.1
- *
  */
 class Setup_Form {
 
@@ -76,7 +75,7 @@ class Setup_Form {
 	 * @param  string $mail_form
 	 * @param  string $mail_body
 	 */
-	public static function created_form( $mail_form, $mail_body ) {
+	public static function created_form( string $mail_form, string $mail_body ) {
 
 		$contact_form = WPCF7_ContactForm::get_template();
 

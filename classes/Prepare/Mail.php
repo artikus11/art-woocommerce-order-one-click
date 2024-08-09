@@ -1,8 +1,8 @@
 <?php
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\Prepare;
 
-class Prepare_Mail extends Prepare {
+class Mail extends Prepare {
 
 	public function get_response(): array {
 
@@ -28,10 +28,7 @@ class Prepare_Mail extends Prepare {
 
 	protected function caption_title(): string {
 
-		return sprintf(
-			__( 'Title: %s', 'art-woocommerce-order-one-click' ),
-			$this->title()
-		);
+		return sprintf( '%s%s', __( 'Title: ', 'art-woocommerce-order-one-click' ), $this->title() );
 	}
 
 
@@ -47,7 +44,8 @@ class Prepare_Mail extends Prepare {
 	protected function caption_price(): string {
 
 		return sprintf(
-			__( 'Price: %s', 'art-woocommerce-order-one-click' ),
+			'%s%s',
+			__( 'Price: ', 'art-woocommerce-order-one-click' ),
 			wp_filter_nohtml_kses( wc_price( $this->price() ) )
 		);
 	}
@@ -56,7 +54,8 @@ class Prepare_Mail extends Prepare {
 	protected function caption_sku(): string {
 
 		return sprintf(
-			__( 'SKU: %s', 'art-woocommerce-order-one-click' ),
+			'%s%s',
+			__( 'SKU: ', 'art-woocommerce-order-one-click' ),
 			$this->sku()
 		);
 	}
@@ -65,7 +64,8 @@ class Prepare_Mail extends Prepare {
 	protected function caption_attributes(): string {
 
 		return sprintf(
-			__( 'Attributes: %s', 'art-woocommerce-order-one-click' ),
+			'%s%s',
+			__( 'Attributes: ', 'art-woocommerce-order-one-click' ),
 			$this->attributes()
 		);
 	}
@@ -74,7 +74,8 @@ class Prepare_Mail extends Prepare {
 	protected function caption_qty(): string {
 
 		return sprintf(
-			__( 'Quantity: %s', 'art-woocommerce-order-one-click' ),
+			'%s%s',
+			__( 'Quantity: ', 'art-woocommerce-order-one-click' ),
 			$this->get_qty()
 		);
 	}
@@ -83,7 +84,8 @@ class Prepare_Mail extends Prepare {
 	protected function caption_amount(): string {
 
 		return sprintf(
-			__( 'Amount: %s', 'art-woocommerce-order-one-click' ),
+			'%s%s',
+			__( 'Amount: ', 'art-woocommerce-order-one-click' ),
 			wp_filter_nohtml_kses( wc_price( $this->get_sum() ) )
 		);
 	}
@@ -92,14 +94,14 @@ class Prepare_Mail extends Prepare {
 	/**
 	 * Получаем ссылку на товар
 	 *
-	 *
 	 * @return string
 	 * @since 3.0.0
 	 */
 	protected function caption_link(): string {
 
 		return sprintf(
-			__( 'Link to the product: %s', 'art-woocommerce-order-one-click' ),
+			'%s%s',
+			__( 'Link to the product: ', 'art-woocommerce-order-one-click' ),
 			$this->link()
 		);
 	}

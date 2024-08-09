@@ -33,9 +33,7 @@ class Orders extends Ajax {
 		$this->has_create_order = get_option( 'woocommerce_awooc_created_order' );
 
 		/**
-		 * wpcf7_before_send_mail - для создания заказв используется именно этот хук, а не wpcf7_mail_sent,
-		 * потому что только на этом хуке возможно изменять данные письма до его отправки. На хуке wpcf7_mail_sent ничего
-		 * изменить не получиться, письмо уже ушло
+		 * Хук wpcf7_before_send_mail используется для создания заказов, а не wpcf7_mail_sent, потому что только на этом хуке возможно изменять данные письма до его отправки. На хуке wpcf7_mail_sent ничего изменить не получиться, письмо уже ушло
 		 */
 		add_action( 'wpcf7_before_send_mail', [ $this, 'created_order_mail_send' ], 10, 3 );
 	}
@@ -45,7 +43,7 @@ class Orders extends Ajax {
 	 * Создание заказа при отправке письма
 	 *
 	 * @param  \WPCF7_ContactForm $contact_form
-	 * @param                     $abort
+	 * @param  bool               $abort
 	 * @param  \WPCF7_Submission  $submission
 	 *
 	 * @return void
@@ -108,6 +106,13 @@ class Orders extends Ajax {
 			try {
 				$this->order->set_customer_id( $customer_id );
 			} catch ( WC_Data_Exception $exception ) {
+				wc_get_logger()->error(
+					$exception->getMessage(),
+					[
+						'source'    => 'awooc',
+						'backtrace' => true,
+					]
+				);
 			}
 		}
 

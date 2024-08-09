@@ -48,7 +48,6 @@ class Front {
 
 	public function modify_add_to_cart_button_template( $template, $template_name ) {
 
-
 		if ( 'single-product/add-to-cart/simple.php' === $template_name ) {
 
 			$template = $this->get_template_mode( $template );
@@ -149,12 +148,12 @@ class Front {
 	 * 'in_stock_add_to_card'  => __( 'Pre-order mode', 'art-woocommerce-order-one-click' )
 	 * 'no_stock_no_price'     => __( 'Special mode', 'art-woocommerce-order-one-click' )
 	 *
-	 * @param         $template
+	 * @param  string $template
 	 * @param  string $type
 	 *
-	 * @return mixed
+	 * @return string
 	 */
-	protected function get_template_mode( $template, string $type = 'simple' ) {
+	protected function get_template_mode( string $template, string $type = 'simple' ): string {
 
 		$product = wc_get_product();
 
@@ -173,7 +172,12 @@ class Front {
 	}
 
 
-	protected function get_template_mode_loop( $template ) {
+	/**
+	 * @param  string $template
+	 *
+	 * @return string
+	 */
+	protected function get_template_mode_loop( string $template ): string {
 
 		$product = wc_get_product();
 
@@ -209,7 +213,7 @@ class Front {
 		/**
 		 * WooCommerce setup_hooks
 		 *
-		 * deprecated
+		 * Deprecated
 		 */
 		add_filter( 'woocommerce_is_purchasable', [ $this, 'disable_add_to_cart_no_price' ], 10, 2 );
 		add_filter( 'woocommerce_product_is_in_stock', [ $this, 'disable_add_to_cart_out_stock' ], 10, 2 );
@@ -244,6 +248,7 @@ class Front {
 
 		switch ( $this->mode ) {
 			case 'dont_show_add_to_card':
+
 				$this->disable_loop();
 				$this->hide_button_add_to_card();
 				awooc_html_custom_add_to_cart();
@@ -273,7 +278,7 @@ class Front {
 	/**
 	 * Включение кнопки Заказать в если нет цены в простых товарах
 	 *
-	 * @param  bool        $bool    входящее булево значение.
+	 * @param  bool        $is_purchasable
 	 * @param  \WC_Product $product объект продукта.
 	 *
 	 * @return bool
@@ -282,49 +287,49 @@ class Front {
 	 *
 	 * @since      2.2.0
 	 */
-	public function disable_add_to_cart_no_price( $bool, $product ): bool {
+	public function disable_add_to_cart_no_price( bool $is_purchasable, WC_Product $product ): bool {
 
 		_deprecated_function( __METHOD__, '3.0.0' );
 
 		if ( ! WP_DEBUG_LOG ) {
-			return $bool;
+			return $is_purchasable;
 		}
 
 		if ( 'variation' === $product->get_type() ) {
-			return $bool;
+			return $is_purchasable;
 		}
 
 		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
-			return $bool;
+			return $is_purchasable;
 		}
 
 		if ( 'dont_show_add_to_card' === $this->mode ) {
 
 			if ( is_product() ) {
-				$bool = true;
+				$is_purchasable = true;
 			} else {
-				$bool = false;
+				$is_purchasable = false;
 			}
 		}
 
-		if ( 'in_stock_add_to_card' === $this->mode && false === $bool ) {
+		if ( 'in_stock_add_to_card' === $this->mode && false === $is_purchasable ) {
 
 			if ( is_product() ) {
-				$bool = true;
+				$is_purchasable = true;
 			}
 		}
 
-		if ( 'no_stock_no_price' === $this->mode && false === $bool ) {
+		if ( 'no_stock_no_price' === $this->mode && false === $is_purchasable ) {
 
 			if ( is_product() ) {
-				$bool = true;
+				$is_purchasable = true;
 			}
 
 			add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
 			add_filter( 'awooc_button_label', [ $this, 'custom_button_label' ] );
 		}
 
-		return $bool;
+		return $is_purchasable;
 	}
 
 
@@ -352,46 +357,46 @@ class Front {
 			return $status;
 		}
 
-		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
+		if ( 'yes' === $product->get_meta( '_awooc_button') ) {
 			return $status;
 		}
 
-		if ( false === $status ) {
-			switch ( $this->main->get_mode() ) {
-				case 'dont_show_add_to_card':
-					if ( is_product() ) {
-						$status = true;
-					}
+		if ( false !== $status ) {
+			return $status;
+		}
 
-					break;
-				case 'in_stock_add_to_card':
-					if ( is_product() ) {
-						$status = true;
-					}
+		switch ( $this->main->get_mode() ) {
+			case 'dont_show_add_to_card':
+				if ( is_product() ) {
+					$status = true;
+				}
 
-					add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
-					break;
-				case 'no_stock_no_price':
-					if ( is_product() ) {
-						$status = true;
+				break;
+			case 'in_stock_add_to_card':
+				if ( is_product() ) {
+					$status = true;
+				}
 
-						add_filter(
-							'woocommerce_get_stock_html',
-							function ( $html, $product ) {
+				add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
+				break;
+			case 'no_stock_no_price':
+				if ( is_product() ) {
+					$status = true;
 
-								$html = '<p class="stock out-of-stock">Нет наличии</p>';
+					add_filter(
+						'woocommerce_get_stock_html',
+						function ( $html, $product ) {
 
-								return $html;
-							},
-							10,
-							2
-						);
-					}
+							return '<p class="stock out-of-stock">Нет наличии</p>';
+						},
+						10,
+						2
+					);
+				}
 
-					add_action( 'woocommerce_before_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
-					add_filter( 'awooc_button_label', [ $this, 'custom_button_label' ] );
-					break;
-			}
+				add_action( 'woocommerce_before_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
+				add_filter( 'awooc_button_label', [ $this, 'custom_button_label' ] );
+				break;
 		}
 
 		return $status;

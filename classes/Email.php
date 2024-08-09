@@ -9,8 +9,10 @@
 
 namespace Art\AWOOC;
 
+use Art\AWOOC\Prepare\Mail;
 use WC_Order;
 use WPCF7_ContactForm;
+use WPCF7_Submission;
 
 /**
  * Class Email
@@ -60,8 +62,9 @@ class Email extends Ajax {
 	/**
 	 * Изменение темы письма
 	 *
-	 * @param  WPCF7_ContactForm $contact_form объект формы.
-	 * @param  WC_Order          $order        объект заказа.
+	 * @param  \WC_Order          $order        объект заказа
+	 * @param  \WPCF7_ContactForm $contact_form объект формы
+	 * @param                     $posted_data
 	 *
 	 * @since 2.2.6
 	 */
@@ -80,14 +83,14 @@ class Email extends Ajax {
 
 
 	/**
-	 * @param $contact_form
-	 * @param $abort
-	 * @param $submission
+	 * @param  \WPCF7_ContactForm $contact_form
+	 * @param  bool               $abort
+	 * @param  \WPCF7_Submission  $submission
 	 *
 	 * @return void
 	 * @todo не переводятся строки в письме, разобраться почему
 	 */
-	public function change_email_template( $contact_form, $abort, $submission ): void {
+	public function change_email_template( WPCF7_ContactForm $contact_form, bool $abort, WPCF7_Submission $submission ): void {
 
 		if ( 'yes' !== get_option( 'woocommerce_awooc_enable_letter_template' ) ) {
 			return;
@@ -140,14 +143,14 @@ class Email extends Ajax {
 
 
 	/**
-	 * @param $product_id
-	 * @param $product_qty
+	 * @param  int $product_id
+	 * @param  int $product_qty
 	 *
-	 * @return \Art\AWOOC\Prepare_Mail
+	 * @return \Art\AWOOC\Prepare\Mail
 	 */
-	public function response_to_mail( $product_id, $product_qty ): Prepare_Mail {
+	public function response_to_mail( int $product_id, int $product_qty ): Mail {
 
-		return new Prepare_Mail( [
+		return new Mail( [
 			'main'        => $this->main,
 			'product'     => $this->get_product( $product_id ),
 			'product_qty' => $this->get_qty( $product_qty ),

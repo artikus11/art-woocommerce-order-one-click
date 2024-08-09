@@ -69,7 +69,8 @@ class Enqueue {
 	 */
 	public function admin_enqueue(): void {
 
-		if ( ( isset( $_GET['tab'] ) && $_GET['tab'] !== 'awooc_settings' ) && 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
+		//phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ( isset( $_GET['tab'] ) && 'awooc_settings' !== $_GET['tab'] ) && 'woocommerce_page_wc-settings' !== get_current_screen()->id ) {
 			return;
 		}
 

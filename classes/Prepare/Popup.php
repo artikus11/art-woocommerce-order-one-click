@@ -1,8 +1,8 @@
 <?php
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\Prepare;
 
-class Prepare_Popup extends Prepare {
+class Popup extends Prepare {
 
 	public function get_response(): array {
 
@@ -53,7 +53,6 @@ class Prepare_Popup extends Prepare {
 	/**
 	 * Форматирование артикула
 	 *
-	 *
 	 * @return string
 	 * @since 2.3.2
 	 */
@@ -75,7 +74,6 @@ class Prepare_Popup extends Prepare {
 
 	/**
 	 * Форматирование атрибутов вариативного товара
-	 *
 	 *
 	 * @return string
 	 * @since 2.3.2
@@ -102,7 +100,6 @@ class Prepare_Popup extends Prepare {
 
 	/**
 	 * Форматирование количества
-	 *
 	 *
 	 * @return string
 	 * @since 3.0.0
@@ -153,7 +150,6 @@ class Prepare_Popup extends Prepare {
 						$this->get_product(),
 						false
 					)
-
 				),
 				$this->get_product()
 			), $allowed_html
@@ -186,7 +182,7 @@ class Prepare_Popup extends Prepare {
 	}
 
 
-	public function formatted_wc_price( $return, $price, $args, $unformatted_price, $original_price ): string {
+	public function formatted_wc_price( $html_price, $price, $args, $unformatted_price, $original_price ): string {
 
 		$negative        = $price < 0;
 		$formatted_price = ( $negative ? '-' : '' ) . sprintf(

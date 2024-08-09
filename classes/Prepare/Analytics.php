@@ -1,8 +1,8 @@
 <?php
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\Prepare;
 
-class Prepare_Analytics extends Prepare {
+class Analytics extends Prepare {
 
 	public function get_response(): array {
 
@@ -26,7 +26,6 @@ class Prepare_Analytics extends Prepare {
 
 	/**
 	 * Получаем первый термин для аналитики
-	 *
 	 *
 	 * @return bool|string
 	 * @since 3.0.0

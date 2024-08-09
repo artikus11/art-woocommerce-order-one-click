@@ -9,6 +9,10 @@
 
 namespace Art\AWOOC;
 
+use Art\AWOOC\Prepare\Analytics;
+use Art\AWOOC\Prepare\Mail;
+use Art\AWOOC\Prepare\Popup;
+
 /**
  * Class Ajax
  *
@@ -88,9 +92,9 @@ class Ajax {
 			'awooc_data_ajax',
 			[
 				'elements'    => 'full',
-				'toPopup'     => ( new Prepare_Popup( $send_data ) )->get_response(),
-				'toMail'      => ( new Prepare_Mail( $send_data ) )->get_response(),
-				'toAnalytics' => ( new Prepare_Analytics( $send_data ) )->get_response(),
+				'toPopup'     => ( new Popup( $send_data ) )->get_response(),
+				'toMail'      => ( new Mail( $send_data ) )->get_response(),
+				'toAnalytics' => ( new Analytics( $send_data ) )->get_response(),
 			],
 			$product
 		);
@@ -134,11 +138,11 @@ class Ajax {
 
 
 	/**
-	 * @param $posted_data
+	 * @param  array $posted_data
 	 *
 	 * @return array
 	 */
-	protected function prepare_posted_data( $posted_data ): array {
+	protected function prepare_posted_data( array $posted_data ): array {
 
 		$posted_data = array_map( [ $this, 'sanitize_field' ], $posted_data );
 
@@ -155,11 +159,11 @@ class Ajax {
 
 
 	/**
-	 * @param $field
+	 * @param  string $field
 	 *
 	 * @return string
 	 */
-	protected function sanitize_field( $field ): string {
+	protected function sanitize_field( string $field ): string {
 
 		return sanitize_text_field( wp_unslash( $field ) );
 	}
@@ -167,11 +171,11 @@ class Ajax {
 
 	protected function sanitize_attribute(): array {
 
-		$attributes = $_POST['attributes'];
-
-		if ( empty( $attributes ) ) {
+		if ( empty( $_POST['attributes'] ) ) {
 			return [];
 		}
+
+		$attributes = $_POST['attributes'];
 
 		$attr = [];
 

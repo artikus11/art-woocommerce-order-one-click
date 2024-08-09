@@ -7,8 +7,9 @@
  * @version 3.0.0
  */
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\Prepare;
 
+use Art\AWOOC\Main;
 use WC_Product;
 use WC_Product_Variable;
 
@@ -54,7 +55,7 @@ abstract class Prepare {
 
 
 	/**
-	 * метод обработки ответа
+	 * Метод обработки ответа
 	 *
 	 * @return array
 	 * @since  3.0.0
@@ -201,7 +202,6 @@ abstract class Prepare {
 	/**
 	 * Получение атрибутов вариативного товара
 	 *
-	 *
 	 * @return string
 	 * @since 3.0.0
 	 */
@@ -276,7 +276,6 @@ abstract class Prepare {
 
 	/**
 	 * Получаем ссылку
-	 *
 	 *
 	 * @return string
 	 * @since 3.0.0

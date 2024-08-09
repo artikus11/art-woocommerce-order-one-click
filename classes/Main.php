@@ -7,6 +7,8 @@
 
 namespace Art\AWOOC;
 
+use Art\AWOOC\Product\Meta;
+
 /**
  * Class AWOOC
  * Main AWOOC class, initialized the plugin
@@ -22,6 +24,7 @@ class Main {
 	 *
 	 * @since  1.8.0
 	 * @access private
+	 * @var \Art\AWOOC\Main|null
 	 */
 	private static ?Main $instance = null;
 
@@ -87,7 +90,7 @@ class Main {
 		$this->front = new Front( $this );
 		$this->front->init_hooks();
 
-		Product_Meta::init_hooks();
+		Meta::init_hooks();
 
 		$this->templater = new Templater();
 		$this->mode      = new Mode();
@@ -149,7 +152,7 @@ class Main {
 	 */
 	public function add_awooc_admin_settings( array $settings ): array {
 
-		$settings[] = include __DIR__ . '/class-settings.php';
+		$settings[] = include __DIR__ . '/Settings.php';
 
 		return $settings;
 	}
@@ -240,11 +243,11 @@ class Main {
 
 
 	/**
-	 * @param $template_name
+	 * @param  string $template_name
 	 *
 	 * @return string
 	 */
-	public function get_template( $template_name ): string {
+	public function get_template( string $template_name ): string {
 
 		return $this->get_templater()->get_template( $template_name );
 	}

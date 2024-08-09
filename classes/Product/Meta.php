@@ -7,7 +7,7 @@
  * @version 2.3.0
  */
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\Product;
 
 /**
  * Class Product_Meta
@@ -15,7 +15,7 @@ namespace Art\AWOOC;
  * @author Artem Abramovich
  * @since  2.3.0
  */
-class Product_Meta {
+class Meta {
 
 	/**
 	 * Подключение хуков
@@ -40,7 +40,6 @@ class Product_Meta {
 	 * @since 2.3.0
 	 */
 	public static function meta_box( array $options ): array {
-
 
 		$new_option['awooc_button'] = [
 			'id'            => '_awooc_button',

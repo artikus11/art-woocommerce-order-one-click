@@ -159,11 +159,11 @@ class Requirements {
 	}
 
 
-	private function admin_notice( $message, $class ): void {
+	private function admin_notice( $message, $classes ): void {
 
 		printf(
 			'<div class="%1$s"><p><span>%2$s</span></p></div>',
-			esc_attr( $class ),
+			esc_attr( $classes ),
 			wp_kses_post( $message )
 		);
 	}

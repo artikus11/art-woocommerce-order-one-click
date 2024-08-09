@@ -35,6 +35,7 @@ class Uninstall {
 
 		global $wpdb;
 
+		//phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->query(
 			$wpdb->prepare(
 				"DELETE FROM $wpdb->options WHERE option_name LIKE %s",
@@ -48,6 +49,7 @@ class Uninstall {
 
 		global $wpdb;
 
+		//phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$wpdb->delete( $wpdb->postmeta, [ 'meta_key' => '_awooc_button' ], [ '%s' ] );
 	}
 }

@@ -694,7 +694,7 @@ class Settings extends WC_Settings_Page {
 				'qty'   => __( 'Quantity', 'art-woocommerce-order-one-click' ),
 				'sum'   => __( 'Amount', 'art-woocommerce-order-one-click' ),
 			]
-		);;
+		);
 	}
 
 
@@ -707,15 +707,18 @@ class Settings extends WC_Settings_Page {
 	 */
 	public static function order_setting_notice(): string {
 
-		$message     = '<p>'
-		               . __( '<strong>Warning! The functionality is under development. </strong> For the correct operation of this functionality. Requires proper creation of fields in the Contact Form 7 form with the names:',
-				'art-woocommerce-order-one-click' )
-		               . '</p>';
+		$message = sprintf( '<p>%s</p>',
+			__(
+				'<strong>Warning! The functionality is under development. </strong> For the correct operation of this functionality. Requires proper creation of fields in the Contact Form 7 form with the names:',
+				'art-woocommerce-order-one-click'
+			)
+		);
+
 		$field_name  = __( 'field Name - <code>awooc-text</code>;', 'art-woocommerce-order-one-click' );
 		$field_email = __( 'field Email - <code>awooc-email</code>;', 'art-woocommerce-order-one-click' );
 		$field_tel   = __( 'field Phone - <code>awooc-tel</code>;', 'art-woocommerce-order-one-click' );
 
-		$message .= '<ul><li>' . $field_name . '</li><li>' . $field_email . '</li><li>' . $field_tel . '</li></ul>';
+		$message .= sprintf( '<ul><li>%s</li><li>%s</li><li>%s</li></ul>', $field_name, $field_email, $field_tel );
 
 		return $message;
 	}
@@ -853,5 +856,6 @@ class Settings extends WC_Settings_Page {
 		}
 	}
 }
+
 
 new Settings();
