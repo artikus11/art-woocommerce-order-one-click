@@ -35,19 +35,6 @@ class Settings extends WC_Settings_Page {
 		$this->label = __( 'One click order', 'art-woocommerce-order-one-click' );
 
 		parent::__construct();
-
-		add_action( 'woocommerce_admin_field_metabox_open', [ __CLASS__, 'metabox_open' ], 10, 1 );
-		add_action( 'woocommerce_admin_field_metabox_close', [ __CLASS__, 'metabox_close' ], 10, 1 );
-
-		add_action( 'woocommerce_admin_field_wrap_open', [ __CLASS__, 'wrap_open' ], 10, 1 );
-		add_action( 'woocommerce_admin_field_wrap_close', [ __CLASS__, 'wrap_close' ], 10, 1 );
-
-		add_action( 'woocommerce_admin_field_main_open', [ __CLASS__, 'main_open' ], 10, 1 );
-		add_action( 'woocommerce_admin_field_main_close', [ __CLASS__, 'main_close' ], 10, 1 );
-
-		add_action( 'woocommerce_admin_field_post_box', [ __CLASS__, 'post_box' ], 10, 1 );
-		add_action( 'woocommerce_admin_field_notice', [ __CLASS__, 'text_notice' ], 10, 1 );
-		add_action( 'woocommerce_admin_field_group_input', [ __CLASS__, 'group_input' ], 15, 1 );
 	}
 
 
@@ -82,276 +69,6 @@ class Settings extends WC_Settings_Page {
 			'off' => __( 'Off', 'art-woocommerce-order-one-click' ),
 			'on'  => __( 'On', 'art-woocommerce-order-one-click' ),
 		];
-	}
-
-
-	/**
-	 * Произвольное поле для сообщений
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.0.0
-	 */
-	public static function text_notice( array $value ): void {
-
-		$style = '';
-
-		if ( $value['style'] ) {
-			$style = 'style="' . $value['style'] . '"';
-		}
-
-		?>
-		<div id="<?php echo esc_attr( $value['id'] ); ?>" class="<?php echo esc_attr( $value['class'] ); ?>" <?php echo esc_attr( $style ); ?>>
-			<?php echo wp_kses_post( wpautop( wptexturize( $value['message'] ) ) ); ?>
-		</div>
-
-		<?php
-	}
-
-
-	/**
-	 * Открывающий тег сайдбара
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.2.6
-	 */
-	public static function metabox_open( array $value ): void {
-
-		if ( ! empty( $value['id'] ) ) {
-			?>
-			<div id="postbox-container-1" class="postbox-container">
-			<div class="meta-box-sortables">
-			<?php
-		}
-	}
-
-
-	/**
-	 * Закрывающий тег сайдбара
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.2.6
-	 */
-	public static function metabox_close( array $value ): void {
-
-		if ( ! empty( $value['id'] ) ) {
-			?>
-			</div>
-			</div>
-			<?php
-		}
-	}
-
-
-	/**
-	 * Открывающий тег обертки всей страницы настроек
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.2.6
-	 */
-	public static function wrap_open( array $value ): void {
-
-		if ( ! empty( $value['id'] ) ) {
-			?>
-			<div id="poststuff">
-			<div id="post-body" class="metabox-holder columns-2">
-			<div class="inside">
-			<?php
-		}
-	}
-
-
-	/**
-	 * Закрывающий тег обертки всей страницы настроек
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.2.6
-	 */
-	public static function wrap_close( array $value ): void {
-
-		if ( ! empty( $value['id'] ) ) {
-			?>
-			</div>
-			</div>
-			</div>
-			<br class="clear">
-			<?php
-		}
-	}
-
-
-	/**
-	 * Открывающий тег основного контента
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.2.6
-	 */
-	public static function main_open( array $value ): void {
-
-		if ( ! empty( $value['id'] ) ) {
-			echo '<div id="post-body-content">';
-		}
-	}
-
-
-	/**
-	 * Закрывающий тег основного контента
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.2.6
-	 */
-	public static function main_close( array $value ): void {
-
-		if ( ! empty( $value['id'] ) ) {
-			echo '</div>';
-		}
-	}
-
-
-	/**
-	 * Произвольная группа полей
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.1.4
-	 */
-	public static function group_input( array $value ): void {
-
-		$option_value       = WC_Admin_Settings::get_option( $value['id'], $value['default'] );
-		$field_desc_tooltip = WC_Admin_Settings::get_field_description( $value );
-
-		?>
-		<tr>
-			<th scope="row" class="titledesc">
-				<label for="<?php echo esc_attr( $value['id'] ); ?>">
-					<?php echo esc_html( $value['title'] ); ?>
-					<?php echo $field_desc_tooltip['tooltip_html']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				</label>
-			</th>
-			<td class="forminp forminp-<?php echo esc_attr( sanitize_title( $value['type'] ) ); ?>">
-				<?php echo $field_desc_tooltip['description']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-				<div class="awooc-row" style="<?php echo esc_attr( $value['css'] ); ?>">
-					<?php
-
-					foreach ( $value['fields'] as $key => $val ) :
-						if ( ! isset( $val['id'] ) ) {
-							$val['id'] = '';
-						}
-
-						if ( ! isset( $val['class'] ) ) {
-							$val['class'] = '';
-						}
-
-						if ( ! isset( $val['label'] ) ) {
-							$val['label'] = '';
-						}
-
-						if ( ! isset( $val['type'] ) ) {
-							$val['type'] = 'text';
-						}
-
-						if ( empty( $val['css'] ) ) {
-							$val['css'] = 'width: 100%';
-						}
-
-						?>
-						<div class="awooc-column">
-
-							<input
-								name="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>"
-								value="<?php echo esc_attr( $option_value[ $val['id'] ] ); ?>"
-								type="<?php echo esc_attr( $val['type'] ); ?>"
-								class="<?php echo esc_attr( $val['class'] ); ?>"
-								style="<?php echo esc_attr( $val['css'] ); ?>"
-								placeholder="<?php echo esc_attr( $val['label'] ); ?>"
-								data-tip="<?php echo esc_attr( $key ); ?>"
-							/>
-							<label for="<?php echo esc_attr( $value['id'] ) . '[' . esc_attr( $val['id'] ) . ']'; ?>">
-
-								<em>
-									<small><?php echo esc_html( $val['label'] ); ?></small>
-								</em>
-							</label>
-						</div>
-					<?php endforeach; ?>
-				</div>
-
-			</td>
-		</tr>
-
-		<?php
-	}
-
-
-	/**
-	 * Обертка для сгруппированных опций
-	 *
-	 * @param  string $option название опции.
-	 *
-	 * @return array
-	 *
-	 * @since 2.1.4
-	 */
-	public static function group_fields( string $option ): array {
-
-		$options = get_option( $option );
-
-		return wp_parse_args( $options, self::group_fields_default() );
-	}
-
-
-	/**
-	 * Значение по умолчанию для группы полей
-	 *
-	 * @return array
-	 *
-	 * @since 2.1.4
-	 */
-	public static function group_fields_default(): array {
-
-		return [
-			'id'    => '',
-			'type'  => '',
-			'label' => '',
-		];
-	}
-
-
-	/**
-	 * Произвольный метабокс в сайдбаре
-	 *
-	 * @param  array $value массив аргументов поля.
-	 *
-	 * @since 2.2.6
-	 */
-	public static function post_box( $value ) {
-
-		if ( $value['style'] ) {
-			$style = 'style="' . $value['style'] . '"';
-		} else {
-			$style = '';
-		}
-
-		if ( $value['title'] ) {
-			$title = '<h2><span>' . $value['title'] . '</span></h2>';
-		} else {
-			$title = '';
-		}
-
-		?>
-		<div id="<?php echo esc_attr( $value['id'] ); ?>" class="<?php echo esc_attr( $value['class'] ); ?> postbox" <?php echo esc_attr( $style ); ?>>
-			<?php echo wp_kses_post( $title ); ?>
-			<div class="inside">
-				<?php echo wp_kses_post( wpautop( wptexturize( $value['message'] ) ) ); ?>
-			</div>
-		</div>
-		<?php
 	}
 
 
@@ -631,7 +348,7 @@ class Settings extends WC_Settings_Page {
 	 *
 	 * @since 2.0.0
 	 */
-	public static function select_operating_mode() {
+	public static function select_operating_mode(): array {
 
 		return apply_filters(
 			'awooc_select_operating_mode',
@@ -821,7 +538,7 @@ class Settings extends WC_Settings_Page {
 	 * @return string
 	 * @since  2.2.6
 	 */
-	public static function guide_link() {
+	public static function guide_link(): string {
 
 		$message = '';
 
@@ -856,6 +573,3 @@ class Settings extends WC_Settings_Page {
 		}
 	}
 }
-
-
-new Settings();

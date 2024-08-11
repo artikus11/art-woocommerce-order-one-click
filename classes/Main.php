@@ -7,6 +7,8 @@
 
 namespace Art\AWOOC;
 
+use Art\AWOOC\Admin\Settings;
+use Art\AWOOC\Admin\Settings_Fields;
 use Art\AWOOC\Product\Meta;
 
 /**
@@ -152,7 +154,11 @@ class Main {
 	 */
 	public function add_awooc_admin_settings( array $settings ): array {
 
+
 		$settings[] = include __DIR__ . '/Admin/Settings.php';
+
+		new Settings();
+		( new Settings_Fields() )->init_hooks();
 
 		return $settings;
 	}
