@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2024-08-09 19:46+0400\n"
+"POT-Creation-Date: 2024-08-12 15:06+0400\n"
 "PO-Revision-Date: 2019-08-25 14:04+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
@@ -24,6 +24,384 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: .git\n"
 "X-Poedit-SearchPathExcluded-3: node_modules\n"
 "X-Poedit-SearchPathExcluded-4: vendor\n"
+
+#: classes/Admin/Create_Form.php:44
+#, fuzzy
+msgid "Your Name"
+msgstr "Ваше имя"
+
+#: classes/Admin/Create_Form.php:45
+#, fuzzy
+msgid "Your Email"
+msgstr "Ваш Email"
+
+#: classes/Admin/Create_Form.php:46
+#, fuzzy
+msgid "Your Phone"
+msgstr "Ваш телефон"
+
+#: classes/Admin/Create_Form.php:47
+#, fuzzy
+msgid "Send"
+msgstr "Отправить"
+
+#: classes/Admin/Create_Form.php:51
+#, fuzzy, php-format
+msgid "Name: %s"
+msgstr "Имя: %s"
+
+#: classes/Admin/Create_Form.php:52
+#, fuzzy, php-format
+msgid "Email: %s"
+msgstr "Email: %s"
+
+#: classes/Admin/Create_Form.php:53
+#, fuzzy, php-format
+msgid "Phone: %s"
+msgstr "Телефон: %s"
+
+#: classes/Admin/Create_Form.php:55
+#, fuzzy, php-format
+msgid "This e-mail was sent from a contact form on %1$s (%2$s)"
+msgstr "Это письмо было отправлено с формы обратной связи на %1$s (%2$s)"
+
+#: classes/Admin/Create_Form.php:87 classes/Admin/Create_Form.php:101
+#, fuzzy, php-format
+msgid "Order from the site %1$s (%2$s)"
+msgstr "Заказ с сайта %1$s (%2$s)"
+
+#: classes/Admin/Create_Form.php:124 templates/email.php:407
+#, fuzzy
+msgid "Order One Click"
+msgstr "Заказ в один клик"
+
+#: classes/Admin/Settings.php:35 classes/Orders.php:121
+#, fuzzy
+msgid "One click order"
+msgstr "Заказ в один клик"
+
+#: classes/Admin/Settings.php:69
+#, fuzzy
+msgid "Off"
+msgstr "Выкл"
+
+#: classes/Admin/Settings.php:70
+msgid "On"
+msgstr ""
+
+#: classes/Admin/Settings.php:85
+#, fuzzy
+msgid "General"
+msgstr "Основные"
+
+#: classes/Admin/Settings.php:129
+#, fuzzy
+msgid "General settings"
+msgstr "Основные настройки"
+
+#: classes/Admin/Settings.php:135
+#, fuzzy
+msgid "Operating mode"
+msgstr "Режим работы"
+
+#: classes/Admin/Settings.php:136
+#, fuzzy
+msgid "Select the mode of operation and display the Buy button"
+msgstr "Выберите режим работы"
+
+#: classes/Admin/Settings.php:147
+#, fuzzy
+msgid "Select form"
+msgstr "Выберите форму"
+
+#: classes/Admin/Settings.php:148
+#, fuzzy
+msgid "Choose the desired form"
+msgstr "Выберите нужную форму"
+
+#: classes/Admin/Settings.php:152
+#, fuzzy
+msgid "-- Select --"
+msgstr "-- Выбрать --"
+
+#: classes/Admin/Settings.php:160
+#, fuzzy
+msgid "Button Label"
+msgstr "Название кнопки"
+
+#: classes/Admin/Settings.php:161
+#, fuzzy
+msgid "Specify the desired label on the button"
+msgstr "Укажите нужную надпись на кнопке"
+
+#: classes/Admin/Settings.php:164
+#, fuzzy
+msgid "Buy in one click"
+msgstr "Купить в один клик"
+
+#: classes/Admin/Settings.php:171
+#, fuzzy
+msgid "Special label"
+msgstr "Специальная надпись"
+
+#: classes/Admin/Settings.php:173
+#, fuzzy
+msgid ""
+"Special field for the Order button. Allows you to change the label on the "
+"button when turning on the Price and Stocks mode."
+msgstr ""
+"Специальное поле для кнопки Заказать. Позволяет изменять надпись на кнопке "
+"при включении режима Цены и Запасы."
+
+#: classes/Admin/Settings.php:184
+msgid "Button on the catalog"
+msgstr ""
+
+#: classes/Admin/Settings.php:186
+msgid ""
+"Button output on catalog pages (store, categories, labels, attributes). It "
+"is displayed only for simple products"
+msgstr ""
+
+#: classes/Admin/Settings.php:201
+#, fuzzy
+msgid "Popup window"
+msgstr "Всплывающее окно"
+
+#: classes/Admin/Settings.php:208
+#, fuzzy
+msgid "Turn off window elements"
+msgstr "Выключить элементы окна"
+
+#: classes/Admin/Settings.php:209
+#, fuzzy
+msgid "Remove items that are NOT needed."
+msgstr "Уберите элементы, которые НЕ нужны."
+
+#: classes/Admin/Settings.php:225
+#, fuzzy
+msgid "Orders"
+msgstr "Заказы"
+
+#: classes/Admin/Settings.php:240
+#, fuzzy
+msgid "Create orders"
+msgstr "Создание заказов"
+
+#: classes/Admin/Settings.php:242
+#, fuzzy
+msgid ""
+"When this setting is enabled, orders will be created in the WooCommerce "
+"panel with the status \"Pending payment\""
+msgstr ""
+"При включении этой настройки будут создаваться заказы в панели WooСommerce "
+"со статусом \"В ожидании оплаты\""
+
+#: classes/Admin/Settings.php:252
+#, fuzzy
+msgid "Change subject"
+msgstr "Изменить заголовок"
+
+#: classes/Admin/Settings.php:254
+#, fuzzy
+msgid ""
+"If you enable this setting, then the order number will be added to the "
+"subject of the letter in the format of the \"Letter Subject No. 112233\""
+msgstr ""
+"Если включить эту настройку, то к теме письма будет добавляться номер заказа "
+"в формате \"Тема письма №112233\""
+
+#: classes/Admin/Settings.php:263
+#, fuzzy
+msgid "Custom letter template"
+msgstr "Произвольный шаблон письма"
+
+#: classes/Admin/Settings.php:265
+#, fuzzy
+msgid ""
+"When enabled, it will not use the template specified in CF7, but an "
+"arbitrary email template from the plugin"
+msgstr ""
+"При включении будет использоваться не указанный в CF7 шаблон, а произвольный "
+"шаблон письма из плагина"
+
+#: classes/Admin/Settings.php:278
+#, fuzzy
+msgid "Others"
+msgstr "Разное"
+
+#: classes/Admin/Settings.php:285
+#, fuzzy
+msgid "Do not delete settings"
+msgstr "Не удалять настройки"
+
+#: classes/Admin/Settings.php:287
+#, fuzzy
+msgid ""
+"If enabled, then the settings when you remove the plugin will NOT be deleted"
+msgstr "Если включено, то настройки при удалении плагина НЕ будут удалены"
+
+#: classes/Admin/Settings.php:325
+#, fuzzy
+msgid "Useful links"
+msgstr "Социальные ссылки"
+
+#: classes/Admin/Settings.php:335
+#, fuzzy
+msgid "Donate"
+msgstr "Поддержать"
+
+#: classes/Admin/Settings.php:368
+#, fuzzy
+msgid "Catalog mode"
+msgstr "Режим каталога"
+
+#: classes/Admin/Settings.php:369
+#, fuzzy
+msgid "Normal mode"
+msgstr "Штатный режим"
+
+#: classes/Admin/Settings.php:370
+#, fuzzy
+msgid "Pre-order mode"
+msgstr "Режим предзаказа"
+
+#: classes/Admin/Settings.php:371
+#, fuzzy
+msgid "Special mode"
+msgstr "Специальный режим"
+
+#: classes/Admin/Settings.php:418
+#, fuzzy
+msgid "Title"
+msgstr "Название"
+
+#: classes/Admin/Settings.php:419
+#, fuzzy
+msgid "Image"
+msgstr "﻿Изображение"
+
+#: classes/Admin/Settings.php:420
+#, fuzzy
+msgid "Price"
+msgstr "Цена"
+
+#: classes/Admin/Settings.php:421
+#, fuzzy
+msgid "SKU"
+msgstr "Артикул"
+
+#: classes/Admin/Settings.php:422
+#, fuzzy
+msgid "Attributes"
+msgstr "Атрибуты"
+
+#: classes/Admin/Settings.php:423
+#, fuzzy
+msgid "Quantity"
+msgstr "Количество"
+
+#: classes/Admin/Settings.php:424
+#, fuzzy
+msgid "Amount"
+msgstr "Сумма"
+
+#: classes/Admin/Settings.php:441
+#, fuzzy
+msgid ""
+"<strong>Warning! The functionality is under development. </strong> For the "
+"correct operation of this functionality. Requires proper creation of fields "
+"in the Contact Form 7 form with the names:"
+msgstr ""
+"<strong>Внимание! Функционал находится в стадии разработки.</strong> Для "
+"корректной работы требуется правильное создание полей в форме Contact Form 7 "
+"c именами:"
+
+#: classes/Admin/Settings.php:446
+#, fuzzy
+msgid "field Name - <code>awooc-text</code>;"
+msgstr "поле Имя  - <code>awooc-text</code>;"
+
+#: classes/Admin/Settings.php:447
+#, fuzzy
+msgid "field Email - <code>awooc-email</code>;"
+msgstr "поле Емайл - <code>awooc-email</code>;"
+
+#: classes/Admin/Settings.php:448
+#, fuzzy
+msgid "field Phone - <code>awooc-tel</code>;"
+msgstr "поле Телефон - <code>awooc-tel</code>;"
+
+#: classes/Admin/Settings.php:479
+#, fuzzy, php-format
+msgid ""
+"If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in "
+"advance!"
+msgstr ""
+"Если вам нравится плагин %1$s, пожалуйста, поставьте оценку %2$s. Заранее "
+"большое спасибо!"
+
+#: classes/Admin/Settings.php:480 classes/Admin/Settings.php:534
+#, fuzzy
+msgid "Art WooCommerce Order One Click"
+msgstr "Art WooCommerce Order One Click"
+
+#: classes/Admin/Settings.php:483
+#, fuzzy
+msgid "five star"
+msgstr "пять звезд"
+
+#: classes/Admin/Settings.php:485
+#, fuzzy
+msgid "Thanks :)"
+msgstr "Пожалуйста, не загружайте эту страницу напрямую. Спасибо!"
+
+#: classes/Admin/Settings.php:496
+#, fuzzy
+msgid "Thank you for using the plugin!"
+msgstr "Спасибо, что используете плагин!"
+
+#: classes/Admin/Settings.php:520
+#, fuzzy
+msgid "Yandex Money"
+msgstr "Яндекс Деньги"
+
+#: classes/Admin/Settings.php:521
+#, fuzzy
+msgid "Make a donation through the Yandex Money system. You can use bank cards"
+msgstr "Поддержать через Яндекс Деньги. Можно использовать банковские карты"
+
+#: classes/Admin/Settings.php:525
+#, fuzzy
+msgid "WPRUSe"
+msgstr "WPRUSe"
+
+#: classes/Admin/Settings.php:526
+#, fuzzy
+msgid "WPRUSe project site"
+msgstr "Описание проекта"
+
+#: classes/Admin/Settings.php:533
+#, fuzzy, php-format
+msgid "You can make a donation to make the plugin %1$s even better!"
+msgstr ""
+"Вы можете сделать пожертвование, чтобы мотивировать автора и сделать плагин "
+"%1$s еще лучше!"
+
+#: classes/Admin/Settings.php:561
+#, fuzzy
+msgid ""
+"Detailed step by step instructions for setting up the plugin (in Russian)"
+msgstr "Подробная инструкция по настройке плагина (на русском)"
+
+#: classes/Admin/Settings.php:564
+#, fuzzy
+msgid ""
+"Plugin on GitHub, you can write there suggestions, wishes or participate in "
+"the development"
+msgstr ""
+"Плагин на GitHub. Можно оставить пожелания, предложения или поучаствовать в "
+"разработке"
 
 #: classes/Ajax.php:71
 #, fuzzy
@@ -145,7 +523,7 @@ msgstr "Ткнуть для закрытия"
 msgid "Read more"
 msgstr "Читать"
 
-#: classes/Main.php:135
+#: classes/Main.php:137
 #, fuzzy
 msgid "Settings"
 msgstr "Настройки"
@@ -153,11 +531,6 @@ msgstr "Настройки"
 #: classes/Orders.php:119
 msgid "The order was created by using the One-click Order button"
 msgstr ""
-
-#: classes/Orders.php:121 classes/Settings.php:35
-#, fuzzy
-msgid "One click order"
-msgstr "Заказ в один клик"
 
 #: classes/Prepare/Prepare.php:142
 #, fuzzy
@@ -203,369 +576,6 @@ msgstr ""
 #, fuzzy, php-format
 msgid "<strong>%s</strong> plugin has been deactivated."
 msgstr "<strong>%s</strong> плагин был деактивирован."
-
-#: classes/Settings.php:82
-#, fuzzy
-msgid "Off"
-msgstr "Выкл"
-
-#: classes/Settings.php:83
-msgid "On"
-msgstr ""
-
-#: classes/Settings.php:368
-#, fuzzy
-msgid "General"
-msgstr "Основные"
-
-#: classes/Settings.php:412
-#, fuzzy
-msgid "General settings"
-msgstr "Основные настройки"
-
-#: classes/Settings.php:418
-#, fuzzy
-msgid "Operating mode"
-msgstr "Режим работы"
-
-#: classes/Settings.php:419
-#, fuzzy
-msgid "Select the mode of operation and display the Buy button"
-msgstr "Выберите режим работы"
-
-#: classes/Settings.php:430
-#, fuzzy
-msgid "Select form"
-msgstr "Выберите форму"
-
-#: classes/Settings.php:431
-#, fuzzy
-msgid "Choose the desired form"
-msgstr "Выберите нужную форму"
-
-#: classes/Settings.php:435
-#, fuzzy
-msgid "-- Select --"
-msgstr "-- Выбрать --"
-
-#: classes/Settings.php:443
-#, fuzzy
-msgid "Button Label"
-msgstr "Название кнопки"
-
-#: classes/Settings.php:444
-#, fuzzy
-msgid "Specify the desired label on the button"
-msgstr "Укажите нужную надпись на кнопке"
-
-#: classes/Settings.php:447
-#, fuzzy
-msgid "Buy in one click"
-msgstr "Купить в один клик"
-
-#: classes/Settings.php:454
-#, fuzzy
-msgid "Special label"
-msgstr "Специальная надпись"
-
-#: classes/Settings.php:456
-#, fuzzy
-msgid ""
-"Special field for the Order button. Allows you to change the label on the "
-"button when turning on the Price and Stocks mode."
-msgstr ""
-"Специальное поле для кнопки Заказать. Позволяет изменять надпись на кнопке "
-"при включении режима Цены и Запасы."
-
-#: classes/Settings.php:472
-#, fuzzy
-msgid "Popup window"
-msgstr "Всплывающее окно"
-
-#: classes/Settings.php:479
-#, fuzzy
-msgid "Turn off window elements"
-msgstr "Выключить элементы окна"
-
-#: classes/Settings.php:480
-#, fuzzy
-msgid "Remove items that are NOT needed."
-msgstr "Уберите элементы, которые НЕ нужны."
-
-#: classes/Settings.php:496
-#, fuzzy
-msgid "Orders"
-msgstr "Заказы"
-
-#: classes/Settings.php:511
-#, fuzzy
-msgid "Create orders"
-msgstr "Создание заказов"
-
-#: classes/Settings.php:513
-#, fuzzy
-msgid ""
-"When this setting is enabled, orders will be created in the WooCommerce "
-"panel with the status \"Pending payment\""
-msgstr ""
-"При включении этой настройки будут создаваться заказы в панели WooСommerce "
-"со статусом \"В ожидании оплаты\""
-
-#: classes/Settings.php:523
-#, fuzzy
-msgid "Change subject"
-msgstr "Изменить заголовок"
-
-#: classes/Settings.php:525
-#, fuzzy
-msgid ""
-"If you enable this setting, then the order number will be added to the "
-"subject of the letter in the format of the \"Letter Subject No. 112233\""
-msgstr ""
-"Если включить эту настройку, то к теме письма будет добавляться номер заказа "
-"в формате \"Тема письма №112233\""
-
-#: classes/Settings.php:534
-#, fuzzy
-msgid "Custom letter template"
-msgstr "Произвольный шаблон письма"
-
-#: classes/Settings.php:536
-#, fuzzy
-msgid ""
-"When enabled, it will not use the template specified in CF7, but an "
-"arbitrary email template from the plugin"
-msgstr ""
-"При включении будет использоваться не указанный в CF7 шаблон, а произвольный "
-"шаблон письма из плагина"
-
-#: classes/Settings.php:549
-#, fuzzy
-msgid "Others"
-msgstr "Разное"
-
-#: classes/Settings.php:556
-#, fuzzy
-msgid "Do not delete settings"
-msgstr "Не удалять настройки"
-
-#: classes/Settings.php:558
-#, fuzzy
-msgid ""
-"If enabled, then the settings when you remove the plugin will NOT be deleted"
-msgstr "Если включено, то настройки при удалении плагина НЕ будут удалены"
-
-#: classes/Settings.php:596
-#, fuzzy
-msgid "Useful links"
-msgstr "Социальные ссылки"
-
-#: classes/Settings.php:606
-#, fuzzy
-msgid "Donate"
-msgstr "Поддержать"
-
-#: classes/Settings.php:639
-#, fuzzy
-msgid "Catalog mode"
-msgstr "Режим каталога"
-
-#: classes/Settings.php:640
-#, fuzzy
-msgid "Normal mode"
-msgstr "Штатный режим"
-
-#: classes/Settings.php:641
-#, fuzzy
-msgid "Pre-order mode"
-msgstr "Режим предзаказа"
-
-#: classes/Settings.php:642
-#, fuzzy
-msgid "Special mode"
-msgstr "Специальный режим"
-
-#: classes/Settings.php:689
-#, fuzzy
-msgid "Title"
-msgstr "Название"
-
-#: classes/Settings.php:690
-#, fuzzy
-msgid "Image"
-msgstr "﻿Изображение"
-
-#: classes/Settings.php:691
-#, fuzzy
-msgid "Price"
-msgstr "Цена"
-
-#: classes/Settings.php:692
-#, fuzzy
-msgid "SKU"
-msgstr "Артикул"
-
-#: classes/Settings.php:693
-#, fuzzy
-msgid "Attributes"
-msgstr "Атрибуты"
-
-#: classes/Settings.php:694
-#, fuzzy
-msgid "Quantity"
-msgstr "Количество"
-
-#: classes/Settings.php:695
-#, fuzzy
-msgid "Amount"
-msgstr "Сумма"
-
-#: classes/Settings.php:712
-#, fuzzy
-msgid ""
-"<strong>Warning! The functionality is under development. </strong> For the "
-"correct operation of this functionality. Requires proper creation of fields "
-"in the Contact Form 7 form with the names:"
-msgstr ""
-"<strong>Внимание! Функционал находится в стадии разработки.</strong> Для "
-"корректной работы требуется правильное создание полей в форме Contact Form 7 "
-"c именами:"
-
-#: classes/Settings.php:717
-#, fuzzy
-msgid "field Name - <code>awooc-text</code>;"
-msgstr "поле Имя  - <code>awooc-text</code>;"
-
-#: classes/Settings.php:718
-#, fuzzy
-msgid "field Email - <code>awooc-email</code>;"
-msgstr "поле Емайл - <code>awooc-email</code>;"
-
-#: classes/Settings.php:719
-#, fuzzy
-msgid "field Phone - <code>awooc-tel</code>;"
-msgstr "поле Телефон - <code>awooc-tel</code>;"
-
-#: classes/Settings.php:750
-#, fuzzy, php-format
-msgid ""
-"If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in "
-"advance!"
-msgstr ""
-"Если вам нравится плагин %1$s, пожалуйста, поставьте оценку %2$s. Заранее "
-"большое спасибо!"
-
-#: classes/Settings.php:751 classes/Settings.php:805
-#, fuzzy
-msgid "Art WooCommerce Order One Click"
-msgstr "Art WooCommerce Order One Click"
-
-#: classes/Settings.php:754
-#, fuzzy
-msgid "five star"
-msgstr "пять звезд"
-
-#: classes/Settings.php:756
-#, fuzzy
-msgid "Thanks :)"
-msgstr "Пожалуйста, не загружайте эту страницу напрямую. Спасибо!"
-
-#: classes/Settings.php:767
-#, fuzzy
-msgid "Thank you for using the plugin!"
-msgstr "Спасибо, что используете плагин!"
-
-#: classes/Settings.php:791
-#, fuzzy
-msgid "Yandex Money"
-msgstr "Яндекс Деньги"
-
-#: classes/Settings.php:792
-#, fuzzy
-msgid "Make a donation through the Yandex Money system. You can use bank cards"
-msgstr "Поддержать через Яндекс Деньги. Можно использовать банковские карты"
-
-#: classes/Settings.php:796
-#, fuzzy
-msgid "WPRUSe"
-msgstr "WPRUSe"
-
-#: classes/Settings.php:797
-#, fuzzy
-msgid "WPRUSe project site"
-msgstr "Описание проекта"
-
-#: classes/Settings.php:804
-#, fuzzy, php-format
-msgid "You can make a donation to make the plugin %1$s even better!"
-msgstr ""
-"Вы можете сделать пожертвование, чтобы мотивировать автора и сделать плагин "
-"%1$s еще лучше!"
-
-#: classes/Settings.php:832
-#, fuzzy
-msgid ""
-"Detailed step by step instructions for setting up the plugin (in Russian)"
-msgstr "Подробная инструкция по настройке плагина (на русском)"
-
-#: classes/Settings.php:835
-#, fuzzy
-msgid ""
-"Plugin on GitHub, you can write there suggestions, wishes or participate in "
-"the development"
-msgstr ""
-"Плагин на GitHub. Можно оставить пожелания, предложения или поучаствовать в "
-"разработке"
-
-#: classes/Setup_Form.php:44
-#, fuzzy
-msgid "Your Name"
-msgstr "Ваше имя"
-
-#: classes/Setup_Form.php:45
-#, fuzzy
-msgid "Your Email"
-msgstr "Ваш Email"
-
-#: classes/Setup_Form.php:46
-#, fuzzy
-msgid "Your Phone"
-msgstr "Ваш телефон"
-
-#: classes/Setup_Form.php:47
-#, fuzzy
-msgid "Send"
-msgstr "Отправить"
-
-#: classes/Setup_Form.php:51
-#, fuzzy, php-format
-msgid "Name: %s"
-msgstr "Имя: %s"
-
-#: classes/Setup_Form.php:52
-#, fuzzy, php-format
-msgid "Email: %s"
-msgstr "Email: %s"
-
-#: classes/Setup_Form.php:53
-#, fuzzy, php-format
-msgid "Phone: %s"
-msgstr "Телефон: %s"
-
-#: classes/Setup_Form.php:55
-#, fuzzy, php-format
-msgid "This e-mail was sent from a contact form on %1$s (%2$s)"
-msgstr "Это письмо было отправлено с формы обратной связи на %1$s (%2$s)"
-
-#: classes/Setup_Form.php:87 classes/Setup_Form.php:101
-#, fuzzy, php-format
-msgid "Order from the site %1$s (%2$s)"
-msgstr "Заказ с сайта %1$s (%2$s)"
-
-#: classes/Setup_Form.php:124 templates/email.php:407
-#, fuzzy
-msgid "Order One Click"
-msgstr "Заказ в один клик"
 
 #: includes/create-cf7-field.php:93
 #, fuzzy
