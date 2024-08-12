@@ -62,7 +62,7 @@ class Front {
 		 * @todo При выводе товаров блоком данная подменя не работает, нет ни фильтров ни файлов
 		 * @see  \Automattic\WooCommerce\Blocks\BlockTypes\AbstractProductGrid::get_button_html
 		 */
-		if ( 'loop/add-to-cart.php' === $template_name ) {
+		if ( 'yes' === get_option( 'woocommerce_awooc_output_catalog', 'no' ) && 'loop/add-to-cart.php' === $template_name ) {
 			$template = $this->get_template_mode_loop( $template );
 		}
 
@@ -357,7 +357,7 @@ class Front {
 			return $status;
 		}
 
-		if ( 'yes' === $product->get_meta( '_awooc_button') ) {
+		if ( 'yes' === $product->get_meta( '_awooc_button' ) ) {
 			return $status;
 		}
 

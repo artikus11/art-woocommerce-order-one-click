@@ -181,6 +181,18 @@ class Settings extends WC_Settings_Page {
 				],
 
 				[
+					'title'    => __( 'Button on the catalog', 'art-woocommerce-order-one-click' ),
+					'desc'     => __(
+						'Button output on catalog pages (store, categories, labels, attributes). It is displayed only for simple products',
+						'art-woocommerce-order-one-click'
+					),
+					'id'       => 'woocommerce_awooc_output_catalog',
+					'default'  => 'no',
+					'type'     => 'checkbox',
+					'autoload' => false,
+				],
+
+				[
 					'type' => 'sectionend',
 					'id'   => 'woocommerce_awooc_settings_catalog_mode',
 				],
