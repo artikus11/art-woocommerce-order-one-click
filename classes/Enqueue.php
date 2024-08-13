@@ -162,10 +162,12 @@ class Enqueue {
 				'popup'        => apply_filters(
 					'awooc_popup_setting',
 					[
-						'mailsent_timeout' => 3000,
-						'invalid_timeout'  => 5000,
-						'cf7_form_id'      => $this->main->get_selected_form_id(),
-						'css'              => [
+						'mailsent_timeout'   => 3000,
+						'invalid_timeout'    => 5000,
+						'cf7_form_id'        => $this->main->get_selected_form_id(),
+						'price_decimal_sep'  => get_option( 'woocommerce_price_decimal_sep' ),
+						'price_num_decimals' => get_option( 'woocommerce_price_num_decimals' ),
+						'css'                => [
 							'width'               => 'calc(100vw - 1rem)',
 							'maxWidth'            => '600px',
 							'maxHeight'           => 'calc(100vh - 1rem)',
@@ -180,15 +182,15 @@ class Enqueue {
 							'transform'           => 'translate(-50%, -50%)',
 							'overscroll-behavior' => 'contain',
 						],
-						'overlay'          => [
+						'overlay'            => [
 							'zIndex'          => '100000',
 							'backgroundColor' => '#000',
 							'opacity'         => 0.6,
 							'cursor'          => 'wait',
 						],
-						'fadeIn'           => '400',
-						'fadeOut'          => '400',
-						'focusInput'       => false,
+						'fadeIn'             => '400',
+						'fadeOut'            => '400',
+						'focusInput'         => false,
 					]
 				),
 			]

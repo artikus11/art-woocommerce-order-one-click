@@ -359,12 +359,16 @@ jQuery( function ( $ ) {
 			const priceValue = $( '.awooc-popup-price .woocommerce-Price-currencyValue' ).text();
 
 			if ( priceValue ) {
-				let amount = Number( priceValue.replace( /[^+\d]/g, '' ) ) * qtyVal;
+				let amount = parseFloat( priceValue.replace( awooc_scripts_settings.popup.price_decimal_sep, '.' ) ) * qtyVal;
+
+				amount = amount
+					.toFixed( awooc_scripts_settings.popup.price_num_decimals )
+					.replace( '.', awooc_scripts_settings.popup.price_decimal_sep )
 
 				$( e.target )
 					.closest( '.awooc-form-custom-order' )
 					.find( '.awooc-popup-sum .woocommerce-Price-currencyValue' )
-					.text( amount.toLocaleString() );
+					.text( amount );
 
 				let currentAmountValue = $( e.target )
 					.closest( '.awooc-form-custom-order' )
@@ -375,8 +379,6 @@ jQuery( function ( $ ) {
 			} else {
 				delete toMail.sum;
 			}
-
-
 		},
 
 		updateQty: function ( toMail ) {
