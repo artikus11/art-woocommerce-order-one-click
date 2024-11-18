@@ -165,8 +165,9 @@ class Enqueue {
 						'mailsent_timeout'   => 3000,
 						'invalid_timeout'    => 5000,
 						'cf7_form_id'        => $this->main->get_selected_form_id(),
-						'price_decimal_sep'  => get_option( 'woocommerce_price_decimal_sep' ),
-						'price_num_decimals' => get_option( 'woocommerce_price_num_decimals' ),
+						'price_decimal_sep'  => get_option( 'woocommerce_price_decimal_sep' ), // Десятичный разделитель
+						'price_num_decimals' => get_option( 'woocommerce_price_num_decimals' ), // Число дробных знаков
+						'price_thousand_sep' => get_option( 'woocommerce_price_thousand_sep' ), // Разделитель тысяч
 						'css'                => [
 							'width'               => 'calc(100vw - 1rem)',
 							'maxWidth'            => '600px',

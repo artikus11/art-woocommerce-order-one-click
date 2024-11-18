@@ -356,14 +356,21 @@ jQuery( function ( $ ) {
 		},
 
 		updateAmount: function ( qtyVal, e, toMail ) {
-			const priceValue = $( '.awooc-popup-price .woocommerce-Price-currencyValue' ).text();
+			let priceValue = $( '.awooc-popup-price .woocommerce-Price-currencyValue' ).text();
 
 			if ( priceValue ) {
+				priceValue = priceValue.replace( awooc_scripts_settings.popup.price_decimal_sep, '.' );
+				priceValue = priceValue.replace( /\s+/g, "" );
+
 				let amount = parseFloat( priceValue.replace( awooc_scripts_settings.popup.price_decimal_sep, '.' ) ) * qtyVal;
 
 				amount = amount
 					.toFixed( awooc_scripts_settings.popup.price_num_decimals )
 					.replace( '.', awooc_scripts_settings.popup.price_decimal_sep )
+
+				amount = amount
+					.toString()
+					.replace( /\B(?=(\d{3})+(?!\d))/g, awooc_scripts_settings.popup.price_thousand_sep )
 
 				$( e.target )
 					.closest( '.awooc-form-custom-order' )
@@ -413,7 +420,7 @@ jQuery( function ( $ ) {
 				if ( ! Object.keys( data ).includes( name ) ) data[ name ] = value;
 			} );
 
-			delete data['add-to-cart'];
+			delete data[ 'add-to-cart' ];
 
 			AWOOC.xhr = $.ajax( {
 				url:      awooc_scripts_ajax.url,
@@ -423,7 +430,7 @@ jQuery( function ( $ ) {
 
 				success: function ( response ) {
 					let toPopup = response.data.toPopup;
-					let toMail    = response.data.toMail;
+					let toMail  = response.data.toMail;
 
 					AWOOC.addedToPopupData( toPopup );
 					AWOOC.analyticData = response.data.toAnalytics;
