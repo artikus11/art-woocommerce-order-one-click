@@ -18,7 +18,6 @@ add_action( 'wpcf7_init', 'awooc_wpcf7_add_form_tag', 10 );
 add_filter( 'wpcf7_validate_awooc_hidden', 'awooc_fields_validation_filter', 10, 2 );
 add_filter( 'wpcf7_validate_awooc_hidden*', 'awooc_fields_validation_filter', 10, 2 );
 add_action( 'wpcf7_admin_init', 'awooc_fields_add_tag_generator_address', 1 );
-add_action( 'wpcf7_admin_init', 'awooc_fields_add_tag_generator_address', 1 );
 
 /**
  * Подключаем калбек скрытого поля
@@ -90,7 +89,12 @@ function awooc_fields_validation_filter( $result, $tag ) {
 function awooc_fields_add_tag_generator_address() {
 
 	$tag_generator = WPCF7_TagGenerator::get_instance();
-	$tag_generator->add( 'awooc_hidden', __( 'AWOOC hide field', 'art-woocommerce-order-one-click' ), 'awooc_tag_generator_hidden' );
+	$tag_generator->add(
+		'awooc_hidden',
+		__( 'AWOOC hide field', 'art-woocommerce-order-one-click' ),
+		'awooc_tag_generator_hidden',
+		[ 'version' => '2' ]
+	);
 }
 
 
