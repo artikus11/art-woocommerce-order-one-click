@@ -36,6 +36,24 @@ class Orders extends Ajax {
 		 * Хук wpcf7_before_send_mail используется для создания заказов, а не wpcf7_mail_sent, потому что только на этом хуке возможно изменять данные письма до его отправки. На хуке wpcf7_mail_sent ничего изменить не получиться, письмо уже ушло
 		 */
 		add_action( 'wpcf7_before_send_mail', [ $this, 'created_order_mail_send' ], 10, 3 );
+
+		add_filter( 'woocommerce_admin_order_buyer_name', [ $this, 'add_name' ], 10, 2 );
+	}
+
+
+	/**
+	 * @param            $buyer
+	 * @param  \WC_Order $order
+	 *
+	 * @return mixed|string
+	 */
+	public function add_name( $buyer, \WC_Order $order ) {
+
+		if ( $order->get_meta( '_awooc_order' ) ) {
+			$buyer = __( 'Order One Click: ', 'art-woocommerce-order-fast' ) . $order->get_billing_phone();
+		}
+
+		return $buyer;
 	}
 
 
