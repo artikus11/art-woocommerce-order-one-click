@@ -70,7 +70,8 @@ class Orders extends Ajax {
 				'first_name' => $posted_text,
 				'email'      => $posted_email,
 				'phone'      => $posted_tel,
-			]
+			],
+			$posted_data
 		);
 
 		$this->order = wc_create_order();
@@ -116,6 +117,7 @@ class Orders extends Ajax {
 			}
 		}
 
+		$this->order->update_meta_data( '_awooc_order', true );
 		$this->order->add_order_note( __( 'The order was created by using the One-click Order button', 'art-woocommerce-order-one-click' ) );
 		$this->order->calculate_totals();
 		$this->order->update_status( 'pending', __( 'One click order', 'art-woocommerce-order-one-click' ), true );
