@@ -41,12 +41,15 @@ class Email extends Ajax {
 			return $fields;
 		}
 
-		$addon_fields = [
-			'awooc-hidden-data' => '',
-			'awooc_product_id'  => '',
-			'awooc_product_qty' => '',
-			'awooc_customer_id' => get_current_user_id(),
-		];
+		$addon_fields = apply_filters(
+			'awooc_added_hidden_fields',
+			[
+				'awooc-hidden-data' => '',
+				'awooc_product_id'  => '',
+				'awooc_product_qty' => '',
+				'awooc_customer_id' => get_current_user_id(),
+			]
+		);
 
 		if ( class_exists( 'Polylang' ) && ! defined( 'WP_CLI' ) ) {
 			$addon_fields['lang'] = pll_current_language();
