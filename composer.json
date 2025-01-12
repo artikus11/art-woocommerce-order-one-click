@@ -24,16 +24,16 @@
       "includes/template-functions.php"
     ]
   },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.11",
+    "wp-coding-standards/wpcs": "^3.1",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "phpcompatibility/phpcompatibility-wp": "*"
+  },
   "config": {
     "allow-plugins": {
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
-  },
-  "require-dev": {
-    "wp-coding-standards/wpcs": "^3.1",
-    "squizlabs/php_codesniffer": "^3.10",
-    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-    "phpcompatibility/phpcompatibility-wp": "*"
   },
   "scripts": {
     "phpcs": "phpcs --standard=./phpcs.xml",
