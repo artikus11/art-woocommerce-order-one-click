@@ -463,7 +463,11 @@ class Settings extends WC_Settings_Page {
 
 		$message = '';
 
-		if ( ! function_exists( 'get_current_screen' ) || ! function_exists( 'wc_get_screen_ids' ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if (
+			! function_exists( 'get_current_screen' )
+			|| ! function_exists( 'wc_get_screen_ids' )
+			|| ! current_user_can( 'manage_woocommerce' ) // phpcs:ignore WordPress.WP.Capabilities.Unknown
+		) {
 			return $message;
 		}
 
@@ -511,7 +515,7 @@ class Settings extends WC_Settings_Page {
 
 		$message = '';
 
-		if ( ! function_exists( 'wc_get_screen_ids' ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! function_exists( 'wc_get_screen_ids' ) || ! current_user_can( 'manage_woocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
 			return $message;
 		}
 
@@ -554,7 +558,7 @@ class Settings extends WC_Settings_Page {
 
 		$message = '';
 
-		if ( ! function_exists( 'wc_get_screen_ids' ) || ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! function_exists( 'wc_get_screen_ids' ) || ! current_user_can( 'manage_woocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
 			return $message;
 		}
 

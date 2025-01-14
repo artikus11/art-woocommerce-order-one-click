@@ -17,12 +17,7 @@
   "autoload": {
     "psr-4": {
       "Art\\AWOOC\\": "classes/"
-    },
-    "files": [
-      "includes/create-cf7-field.php",
-      "includes/helpers.php",
-      "includes/template-functions.php"
-    ]
+    }
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.11",

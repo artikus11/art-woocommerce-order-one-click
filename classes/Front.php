@@ -217,7 +217,7 @@ class Front {
 		 */
 		add_filter( 'woocommerce_is_purchasable', [ $this, 'disable_add_to_cart_no_price' ], 10, 2 );
 		add_filter( 'woocommerce_product_is_in_stock', [ $this, 'disable_add_to_cart_out_stock' ], 10, 2 );
-		add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_variable_add_to_cart' ], 10, 3 );
+		add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_variable_add_to_cart' ], 10, 2 );
 		add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'add_custom_button' ], 15 );
 	}
 
@@ -248,13 +248,11 @@ class Front {
 
 		switch ( $this->mode ) {
 			case 'dont_show_add_to_card':
-
 				$this->disable_loop();
 				$this->hide_button_add_to_card();
 				awooc_html_custom_add_to_cart();
 				break;
 			case 'no_stock_no_price':
-
 				if ( $product->is_on_backorder() || $product->is_in_stock() ) {
 					$this->disable_loop();
 				}
@@ -385,12 +383,11 @@ class Front {
 
 					add_filter(
 						'woocommerce_get_stock_html',
-						function ( $html, $product ) {
+						function () {
 
 							return '<p class="stock out-of-stock">Нет наличии</p>';
 						},
-						10,
-						2
+						10
 					);
 				}
 
@@ -432,9 +429,8 @@ class Front {
 	/**
 	 * Включение кнопки Заказать в если нет цены или наличия в вариаиях
 	 *
-	 * @param  bool                 $bool       входящее булево значение.
-	 * @param  int                  $product_id ID родительского товара.
-	 * @param  \WC_Product_Variable $variation  объект вариации.
+	 * @param  bool $has_hide   входящее булево значение.
+	 * @param  int  $product_id ID родительского товара.
 	 *
 	 * @return bool
 	 *
@@ -444,24 +440,24 @@ class Front {
 	 *
 	 * @todo       странное поведение кнопки для вариации если нет на складе вариации или нет цены
 	 */
-	public function hide_variable_add_to_cart( $bool, $product_id, $variation ): bool {
+	public function hide_variable_add_to_cart( $has_hide, $product_id ): bool {
 
 		_deprecated_function( __METHOD__, '3.0.0' );
 
 		if ( ! WP_DEBUG_LOG ) {
-			return $bool;
+			return $has_hide;
 		}
 
 		$product = wc_get_product( $product_id );
 
 		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
-			return $bool;
+			return $has_hide;
 		}
 
 		if ( 'no_stock_no_price' === $this->mode || 'dont_show_add_to_card' === $this->mode ) {
 
 			if ( ! $product->get_price() ) {
-				$bool = false;
+				$has_hide = false;
 				add_action( 'woocommerce_after_add_to_cart_button', [ $this, 'hide_button_add_to_card' ] );
 				remove_filter( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 
@@ -471,7 +467,7 @@ class Front {
 			}
 		}
 
-		return $bool;
+		return $has_hide;
 	}
 
 
@@ -521,7 +517,6 @@ class Front {
 	 * @since      1.8.0
 	 *
 	 * @deprecated 3.0.0 New architecture.
-	 *
 	 */
 	protected function show_button_add_to_card(): void {
 

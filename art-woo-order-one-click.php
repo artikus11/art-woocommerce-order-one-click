@@ -57,6 +57,9 @@ define( 'AWOOC_PLUGIN_VER', $plugin_data['ver'] );
 define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 
 require AWOOC_PLUGIN_DIR . '/vendor/autoload.php';
+require_once AWOOC_PLUGIN_DIR . '/includes/create-cf7-field.php';
+require_once AWOOC_PLUGIN_DIR . '/includes/helpers.php';
+require_once AWOOC_PLUGIN_DIR . '/includes/template-functions.php';
 
 register_uninstall_hook( __FILE__, [ Art\AWOOC\Uninstall::class, 'uninstall' ] );
 register_activation_hook( __FILE__, [ Art\AWOOC\Admin\Create_Form::class, 'install_form' ] );

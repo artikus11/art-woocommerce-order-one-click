@@ -154,7 +154,6 @@ class Main {
 	 */
 	public function add_awooc_admin_settings( array $settings ): array {
 
-
 		$settings[] = include __DIR__ . '/Admin/Settings.php';
 
 		new Settings();
@@ -203,7 +202,7 @@ class Main {
 	 */
 	public function add_rated(): void {
 
-		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+		if ( ! current_user_can( 'manage_woocommerce' ) ) { // phpcs:ignore WordPress.WP.Capabilities.Unknown
 			wp_die( - 1 );
 		}
 

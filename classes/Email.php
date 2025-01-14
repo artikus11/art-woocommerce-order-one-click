@@ -65,9 +65,9 @@ class Email extends Ajax {
 	/**
 	 * Изменение темы письма
 	 *
-	 * @param  \WC_Order          $order        объект заказа
-	 * @param  \WPCF7_ContactForm $contact_form объект формы
-	 * @param                     $posted_data
+	 * @param  \WC_Order          $order        объект заказа.
+	 * @param  \WPCF7_ContactForm $contact_form объект формы.
+	 * @param  array              $posted_data  пересылаемые данные.
 	 *
 	 * @since 2.2.6
 	 */

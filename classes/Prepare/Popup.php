@@ -139,7 +139,6 @@ class Popup extends Prepare {
 				sprintf(
 					'<span class="awooc-qty-label">%s</span>%s',
 					apply_filters( 'awooc_popup_qty_label', __( 'Quantity: ', 'art-woocommerce-order-one-click' ) ),
-
 					woocommerce_quantity_input(
 						[
 							'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $this->get_product()->get_min_purchase_quantity(), $this->get_product() ),
@@ -186,10 +185,10 @@ class Popup extends Prepare {
 
 		$negative        = $price < 0;
 		$formatted_price = ( $negative ? '-' : '' ) . sprintf(
-				$args['price_format'],
-				'<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $args['currency'] ) . '</span>',
-				'<span class="woocommerce-Price-currencyValue">' . $price . '</span>'
-			);
+			$args['price_format'],
+			'<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $args['currency'] ) . '</span>',
+			'<span class="woocommerce-Price-currencyValue">' . $price . '</span>'
+		);
 
 		return '<span class="woocommerce-Price-amount amount"><bdi>' . $formatted_price . '</bdi></span>';
 	}

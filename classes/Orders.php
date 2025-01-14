@@ -42,12 +42,12 @@ class Orders extends Ajax {
 
 
 	/**
-	 * @param            $buyer
+	 * @param  string    $buyer
 	 * @param  \WC_Order $order
 	 *
-	 * @return mixed|string
+	 * @return string
 	 */
-	public function add_name( $buyer, \WC_Order $order ) {
+	public function add_name( string $buyer, \WC_Order $order ): string {
 
 		if ( $order->get_meta( '_awooc_order' ) ) {
 			$buyer = __( 'Order One Click: ', 'art-woocommerce-order-fast' ) . $order->get_billing_phone();

@@ -114,9 +114,12 @@ class Ajax {
 	 */
 	public function get_product( int $id = 0 ) {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( ! empty( $_POST['id'] ) ) {
 			$id = (int) $_POST['id'];
 		}
+
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		return wc_get_product( sanitize_text_field( wp_unslash( $id ) ) );
 	}
@@ -129,10 +132,12 @@ class Ajax {
 	 */
 	protected function get_qty( int $qty = 1 ): int {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( ! empty( $_POST['quantity'] ) ) {
 			$qty = (int) sanitize_text_field( wp_unslash( $_POST['quantity'] ) );
 		}
 
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 		return $qty;
 	}
 
@@ -171,11 +176,13 @@ class Ajax {
 
 	protected function sanitize_attribute(): array {
 
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		if ( empty( $_POST['attributes'] ) ) {
 			return [];
 		}
 
-		$attributes = $_POST['attributes'];
+		$attributes = map_deep( wp_unslash( (array) $_POST['attributes'] ), 'sanitize_text_field' );
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		$attr = [];
 
