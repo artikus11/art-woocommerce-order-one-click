@@ -391,7 +391,7 @@ jQuery( function ( $ ) {
 		updateQty: function ( toMail ) {
 
 			$( '.awooc-popup-qty' )
-				.on( 'change', 'input.awooc-popup-input-qty', function ( e ) {
+				.on( 'input', 'input.awooc-popup-input-qty', function ( e ) {
 					let qtyVal = $( e.target ).val();
 
 					toMail[ 'qty' ] = awooc_scripts_translate.product_qty + qtyVal;
@@ -416,8 +416,15 @@ jQuery( function ( $ ) {
 				data[ 'attributes' ] = $( e.target ).data( 'selected_variant' );
 			}
 
-			$( e.target ).closest( '.cart' ).serializeArray().forEach( function ( { name, value } ) {
-				if ( ! Object.keys( data ).includes( name ) ) data[ name ] = value;
+			$( e.target ).closest( '.cart' ).serializeArray().forEach( function( { name, value } ) {
+				if ( data[ name ] ) {
+					if ( ! Array.isArray( data[ name ] ) ) {
+						data[ name ] = [ data[ name ] ];
+					}
+					data[ name ].push( value );
+				} else {
+					data[ name ] = value;
+				}
 			} );
 
 			delete data[ 'add-to-cart' ];
@@ -538,5 +545,17 @@ jQuery( function ( $ ) {
 	}
 
 	AWOOC.init();
+	window.AWOOC = AWOOC;
 
+	$( document.body ).on( 'woodmart-quick-view-displayed', function( event, response ) {
+		console.log( 'woodmart-quick-view-displayed', event, response );
+		if (window.AWOOC && typeof window.AWOOC.init === 'function') {
+			window.AWOOC.init();
+			console.log('AWOOC.init() инициализирован');
+		} else {
+			console.error('AWOOC.init() недоступен');
+		}
+	} );
 } );
+
+
