@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2025-01-21 22:40+0400\n"
-"PO-Revision-Date: 2025-01-21 22:47+0400\n"
+"POT-Creation-Date: 2025-01-24 16:43+0400\n"
+"PO-Revision-Date: 2025-01-24 16:44+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -255,7 +255,7 @@ msgstr "Артикул"
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: classes/Admin/Settings.php:423
+#: classes/Admin/Settings.php:423 templates/quantity-input.php:41
 msgid "Quantity"
 msgstr "Количество"
 
@@ -346,7 +346,7 @@ msgstr ""
 "Плагин на GitHub. Можно оставить пожелания, предложения или поучаствовать в "
 "разработке"
 
-#: classes/Ajax.php:71
+#: classes/Ajax.php:93
 msgid ""
 "Something is wrong with sending data. Unable to get product ID. Disable the "
 "output in the popup window or contact the developers of the plugin"
@@ -354,17 +354,21 @@ msgstr ""
 "Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
-#: classes/Email.php:126
+#: classes/Email.php:146
 msgid "IP"
 msgstr "IP"
 
-#: classes/Email.php:130
+#: classes/Email.php:150
 msgid "Date"
 msgstr "Дата"
 
-#: classes/Email.php:134
+#: classes/Email.php:154
 msgid "Domain"
 msgstr "Домен"
+
+#: classes/Email.php:158
+msgid "Locale"
+msgstr "Локаль"
 
 #: classes/Enqueue.php:97
 msgid ""
@@ -404,7 +408,7 @@ msgstr ""
 "цены или товара нет в наличии, то появится только кнопка Заказать."
 
 #: classes/Enqueue.php:143 classes/Prepare/Mail.php:78
-#: classes/Prepare/Popup.php:141
+#: classes/Prepare/Popup.php:155
 msgid "Quantity: "
 msgstr "Количество: "
 
@@ -423,7 +427,7 @@ msgid "SKU: "
 msgstr "Артикул: "
 
 #: classes/Enqueue.php:147 classes/Prepare/Mail.php:88
-#: classes/Prepare/Popup.php:176
+#: classes/Prepare/Popup.php:181
 msgid "Amount: "
 msgstr "Итого: "
 
@@ -448,7 +452,7 @@ msgstr "Ткнуть для закрытия"
 msgid "Read more"
 msgstr "Читать"
 
-#: classes/Main.php:137
+#: classes/Main.php:140
 msgid "Settings"
 msgstr "Настройки"
 
@@ -544,6 +548,15 @@ msgstr ""
 #: templates/email.php:408
 msgid "A quick one-click order has arrived"
 msgstr "Пришел заказ в один клик"
+
+#: templates/quantity-input.php:40
+#, php-format
+msgid "%s quantity"
+msgstr "%s количество"
+
+#: templates/quantity-input.php:62
+msgid "Product quantity"
+msgstr "Количество товара"
 
 #, php-format
 #~ msgid "Price: %s"
