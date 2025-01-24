@@ -12,6 +12,7 @@ namespace Art\AWOOC;
 use Art\AWOOC\Prepare\Analytics;
 use Art\AWOOC\Prepare\Mail;
 use Art\AWOOC\Prepare\Popup;
+use WC_Product;
 
 /**
  * Class Ajax
@@ -34,15 +35,30 @@ class Ajax {
 	protected Main $main;
 
 
-	/**
-	 * @var \WC_Order|\WP_Error
-	 */
-	public $order;
+	protected int $product_id;
+
+
+	protected int $product_qty;
+
+
+	protected array $attributes;
 
 
 	public function __construct( Main $main ) {
 
 		$this->main = $main;
+
+		$this->init_post_data();
+	}
+
+
+	protected function init_post_data(): void {
+
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		$this->product_id  = sanitize_text_field( wp_unslash( $_POST['id'] ?? 0 ) );
+		$this->product_qty = sanitize_text_field( wp_unslash( $_POST['quantity'] ?? 1 ) );
+		$this->attributes  = $this->sanitize_attributes( map_deep( wp_unslash( $_POST['attributes'] ?? [] ), 'sanitize_text_field' ) );
+		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
 
 
@@ -61,11 +77,11 @@ class Ajax {
 		/**
 		 * Если включено кеширование, то нонсу не проверяем.
 		 */
-		if ( false === defined( 'WP_CACHE' ) ) {
+		if ( ! defined( 'WP_CACHE' ) ) {
 			check_ajax_referer( 'awooc-nonce', 'nonce' );
 		}
 
-		if ( empty( $_POST['id'] ) ) {
+		if ( empty( $this->product_id ) ) {
 			wp_send_json_error(
 				esc_html__(
 					'Something is wrong with sending data. Unable to get product ID. Disable the output in the popup window or contact the developers of the plugin',
@@ -75,23 +91,40 @@ class Ajax {
 			);
 		}
 
-		$product     = $this->get_product();
-		$product_qty = $this->get_qty();
+		$product = $this->get_product();
+
+		$send_data = $this->prepare_send_data( $product );
+
+		$response_data = $this->prepare_response_data( $send_data, $product );
+
+		wp_send_json_success( $response_data, 200 );
+	}
+
+
+	protected function prepare_send_data( WC_Product $product ): array {
 
 		$send_data = [
 			'main'        => $this->main,
 			'product'     => $product,
-			'product_qty' => $product_qty,
+			'product_qty' => $this->product_qty,
 		];
 
-		if ( ! empty( $_POST['attributes'] ) ) {
-			$send_data['attributes'] = $this->sanitize_attribute();
+		if ( ! empty( $this->attributes ) ) {
+			$send_data['attributes'] = $this->attributes;
 		}
+
+		return $send_data;
+	}
+
+
+	protected function prepare_response_data( array $send_data, WC_Product $product ): array {
 
 		$data = apply_filters(
 			'awooc_data_ajax',
 			[
 				'elements'    => 'full',
+				'productId'   => $product->get_id(),
+				'productQty'  => $send_data['product_qty'],
 				'toPopup'     => ( new Popup( $send_data ) )->get_response(),
 				'toMail'      => ( new Mail( $send_data ) )->get_response(),
 				'toAnalytics' => ( new Analytics( $send_data ) )->get_response(),
@@ -103,25 +136,23 @@ class Ajax {
 			$data['elements'] = 'empty';
 		}
 
-		wp_send_json_success( $data, 200 );
+		return $data;
 	}
 
 
 	/**
+	 *
 	 * @param  int $id
 	 *
-	 * @return false|\WC_Product|null
+	 * @return WC_Product
 	 */
-	public function get_product( int $id = 0 ) {
+	public function get_product( int $id = 0 ): WC_Product {
 
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
-		if ( ! empty( $_POST['id'] ) ) {
-			$id = (int) $_POST['id'];
+		if ( ! empty( $this->product_id ) ) {
+			$id = $this->product_id;
 		}
 
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
-
-		return wc_get_product( sanitize_text_field( wp_unslash( $id ) ) );
+		return wc_get_product( $id );
 	}
 
 
@@ -132,12 +163,10 @@ class Ajax {
 	 */
 	protected function get_qty( int $qty = 1 ): int {
 
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
-		if ( ! empty( $_POST['quantity'] ) ) {
-			$qty = (int) sanitize_text_field( wp_unslash( $_POST['quantity'] ) );
+		if ( ! empty( $this->product_qty ) ) {
+			$qty = $this->product_qty;
 		}
 
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
 		return $qty;
 	}
 
@@ -149,17 +178,16 @@ class Ajax {
 	 */
 	protected function prepare_posted_data( array $posted_data ): array {
 
-		$posted_data = array_map( [ $this, 'sanitize_field' ], $posted_data );
+		$posted_data = map_deep( wp_unslash( $posted_data ), 'sanitize_text_field' );
 
-		$posted_text  = $posted_data['awooc-text'] ?? '';
-		$posted_email = $posted_data['awooc-email'] ?? '';
-		$posted_tel   = $posted_data['awooc-tel'] ?? '';
-
-		$product_id  = $posted_data['awooc_product_id'] ?? 0;
-		$product_qty = $posted_data['awooc_product_qty'] ?? 1;
-		$customer_id = $posted_data['awooc_customer_id'] ?? 0;
-
-		return [ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty, $customer_id ];
+		return [
+			$posted_data['awooc-text'] ?? '',
+			$posted_data['awooc-email'] ?? '',
+			$posted_data['awooc-tel'] ?? '',
+			(int) ( $posted_data['awooc_product_id'] ?? 0 ),
+			(int) ( $posted_data['awooc_product_qty'] ?? 1 ),
+			(int) ( $posted_data['awooc_customer_id'] ?? 0 ),
+		];
 	}
 
 
@@ -174,20 +202,16 @@ class Ajax {
 	}
 
 
-	protected function sanitize_attribute(): array {
+	protected function sanitize_attributes( $attributes ): array {
 
-		// phpcs:disable WordPress.Security.NonceVerification.Missing
-		if ( empty( $_POST['attributes'] ) ) {
+		if ( empty( $attributes ) ) {
 			return [];
 		}
-
-		$attributes = map_deep( wp_unslash( (array) $_POST['attributes'] ), 'sanitize_text_field' );
-		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
 		$attr = [];
 
 		foreach ( $attributes as $key => $val ) {
-			$attr[ str_replace( 'attribute_', '', $key ) ] = $this->sanitize_field( $val );
+			$attr[ str_replace( 'attribute_', '', $key ) ] = sanitize_text_field( wp_unslash( $val ) );
 		}
 
 		return $attr;
