@@ -7,7 +7,7 @@ class Analytics extends Prepare {
 	public function get_response(): array {
 
 		$data = [
-			'id'       => $this->parent_id(),
+			'id'       => $this->id(),
 			'title'    => $this->title(),
 			'sku'      => $this->sku(),
 			'price'    => $this->price(),
