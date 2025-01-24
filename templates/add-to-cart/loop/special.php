@@ -7,7 +7,7 @@
  * @see         https://woocommerce.com/document/template-structure/
  * @see         https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/
  * @package     art-woocommerce-order-one-click/templates
- * @version     3.0.0
+ * @version     3.1.0
  * @var $args
  */
 
@@ -19,11 +19,11 @@ global $product;
 
 do_action( 'awooc_before_loop_add_to_cart_link', $product, $args );
 
-if ( $product->is_in_stock() && $product->get_price() > 0 ) :
+if ('simple' === $product->get_type() || ($product->is_in_stock() && $product->get_price() > 0 )) :
 	awooc_loop_add_to_cart_link( $product, $args );
 endif;
 
-if ( 'variable' !== $product->get_type() ) :
+if ( 'variable' !== $product->get_type() || class_exists( 'CFVSW\Plugin_Loader' ) ) :
 	awooc_html_custom_add_to_cart();
 endif;
 

@@ -9,6 +9,8 @@
  * @package     art-woocommerce-order-one-click/templates
  * @version     3.0.0
  * @var $args
+ *
+ * @todo с плагином Variation Swatches By CartFlows работает криво, выводит артибуты на каталоге. Подумать как правильно выводить кнопку на варианивных товарах
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
