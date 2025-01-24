@@ -21,7 +21,8 @@ module.exports = {
 	devtool:      ! isProduction ? false : false,
 	entry:        {
 		"awooc-scripts": path.resolve( process.cwd(), 'src/js', 'awooc-scripts.js' ),
-		"admin-script":  path.resolve( process.cwd(), 'src/js', 'admin-script.js' ),
+		"awooc-public-script": path.resolve( process.cwd(), 'src/js/public', 'main.js' ),
+		"awooc-admin-script":  path.resolve( process.cwd(), 'src/js/admin', 'script.js' ),
 		"awooc-styles":  path.resolve( process.cwd(), 'src/scss', 'awooc-styles.scss' ),
 		"admin-style":   path.resolve( process.cwd(), 'src/scss', 'admin-style.scss' ),
 	},
@@ -49,27 +50,18 @@ module.exports = {
 	module:       {
 		rules: [
 			{
-				test:    /\.js$/,
+				test: /\.js$/,
 				exclude: /node_modules/,
-				use:     [
-					require.resolve( 'thread-loader' ),
+				use: [
+					require.resolve('babel-loader'),
 					{
-						loader:  require.resolve( 'babel-loader' ),
+						loader: require.resolve('babel-loader'),
 						options: {
-							// Babel uses a directory within local node_modules
-							// by default. Use the environment variable option
-							// to enable more persistent caching.
 							cacheDirectory: process.env.BABEL_CACHE_DIRECTORY || true,
-
-							// Provide a fallback configuration if there's not
-							// one explicitly available in the project.
-							...(
-								! hasBabelConfig() && {
-									babelrc:    false,
-									configFile: false,
-									presets:    [ require.resolve( '@wordpress/babel-preset-default' ) ],
-								}
-							),
+							presets: [
+								require.resolve('@wordpress/babel-preset-default'),
+								require.resolve('@babel/preset-env'),
+							],
 						},
 					},
 				],
