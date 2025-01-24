@@ -91,7 +91,6 @@ class Email extends Ajax {
 	 * @param  \WPCF7_Submission  $submission
 	 *
 	 * @return void
-	 * @todo не переводятся строки в письме, разобраться почему
 	 */
 	public function change_email_template( WPCF7_ContactForm $contact_form, bool $abort, WPCF7_Submission $submission ): void {
 
@@ -99,7 +98,7 @@ class Email extends Ajax {
 			return;
 		}
 
-		if ( (int) $contact_form->id() !== $this->main->get_selected_form_id() ) {
+		if ( $contact_form->id() !== $this->main->get_selected_form_id() ) {
 			return;
 		}
 
@@ -110,33 +109,41 @@ class Email extends Ajax {
 		$mail     = $contact_form->prop( 'mail' );
 		$response = $this->response_to_mail( (int) $product_id, (int) $product_qty );
 
+		// TODO: костыль, почему-то get_locale() всегда дефолтное значение возвращает
+		switch_to_locale( apply_filters( 'awooc_letter_locale', get_option( 'WPLANG' ) ) );
+
 		ob_start();
 
 		load_template(
 			$this->main->get_template( 'email.php' ),
 			true,
-			[
-				'letter_data'  => [
-					'name'  => $posted_text,
-					'email' => $posted_email,
-					'phone' => $posted_tel,
+			apply_filters(
+				'awooc_letter_args',
+				[
+					'letter_data'  => [
+						'name'  => $posted_text,
+						'email' => $posted_email,
+						'phone' => $posted_tel,
+					],
+					'letter_meta'  => [
+						'ip'   => [
+							'label' => esc_html__( 'IP', 'art-woocommerce-order-one-click' ),
+							'value' => $submission->get_meta( 'remote_ip' ),
+						],
+						'time' => [
+							'label' => esc_html__( 'Date', 'art-woocommerce-order-one-click' ),
+							'value' => $submission->get_meta( 'timestamp' ),
+						],
+						'url'  => [
+							'label' => esc_html__( 'Domain', 'art-woocommerce-order-one-click' ),
+							'value' => $submission->get_meta( 'url' ),
+						],
+					],
+					'product_data' => $response->get_response(),
 				],
-				'letter_meta'  => [
-					'ip'   => [
-						'label' => esc_html__( 'IP', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'remote_ip' ),
-					],
-					'time' => [
-						'label' => esc_html__( 'Date', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'timestamp' ),
-					],
-					'url'  => [
-						'label' => esc_html__( 'Domain', 'art-woocommerce-order-one-click' ),
-						'value' => $submission->get_meta( 'url' ),
-					],
-				],
-				'product_data' => $response->get_response(),
-			]
+				$this,
+				$submission
+			)
 		);
 
 		$mail['body'] = ob_get_clean();
