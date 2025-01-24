@@ -107,16 +107,30 @@ class Popup extends Prepare {
 	protected function formatted_qty(): string {
 
 		$allowed_html = [
-			'div'   => [
+			'div'    => [
 				'class' => 'quantity',
-
 			],
-			'span'  => [
+			'span'   => [
 				'class' => [],
 
 			],
-			'label' => [ 'class' => [] ],
-			'input' => [
+			'label'  => [ 'class' => [] ],
+			'input'  => [
+				'type'         => [],
+				'id'           => [],
+				'class'        => [],
+				'name'         => [],
+				'value'        => [],
+				'title'        => [],
+				'size'         => [],
+				'min'          => [],
+				'max'          => [],
+				'step'         => [],
+				'placeholder'  => [],
+				'inputmode'    => [],
+				'autocomplete' => [],
+			],
+			'button' => [
 				'type'         => [],
 				'id'           => [],
 				'class'        => [],
@@ -139,16 +153,7 @@ class Popup extends Prepare {
 				sprintf(
 					'<span class="awooc-qty-label">%s</span>%s',
 					apply_filters( 'awooc_popup_qty_label', __( 'Quantity: ', 'art-woocommerce-order-one-click' ) ),
-					woocommerce_quantity_input(
-						[
-							'min_value'   => apply_filters( 'woocommerce_quantity_input_min', $this->get_product()->get_min_purchase_quantity(), $this->get_product() ),
-							'max_value'   => apply_filters( 'woocommerce_quantity_input_max', $this->get_product()->get_max_purchase_quantity(), $this->get_product() ),
-							'input_value' => $this->get_qty() !== null ? wc_stock_amount( wp_unslash( $this->get_qty() ) ) : $this->get_product()->get_min_purchase_quantity(),
-							'classes'     => [ 'input-text', 'qty', 'text', 'awooc-popup-input-qty' ],
-						],
-						$this->get_product(),
-						false
-					)
+					$this->get_quantity_input()
 				),
 				$this->get_product()
 			), $allowed_html
@@ -191,5 +196,47 @@ class Popup extends Prepare {
 		);
 
 		return '<span class="woocommerce-Price-amount amount"><bdi>' . $formatted_price . '</bdi></span>';
+	}
+
+
+	/**
+	 * @return string
+	 */
+	protected function get_quantity_input(): string {
+
+		$args = [
+			'input_id'     => uniqid( 'quantity_' ),
+			'input_name'   => 'quantity',
+			'input_value'  => $this->get_qty() !== null ? wc_stock_amount( wp_unslash( $this->get_qty() ) ) : $this->get_product()->get_min_purchase_quantity(),
+			'classes'      => [ 'input-text', 'qty', 'text', 'awooc-popup-input-qty' ],
+			'min_value'    => apply_filters( 'woocommerce_quantity_input_min', $this->get_product()->get_min_purchase_quantity(), $this->get_product() ),
+			'max_value'    => apply_filters( 'woocommerce_quantity_input_max', $this->get_product()->get_max_purchase_quantity(), $this->get_product() ),
+			'step'         => 1,
+			'pattern'      => apply_filters( 'woocommerce_quantity_input_pattern', has_filter( 'woocommerce_stock_amount', 'intval' ) ? '[0-9]*' : '' ),
+			'inputmode'    => apply_filters( 'woocommerce_quantity_input_inputmode', has_filter( 'woocommerce_stock_amount', 'intval' ) ? 'numeric' : '' ),
+			'product_name' => $this->get_product() ? $this->get_product()->get_title() : '',
+			'placeholder'  => '',
+			'autocomplete' => 'off',
+			'readonly'     => false,
+		];
+
+		$args['min_value'] = max( $args['min_value'], 0 );
+		$args['max_value'] = 0 < $args['max_value'] ? $args['max_value'] : '';
+
+		if ( '' !== $args['max_value'] && $args['max_value'] < $args['min_value'] ) {
+			$args['max_value'] = $args['min_value'];
+		}
+
+		$args['type'] = 'number';
+
+		ob_start();
+
+		load_template(
+			$this->main->get_template( 'quantity-input.php' ),
+			true,
+			$args
+		);
+
+		return ob_get_clean();
 	}
 }
