@@ -150,7 +150,6 @@
     background: transparent;
     border-radius: 3px;
     transition: all 0.2s ease;
-    font-size: 0;
 
     input[type="number"] {
       width: 32px;
@@ -161,6 +160,10 @@
       -moz-appearance: textfield;
       border: 0;
       box-shadow: none;
+      background: #fff;
+      max-height: 32px;
+      padding: 0;
+      font-size: small;
 
       &:hover,
       &:focus {
