@@ -44,6 +44,7 @@
   flex: 0 0 auto;
   margin-left: 0;
 }
+
 .theme-twentytwentyfour .awooc-custom-order-button.button.alt.show-add-to-card {
   float: none
 }
@@ -109,7 +110,7 @@
     max-width: 100px;
     height: auto;
     margin-right: 1rem;
-  
+
     @include minWidth568px() {
       width: 100%;
       max-width: 300px;
@@ -140,17 +141,26 @@
   }
 
   .quantity {
-    display: inline-flex;
-    vertical-align: top;
+    display: grid;
+    grid-template-columns: 32px 1fr 32px;
+    flex-wrap: nowrap;
+    align-items: center;
     white-space: nowrap;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: transparent;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    font-size: 0;
 
     input[type="number"] {
-      width: 30px;
-      height: 42px;
+      width: 32px;
+      height: auto;
       border-radius: 0;
       border-right: none;
       border-left: none;
       -moz-appearance: textfield;
+      border: 0;
+      box-shadow: none;
 
       &:hover,
       &:focus {
@@ -163,16 +173,34 @@
         margin: 0;
       }
     }
+
+    .awooc-popup-input-qty--minus, .awooc-popup-input-qty--plus {
+      background: transparent;
+      box-shadow: none;
+      border: 0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: medium;
+      color: rgba(0, 0, 0, 0.5);
+      /* border: 1px solid rgba(0, 0, 0, 0.1); */
+      padding: 0;
+    }
   }
+
+
 }
 
 .awooc-custom-order-wrap {
   .wpcf7-form {
     margin-bottom: 0;
+
     & > p {
       &:nth-child(2) {
         margin-top: 0
       }
+
       &:nth-last-child(2) {
         margin-bottom: 0
       }
@@ -191,8 +219,10 @@
   }
 }
 
-.awooc-attr-value span {
-  padding-left: 1rem;
-  display: block;
-  line-height: 1.3;
+.awooc-attr-value, .awooc-option-value {
+  span {
+    padding-left: 1rem;
+    display: block;
+    line-height: 1.3;
+  }
 }
