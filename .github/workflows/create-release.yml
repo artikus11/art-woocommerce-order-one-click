@@ -27,18 +27,20 @@ jobs:
         with:
           type: 'zip'
           filename: ${{ github.event.repository.name }}.zip
-          exclusions: '*.git* /*node_modules/* .editorconfig /*src/* .eslintrc.json .prettierrc.json gulpfile.js .stylelintrc.json package.json package-lock.json CHANGELOG.md README.md .gitattributes .gitignore .phpcs.xml composer.json composer.lock postcss.config.js webpack.config.js assets/js/*.LICENSE.txt'
+          exclusions: '*.git* /*node_modules/* .editorconfig /*src/* .eslintrc.json .prettierrc.json gulpfile.js .stylelintrc.json package.json package-lock.json CHANGELOG.md README.md .gitattributes .gitignore .eslintignore .phpcs.xml composer.json composer.lock postcss.config.js webpack.config.js assets/js/*.LICENSE.txt'
 
       - name: Store artifact for distribution
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ github.event.repository.name }}
           path: ${{ github.event.repository.name }}.zip
+          overwrite: true
 
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ github.event.repository.name }}
+          merge-multiple: true
 
       - name: Get Changelog Entry
         id: changelog-reader
