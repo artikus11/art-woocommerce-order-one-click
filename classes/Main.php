@@ -98,7 +98,6 @@ class Main {
 		$this->mode      = new Mode();
 
 		$this->init_hooks();
-		$this->load_textdomain();
 	}
 
 
@@ -109,6 +108,8 @@ class Main {
 	 * @since 1.8.0
 	 */
 	public function init_hooks(): void {
+
+		add_action( 'init', [ $this, 'load_textdomain' ] );
 
 		add_action( 'wp_ajax_awooc_rated', [ $this, 'add_rated' ] );
 

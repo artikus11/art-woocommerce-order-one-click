@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2024-08-12 15:06+0400\n"
-"PO-Revision-Date: 2024-08-13 01:18+0400\n"
+"POT-Creation-Date: 2025-01-21 22:40+0400\n"
+"PO-Revision-Date: 2025-01-21 22:47+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -70,7 +70,7 @@ msgstr "Заказ с сайта %1$s (%2$s)"
 msgid "Order One Click"
 msgstr "Заказ в один клик"
 
-#: classes/Admin/Settings.php:35 classes/Orders.php:121
+#: classes/Admin/Settings.php:35 classes/Orders.php:141
 msgid "One click order"
 msgstr "Заказ в один клик"
 
@@ -285,7 +285,7 @@ msgstr "поле Емайл - <code>awooc-email</code>;"
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
-#: classes/Admin/Settings.php:479
+#: classes/Admin/Settings.php:483
 #, php-format
 msgid ""
 "If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in "
@@ -294,51 +294,51 @@ msgstr ""
 "Если вам нравится плагин %1$s, пожалуйста, поставьте оценку %2$s. Заранее "
 "большое спасибо!"
 
-#: classes/Admin/Settings.php:480 classes/Admin/Settings.php:534
+#: classes/Admin/Settings.php:484 classes/Admin/Settings.php:538
 msgid "Art WooCommerce Order One Click"
 msgstr "Art WooCommerce Order One Click"
 
-#: classes/Admin/Settings.php:483
+#: classes/Admin/Settings.php:487
 msgid "five star"
 msgstr "пять звезд"
 
-#: classes/Admin/Settings.php:485
+#: classes/Admin/Settings.php:489
 msgid "Thanks :)"
 msgstr "Пожалуйста, не загружайте эту страницу напрямую. Спасибо!"
 
-#: classes/Admin/Settings.php:496
+#: classes/Admin/Settings.php:500
 msgid "Thank you for using the plugin!"
 msgstr "Спасибо, что используете плагин!"
 
-#: classes/Admin/Settings.php:520
+#: classes/Admin/Settings.php:524
 msgid "Yandex Money"
 msgstr "Яндекс Деньги"
 
-#: classes/Admin/Settings.php:521
+#: classes/Admin/Settings.php:525
 msgid "Make a donation through the Yandex Money system. You can use bank cards"
 msgstr "Поддержать через Яндекс Деньги. Можно использовать банковские карты"
 
-#: classes/Admin/Settings.php:525
+#: classes/Admin/Settings.php:529
 msgid "WPRUSe"
 msgstr "WPRUSe"
 
-#: classes/Admin/Settings.php:526
+#: classes/Admin/Settings.php:530
 msgid "WPRUSe project site"
 msgstr "Описание проекта"
 
-#: classes/Admin/Settings.php:533
+#: classes/Admin/Settings.php:537
 #, php-format
 msgid "You can make a donation to make the plugin %1$s even better!"
 msgstr ""
 "Вы можете сделать пожертвование, чтобы мотивировать автора и сделать плагин "
 "%1$s еще лучше!"
 
-#: classes/Admin/Settings.php:561
+#: classes/Admin/Settings.php:565
 msgid ""
 "Detailed step by step instructions for setting up the plugin (in Russian)"
 msgstr "Подробная инструкция по настройке плагина (на русском)"
 
-#: classes/Admin/Settings.php:564
+#: classes/Admin/Settings.php:568
 msgid ""
 "Plugin on GitHub, you can write there suggestions, wishes or participate in "
 "the development"
@@ -354,15 +354,15 @@ msgstr ""
 "Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
 "вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
 
-#: classes/Email.php:123
+#: classes/Email.php:126
 msgid "IP"
 msgstr "IP"
 
-#: classes/Email.php:127
+#: classes/Email.php:130
 msgid "Date"
 msgstr "Дата"
 
-#: classes/Email.php:131
+#: classes/Email.php:134
 msgid "Domain"
 msgstr "Домен"
 
@@ -423,7 +423,7 @@ msgid "SKU: "
 msgstr "Артикул: "
 
 #: classes/Enqueue.php:147 classes/Prepare/Mail.php:88
-#: classes/Prepare/Popup.php:177
+#: classes/Prepare/Popup.php:176
 msgid "Amount: "
 msgstr "Итого: "
 
@@ -452,7 +452,11 @@ msgstr "Читать"
 msgid "Settings"
 msgstr "Настройки"
 
-#: classes/Orders.php:119
+#: classes/Orders.php:53
+msgid "Order One Click: "
+msgstr "Заказ в один клик: "
+
+#: classes/Orders.php:139
 msgid "The order was created by using the One-click Order button"
 msgstr "Заказ был создан с помощью кнопки \"Заказ в один клик\""
 
@@ -503,32 +507,32 @@ msgstr " и "
 msgid "<strong>%s</strong> plugin has been deactivated."
 msgstr "<strong>%s</strong> плагин был деактивирован."
 
-#: includes/create-cf7-field.php:93
+#: includes/create-cf7-field.php:94
 msgid "AWOOC hide field"
 msgstr "AWOOC скрытое поле"
 
-#: includes/create-cf7-field.php:105
+#: includes/create-cf7-field.php:109
 #, php-format
 msgid "Generate a special hidden multi-line field. See %s."
 msgstr "Генерируется специальное многострочное поле. Смотрите %s."
 
-#: includes/create-cf7-field.php:108
+#: includes/create-cf7-field.php:112
 msgid "https://wpruse.ru/my-plugins/order-one-click/"
 msgstr "https://wpruse.ru/my-plugins/order-one-click/"
 
-#: includes/create-cf7-field.php:109
+#: includes/create-cf7-field.php:113
 msgid "the description for details"
 msgstr "подробное описание"
 
-#: includes/create-cf7-field.php:122
+#: includes/create-cf7-field.php:126
 msgid "Name"
 msgstr "Имя"
 
-#: includes/create-cf7-field.php:150
+#: includes/create-cf7-field.php:154
 msgid "Insert Tag"
 msgstr "Вставить"
 
-#: includes/create-cf7-field.php:162
+#: includes/create-cf7-field.php:166
 #, php-format
 msgid ""
 "To use the value input through this field in a mail field, you need to "
