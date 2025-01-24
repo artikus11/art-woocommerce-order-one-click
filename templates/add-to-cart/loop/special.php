@@ -19,7 +19,7 @@ global $product;
 
 do_action( 'awooc_before_loop_add_to_cart_link', $product, $args );
 
-if ('simple' === $product->get_type() || ($product->is_in_stock() && $product->get_price() > 0 )) :
+if ( 'simple' === $product->get_type() || ( $product->is_in_stock() && $product->get_price() > 0 ) ) :
 	awooc_loop_add_to_cart_link( $product, $args );
 endif;
 
