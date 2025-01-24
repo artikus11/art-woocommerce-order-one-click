@@ -47,7 +47,7 @@ class Enqueue {
 
 		wp_register_script(
 			'awooc-scripts',
-			AWOOC_PLUGIN_URI . 'assets/js/awooc-scripts' . $this->suffix . '.js',
+			AWOOC_PLUGIN_URI . 'assets/js/awooc-public-script' . $this->suffix . '.js',
 			[ 'jquery', 'jquery-blockui', 'woocommerce', 'wc-add-to-cart-variation' ],
 			AWOOC_PLUGIN_VER,
 			false
@@ -83,7 +83,7 @@ class Enqueue {
 
 		wp_enqueue_script(
 			'admin-awooc-script',
-			AWOOC_PLUGIN_URI . 'assets/js/admin-script.js',
+			AWOOC_PLUGIN_URI . 'assets/js/awooc-admin-script.js',
 			[ 'jquery' ],
 			AWOOC_PLUGIN_VER,
 			false
