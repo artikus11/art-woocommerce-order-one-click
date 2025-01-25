@@ -25,6 +25,7 @@
 /postcss.config.js
 /webpack.config.js
 /yarn.lock
+/.prettierrc.json
 
 # Directories
 /.git

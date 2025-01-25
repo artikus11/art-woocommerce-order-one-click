@@ -15,7 +15,7 @@ jobs:
       - name: Webpack Build
         run: |
           npm install
-          npm run build:unminification
+          npm run build
 
       - name: Composer Autoloader
         run: |
@@ -27,7 +27,7 @@ jobs:
         with:
           type: 'zip'
           filename: ${{ github.event.repository.name }}.zip
-          exclusions: '*.git* /*node_modules/* .editorconfig /*src/* .eslintrc.json .prettierrc.json gulpfile.js .stylelintrc.json package.json package-lock.json CHANGELOG.md README.md .gitattributes .gitignore .eslintignore .phpcs.xml composer.json composer.lock postcss.config.js webpack.config.js assets/js/*.LICENSE.txt'
+          exclusions: '*.git* /*node_modules/* .editorconfig /*src/* .eslintrc.json .prettierrc.json gulpfile.js .stylelintrc.json package.json package-lock.json CHANGELOG.md README.md .gitattributes .gitignore .distignore .eslintignore .phpcs.xml composer.json composer.lock postcss.config.js webpack.config.js assets/js/*.LICENSE.txt'
 
       - name: Store artifact for distribution
         uses: actions/upload-artifact@v4
