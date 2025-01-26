@@ -23,9 +23,15 @@ use WPCF7_Submission;
 class Orders extends Ajax {
 
 	/**
-	 * @var false|mixed|null
+	 * @var string
 	 */
-	protected $has_create_order;
+	protected string $has_create_order;
+
+
+	/**
+	 * @var WC_Order
+	 */
+	public WC_Order $order;
 
 
 	public function init_hooks(): void {
