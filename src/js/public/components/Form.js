@@ -56,9 +56,14 @@ export default class Form {
 	clearFormErrors() {
 		const formOutput = document.querySelector( '.awooc-form-custom-order .wpcf7-response-output' );
 		const notValidTips = document.querySelectorAll( '.awooc-form-custom-order .wpcf7-not-valid-tip' );
+		const submitButton = document.querySelector( '.awooc-form-custom-order input[type="submit"]' );
 
 		if ( formOutput ) {
 			formOutput.innerHTML = '';
+		}
+
+		if ( submitButton ) {
+			submitButton.disabled = false;
 		}
 		notValidTips.forEach( ( tip ) => tip.remove() );
 	}
