@@ -102,15 +102,14 @@ class Email extends Ajax {
 			return;
 		}
 
-		$mail_body = $submission->get_posted_data();
-
-		[ $posted_text, $posted_email, $posted_tel, $product_id, $product_qty ] = $this->prepare_posted_data( $mail_body );
-
-		$mail     = $contact_form->prop( 'mail' );
-		$response = $this->response_to_mail( (int) $product_id, (int) $product_qty );
-
 		// TODO: костыль, почему-то get_locale() всегда дефолтное значение возвращает
 		switch_to_locale( apply_filters( 'awooc_letter_locale', get_option( 'WPLANG' ) ) );
+
+		$mail_body = $submission->get_posted_data();
+
+		[ $posted_text, $posted_email, $posted_tel ] = $this->prepare_posted_data( $mail_body );
+
+		$mail = $contact_form->prop( 'mail' );
 
 		ob_start();
 
@@ -139,7 +138,7 @@ class Email extends Ajax {
 							'value' => $submission->get_meta( 'url' ),
 						],
 					],
-					'product_data' => $response->get_response(),
+					'product_data' => $this->get_parse_mail_body( $mail_body['awooc-hidden-data'] ),
 				],
 				$this,
 				$submission
@@ -152,18 +151,30 @@ class Email extends Ajax {
 	}
 
 
-	/**
-	 * @param  int $product_id
-	 * @param  int $product_qty
-	 *
-	 * @return \Art\AWOOC\Prepare\Mail
-	 */
-	public function response_to_mail( int $product_id, int $product_qty ): Mail {
+	public function get_parse_mail_body( $text ): array {
 
-		return new Mail( [
-			'main'        => $this->main,
-			'product'     => $this->get_product( $product_id ),
-			'product_qty' => $this->get_qty( $product_qty ),
-		] );
+		$result = [];
+
+		$lines = array_filter( array_map( 'trim', explode( "\n", $text ) ) );
+
+		unset( $lines[0], $lines[1] );
+
+		foreach ( $lines as $line ) {
+
+			$parts = explode( ':', $line, 2 );
+
+			$key   = trim( $parts[0] );
+			$value = trim( $parts[1] );
+
+			if ( empty( $value ) ) {
+				continue;
+			}
+
+			$value = html_entity_decode( preg_replace( '/\s+/', ' ', $value ) );
+
+			$result[ $key ] = $value;
+		}
+
+		return $result;
 	}
 }

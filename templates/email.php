@@ -19,8 +19,8 @@ $letter_meta  = $args['letter_meta'];
 <!doctype html>
 <html <?php language_attributes(); ?>>
 <head>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>" />
 	<title><?php echo esc_html( get_bloginfo( 'name', 'display' ) ); ?></title>
 	<style>
 		/* -------------------------------------
@@ -58,6 +58,7 @@ $letter_meta  = $args['letter_meta'];
 			font-family: sans-serif;
 			font-size: 14px;
 			vertical-align: top;
+			padding-bottom: 10px;
 		}
 
 		/* -------------------------------------
@@ -72,7 +73,7 @@ $letter_meta  = $args['letter_meta'];
 		/* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
 		.container {
 			display: block;
-			margin: 0 auto !important;
+			margin: 40px auto !important;
 			/* makes it centered */
 			max-width: 580px;
 			padding: 10px;
@@ -100,6 +101,10 @@ $letter_meta  = $args['letter_meta'];
 		.wrapper {
 			box-sizing: border-box;
 			padding: 20px;
+		}
+
+		.content-block .product-list > tbody > tr > td {
+			padding-bottom: 6px;
 		}
 
 		.content-block {
@@ -132,7 +137,7 @@ $letter_meta  = $args['letter_meta'];
 		h4 {
 			color: #000000;
 			font-family: sans-serif;
-			font-weight: 400;
+			font-weight: bold;
 			line-height: 1.4;
 			margin: 0;
 		}
@@ -441,12 +446,12 @@ $letter_meta  = $args['letter_meta'];
 										</table>
 										<hr>
 										<h3><?php esc_html_e( 'Information about the selected product', 'art-woocommerce-order-one-click' ); ?></h3>
-										<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+										<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="product-list">
 											<tbody>
-												<?php foreach ( $product_data as $product ) : ?>
+												<?php foreach ( $product_data as $key => $value ) : ?>
 													<tr>
 														<td align="left">
-															<?php echo esc_html( $product ); ?>
+															<strong><em><?php echo esc_html( $key ); ?>:</em></strong> <em><?php echo esc_html( $value ); ?></em>
 														</td>
 													</tr>
 												<?php endforeach; ?>
