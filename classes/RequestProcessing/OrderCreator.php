@@ -7,8 +7,9 @@
  * @version 1.8.2
  */
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\RequestProcessing;
 
+use Art\AWOOC\RequestHandler;
 use WC_Data_Exception;
 use WC_Order;
 use WPCF7_ContactForm;
@@ -20,7 +21,7 @@ use WPCF7_Submission;
  * @author Artem Abramovich
  * @since  1.8.2
  */
-class Orders extends Ajax {
+class OrderCreator extends RequestHandler  {
 
 	/**
 	 * @var string

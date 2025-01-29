@@ -10,6 +10,8 @@ namespace Art\AWOOC;
 use Art\AWOOC\Admin\Settings;
 use Art\AWOOC\Admin\Settings_Fields;
 use Art\AWOOC\Product\Meta;
+use Art\AWOOC\RequestProcessing\EmailModifier;
+use Art\AWOOC\RequestProcessing\OrderCreator;
 
 /**
  * Class AWOOC
@@ -46,19 +48,19 @@ class Main {
 
 
 	/**
-	 * @since 2.0.0
-	 * @var Ajax $ajax
+	 * @since 3.1.0
+	 * @var RequestHandler $ajax
 	 */
-	protected Ajax $ajax;
+	protected RequestHandler $ajax;
 
 
 	/**
 	 * Added Orders.
 	 *
 	 * @since 2.0.0
-	 * @var Orders $orders
+	 * @var OrderCreator $orders
 	 */
-	protected Orders $orders;
+	protected OrderCreator $orders;
 
 
 	/**
@@ -85,9 +87,9 @@ class Main {
 
 		( new Requirements() )->init_hooks();
 		( new Enqueue( $this ) )->init_hooks();
-		( new Ajax( $this ) )->init_hooks();
-		( new Orders( $this ) )->init_hooks();
-		( new Email( $this ) )->init_hooks();
+		( new RequestHandler( $this ) )->init_hooks();
+		( new OrderCreator( $this ) )->init_hooks();
+		( new EmailModifier( $this ) )->init_hooks();
 
 		$this->front = new Front( $this );
 		$this->front->init_hooks();

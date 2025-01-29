@@ -7,9 +7,9 @@
  * @version 1.8.0
  */
 
-namespace Art\AWOOC;
+namespace Art\AWOOC\RequestProcessing;
 
-use Art\AWOOC\Prepare\Mail;
+use Art\AWOOC\RequestHandler;
 use WC_Order;
 use WPCF7_ContactForm;
 use WPCF7_Submission;
@@ -20,7 +20,7 @@ use WPCF7_Submission;
  * @author Artem Abramovich
  * @since  3.0.0
  */
-class Email extends Ajax {
+class EmailModifier extends RequestHandler {
 
 	public function init_hooks(): void {
 

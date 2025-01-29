@@ -20,7 +20,7 @@ use WC_Product;
  * @author Artem Abramovich
  * @since  1.8.0
  */
-class Ajax {
+class RequestHandler {
 
 	/**
 	 * Переменная для сверки с настройками
