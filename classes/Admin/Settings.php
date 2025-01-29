@@ -392,13 +392,7 @@ class Settings extends WC_Settings_Page {
 		$select    = [];
 
 		foreach ( $cf7_forms as $form ) {
-			$form_id = esc_attr( $form->ID );
-
-			$select[ $form_id ] = sprintf(
-				'[contact-form-7 id="%s" title="%s"]',
-				$form_id,
-				esc_html( $form->post_title )
-			);
+			$select[ $form->ID ] = wpcf7_contact_form( $form )->shortcode();
 		}
 
 		return $select;
@@ -523,7 +517,7 @@ class Settings extends WC_Settings_Page {
 			'yd'     => [
 				'title' => __( 'Yandex Money', 'art-woocommerce-order-one-click' ),
 				'desc'  => __( 'Make a donation through the Yandex Money system. You can use bank cards', 'art-woocommerce-order-one-click' ),
-				'link'  => 'https://money.yandex.ru/to/41001551911515',
+				'link'  => 'https://yoomoney.ru/to/41001551911515',
 			],
 			'wpruse' => [
 				'title' => __( 'WPRUSe', 'art-woocommerce-order-one-click' ),
@@ -538,10 +532,13 @@ class Settings extends WC_Settings_Page {
 			sprintf( '<strong>%s</strong>', esc_html__( 'Art WooCommerce Order One Click', 'art-woocommerce-order-one-click' ) )
 		);
 
-		foreach ( $payments as $key => $payment ) {
-			$message .= '<p><span class="woocommerce-help-tip" data-tip="' . $payment['desc'] . '"></span><strong>';
-			$message .= '<a href="' . $payment['link'] . '" target="_blank" class="awooc-donate-link">' . $payment['title'] . '</a>';
-			$message .= '</strong><p>';
+		foreach ( $payments as  $payment ) {
+			$message .= sprintf(
+				'<p><span class="woocommerce-help-tip" data-tip="%s"></span><strong><a href="%s" target="_blank" class="awooc-donate-link">%s</a></strong><p>',
+				$payment['desc'],
+				$payment['link'],
+				$payment['title']
+			);
 		}
 
 		return $message;
@@ -562,12 +559,15 @@ class Settings extends WC_Settings_Page {
 			return $message;
 		}
 
-		$message = __( 'Detailed step by step instructions for setting up the plugin (in Russian)', 'art-woocommerce-order-one-click' );
+		$message .= sprintf( '<p>%s <a href="https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/" target="_blank" class="awooc-tutorial-link">%s</a></p>',
+			__( 'Detailed step by step instructions for setting up the plugin (in Russian).', 'art-woocommerce-order-one-click' ),
+			__( 'Read more...', 'art-woocommerce-order-one-click' )
+		);
 
-		$message .= '<p><a href="https://wpruse.ru/my-plugins/art-woocommerce-order-one-click/" target="_blank" class="awooc-tutorial-link">Read more...</a></p>';
-		$message .= __( 'Plugin on GitHub, you can write there suggestions, wishes or participate in the development', 'art-woocommerce-order-one-click' );
-
-		$message .= '<p><a href="https://github.com/artikus11/art-woocommerce-order-one-click" target="_blank" class="awooc-tutorial-link">Plugin on GitHub</a></p>';
+		$message .= sprintf( '<p>%s</p><p><a href="https://github.com/artikus11/art-woocommerce-order-one-click" target="_blank" class="awooc-tutorial-link">%s</a></p>',
+			__( 'Plugin on GitHub, you can write there suggestions, wishes or participate in the development', 'art-woocommerce-order-one-click' ),
+			__( 'Plugin on GitHub', 'art-woocommerce-order-one-click' )
+		);
 
 		return $message;
 	}
