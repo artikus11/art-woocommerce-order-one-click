@@ -65,7 +65,7 @@ class Create_Form {
 			],
 		];
 
-		if ( false === get_option( 'woocommerce_awooc_active' ) ) {
+		if ( empty( get_option( 'woocommerce_awooc_active' ) ) ) {
 			update_option( 'woocommerce_awooc_active', $option );
 		}
 	}
@@ -75,7 +75,7 @@ class Create_Form {
 	 * @param  string $mail_form
 	 * @param  string $mail_body
 	 */
-	public static function created_form( string $mail_form, string $mail_body ) {
+	public static function created_form( string $mail_form, string $mail_body ): void {
 
 		$contact_form = WPCF7_ContactForm::get_template();
 
@@ -91,7 +91,7 @@ class Create_Form {
 					'sender'             => sprintf( '%s <%s>', get_bloginfo( 'name' ), WPCF7_ContactFormTemplate::from_email() ),
 					'body'               => $mail_body,
 					'recipient'          => get_option( 'admin_email' ),
-					'additional_headers' => '',
+					'additional_headers' => 'Reply-To:[awooc-email]',
 					'attachments'        => '',
 					'use_html'           => 1,
 					'exclude_blank'      => 0,
@@ -105,7 +105,7 @@ class Create_Form {
 					'sender'             => sprintf( '%s <%s>', get_bloginfo( 'name' ), WPCF7_ContactFormTemplate::from_email() ),
 					'body'               => $mail_body,
 					'recipient'          => get_option( 'admin_email' ),
-					'additional_headers' => '',
+					'additional_headers' => 'Reply-To:[awooc-email]',
 					'attachments'        => '',
 					'use_html'           => 1,
 					'exclude_blank'      => 0,
@@ -134,6 +134,11 @@ class Create_Form {
 					wpcf7_normalize_newline_deep( $value )
 				);
 			}
+
+			add_post_meta( $post_id, '_hash',
+				wpcf7_generate_contact_form_hash( $post_id ),
+				true
+			);
 		}
 	}
 }
