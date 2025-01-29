@@ -59,14 +59,15 @@ function awooc_class_full( $elements ) {
  * Вспомогательная функция, для осуществления поддержки плагина
  *
  * @since 2.1.1
+ * @since 3.1.0
  */
-function awooc_html_comments() {
+function awooc_html_comments(): void {
 
 	if ( apply_filters( 'awooc_html_comments', true ) ) {
 		printf(
 			'<!-- plugin version: %1$s; mode: %2$s -->',
 			esc_html( AWOOC_PLUGIN_VER ),
-			esc_html( get_option( 'woocommerce_awooc_mode_catalog' ) )
+			esc_html( awooc()->get_modes()[ get_option( 'woocommerce_awooc_mode_catalog' ) ] )
 		);
 	}
 }
