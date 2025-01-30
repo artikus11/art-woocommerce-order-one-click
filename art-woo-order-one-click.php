@@ -5,14 +5,14 @@
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
  * Description: Plugin for WooCommerce. It includes the catalog mode in the store (there are no prices and the Buy button) and can turn on the Buy/Order button in one click. WooCommerce and Contact Form 7 are required for proper operation.
- * Version: 3.0.1
+ * Version: 3.1.0
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  *
- * WC requires at least: 3.3.0
- * WC tested up to: 5.0
+ * WC requires at least: 5.5
+ * WC tested up to: 9.6
  *
  * Requires PHP: 7.4
  * Requires WP:5.5
