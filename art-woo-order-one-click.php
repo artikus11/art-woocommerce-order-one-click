@@ -5,14 +5,17 @@
  * Text Domain: art-woocommerce-order-one-click
  * Domain Path: /languages
  * Description: Plugin for WooCommerce. It includes the catalog mode in the store (there are no prices and the Buy button) and can turn on the Buy/Order button in one click. WooCommerce and Contact Form 7 are required for proper operation.
- * Version: 2.4.3
+ * Version: 3.1.1
  * Author: Artem Abramovich
  * Author URI: https://wpruse.ru/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  *
- * WC requires at least: 3.3.0
- * WC tested up to: 5.0
+ * WC requires at least: 5.5
+ * WC tested up to: 9.6
+ *
+ * Requires PHP: 7.4
+ * Requires WP:5.5
  *
  * Copyright Artem Abramovich
  *
@@ -40,38 +43,42 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $plugin_data = get_file_data(
 	__FILE__,
-	array(
+	[
 		'ver'  => 'Version',
 		'name' => 'Plugin Name',
-	)
+	]
 );
 
-define( 'AWOOC_PLUGIN_DIR', __DIR__ );
+const AWOOC_PLUGIN_DIR = __DIR__;
 define( 'AWOOC_PLUGIN_URI', plugin_dir_url( __FILE__ ) );
 define( 'AWOOC_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 
 define( 'AWOOC_PLUGIN_VER', $plugin_data['ver'] );
 define( 'AWOOC_PLUGIN_NAME', $plugin_data['name'] );
 
-require __DIR__ . '/includes/class-awooc.php';
+require AWOOC_PLUGIN_DIR . '/vendor/autoload.php';
+require_once AWOOC_PLUGIN_DIR . '/includes/create-cf7-field.php';
+require_once AWOOC_PLUGIN_DIR . '/includes/helpers.php';
+require_once AWOOC_PLUGIN_DIR . '/includes/template-functions.php';
 
-register_uninstall_hook( __FILE__, array( 'AWOOC', 'uninstall' ) );
+register_uninstall_hook( __FILE__, [ Art\AWOOC\Uninstall::class, 'uninstall' ] );
+register_activation_hook( __FILE__, [ Art\AWOOC\Admin\Create_Form::class, 'install_form' ] );
 
-if ( ! function_exists( 'awooc_order_one_click' ) ) {
+if ( ! function_exists( 'awooc' ) ) {
 	/**
 	 * The main function responsible for returning the AWOOC object.
 	 *
 	 * Use this function like you would a global variable, except without needing to declare the global.
 	 *
-	 * Example: <?php awooc_order_one_click()->method_name(); ?>
+	 * Example: <?php awooc()->method_name(); ?>
 	 *
 	 * @return object AWOOC class object.
 	 * @since 1.0.0
 	 */
-	function awooc_order_one_click() {
+	function awooc(): object {
 
-		return AWOOC::instance();
+		return \Art\AWOOC\Main::instance();
 	}
 }
 
-$GLOBALS['awooc'] = awooc_order_one_click();
+awooc();

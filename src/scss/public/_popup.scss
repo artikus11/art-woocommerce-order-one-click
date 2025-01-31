@@ -1,0 +1,231 @@
+.awooc-close {
+  font-size: 35px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-family: initial;
+  line-height: 30px;
+  width: 30px;
+  height: 30px;
+  z-index: 100;
+  color: #161616;
+  opacity: 0.5;
+  background: rgba(0, 0, 0, 0.00);
+  -o-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.awooc-hide {
+  display: none;
+}
+
+.blockUI:before,
+.awooc-hidden-data {
+  display: none !important;
+}
+
+.awooc-custom-order-button {
+  position: relative;
+  vertical-align: middle;
+}
+
+.awooc-custom-order-button.button.alt.show-add-to-card,
+.awooc-custom-order-button.button.alt.no-stock-no-price:not(.no-margin) {
+  margin-left: 0.6125rem;
+}
+
+.theme-woodmart .awooc-custom-order-button.button.alt.show-add-to-card {
+  flex: 0 0 auto;
+  margin-left: 0;
+}
+
+.theme-twentytwentyfour .awooc-custom-order-button.button.alt.show-add-to-card {
+  float: none
+}
+
+.awooc-popup-wrapper,
+.awooc-popup-inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.awooc-popup-inner {
+  padding: 2.125rem;
+}
+
+.awooc-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: center;
+}
+
+.awooc-col {
+  flex: 0 1 100%;
+  max-width: 100%;
+  align-self: flex-start;
+
+  @include minWidth568px() {
+    max-width: calc(50% - .875rem);
+  }
+
+  &.columns-left {
+    text-align: left;
+  }
+
+  &.columns-right {
+    text-align: left;
+
+    @include maxWidth569px() {
+      &:not(.awooc-col-full) {
+        padding-top: 0.875rem;
+      }
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+
+  &.awooc-col-full {
+    flex: 0 1 100%;
+    max-width: 100%;
+  }
+}
+
+.awooc-popup-image {
+  text-align: center;
+  float: left;
+
+  & img {
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    margin-right: 1rem;
+
+    @include minWidth568px() {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.awooc-popup-price,
+.awooc-popup-sku,
+.awooc-popup-qty,
+.awooc-popup-attr {
+  font-size: 0.875rem;
+
+  @include minWidth568px() {
+    font-size: inherit;
+  }
+}
+
+.awooc-popup-qty {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  @include minWidth568px() {
+    width: 100%; // без этого стиля этот элемент, идущий сразу после изображения, ужимается до 0px
+  }
+
+  .quantity {
+    display: grid;
+    grid-template-columns: 32px 1fr 32px;
+    flex-wrap: nowrap;
+    align-items: center;
+    white-space: nowrap;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: transparent;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+
+    input[type="number"] {
+      width: 32px;
+      height: auto;
+      border-radius: 0;
+      border-right: none;
+      border-left: none;
+      -moz-appearance: textfield;
+      border: 0;
+      box-shadow: none;
+      background: #fff;
+      max-height: 32px;
+      padding: 0;
+      font-size: small;
+
+      &:hover,
+      &:focus {
+        -moz-appearance: number-input;
+      }
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
+    .awooc-popup-input-qty--minus, .awooc-popup-input-qty--plus {
+      background: transparent;
+      box-shadow: none;
+      border: 0;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: medium;
+      color: rgba(0, 0, 0, 0.5);
+      /* border: 1px solid rgba(0, 0, 0, 0.1); */
+      padding: 0;
+    }
+  }
+
+
+}
+
+.awooc-custom-order-wrap {
+  .wpcf7-form {
+    margin-bottom: 0;
+
+    & > p {
+      &:nth-child(2) {
+        margin-top: 0
+      }
+
+      &:nth-last-child(2) {
+        margin-bottom: 0
+      }
+    }
+  }
+
+  .wpcf7-form-control-wrap {
+    display: inline-block;
+    margin-bottom: 0.875rem;
+    width: 100%;
+  }
+
+  .wpcf7-form-control {
+    outline: 0;
+    box-sizing: border-box;
+  }
+}
+
+.awooc-attr-value, .awooc-option-value {
+  span {
+    padding-left: 1rem;
+    display: block;
+    line-height: 1.3;
+  }
+}

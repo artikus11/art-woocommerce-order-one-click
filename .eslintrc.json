@@ -1,0 +1,33 @@
+// .eslintrc.json
+{
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "jquery": true
+  },
+  "extends": [
+    "plugin:@wordpress/eslint-plugin/recommended-with-formatting"
+  ],
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": 1,
+    "jsdoc/check-line-alignment": [
+      "warn",
+      "never"
+    ],
+    "camelcase": [
+      "error",
+      {
+        "allow": [
+          "awooc_admin",
+          "awooc_scripts_ajax",
+          "awooc_scripts_translate",
+          "awooc_scripts_settings",
+          "wc_add_to_cart_variation_params"
+        ]
+      }
+    ]
+  }
+}

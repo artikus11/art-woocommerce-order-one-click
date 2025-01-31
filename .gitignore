@@ -11,14 +11,16 @@ project.properties
 *.sublime-workspace
 .sublimelinterrc
 .phpcs.xml.dist
-
+*.LICENSE.txt
+*-styles.js
+*-styles.min.js
 # Grunt
 /node_modules/
 none
 
 # Sass
 .sass-cache/
-
+*.css.map
 # OS X metadata
 .DS_Store
 
@@ -50,3 +52,5 @@ contributors.md
 
 # Screenshots for e2e tests failures
 /screenshots/
+/assets/
+.phpcs.cache

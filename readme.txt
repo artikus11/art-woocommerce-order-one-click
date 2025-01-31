@@ -2,15 +2,18 @@
 Contributors: artabr
 Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
-Requires at least: 4.8
-Tested up to: 5.6
-Stable tag: 2.4.3
-Requires PHP: 7.3
+Requires at least: 5.5
+Tested up to: 6.7
+Stable tag: 3.1.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 Plugin for WooCommerce. It includes the catalog mode in the store (there are no prices and the Buy button) and can turn on the Buy/Order button in one click. WooCommerce and Contact Form 7 are required for proper operation.
+
+= Attention! =
+**Starting from version 3.0, the plugin has been completely rewritten to the new architecture. If you encounter performance problems after installing the plugin, switch back to version 2.4.3 and contact [support](https://wordpress.org/support/plugin/art-woocommerce-order-one-click/) or the [support chat](https://t.me/awooc).**
 
 The plugin provides three modes of operation:
 
@@ -33,6 +36,8 @@ In other cases, the Order button does not appear in this mode.
 Special mode. When turned on, it works the same way as normal mode. But if the goods have no price or the product out of stock, then only the Order button will appear.
 
 The plugin has implemented the function of creating orders when sending a letter. But to work correctly, you need to correctly configure the forms in the Contact Form 7 plugin.
+
+After the first activation, starting from version 3.0, a form with the required fields is created in the Contact Form 7 plugin. The AWOC Hidden Field button is no longer relevant.  Only in the plugin settings you need to select the desired form.
 
 [Read more in the article](https://wpruse.ru/my-plugins/order-one-click/)
 [Follow on GitHub](https://github.com/artikus11/art-woo-order-one-click)
@@ -64,10 +69,6 @@ If you have any problems, write to [support chat](https://t.me/awooc)
 * For lively participation in the development of the plugin [Telegram chat "WordPress & WooCommerce" and all participants](https://t.me/c_wordpress)
 * For the best documentation in Russian by WordPress [Site wp-kama.ru](https://wp-kama.ru/)
 
-= Bundled translations: =
-* Russian
-* English
-
 = Donate link: =
 <a href="https://www.paypal.me/artabr" target="_blank">PayPal</a>
 <a href="https://wpruse.ru/r/donat/" target="_blank">YandexMoney</a>
@@ -98,6 +99,45 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
+
+=  [3.1.1] - 2025-02-01 =
+* Исправлено: приведение итого товаров к числу и обратно в окне
+
+=  [3.1.0] - 2025-01-30 =
+* Добавлено: вывод управления количеством во всплывающем окне
+* Добавлено: вывод кнопки Быстрый заказ через подмену файлов теплейтов
+* Добавлено: поддержка темы Woodmart
+* Добавлено: кнопки +\- на поле количества в окне
+* Добавлено: блокировка кнопки Отправить при отправке формы
+* Добавлено: дополнительный фильтр `awooc_added_hidden_fields` для подстановки скрытых полей
+* Добавлено: вывод названия заказа в списке заказов админки
+* Добавлено: хук `awooc_create_order` при создании заказа, передает объект формы, объект заказа и данные из формы
+* Добавлено: привязка заказа к залогиненому пользователю
+* Добавлено: поддержка плагина Variation Swatches for WooCommerce by CartFlows
+* Добавлено: поддержка плагина Polylang
+* Добавлено: фильтр опций `awooc_select_elements_item`
+* Добавлено: поддержка WP Rocket (принудительное подключение скриптов CF7)
+* Добавлено: опция вывода кнопки на страницах каталога
+* Добавлено: опция кастомного шаблона письма
+* Изменено: удален спецшорткод `awooc-hidden-data`, добавлены отдельные скрытые поля
+* Изменено: рефакторинг js - переписан на ванильный (по возможности)
+* Изменено: обновление переводов
+* Изменено: поле количество вынесено в отдельный файл, независимый от WC
+* Изменено: отлажено поведение поля количество
+* Изменено: рефакторинг основных классов обработки запросов
+* Изменено: создание настроек без автозагрузки
+* Изменено: удаление лишней настройки глобального подключения стилей, стили и скрипты включаются при подключении кнопки
+* Изменено: весь код приведен к WPCS
+* Исправлено: подключение переводов на хук init
+* Исправлено: передача в аналитику верного id товара
+* Исправлено: исправлено подключени скриптов-стилей в админке только на странице настроек
+* Исправлено: вывод данных в кастомном темплейте письма и внешний вид
+* Исправлено: в фильтре `awooc_order_address_arg` добавлен аргумент передачи данных с формы
+
+[See changelog for all versions](https://github.com/artikus11/art-woocommerce-order-one-click/blob/dev/CHANGELOG.md).
+
+= 2.4.4 =
+* Рефакторинг и форматирование
 
 = 2.4.3 =
 * Исправлено - инициализация СF7

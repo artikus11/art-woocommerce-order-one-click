@@ -1,0 +1,65 @@
+{
+  "name": "art-woocommerce-order-one-click",
+  "version": "3.0.0",
+  "description": "Плагин под WooCommerce.  Включает четыре режима: каталог, заказать, предзаказ и специальный режим работы с отсутвием цен и запасов",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack --watch --mode development --progress",
+    "watch": "cross-env NODE_ENV=development webpack --watch --progress",
+    "start:open": "cross-env NODE_ENV=development webpack-dev-server --open",
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "build:unminification": "cross-env NODE_ENV=development webpack",
+    "build:custom": "wp-scripts build woocommerce.js main.js",
+    "start": "wp-scripts start",
+    "lint:js": "wp-scripts lint-js ./src",
+    "sniff": "npm run lint:scss && npm run lint:js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artikus11/art-woocommerce-order-one-click.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artikus11/art-woocommerce-order-one-click/issues"
+  },
+  "homepage": "https://github.com/artikus11/art-woocommerce-order-one-click#readme",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@wordpress/babel-preset-default": "^8.16.0",
+    "@wordpress/eslint-plugin": "^22.2.0",
+    "@wordpress/scripts": "^30.9.0",
+    "autoprefixer": "^10.4.2",
+    "babel-loader": "^9.2.1",
+    "copy-webpack-plugin": "^10.2.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.5.1",
+    "css-minimizer-webpack-plugin": "^3.4.1",
+    "css-mqpacker": "^7.0.0",
+    "cssnano": "^5.0.16",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "glob": "^7.2.0",
+    "mini-css-extract-plugin": "^2.5.3",
+    "postcss": "^8.4.5",
+    "postcss-cli": "^9.1.0",
+    "postcss-loader": "^6.2.1",
+    "postcss-preset-env": "^7.2.3",
+    "prettier": "^3.4.2",
+    "sass": "^1.49.0",
+    "sass-loader": "^12.4.0",
+    "style-loader": "^3.3.1",
+    "svg-sprite-loader": "^6.0.11",
+    "svgo-loader": "^3.0.0",
+    "terser-webpack-plugin": "^5.3.0",
+    "thread-loader": "^3.0.4",
+    "unminified-webpack-plugin": "^3.0.0",
+    "webpack": "^5.67.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "webpack-remove-empty-scripts": "^1.0.4"
+  }
+}
