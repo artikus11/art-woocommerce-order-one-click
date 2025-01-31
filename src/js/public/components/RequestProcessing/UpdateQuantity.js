@@ -74,7 +74,7 @@ export default class UpdateQuantity {
 		const minValue = this.getSafeValue( input.min, 1 );
 		const maxValue = this.getSafeValue( input.max, input.value );
 
-		input.value = Math.min( Math.max( parseInt( input.value, 10 ) || minValue, minValue ), maxValue );
+		input.value = Math.min( Math.max( parseInt( String( input.value ), 10 ) || minValue, minValue ), maxValue );
 
 		this.qtyVal = input.value;
 	}
@@ -115,7 +115,7 @@ export default class UpdateQuantity {
 			return;
 		}
 
-		const amount = this.formatAmount( parseFloat( priceValue ) * this.qtyVal );
+		const amount = this.formatNumber( this.formatDecimal( priceValue ) * this.qtyVal );
 
 		this.updateDOMAmount( amount );
 		this.updateMailAmount();
@@ -123,17 +123,57 @@ export default class UpdateQuantity {
 
 	getPrice() {
 		const priceElement = document.querySelector( '.awooc-popup-price .woocommerce-Price-currencyValue' );
-		return priceElement?.textContent?.replace( settings.popup.price_decimal_sep, '.' ).replace( /\s+/g, '' ) || null;
+		return priceElement?.textContent?.replace( /\s+/g, '' ) || null;
 	}
 
 	getSafeValue( value, defaultValue ) {
 		return value !== '' && ! Number.isNaN( parseFloat( value ) ) ? parseFloat( value ) : defaultValue;
 	}
 
-	formatAmount( amount ) {
-		return amount.toFixed( settings.popup.price_num_decimals )
-			.replace( '.', settings.popup.price_decimal_sep )
-			.replace( /\B(?=(\d{3})+(?!\d))/g, settings.popup.price_thousand_sep );
+	formatNumber( input ) {
+		const number = typeof input === 'number' ? input : parseFloat( input );
+		if ( isNaN( number ) ) {
+			return 'Invalid number';
+		}
+		const { price_decimal_sep: decimalSeparator, price_thousand_sep: thousandSeparator, price_num_decimals: decimalPlaces } = settings.popup;
+
+		const [ integerPart, decimalPart ] = String( number ).split( '.' );
+		const formattedIntegerPart = integerPart.replace( /\B(?=(\d{3})+(?!\d))/g, thousandSeparator );
+		const formattedDecimalPart = ( decimalPart || '' ).padEnd( decimalPlaces, '0' ).slice( 0, decimalPlaces );
+
+		return `${ formattedIntegerPart }${ decimalSeparator }${ formattedDecimalPart }`;
+	}
+
+	formatDecimal( number ) {
+		number = number ?? 0;
+		const { price_num_decimals: decimalPlaces, price_decimal_sep: decimalSeparator } = settings.popup;
+
+		if ( typeof number !== 'number' ) {
+			const decimals = [ '.', decimalSeparator ];
+
+			// Заменяем все возможные десятичные разделители на точку
+			decimals.forEach( ( dec ) => {
+				number = String( number ).replace( new RegExp( `\\${ dec }`, 'g' ), '.' );
+			} );
+
+			// Удаляем все символы, кроме цифр, точек и минусов
+			number = number.replace( /[^0-9.-]/g, '' );
+
+			// Удаляем лишние точки, оставляя только одну (последнюю)
+			number = number.replace( /\.+(?![^.]+$)|[^0-9.-]/g, '' );
+		}
+
+		number = parseFloat( number );
+
+		if ( decimalPlaces !== false ) {
+			const decimalsCount = String( decimalPlaces ) === '' ? 2 : parseInt( String( decimalPlaces ), 10 ); // По умолчанию 2 знака
+			number = number.toFixed( decimalsCount );
+		} else if ( typeof number === 'number' ) {
+			// Если dp не указан, но number является числом, используем высокую точность
+			number = number.toFixed( 20 );
+		}
+
+		return number;
 	}
 
 	updateDOMAmount( amount ) {
