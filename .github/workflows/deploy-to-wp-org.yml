@@ -31,3 +31,4 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: art-woocommerce-order-one-click
+          VERSION: 3.1.1
