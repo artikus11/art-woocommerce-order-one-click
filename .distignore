@@ -26,6 +26,7 @@
 /webpack.config.js
 /yarn.lock
 /.prettierrc.json
+/.eslintignore
 
 # Directories
 /.git
