@@ -1,6 +1,7 @@
 name: Deploy to WordPress.org
-
-on: workflow_dispatch
+on:
+  release:
+    types: [published]
 
 jobs:
   tag:
@@ -10,7 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Webpack Build
         run: |
@@ -31,4 +32,3 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: art-woocommerce-order-one-click
-          VERSION: 3.1.1
