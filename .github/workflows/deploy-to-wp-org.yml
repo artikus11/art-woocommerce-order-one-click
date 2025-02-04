@@ -8,12 +8,18 @@ on:
 jobs:
   tag:
     name: New release
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Нужно для получения информации о тегах
+
+      - name: Get version from Git tag
+        id: get_version
+        run: |
+          # Получаем последний тег
+          echo "VERSION=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
 
       - name: Webpack Build
         run: |
@@ -25,17 +31,6 @@ jobs:
           composer install --no-dev --prefer-dist --no-progress 
           composer dump-autoload -o 
 
-      - name: Get latest release tag
-        id: get-latest-release
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/${{ github.repository }}/releases/latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract version number
-        run: echo "VERSION=${{ fromJson(steps.get-latest-release.outputs.data).tag_name }}
-
       - name: WordPress Plugin Deploy
         id: deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
@@ -45,4 +40,4 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: art-woocommerce-order-one-click
-          VERSION: ${{ env.VERSION }}
+          VERSION: ${{ env.VERSION }}  # Используем автоматически полученный тег
