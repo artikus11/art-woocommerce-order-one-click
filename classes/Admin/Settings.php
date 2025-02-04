@@ -259,6 +259,18 @@ class Settings extends WC_Settings_Page {
 					'type'     => 'checkbox',
 					'autoload' => false,
 				],
+
+				[
+					'title'    => __( 'Change name', 'art-woocommerce-order-one-click' ),
+					'desc'     => __(
+						'When enabled, the order name in the order listing will be changed from #12345 SamBoy to #12345 Order one click +1 (234) 123-45-67',
+						'art-woocommerce-order-one-click'
+					),
+					'id'       => 'woocommerce_awooc_change_name',
+					'default'  => 'no',
+					'type'     => 'checkbox',
+					'autoload' => false,
+				],
 				[
 					'title'    => __( 'Custom letter template', 'art-woocommerce-order-one-click' ),
 					'desc'     => __(

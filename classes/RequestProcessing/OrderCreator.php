@@ -21,7 +21,7 @@ use WPCF7_Submission;
  * @author Artem Abramovich
  * @since  1.8.2
  */
-class OrderCreator extends RequestHandler  {
+class OrderCreator extends RequestHandler {
 
 	/**
 	 * @var string
@@ -56,7 +56,7 @@ class OrderCreator extends RequestHandler  {
 	 */
 	public function add_name( string $buyer, \WC_Order $order ): string {
 
-		if ( $order->get_meta( '_awooc_order' ) ) {
+		if ( $order->get_meta( '_awooc_order' ) && get_option( 'woocommerce_awooc_change_name' ) ) {
 			$buyer = __( 'Order One Click: ', 'art-woocommerce-order-fast' ) . $order->get_billing_phone();
 		}
 
