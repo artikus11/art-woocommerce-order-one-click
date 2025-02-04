@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: art-woocommerce-order-one-click\n"
-"POT-Creation-Date: 2025-01-30 01:23+0400\n"
-"PO-Revision-Date: 2025-01-30 01:23+0400\n"
+"POT-Creation-Date: 2025-02-04 15:14+0400\n"
+"PO-Revision-Date: 2025-02-04 15:15+0400\n"
 "Last-Translator: Абрамович Артем | artabr.ru <artikus.sol@gmail.com>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -70,7 +70,7 @@ msgstr "Заказ с сайта %1$s (%2$s)"
 msgid "Order One Click"
 msgstr "Заказ в один клик"
 
-#: classes/Admin/Settings.php:35 classes/Orders.php:147
+#: classes/Admin/Settings.php:35 classes/RequestProcessing/OrderCreator.php:149
 msgid "One click order"
 msgstr "Заказ в один клик"
 
@@ -176,7 +176,7 @@ msgstr ""
 
 #: classes/Admin/Settings.php:252
 msgid "Change subject"
-msgstr "Изменить заголовок"
+msgstr "Изменить тему письма"
 
 #: classes/Admin/Settings.php:254
 msgid ""
@@ -186,11 +186,23 @@ msgstr ""
 "Если включить эту настройку, то к теме письма будет добавляться номер заказа "
 "в формате \"Тема письма №112233\""
 
-#: classes/Admin/Settings.php:263
+#: classes/Admin/Settings.php:264
+msgid "Change name"
+msgstr "Изменить заголовок"
+
+#: classes/Admin/Settings.php:266
+msgid ""
+"When enabled, the order name in the order listing will be changed from "
+"#12345 SamBoy to #12345 Order one click +1 (234) 123-45-67"
+msgstr ""
+"При включении, в листинге заказов название заказа будет изменено с #12345 "
+"SamBoy  на  #12345 Order one click +1 (234) 123-45-67"
+
+#: classes/Admin/Settings.php:275
 msgid "Custom letter template"
 msgstr "Произвольный шаблон письма"
 
-#: classes/Admin/Settings.php:265
+#: classes/Admin/Settings.php:277
 msgid ""
 "When enabled, it will not use the template specified in CF7, but an "
 "arbitrary email template from the plugin"
@@ -198,72 +210,72 @@ msgstr ""
 "При включении будет использоваться не указанный в CF7 шаблон, а произвольный "
 "шаблон письма из плагина"
 
-#: classes/Admin/Settings.php:278
+#: classes/Admin/Settings.php:290
 msgid "Others"
 msgstr "Разное"
 
-#: classes/Admin/Settings.php:285
+#: classes/Admin/Settings.php:297
 msgid "Do not delete settings"
 msgstr "Не удалять настройки"
 
-#: classes/Admin/Settings.php:287
+#: classes/Admin/Settings.php:299
 msgid ""
 "If enabled, then the settings when you remove the plugin will NOT be deleted"
 msgstr "Если включено, то настройки при удалении плагина НЕ будут удалены"
 
-#: classes/Admin/Settings.php:325
+#: classes/Admin/Settings.php:337
 msgid "Useful links"
 msgstr "Социальные ссылки"
 
-#: classes/Admin/Settings.php:335
+#: classes/Admin/Settings.php:347
 msgid "Donate"
 msgstr "Поддержать"
 
-#: classes/Admin/Settings.php:368
+#: classes/Admin/Settings.php:380
 msgid "Catalog mode"
 msgstr "Режим каталога"
 
-#: classes/Admin/Settings.php:369
+#: classes/Admin/Settings.php:381
 msgid "Normal mode"
 msgstr "Штатный режим"
 
-#: classes/Admin/Settings.php:370
+#: classes/Admin/Settings.php:382
 msgid "Pre-order mode"
 msgstr "Режим предзаказа"
 
-#: classes/Admin/Settings.php:371
+#: classes/Admin/Settings.php:383
 msgid "Special mode"
 msgstr "Специальный режим"
 
-#: classes/Admin/Settings.php:412
+#: classes/Admin/Settings.php:424
 msgid "Title"
 msgstr "Наименование"
 
-#: classes/Admin/Settings.php:413
+#: classes/Admin/Settings.php:425
 msgid "Image"
 msgstr "Изображение"
 
-#: classes/Admin/Settings.php:414
+#: classes/Admin/Settings.php:426
 msgid "Price"
 msgstr "Цена"
 
-#: classes/Admin/Settings.php:415
+#: classes/Admin/Settings.php:427
 msgid "SKU"
 msgstr "Артикул"
 
-#: classes/Admin/Settings.php:416
+#: classes/Admin/Settings.php:428
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: classes/Admin/Settings.php:417 templates/quantity-input.php:41
+#: classes/Admin/Settings.php:429 templates/quantity-input.php:41
 msgid "Quantity"
 msgstr "Количество"
 
-#: classes/Admin/Settings.php:418
+#: classes/Admin/Settings.php:430
 msgid "Amount"
 msgstr "Итого"
 
-#: classes/Admin/Settings.php:435
+#: classes/Admin/Settings.php:447
 msgid ""
 "<strong>Warning! The functionality is under development. </strong> For the "
 "correct operation of this functionality. Requires proper creation of fields "
@@ -273,19 +285,19 @@ msgstr ""
 "корректной работы требуется правильное создание полей в форме Contact Form 7 "
 "c именами:"
 
-#: classes/Admin/Settings.php:440
+#: classes/Admin/Settings.php:452
 msgid "field Name - <code>awooc-text</code>;"
 msgstr "поле Имя  - <code>awooc-text</code>;"
 
-#: classes/Admin/Settings.php:441
+#: classes/Admin/Settings.php:453
 msgid "field Email - <code>awooc-email</code>;"
 msgstr "поле Емайл - <code>awooc-email</code>;"
 
-#: classes/Admin/Settings.php:442
+#: classes/Admin/Settings.php:454
 msgid "field Phone - <code>awooc-tel</code>;"
 msgstr "поле Телефон - <code>awooc-tel</code>;"
 
-#: classes/Admin/Settings.php:477
+#: classes/Admin/Settings.php:489
 #, php-format
 msgid ""
 "If you like the plugin %1$s please leave us a %2$s rating. A huge thanks in "
@@ -294,55 +306,55 @@ msgstr ""
 "Если вам нравится плагин %1$s, пожалуйста, поставьте оценку %2$s. Заранее "
 "большое спасибо!"
 
-#: classes/Admin/Settings.php:478 classes/Admin/Settings.php:532
+#: classes/Admin/Settings.php:490 classes/Admin/Settings.php:544
 msgid "Art WooCommerce Order One Click"
 msgstr "Art WooCommerce Order One Click"
 
-#: classes/Admin/Settings.php:481
+#: classes/Admin/Settings.php:493
 msgid "five star"
 msgstr "пять звезд"
 
-#: classes/Admin/Settings.php:483
+#: classes/Admin/Settings.php:495
 msgid "Thanks :)"
 msgstr "Пожалуйста, не загружайте эту страницу напрямую. Спасибо!"
 
-#: classes/Admin/Settings.php:494
+#: classes/Admin/Settings.php:506
 msgid "Thank you for using the plugin!"
 msgstr "Спасибо, что используете плагин!"
 
-#: classes/Admin/Settings.php:518
+#: classes/Admin/Settings.php:530
 msgid "Yandex Money"
 msgstr "Яндекс Деньги"
 
-#: classes/Admin/Settings.php:519
+#: classes/Admin/Settings.php:531
 msgid "Make a donation through the Yandex Money system. You can use bank cards"
 msgstr "Поддержать через Яндекс Деньги. Можно использовать банковские карты"
 
-#: classes/Admin/Settings.php:523
+#: classes/Admin/Settings.php:535
 msgid "WPRUSe"
 msgstr "WPRUSe"
 
-#: classes/Admin/Settings.php:524
+#: classes/Admin/Settings.php:536
 msgid "WPRUSe project site"
 msgstr "Описание проекта"
 
-#: classes/Admin/Settings.php:531
+#: classes/Admin/Settings.php:543
 #, php-format
 msgid "You can make a donation to make the plugin %1$s even better!"
 msgstr ""
 "Вы можете сделать пожертвование, чтобы мотивировать автора и сделать плагин "
 "%1$s еще лучше!"
 
-#: classes/Admin/Settings.php:563
+#: classes/Admin/Settings.php:575
 msgid ""
 "Detailed step by step instructions for setting up the plugin (in Russian)."
 msgstr "Подробная инструкция по настройке плагина (на русском)."
 
-#: classes/Admin/Settings.php:564
+#: classes/Admin/Settings.php:576
 msgid "Read more..."
 msgstr "Подробнее..."
 
-#: classes/Admin/Settings.php:568
+#: classes/Admin/Settings.php:580
 msgid ""
 "Plugin on GitHub, you can write there suggestions, wishes or participate in "
 "the development"
@@ -350,29 +362,9 @@ msgstr ""
 "Плагин на GitHub. Можно оставить пожелания, предложения или поучаствовать в "
 "разработке"
 
-#: classes/Admin/Settings.php:569
+#: classes/Admin/Settings.php:581
 msgid "Plugin on GitHub"
 msgstr "Смотреть на GitHub"
-
-#: classes/Ajax.php:87
-msgid ""
-"Something is wrong with sending data. Unable to get product ID. Disable the "
-"output in the popup window or contact the developers of the plugin"
-msgstr ""
-"Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
-"вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
-
-#: classes/Email.php:129
-msgid "IP"
-msgstr "IP"
-
-#: classes/Email.php:133
-msgid "Date"
-msgstr "Дата"
-
-#: classes/Email.php:137
-msgid "Domain"
-msgstr "Домен"
 
 #: classes/Enqueue.php:101
 msgid ""
@@ -456,17 +448,9 @@ msgstr "Ткнуть для закрытия"
 msgid "Read more"
 msgstr "Читать"
 
-#: classes/Main.php:138
+#: classes/Main.php:140
 msgid "Settings"
 msgstr "Настройки"
-
-#: classes/Orders.php:59
-msgid "Order One Click: "
-msgstr "Заказ в один клик: "
-
-#: classes/Orders.php:145
-msgid "The order was created by using the One-click Order button"
-msgstr "Заказ был создан с помощью кнопки \"Заказ в один клик\""
 
 #: classes/Prepare/Mail.php:123
 msgid "Category: "
@@ -490,6 +474,34 @@ msgid ""
 msgstr ""
 "Если включить, то на этом товаре кнопка Заказать будет не видна. Товар "
 "вернется к исходному состоянию."
+
+#: classes/RequestHandler.php:87
+msgid ""
+"Something is wrong with sending data. Unable to get product ID. Disable the "
+"output in the popup window or contact the developers of the plugin"
+msgstr ""
+"Что-то не так с отправкой данных. Невозможно получить ID товара. Отключите "
+"вывод данных во всплывающем окне или обратитесь к разработчикам плагина"
+
+#: classes/RequestProcessing/EmailModifier.php:129
+msgid "IP"
+msgstr "IP"
+
+#: classes/RequestProcessing/EmailModifier.php:133
+msgid "Date"
+msgstr "Дата"
+
+#: classes/RequestProcessing/EmailModifier.php:137
+msgid "Domain"
+msgstr "Домен"
+
+#: classes/RequestProcessing/OrderCreator.php:61
+msgid "Order One Click: "
+msgstr "Заказ в один клик: "
+
+#: classes/RequestProcessing/OrderCreator.php:147
+msgid "The order was created by using the One-click Order button"
+msgstr "Заказ был создан с помощью кнопки \"Заказ в один клик\""
 
 #: classes/Requirements.php:102
 #, php-format
