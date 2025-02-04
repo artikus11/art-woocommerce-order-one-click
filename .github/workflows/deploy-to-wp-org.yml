@@ -1,7 +1,9 @@
 name: Deploy to WordPress.org
 on:
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ["Create release"]
+    types:
+      - completed
 
 jobs:
   tag:
@@ -32,4 +34,3 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: art-woocommerce-order-one-click
-          VERSION: 3.1.1
