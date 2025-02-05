@@ -12,12 +12,11 @@
 
 ## [Changelog](https://github.com/artikus11/art-woocommerce-order-one-click/blob/dev/CHANGELOG.md)
 
-## [3.1.3] - 2025-02-05
+## [3.1.4] - 2025-02-05
 
 ### Added
-- Добавлено: фильтр `awooc_quantity_input_args` изменения аттрибутов поля количества в окне
 
 ### Changed
 
 ### Fixed
-- Исправлено: пересчет дробных значений количества в окне
+- Исправлено: поведение скрытого поля если оно указано в форме
