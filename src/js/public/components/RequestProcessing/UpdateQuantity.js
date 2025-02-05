@@ -28,16 +28,16 @@ export default class UpdateQuantity {
 
 		quantityInput.addEventListener( 'input', ( e ) => this.handleInputEvent( e ) );
 
+		this.handlerPlusMinusButtonsEvent( quantityInput );
+	}
+
+	handlerPlusMinusButtonsEvent( quantityInput ) {
 		const minusButton = document.querySelector( '.awooc-popup-input-qty--minus' );
 		const plusButton = document.querySelector( '.awooc-popup-input-qty--plus' );
 		if ( minusButton && plusButton ) {
-			this.handlerPlusMinusButtonsEvent( quantityInput, minusButton, plusButton );
+			minusButton.addEventListener( 'click', () => this.updateInputQuantity( quantityInput, 'decrease' ) );
+			plusButton.addEventListener( 'click', () => this.updateInputQuantity( quantityInput, 'increase' ) );
 		}
-	}
-
-	handlerPlusMinusButtonsEvent( quantityInput, minusButton, plusButton ) {
-		minusButton.addEventListener( 'click', () => this.updateInputQuantity( quantityInput, 'decrease' ) );
-		plusButton.addEventListener( 'click', () => this.updateInputQuantity( quantityInput, 'increase' ) );
 	}
 
 	updateInputQuantity( inputElement, action ) {
@@ -46,7 +46,10 @@ export default class UpdateQuantity {
 		const minValue = this.getSafeValue( inputElement.min, -Infinity );
 		const maxValue = this.getSafeValue( inputElement.max, Infinity );
 
-		const newValue = currentValue + ( action === 'decrease' ? -step : step );
+		let newValue = currentValue + ( action === 'decrease' ? -step : step );
+
+		const decimalPlaces = Math.max( 0, -Math.floor( Math.log10( step ) ) ); // Определяем количество знаков после запятой для step
+		newValue = parseFloat( newValue.toFixed( decimalPlaces ) ); // Округляем до нужного количества знаков
 
 		if ( newValue >= minValue && newValue <= maxValue ) {
 			inputElement.value = newValue;
@@ -71,10 +74,10 @@ export default class UpdateQuantity {
 	}
 
 	setMaxValueInput( input ) {
-		const minValue = this.getSafeValue( input.min, 1 );
+		const minValue = this.getSafeValue( input.min, input.step );
 		const maxValue = this.getSafeValue( input.max, input.value );
 
-		input.value = Math.min( Math.max( parseInt( String( input.value ), 10 ) || minValue, minValue ), maxValue );
+		input.value = Math.min( Math.max( parseFloat( String( input.value ) ) || minValue, minValue ), maxValue );
 
 		this.qtyVal = input.value;
 	}
