@@ -190,10 +190,10 @@ class Popup extends Prepare {
 
 		$negative        = $price < 0;
 		$formatted_price = ( $negative ? '-' : '' ) . sprintf(
-				$args['price_format'],
-				'<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $args['currency'] ) . '</span>',
-				'<span class="woocommerce-Price-currencyValue">' . $price . '</span>'
-			);
+			$args['price_format'],
+			'<span class="woocommerce-Price-currencySymbol">' . get_woocommerce_currency_symbol( $args['currency'] ) . '</span>',
+			'<span class="woocommerce-Price-currencyValue">' . $price . '</span>'
+		);
 
 		return '<span class="woocommerce-Price-amount amount"><bdi>' . $formatted_price . '</bdi></span>';
 	}
