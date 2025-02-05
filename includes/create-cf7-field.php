@@ -51,12 +51,8 @@ function awooc_wpcf7_add_form_tag_callback( WPCF7_FormTag $tag ): string {
 	$atts['type']  = 'hidden';
 	$atts['name']  = $tag->name;
 	$atts          = wpcf7_format_atts( $atts );
-	$html          = sprintf( '<span class="wpcf7-form-control-wrap %1$s"><textarea %2$s></textarea></span>', sanitize_html_class( $tag->name ), $atts );
 
-	$html .= sprintf( '<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-id">', 'awooc_product_id' );
-	$html .= sprintf( '<input type="hidden" name="%1$s" value="" class="awooc-hidden-product-qty">', 'awooc_product_qty' );
-
-	return $html;
+	return sprintf( '<span class="wpcf7-form-control-wrap %1$s"><textarea %2$s></textarea></span>', sanitize_html_class( $tag->name ), $atts );
 }
 
 
@@ -129,7 +125,8 @@ function awooc_tag_generator_hidden() {
 								type="text"
 								name="name"
 								class="tg-name oneline"
-								id="tag-generator-panel-awooc_hidden-name"/></td>
+								id="tag-generator-panel-awooc_hidden-name"
+							/></td>
 					</tr>
 				</tbody>
 			</table>
@@ -144,20 +141,23 @@ function awooc_tag_generator_hidden() {
 				name="<?php echo esc_attr( $type ); ?>"
 				class="tag code"
 				readonly="readonly"
-				onfocus="this.select()"/>
+				onfocus="this.select()"
+			/>
 		</label>
 
 		<div class="submitbox">
 			<input
 				type="button"
 				class="button button-primary insert-tag"
-				value="<?php echo esc_attr( __( 'Insert Tag', 'contact-form-7' ) ); ?>"/>
+				value="<?php echo esc_attr( __( 'Insert Tag', 'contact-form-7' ) ); ?>"
+			/>
 		</div>
 
-		<br class="clear"/>
+		<br class="clear" />
 
 		<p class="description mail-tag"><label
-				for="tag-generator-panel-mailtag">
+				for="tag-generator-panel-mailtag"
+			>
 				<?php
 
 				printf(
@@ -173,7 +173,8 @@ function awooc_tag_generator_hidden() {
 					type="text"
 					class="mail-tag code hidden"
 					readonly="readonly"
-					id="tag-generator-panel-mailtag"/></label></p>
+					id="tag-generator-panel-mailtag"
+				/></label></p>
 	</div>
 	<?php
 }
