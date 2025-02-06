@@ -12,11 +12,11 @@
 
 ## [Changelog](https://github.com/artikus11/art-woocommerce-order-one-click/blob/dev/CHANGELOG.md)
 
-## [3.1.4] - 2025-02-05
+## [3.1.5] - 2025-02-06
 
 ### Added
 
 ### Changed
 
 ### Fixed
-- Исправлено: поведение скрытого поля если оно указано в форме
+- Исправлено: поддержка дробного количества при создании заказа
