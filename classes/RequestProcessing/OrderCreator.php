@@ -103,7 +103,7 @@ class OrderCreator extends RequestHandler {
 
 		do_action( 'awooc_after_created_order', $product_id, $this->order, $address, $product_qty );
 
-		$this->add_order( (int) $product_id, (int) $product_qty, $address, (int) $customer_id );
+		$this->add_order( (int) $product_id, $product_qty, $address, (int) $customer_id );
 
 		do_action( 'awooc_create_order', $this->order, $contact_form, $posted_data );
 
@@ -115,14 +115,14 @@ class OrderCreator extends RequestHandler {
 	 * Добавление в заказ данных товара
 	 *
 	 * @param  int   $product_id  ID продкта.
-	 * @param  int   $product_qty количество продукта.
+	 * @param  float $product_qty количество продукта.
 	 * @param  array $address     адрес для заказа.
 	 *
 	 * @param  int   $customer_id
 	 *
 	 * @since 2.2.6
 	 */
-	public function add_order( int $product_id, int $product_qty, array $address, int $customer_id ): void {
+	public function add_order( int $product_id, float $product_qty, array $address, int $customer_id ): void {
 
 		$this->order->add_product( wc_get_product( $product_id ), $product_qty );
 		$this->order->set_address( $address, 'billing' );

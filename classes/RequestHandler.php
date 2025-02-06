@@ -185,7 +185,7 @@ class RequestHandler {
 			$posted_data['awooc-email'] ?? '',
 			$posted_data['awooc-tel'] ?? '',
 			(int) ( $posted_data['awooc_product_id'] ?? 0 ),
-			(int) ( $posted_data['awooc_product_qty'] ?? 1 ),
+			(float) ( $posted_data['awooc_product_qty'] ?? 1 ),
 			(int) ( $posted_data['awooc_customer_id'] ?? 0 ),
 		];
 	}
