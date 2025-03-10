@@ -12,7 +12,7 @@
 
 ## [Changelog](https://github.com/artikus11/art-woocommerce-order-one-click/blob/dev/CHANGELOG.md)
 
-## [3.1.6] - 2025-03-11
+## [3.1.7] - 2025-03-11
 
 ### Added
 
