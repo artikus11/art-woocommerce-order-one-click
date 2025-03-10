@@ -47,8 +47,13 @@ class RequestHandler {
 	public function __construct( Main $main ) {
 
 		$this->main = $main;
+	}
 
-		$this->init_post_data();
+
+	public function init_hooks(): void {
+
+		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
+		add_action( 'wp_ajax_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
 	}
 
 
@@ -59,13 +64,6 @@ class RequestHandler {
 		$this->product_qty = sanitize_text_field( wp_unslash( $_POST['quantity'] ?? 1 ) );
 		$this->attributes  = $this->sanitize_attributes( map_deep( wp_unslash( $_POST['attributes'] ?? [] ), 'sanitize_text_field' ) );
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
-	}
-
-
-	public function init_hooks(): void {
-
-		add_action( 'wp_ajax_nopriv_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
-		add_action( 'wp_ajax_awooc_ajax_product_form', [ $this, 'ajax_callback' ] );
 	}
 
 
@@ -80,6 +78,8 @@ class RequestHandler {
 		if ( ! defined( 'WP_CACHE' ) ) {
 			check_ajax_referer( 'awooc-nonce', 'nonce' );
 		}
+
+		$this->init_post_data();
 
 		if ( empty( $this->product_id ) ) {
 			wp_send_json_error(
