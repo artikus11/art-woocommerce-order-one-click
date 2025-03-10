@@ -10,6 +10,7 @@
 /.editorconfig
 /.eslintrc.json
 /.gitignore
+/.gitattributes
 /.phpcs.cache
 /.phpunit.result.cache
 /CHANGELOG.md
@@ -20,6 +21,7 @@
 /composer.json
 /composer.lock
 /package.json
+/package-lock.json
 /phpcs.xml
 /phpunit.xml
 /postcss.config.js
@@ -35,5 +37,5 @@
 /.make
 /.wordpress-org
 /node_modules
-/src/js
+/src
 /tests
