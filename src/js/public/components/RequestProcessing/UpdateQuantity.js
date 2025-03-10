@@ -118,7 +118,7 @@ export default class UpdateQuantity {
 			return;
 		}
 
-		const amount = this.formatNumber( this.formatDecimal( priceValue ) * this.qtyVal );
+		const amount = this.displayPrice( this.parsePrice( priceValue ) * this.qtyVal );
 
 		this.updateDOMAmount( amount );
 		this.updateMailAmount();
@@ -133,50 +133,82 @@ export default class UpdateQuantity {
 		return value !== '' && ! Number.isNaN( parseFloat( value ) ) ? parseFloat( value ) : defaultValue;
 	}
 
-	formatNumber( input ) {
-		const number = typeof input === 'number' ? input : parseFloat( input );
+	getPriceSettings() {
+		const {
+			price_num_decimals: rawDecimalPlaces = 0,
+			price_decimal_sep: rawDecimalSeparator = '.',
+			price_thousand_sep: rawThousandSeparator = '',
+		} = settings.popup;
+
+		const decimalSeparator = rawDecimalSeparator || '.';
+		const thousandSeparator = rawThousandSeparator || '';
+		const decimalPlaces = rawDecimalPlaces || 0;
+
+		return { decimalPlaces, decimalSeparator, thousandSeparator };
+	}
+
+	displayPrice( input ) {
+		const sanitizedInput = String( input ).replace( /[^0-9.]/g, '' );
+		const number = parseFloat( sanitizedInput );
+
 		if ( isNaN( number ) ) {
 			return 'Invalid number';
 		}
-		const { price_decimal_sep: decimalSeparator, price_thousand_sep: thousandSeparator, price_num_decimals: decimalPlaces } = settings.popup;
 
-		const [ integerPart, decimalPart ] = String( number ).split( '.' );
+		const { decimalPlaces, decimalSeparator, thousandSeparator } = this.getPriceSettings();
+
+		// Разделяем на целую и дробную части
+		const [ integerPart, decimalPart ] = String( number.toFixed( decimalPlaces ) ).split( '.' );
+
+		// Форматируем целую часть с разделителями тысяч
 		const formattedIntegerPart = integerPart.replace( /\B(?=(\d{3})+(?!\d))/g, thousandSeparator );
-		const formattedDecimalPart = ( decimalPart || '' ).padEnd( decimalPlaces, '0' ).slice( 0, decimalPlaces );
 
-		return `${ formattedIntegerPart }${ decimalSeparator }${ formattedDecimalPart }`;
+		// Форматируем дробную часть, если требуется
+		const formattedDecimalPart = decimalPlaces > 0
+			? decimalPart.padEnd( decimalPlaces, '0' ).slice( 0, decimalPlaces )
+			: '';
+
+		return decimalPlaces > 0 && formattedDecimalPart
+			? `${ formattedIntegerPart }${ decimalSeparator }${ formattedDecimalPart }`
+			: formattedIntegerPart;
 	}
 
-	formatDecimal( number ) {
+	parsePrice( number ) {
 		number = number ?? 0;
-		const { price_num_decimals: decimalPlaces, price_decimal_sep: decimalSeparator } = settings.popup;
+
+		const { decimalPlaces, decimalSeparator, thousandSeparator } = this.getPriceSettings();
+
+		// Функция для экранирования символов в регулярных выражениях
+		const escapeRegExp = ( string ) => string.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
 
 		if ( typeof number !== 'number' ) {
-			const decimals = [ '.', decimalSeparator ];
+			number = String( number );
 
-			// Заменяем все возможные десятичные разделители на точку
-			decimals.forEach( ( dec ) => {
-				number = String( number ).replace( new RegExp( `\\${ dec }`, 'g' ), '.' );
-			} );
+			[ thousandSeparator, ' ', '.', ',' ]
+				.filter( Boolean ) // Игнорируем пустые значения
+				.forEach( ( sep ) => {
+					if ( sep !== decimalSeparator ) { // Исключаем десятичный разделитель
+						number = number.replace( new RegExp( escapeRegExp( sep ), 'g' ), '' );
+					}
+				} );
 
-			// Удаляем все символы, кроме цифр, точек и минусов
-			number = number.replace( /[^0-9.-]/g, '' );
+			// Нормализуем десятичный разделитель к точке (.)
+			if ( decimalSeparator !== '.' ) {
+				number = number.replace( new RegExp( escapeRegExp( decimalSeparator ), 'g' ), '.' );
+			}
 
-			// Удаляем лишние точки, оставляя только одну (последнюю)
+			// Удаляем лишние точки и все символы, кроме цифр, точки и минуса
 			number = number.replace( /\.+(?![^.]+$)|[^0-9.-]/g, '' );
 		}
 
-		number = parseFloat( number );
+		number = parseFloat( number ) || 0;
 
 		if ( decimalPlaces !== false ) {
-			const decimalsCount = String( decimalPlaces ) === '' ? 2 : parseInt( String( decimalPlaces ), 10 ); // По умолчанию 2 знака
-			number = number.toFixed( decimalsCount );
-		} else if ( typeof number === 'number' ) {
-			// Если dp не указан, но number является числом, используем высокую точность
-			number = number.toFixed( 20 );
+			const decimalsCount = String( decimalPlaces ) === '' ? 2 : parseInt( decimalPlaces, 10 ); // По умолчанию 2 знака
+			return number.toFixed( decimalsCount );
 		}
 
-		return number;
+		return number.toFixed( 20 );
 	}
 
 	updateDOMAmount( amount ) {
