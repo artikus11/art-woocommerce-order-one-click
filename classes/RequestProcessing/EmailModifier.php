@@ -34,10 +34,10 @@ class EmailModifier extends RequestHandler {
 
 	public function add_hidden_fields( $fields ): array {
 
-		$form_id     = WPCF7_ContactForm::get_current()->id();
-		$select_form = $this->main->get_selected_form_id();
-
-		if ( $select_form !== $form_id ) {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended
+		$is_ajax_request = wp_doing_ajax() && isset( $_REQUEST['action'] ) && 'awooc_ajax_product_form' === $_REQUEST['action'];
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		if ( ! $is_ajax_request ) {
 			return $fields;
 		}
 
@@ -53,6 +53,10 @@ class EmailModifier extends RequestHandler {
 
 		if ( class_exists( 'Polylang' ) && ! defined( 'WP_CLI' ) ) {
 			$addon_fields['lang'] = pll_current_language();
+		}
+
+		if ( defined( 'ICL_LANGUAGE_CODE' ) && ! defined( 'WP_CLI' ) ) {
+			$addon_fields['lang'] = ICL_LANGUAGE_CODE;
 		}
 
 		return array_merge(

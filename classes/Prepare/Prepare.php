@@ -322,6 +322,16 @@ abstract class Prepare {
 			return '';
 		}
 
+		if ( defined( 'ICL_LANGUAGE_CODE' ) && ! defined( 'WP_CLI' ) ) {
+			$select_form = apply_filters(
+				'wpml_object_id',
+				$select_form,
+				'wpcf7_contact_form',
+				true,
+				ICL_LANGUAGE_CODE
+			);
+		}
+
 		return wpcf7_contact_form_tag_func( [ 'id' => esc_attr( $select_form ) ], null, 'contact-form-7' );
 	}
 
