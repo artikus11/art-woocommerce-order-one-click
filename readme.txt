@@ -3,8 +3,8 @@ Contributors: artabr
 Donate link: https://wpruse.ru/r/donat/
 Tags: woocommerce, mode catalog
 Requires at least: 5.5
-Tested up to: 6.7
-Stable tag: 3.1.7
+Tested up to: 6.8
+Stable tag: 3.1.8
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -99,7 +99,12 @@ e.g.
 6. Созданный заказ
 
 == Changelog ==
-=  [3.1.7 - 2025-03-11 =
+=  [3.1.8] - 2025-05-03 =
+* Добавлено: поддержка WPML для мультиязычности
+* Исправлено: поведение при дефолтных атрибутах и использовании плагина Variation Swatches for WooCommerce
+* Исправлено: поддержка WP 6.8
+
+=  [3.1.7] - 2025-03-11 =
 * Исправлено: ошибка версионности
 
 =  [3.1.6] - 2025-03-11 =
