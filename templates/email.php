@@ -73,11 +73,11 @@ $letter_meta  = $args['letter_meta'];
 		/* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
 		.container {
 			display: block;
-			margin: 40px auto !important;
+			margin: 20px auto !important;
 			/* makes it centered */
 			max-width: 580px;
 			padding: 10px;
-			width: 580px;
+			width: 600px;
 		}
 
 		/* This should also be a block element, so that it will fill 100% of the .container */
@@ -86,7 +86,6 @@ $letter_meta  = $args['letter_meta'];
 			display: block;
 			margin: 0 auto;
 			max-width: 580px;
-			padding: 10px;
 		}
 
 		/* -------------------------------------
@@ -100,7 +99,7 @@ $letter_meta  = $args['letter_meta'];
 
 		.wrapper {
 			box-sizing: border-box;
-			padding: 20px;
+
 		}
 
 		.content-block .product-list > tbody > tr > td {
@@ -108,8 +107,7 @@ $letter_meta  = $args['letter_meta'];
 		}
 
 		.content-block {
-			padding-bottom: 10px;
-			padding-top: 10px;
+
 		}
 
 		.footer {
@@ -136,14 +134,13 @@ $letter_meta  = $args['letter_meta'];
 		h3,
 		h4 {
 			color: #000000;
-			font-family: sans-serif;
 			font-weight: bold;
 			line-height: 1.4;
 			margin: 0;
 		}
 
 		h1 {
-			margin-bottom: 30px;
+			margin-bottom: 32px;
 		}
 
 		h2 {
@@ -158,21 +155,12 @@ $letter_meta  = $args['letter_meta'];
 			margin-bottom: 14px;
 		}
 
-		h1 {
-			font-size: 35px;
-			font-weight: 300;
-			text-align: center;
-			text-transform: capitalize;
-		}
-
 		p,
 		ul,
 		ol {
-			font-family: sans-serif;
 			font-size: 14px;
 			font-weight: normal;
-			margin: 0;
-			margin-bottom: 15px;
+			margin: 0 0 15px;
 		}
 
 		p li,
