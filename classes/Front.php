@@ -24,7 +24,6 @@ class Front {
 	 */
 	private $mode;
 
-
 	protected Main $main;
 
 
@@ -48,22 +47,25 @@ class Front {
 
 	public function modify_add_to_cart_button_template( $template, $template_name ) {
 
-		if ( 'single-product/add-to-cart/simple.php' === $template_name ) {
+		$product = wc_get_product();
 
-			$template = $this->get_template_mode( $template );
+		if ( ! $product instanceof WC_Product ) {
+			return $template;
 		}
 
-		if ( 'single-product/add-to-cart/variation-add-to-cart-button.php' === $template_name ) {
+		switch ( $template_name ) {
 
-			$template = $this->get_template_mode( $template, 'variable' );
-		}
+			case 'single-product/add-to-cart/simple.php':
+				return $this->get_template_mode( $template );
 
-		/**
-		 * @todo При выводе товаров блоком данная подменя не работает, нет ни фильтров ни файлов
-		 * @see  \Automattic\WooCommerce\Blocks\BlockTypes\AbstractProductGrid::get_button_html
-		 */
-		if ( 'yes' === get_option( 'woocommerce_awooc_output_catalog', 'no' ) && 'loop/add-to-cart.php' === $template_name ) {
-			$template = $this->get_template_mode_loop( $template );
+			case 'single-product/add-to-cart/variation-add-to-cart-button.php':
+				return $this->get_template_mode( $template, 'variable' );
+
+			case 'loop/add-to-cart.php':
+				if ( 'yes' === get_option( 'woocommerce_awooc_output_catalog', 'no' ) ) {
+					return $this->get_template_mode_loop( $template );
+				}
+				break;
 		}
 
 		return $template;
@@ -142,61 +144,6 @@ class Front {
 
 
 	/**
-	 *
-	 * 'dont_show_add_to_card' => __( 'Catalog mode', 'art-woocommerce-order-one-click' )
-	 * 'show_add_to_card'      => __( 'Normal mode', 'art-woocommerce-order-one-click' )
-	 * 'in_stock_add_to_card'  => __( 'Pre-order mode', 'art-woocommerce-order-one-click' )
-	 * 'no_stock_no_price'     => __( 'Special mode', 'art-woocommerce-order-one-click' )
-	 *
-	 * @param  string $template
-	 * @param  string $type
-	 *
-	 * @return string
-	 */
-	protected function get_template_mode( string $template, string $type = 'simple' ): string {
-
-		$product = wc_get_product();
-
-		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
-			return $template;
-		}
-
-		foreach ( $this->main->get_modes() as $option => $name ) {
-
-			if ( $option === $this->main->get_mode()->get_mode_value() ) {
-				$template = $this->main->get_template( "add-to-cart/single/$type-$name.php" );
-			}
-		}
-
-		return $template;
-	}
-
-
-	/**
-	 * @param  string $template
-	 *
-	 * @return string
-	 */
-	protected function get_template_mode_loop( string $template ): string {
-
-		$product = wc_get_product();
-
-		if ( 'yes' === $product->get_meta( '_awooc_button' ) ) {
-			return $template;
-		}
-
-		foreach ( $this->main->get_modes() as $option => $name ) {
-
-			if ( $option === $this->main->get_mode()->get_mode_value() ) {
-				$template = $this->main->get_template( "add-to-cart/loop/$name.php" );
-			}
-		}
-
-		return $template;
-	}
-
-
-	/**
 	 * Инициализация хуков
 	 *
 	 * @deprecated New architecture.
@@ -241,6 +188,10 @@ class Front {
 		}
 
 		$product = wc_get_product();
+
+		if ( ! $product instanceof WC_Product ) {
+			return;
+		}
 
 		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
 			return;
@@ -498,7 +449,7 @@ class Front {
 			.quantity {
 				display: none !important;
 			}
-
+			
 			.blockUI.blockOverlay {
 				background: rgba(0, 0, 0, 1) !important;
 			}
@@ -507,6 +458,69 @@ class Front {
 
 		$disable_add_to_card = apply_filters( 'awooc_disable_add_to_card_style', ob_get_clean() );
 		echo wp_kses( $disable_add_to_card, [ 'style' => [] ] );
+	}
+
+
+	/**
+	 *
+	 * 'dont_show_add_to_card' => __( 'Catalog mode', 'art-woocommerce-order-one-click' )
+	 * 'show_add_to_card'      => __( 'Normal mode', 'art-woocommerce-order-one-click' )
+	 * 'in_stock_add_to_card'  => __( 'Pre-order mode', 'art-woocommerce-order-one-click' )
+	 * 'no_stock_no_price'     => __( 'Special mode', 'art-woocommerce-order-one-click' )
+	 *
+	 * @param  string $template
+	 * @param  string $type
+	 *
+	 * @return string
+	 */
+	protected function get_template_mode( string $template, string $type = 'simple' ): string {
+
+		$product = wc_get_product();
+
+		if ( ! $product instanceof WC_Product ) {
+			return $template;
+		}
+
+		if ( 'yes' === $product->get_meta( '_awooc_button', true ) ) {
+			return $template;
+		}
+
+		foreach ( $this->main->get_modes() as $option => $name ) {
+
+			if ( $option === $this->main->get_mode()->get_mode_value() ) {
+				$template = $this->main->get_template( "add-to-cart/single/$type-$name.php" );
+			}
+		}
+
+		return $template;
+	}
+
+
+	/**
+	 * @param  string $template
+	 *
+	 * @return string
+	 */
+	protected function get_template_mode_loop( string $template ): string {
+
+		$product = wc_get_product();
+
+		if ( ! $product instanceof WC_Product ) {
+			return $template;
+		}
+
+		if ( 'yes' === $product->get_meta( '_awooc_button' ) ) {
+			return $template;
+		}
+
+		foreach ( $this->main->get_modes() as $option => $name ) {
+
+			if ( $option === $this->main->get_mode()->get_mode_value() ) {
+				$template = $this->main->get_template( "add-to-cart/loop/$name.php" );
+			}
+		}
+
+		return $template;
 	}
 
 
@@ -534,7 +548,7 @@ class Front {
 			.qty {
 				display: inline-block !important;
 			}
-
+			
 			.blockUI.blockOverlay {
 				background: rgba(0, 0, 0, 1) !important;
 			}
