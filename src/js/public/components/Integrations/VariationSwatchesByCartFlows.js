@@ -1,138 +1,145 @@
 export default class VariationSwatchesByCartFlows {
+	static CONFIG = {
+		selectors: {
+			forms: '.cfvsw_variations_form, form.variations_form',
+			button: '.awooc-button-js',
+			selects: '.variations select',
+		},
+		classes: {
+			variationFound: 'cfvsw_variation_found',
+		},
+		events: {
+			variationLoad: 'cfvswVariationLoad',
+			paginationLoaded: 'astraInfinitePaginationLoaded',
+			foundVariation: 'found_variation',
+			resetData: 'reset_data',
+			hideVariation: 'hide_variation',
+		},
+		ns: '.awooc',
+	};
+
 	constructor( app ) {
 		this.app = app;
-		this.variationForms = document.querySelectorAll( '.cfvsw_variations_form, form.variations_form' );
-		this.buttons = this.getButtons();
-	}
-
-	getButtons() {
-		return Array.from( this.variationForms )
-			.map( ( form ) => form.closest( 'li' ) )
-			.filter( ( li ) => li !== null )
-			.flatMap( ( li ) => Array.from( li.querySelectorAll( '.awooc-button-js' ) ) );
+		this.variationForms = [];
 	}
 
 	init() {
-		if ( this.variationForms.length < 0 ) {
+		this.refreshFormsAndButtons();
+		this.bindGlobalEvents();
+	}
+
+	/**
+	 * Находит актуальные формы на странице и сбрасывает состояние кнопок.
+	 */
+	refreshFormsAndButtons() {
+		const { selectors } = VariationSwatchesByCartFlows.CONFIG;
+		this.variationForms = document.querySelectorAll( selectors.forms );
+
+		if ( this.variationForms.length === 0 ) {
 			return;
 		}
 
-		this.addedToButtonAttributes();
-		this.disableButtons();
-
-		this.bindEvents();
+		this.resetAllButtons();
+		this.attachFormEvents();
 	}
 
-	bindEvents() {
-		document.addEventListener( 'cfvswVariationLoad', () => this.addedToButtonAttributes() );
-		document.addEventListener( 'astraInfinitePaginationLoaded', () => this.addedToButtonAttributes() );
+	/**
+	 * Кастомные события CartFlows / Astra на ленивую загрузку
+	 */
+	bindGlobalEvents() {
+		const { events } = VariationSwatchesByCartFlows.CONFIG;
 
-		const swatchesOptions = document.querySelectorAll( '.cfvsw-swatches-option' );
-
-		swatchesOptions.forEach( ( swatch ) => {
-			swatch.addEventListener( 'click', ( e ) => this.onClickSwatchesOption( e ) );
-		} );
+		document.addEventListener( events.variationLoad, () => this.refreshFormsAndButtons() );
+		document.addEventListener( events.paginationLoaded, () => this.refreshFormsAndButtons() );
 	}
 
-	addedToButtonAttributes() {
+	/**
+	 * Подписка на события изменения состояния вариаций WooCommerce
+	 */
+	attachFormEvents() {
+		const {
+			events,
+			ns,
+		} = VariationSwatchesByCartFlows.CONFIG;
+
 		this.variationForms.forEach( ( form ) => {
-			jQuery( form ).wc_variation_form();
+			if ( ! form.dataset.awoocInitialized ) {
+				jQuery( form ).wc_variation_form();
+				form.dataset.awoocInitialized = '1';
+			}
 
 			if ( form.dataset.cfvswCatalog ) {
 				return;
 			}
 
-			jQuery( form ).on( 'found_variation', () => this.updateButtonData( form ) );
+			jQuery( form )
+				.off( events.foundVariation + ns )
+				.on( events.foundVariation + ns, ( event, variation ) => this.onVariationFound( form, variation ) );
+
+			jQuery( form )
+				.off( events.resetData + ns )
+				.on( events.resetData + ns, () => this.onVariationReset( form ) );
+
+			jQuery( form )
+				.off( events.hideVariation + ns )
+				.on( events.hideVariation + ns, () => this.onVariationReset( form ) );
 		} );
 	}
 
-	updateButtonData( variant ) {
-		const selectElements = variant.querySelectorAll( '.variations select' );
-		const data = {};
-		const button = variant.closest( 'li' )?.querySelector( '.awooc-button-js' );
-
-		selectElements.forEach( ( selectElement ) => {
-			const attributeName = selectElement.dataset.attributeName || selectElement.name;
-			data[ attributeName ] = selectElement.value || '';
-		} );
-
-		if ( button ) {
-			button.disabled = false;
-			button.classList.add( 'cfvsw_variation_found' );
-			button.dataset.selectedVariant = JSON.stringify( data );
-		}
-	}
-
-	onClickSwatchesOption( e ) {
-		const swatch = e.target;
-
-		if ( this.isSwatchSelected( swatch ) ) {
-			this.resetButtonData( swatch );
-		} else {
-			this.deselectAllSwatches( swatch );
-			this.selectSwatch( swatch );
-		}
-
-		this.updateSelectOption( swatch );
-	}
-
-	resetButtonData( swatch ) {
-		const button = swatch.closest( 'li' )?.querySelector( '.awooc-button-js' );
+	onVariationFound( form, variation ) {
+		const {
+			selectors,
+			classes,
+		} = VariationSwatchesByCartFlows.CONFIG;
+		const button = form.closest( 'li' )?.querySelector( selectors.button );
 
 		if ( ! button ) {
 			return;
 		}
 
-		const select = this.getSelectElement( swatch );
-		const hasDefaultValue = select?.value && select.value !== '';
+		const canOrder = variation && variation.is_purchasable && variation.variation_is_visible;
 
-		if ( hasDefaultValue ) {
-			this.updateButtonData( swatch.closest( 'form' ) );
+		if ( canOrder ) {
+			const selectElements = form.querySelectorAll( selectors.selects );
+			const data = {};
+
+			selectElements.forEach( ( selectElement ) => {
+				const attributeName = selectElement.dataset.attributeName || selectElement.name;
+				data[ attributeName ] = selectElement.value || '';
+			} );
+
+			button.disabled = false;
+			button.classList.add( classes.variationFound );
+
+			button.dataset.selectedVariant = JSON.stringify( data );
 		} else {
-			button.disabled = true;
-			button.classList.remove( 'cfvsw_variation_found' );
-			button.dataset.selectedVariant = '';
+			this.clearButtonData( button );
 		}
 	}
 
-	updateSelectOption( swatch ) {
-		const value = this.getSwatchValue( swatch );
-		const select = this.getSelectElement( swatch );
+	onVariationReset( form ) {
+		const { selectors } = VariationSwatchesByCartFlows.CONFIG;
+		const button = form.closest( 'li' )?.querySelector( selectors.button );
 
-		if ( select ) {
-			select.value = value;
-			setTimeout( () => {
-				select.dispatchEvent( new CustomEvent( 'change', { bubbles: true } ) );
-			}, 50 );
+		if ( button ) {
+			this.clearButtonData( button );
 		}
 	}
 
-	isSwatchSelected( swatch ) {
-		return (
-			( ! swatch.classList.contains( 'cfvsw-swatches-disabled' ) || ! swatch.classList.contains( 'cfvsw-swatches-out-of-stock' ) ) &&
-			swatch.classList.contains( 'cfvsw-selected-swatch' )
-		);
+	clearButtonData( button ) {
+		const { classes } = VariationSwatchesByCartFlows.CONFIG;
+		button.disabled = true;
+		button.classList.remove( classes.variationFound );
+		button.dataset.selectedVariant = '';
 	}
 
-	deselectAllSwatches( swatch ) {
-		swatch.parentElement
-			.querySelectorAll( '.cfvsw-swatches-option' )
-			.forEach( ( option ) => option.classList.remove( 'cfvsw-selected-swatch' ) );
-	}
-
-	selectSwatch( swatch ) {
-		swatch.classList.add( 'cfvsw-selected-swatch' );
-	}
-
-	getSwatchValue( swatch ) {
-		return this.isSwatchSelected( swatch ) ? swatch.dataset.slug : '';
-	}
-
-	getSelectElement( swatch ) {
-		return swatch.closest( '.cfvsw-swatches-container' )?.previousElementSibling?.querySelector( 'select' );
-	}
-
-	disableButtons() {
-		this.buttons.forEach( ( button ) => ( button.disabled = true ) );
+	resetAllButtons() {
+		const { selectors } = VariationSwatchesByCartFlows.CONFIG;
+		this.variationForms.forEach( ( form ) => {
+			const button = form.closest( 'li' )?.querySelector( selectors.button );
+			if ( button ) {
+				this.clearButtonData( button );
+			}
+		} );
 	}
 }
